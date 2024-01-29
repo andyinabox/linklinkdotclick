@@ -1,3 +1,3 @@
 import './main.css'
 
-console.log('heyyyyyyyy')
+console.log('hey buddy')

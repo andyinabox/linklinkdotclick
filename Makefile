@@ -18,7 +18,7 @@ run: build
 
 .PHONY: watch
 watch:
-	reflex -g '*.go' -s make run
+	reflex -G 'dist' -G 'res' -s make run
 
 res/tmpl:
 	go run ./cmd/copy -g='assets/**/*.tmpl' -o=res/tmpl
