@@ -1,3 +1,3 @@
 import './main.css'
 
-console.log('hey buddy')
+import './components/link/link'

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/url"
 	"strconv"
 	"time"
 
@@ -12,9 +13,13 @@ import (
 
 func (a *App) ApiLinksIdGet(ctx *simpleserver.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		vars := ctx.Vars(r)
+		pathVars := ctx.Vars(r)
+		queryVars, err := url.ParseQuery(r.URL.RawQuery)
+		if err != nil {
+			fmt.Printf("Error parsing query vars: %s", err.Error())
+		}
 
-		id, err := strconv.Atoi(vars["id"])
+		id, err := strconv.Atoi(pathVars["id"])
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(err.Error()))
@@ -48,18 +53,21 @@ func (a *App) ApiLinksIdGet(ctx *simpleserver.Context) http.HandlerFunc {
 			return
 		}
 
-		fmt.Printf("Fetching rss feed for %s\n", link.FeedUrl)
-		result, err := a.feedreader.ParseFeedUrl(link.FeedUrl)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(err.Error()))
-			return
-		}
-		if result.Feed != nil {
-			link.LastFetched = time.Now()
-			link.UnreadCount = int16(len(result.Feed.Items))
-		} else {
-			fmt.Printf("No rss results for %s\n", link.FeedUrl)
+		if queryVars.Has("refresh") {
+			fmt.Printf("Fetching rss feed for %s\n", link.FeedUrl)
+			result, err := a.feedreader.ParseFeedUrl(link.FeedUrl)
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				w.Write([]byte(err.Error()))
+				return
+			}
+			if result.Feed != nil {
+				link.LastFetched = time.Now()
+				link.UnreadCount = int16(len(result.Feed.Items))
+			} else {
+				fmt.Printf("No rss results for %s\n", link.FeedUrl)
+			}
+
 		}
 
 		var linkJson []byte
