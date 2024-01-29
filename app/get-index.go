@@ -11,7 +11,7 @@ type testData struct {
 	Links []Link
 }
 
-func GetIndex(ctx *simpleserver.Context) http.HandlerFunc {
+func (a *App) GetIndex(ctx *simpleserver.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// load data
 		data, err := ctx.Resources.ReadFile("res/static/data.json")

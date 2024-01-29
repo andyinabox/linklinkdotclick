@@ -13,7 +13,7 @@ import (
 var defaultMethods = []string{http.MethodGet}
 
 type Config struct {
-	EmbedFS        embed.FS
+	Resources      embed.FS
 	Port           string
 	Host           string
 	TemplatesGlob  string
@@ -22,8 +22,10 @@ type Config struct {
 }
 
 type Context struct {
-	Resources embed.FS
-	Templates *template.Template
+	Resources  embed.FS
+	Templates  *template.Template
+	Vars       func(*http.Request) map[string]string
+	SetUrlVars func(*http.Request, map[string]string) *http.Request
 }
 
 type Server struct {
@@ -42,24 +44,32 @@ type HandlerFunc func(ctx *Context) http.HandlerFunc
 func NewServer(conf *Config) *Server {
 
 	// compile templates
-	templates, err := template.ParseFS(conf.EmbedFS, conf.TemplatesGlob)
+	templates, err := template.ParseFS(conf.Resources, conf.TemplatesGlob)
 	if err != nil {
 		panic(err)
 	}
 
-	ctx := &Context{conf.EmbedFS, templates}
+	// build context
+	ctx := &Context{
+		Resources:  conf.Resources,
+		Templates:  templates,
+		Vars:       mux.Vars,
+		SetUrlVars: mux.SetURLVars,
+	}
 
 	// create fs from embedded files
-	fSys, err := fs.Sub(fs.FS(conf.EmbedFS), conf.EmbedFSRootDir)
+	fSys, err := fs.Sub(fs.FS(conf.Resources), conf.EmbedFSRootDir)
 	if err != nil {
 		panic(err)
 	}
 
+	// create router
 	router := mux.NewRouter()
 
 	return &Server{conf, fSys, router, ctx}
 }
 
+// Route creates a new http route
 func (s *Server) Route(path string, handler HandlerFunc, opts *RouteOptions) {
 	methods := defaultMethods
 	if len(opts.Methods) > 0 {
@@ -69,6 +79,7 @@ func (s *Server) Route(path string, handler HandlerFunc, opts *RouteOptions) {
 		Methods(methods...)
 }
 
+// Serve starts the simple server
 func (s *Server) Serve() error {
 
 	// serve embedded static files
