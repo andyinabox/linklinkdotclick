@@ -2,26 +2,39 @@ package main
 
 import (
 	"embed"
+	"fmt"
+	"html/template"
 	"log"
 	"net/http"
-	"text/template"
 	"time"
 
 	"github.com/gorilla/mux"
 )
 
-// go:embed res
+//go:embed res/*
 var res embed.FS
 var templates *template.Template
+
+const domain = "127.0.0.1"
+const port = "8000"
+
+func init() {
+	var err error
+	templates, err = template.ParseFS(res, "res/*.tmpl")
+	if err != nil {
+		panic(err)
+	}
+}
 
 func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", GetIndex).Methods(http.MethodGet)
 	http.Handle("/", router)
 
+	fmt.Printf("Running server on %s:%s", domain, port)
 	srv := &http.Server{
 		Handler: router,
-		Addr:    "127.0.0.1:8000",
+		Addr:    fmt.Sprintf("%s:%s", domain, port),
 		// Good practice: enforce timeouts for servers you create!
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
