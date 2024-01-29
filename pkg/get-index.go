@@ -5,7 +5,7 @@ import (
 )
 
 func (s *Server) GetIndex(w http.ResponseWriter, r *http.Request) {
-	data, err := s.conf.Res.ReadFile("res/data.json")
+	data, err := s.conf.Res.ReadFile("res/data/data.json")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))

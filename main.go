@@ -16,7 +16,7 @@ func main() {
 		Host:          "127.0.0.1",
 		Port:          "8000",
 		Res:           res,
-		TemplatesGlob: "res/*.tmpl",
+		TemplatesGlob: "res/tmpl/*.tmpl",
 	})
 
 	log.Fatal(server.Run())
