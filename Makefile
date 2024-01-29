@@ -7,7 +7,7 @@ clean-dist:
 
 .PHONY: clean-res
 clean-res:
-	rm -rf cmd/server/res
+	rm -rf res
 
 .PHONY: clean
 clean: clean-dist clean-res
@@ -20,15 +20,15 @@ run: build
 watch:
 	reflex -g '*.go' -s make run
 
-cmd/server/res/main.js:
-	go run cmd/esbuild/main.go src/main.js --bundle --outfile=cmd/server/res/main.js
+res/main.js:
+	go run cmd/esbuild/main.go assets/main.js --bundle --outfile=res/main.js
 
-cmd/server/res: clean-res cmd/server/res/main.js
-	cp db/data.json cmd/server/res/data.json
-	cp src/tmpl/* cmd/server/res/
+res: clean-res res/main.js
+	cp db/data.json res/data.json
+	cp assets/tmpl/* res/
 
-dist/server: cmd/server/res
-	go build -o dist/server ./cmd/server
+dist/server: res
+	go build -o dist/server main.go
 
 dist: clean-dist dist/server
 
