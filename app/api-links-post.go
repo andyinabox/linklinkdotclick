@@ -12,5 +12,6 @@ type ApiLinksPostData struct {
 
 func (a *App) ApiLinksPost(ctx *simpleserver.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusNotImplemented)
 	}
 }

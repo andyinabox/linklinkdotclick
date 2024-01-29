@@ -10,7 +10,7 @@ import (
 func (a *App) ApiLinksGet(ctx *simpleserver.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// load data
-		data, err := ctx.Resources.ReadFile("res/static/data.json")
+		data, err := ctx.Resources.ReadFile("res/static/mock.json")
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(err.Error()))

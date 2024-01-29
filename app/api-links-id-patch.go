@@ -6,7 +6,7 @@ import (
 	"github.com/andyinabox/linkydink-sketch/pkg/simpleserver"
 )
 
-func (a *App) ApiLinksIdPut(ctx *simpleserver.Context) http.HandlerFunc {
+func (a *App) ApiLinksIdPatch(ctx *simpleserver.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotImplemented)
 	}

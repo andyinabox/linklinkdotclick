@@ -2,6 +2,7 @@ package app
 
 import (
 	"embed"
+	"net/http"
 
 	"github.com/andyinabox/linkydink-sketch/pkg/feedreader"
 	"github.com/andyinabox/linkydink-sketch/pkg/simpleserver"
@@ -31,9 +32,28 @@ func New(conf *Config) *App {
 
 	app := &App{conf, server, &feedreader.Reader{}}
 
+	// main page
 	server.Route("/", app.IndexGet, &simpleserver.RouteOptions{})
-	server.Route("/api/links", app.ApiLinksGet, &simpleserver.RouteOptions{})
-	server.Route("/api/links/{id}", app.ApiLinksIdGet, &simpleserver.RouteOptions{})
+
+	// api
+	server.Route("/api/links", app.ApiLinksGet, &simpleserver.RouteOptions{
+		Methods: []string{http.MethodGet},
+	})
+	server.Route("/api/links", app.ApiLinksPost, &simpleserver.RouteOptions{
+		Methods: []string{http.MethodPost},
+	})
+	server.Route("/api/links/{id}", app.ApiLinksIdGet, &simpleserver.RouteOptions{
+		Methods: []string{http.MethodGet},
+	})
+	server.Route("/api/links/{id}", app.ApiLinksIdPut, &simpleserver.RouteOptions{
+		Methods: []string{http.MethodPut},
+	})
+	server.Route("/api/links/{id}", app.ApiLinksIdPatch, &simpleserver.RouteOptions{
+		Methods: []string{http.MethodPatch},
+	})
+	server.Route("/api/links/{id}", app.ApiLinksIdDelete, &simpleserver.RouteOptions{
+		Methods: []string{http.MethodDelete},
+	})
 
 	return app
 }
