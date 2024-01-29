@@ -9,8 +9,8 @@ import (
 )
 
 // TODO: this is making 2-3 requests when it could make just 1
-func (r *Reader) Parse(rawurl string) (result *Result, err error) {
-	feedUrl := rawurl
+func (r *Reader) Parse(rawurl string) (result *Result, feedUrl string, err error) {
+	feedUrl = rawurl
 	res, err := http.Get(feedUrl)
 	if err != nil {
 		return
@@ -45,5 +45,6 @@ func (r *Reader) Parse(rawurl string) (result *Result, err error) {
 		feedUrl = firstUrl.String()
 	}
 
-	return r.ParseFeedUrl(feedUrl)
+	result, err = r.ParseFeedUrl(feedUrl)
+	return
 }
