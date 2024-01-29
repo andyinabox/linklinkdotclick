@@ -3,6 +3,12 @@
 This app is contained within a single binary in `dist/linkydink`
 
 ```bash
+./dist/linkydink --port=8000 --host=127.0.0.1
+```
+
+## Build commands
+
+```bash
 # build single binary into dist/
 make
 
