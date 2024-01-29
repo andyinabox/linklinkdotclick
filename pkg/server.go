@@ -10,8 +10,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-const tmplGlob = "res/*.tmpl"
-
 type ServerConfig struct {
 	Res           embed.FS
 	Port          string
@@ -35,7 +33,10 @@ func NewServer(conf *ServerConfig) *Server {
 
 func (s *Server) Run() error {
 	router := mux.NewRouter()
+
 	router.HandleFunc("/", s.GetIndex).Methods(http.MethodGet)
+	router.HandleFunc("/main.css", s.GetMainCss).Methods(http.MethodGet)
+	router.HandleFunc("/main.js", s.GetMainJs).Methods(http.MethodGet)
 	http.Handle("/", router)
 
 	fmt.Printf("Running server on %s:%s", s.conf.Host, s.conf.Port)
