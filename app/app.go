@@ -4,8 +4,8 @@ import (
 	"embed"
 	"net/http"
 
-	"github.com/andyinabox/linkydink-sketch/pkg/feedreader"
-	"github.com/andyinabox/linkydink-sketch/pkg/simpleserver"
+	"github.com/andyinabox/linkydink/pkg/feedreader"
+	"github.com/andyinabox/linkydink/pkg/simpleserver"
 )
 
 type testData struct {

@@ -1,4 +1,4 @@
-module github.com/andyinabox/linkydink-sketch
+module github.com/andyinabox/linkydink
 
 go 1.18
 

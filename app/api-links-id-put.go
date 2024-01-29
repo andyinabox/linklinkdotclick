@@ -3,7 +3,7 @@ package app
 import (
 	"net/http"
 
-	"github.com/andyinabox/linkydink-sketch/pkg/simpleserver"
+	"github.com/andyinabox/linkydink/pkg/simpleserver"
 )
 
 func (a *App) ApiLinksIdPut(ctx *simpleserver.Context) http.HandlerFunc {

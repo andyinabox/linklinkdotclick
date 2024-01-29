@@ -4,7 +4,7 @@ import (
 	"embed"
 	"log"
 
-	"github.com/andyinabox/linkydink-sketch/app"
+	"github.com/andyinabox/linkydink/app"
 )
 
 //go:embed res/*

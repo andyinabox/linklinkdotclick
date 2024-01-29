@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/andyinabox/linkydink-sketch/pkg/simpleserver"
+	"github.com/andyinabox/linkydink/pkg/simpleserver"
 )
 
 type apiLinksPostBody struct {
