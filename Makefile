@@ -23,16 +23,13 @@ watch:
 res/tmpl:
 	go run ./cmd/copy -g='assets/**/*.tmpl' -o=res/tmpl
 
-res/public:
-	go run ./cmd/copy -g 'assets/public/*' -o=res/public
+res/static:
+	go run ./cmd/copy -g 'assets/static/*' -o=res/static
 
-res/data/data.json:
-	go run ./cmd/copy -g 'db/data.json' -o=res/data
+res/static/main.js:
+	go run cmd/esbuild/main.go assets/main.js --bundle --outfile=res/static/main.js
 
-res/public/main.js:
-	go run cmd/esbuild/main.go assets/main.js --bundle --outfile=res/public/main.js
-
-res: clean-res res/tmpl res/public res/public/main.js res/data/data.json
+res: clean-res res/tmpl res/static res/static/main.js res/static/data.json
 
 
 dist/server: res

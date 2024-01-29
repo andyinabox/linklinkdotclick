@@ -6,7 +6,6 @@ import (
 	"html/template"
 	"io/fs"
 	"net/http"
-	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -20,6 +19,7 @@ type ServerConfig struct {
 
 type Server struct {
 	conf      *ServerConfig
+	fs        fs.FS
 	templates *template.Template
 }
 
@@ -29,32 +29,25 @@ func NewServer(conf *ServerConfig) *Server {
 	if err != nil {
 		panic(err)
 	}
-	return &Server{conf, templates}
+	fSys, err := fs.Sub(fs.FS(conf.Res), "res")
+	if err != nil {
+		panic(err)
+	}
+	return &Server{conf, fSys, templates}
 }
 
 func (s *Server) Run() error {
 	router := mux.NewRouter()
 
+	// server index
 	router.HandleFunc("/", s.GetIndex).Methods(http.MethodGet)
-	// router.HandleFunc("/main.css", s.GetMainCss).Methods(http.MethodGet)
-	// router.HandleFunc("/main.js", s.GetMainJs).Methods(http.MethodGet)
 
-	embeddedFiles, err := fs.Sub(fs.FS(s.conf.Res), "res")
-	if err != nil {
-		return err
-	}
-	router.PathPrefix("/public/").Handler(http.FileServer(http.FS(embeddedFiles)))
+	// serve static files
+	router.PathPrefix("/static/").Handler(http.FileServer(http.FS(s.fs)))
 
+	// run server
 	http.Handle("/", router)
-
-	fmt.Printf("Running server on %s:%s", s.conf.Host, s.conf.Port)
-	srv := &http.Server{
-		Handler: router,
-		Addr:    fmt.Sprintf("%s:%s", s.conf.Host, s.conf.Port),
-		// Good practice: enforce timeouts for servers you create!
-		WriteTimeout: 15 * time.Second,
-		ReadTimeout:  15 * time.Second,
-	}
-
-	return srv.ListenAndServe()
+	addr := fmt.Sprintf("%s:%s", s.conf.Host, s.conf.Port)
+	fmt.Printf("Running server on %s\n", addr)
+	return http.ListenAndServe(addr, router)
 }
