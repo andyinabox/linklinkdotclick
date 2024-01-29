@@ -1,4 +1,4 @@
-package server
+package simpleserver
 
 import (
 	"embed"
@@ -12,7 +12,7 @@ import (
 
 var defaultMethods = []string{http.MethodGet}
 
-type ServerConfig struct {
+type Config struct {
 	EmbedFS        embed.FS
 	Port           string
 	Host           string
@@ -21,25 +21,25 @@ type ServerConfig struct {
 	EmbedFSRootDir string
 }
 
-type ServerContext struct {
+type Context struct {
 	Resources embed.FS
 	Templates *template.Template
 }
 
 type Server struct {
-	conf   *ServerConfig
+	conf   *Config
 	fs     fs.FS
 	router *mux.Router
-	ctx    *ServerContext
+	ctx    *Context
 }
 
 type RouteOptions struct {
 	Methods []string
 }
 
-type HandlerFunc func(ctx *ServerContext) http.HandlerFunc
+type HandlerFunc func(ctx *Context) http.HandlerFunc
 
-func NewServer(conf *ServerConfig) *Server {
+func NewServer(conf *Config) *Server {
 
 	// compile templates
 	templates, err := template.ParseFS(conf.EmbedFS, conf.TemplatesGlob)
@@ -47,7 +47,7 @@ func NewServer(conf *ServerConfig) *Server {
 		panic(err)
 	}
 
-	ctx := &ServerContext{conf.EmbedFS, templates}
+	ctx := &Context{conf.EmbedFS, templates}
 
 	// create fs from embedded files
 	fSys, err := fs.Sub(fs.FS(conf.EmbedFS), conf.EmbedFSRootDir)

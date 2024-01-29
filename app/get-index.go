@@ -1,17 +1,17 @@
-package domain
+package app
 
 import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/andyinabox/linkydink-sketch/pkg/adapters/server"
+	"github.com/andyinabox/linkydink-sketch/pkg/simpleserver"
 )
 
 type testData struct {
 	Links []Link
 }
 
-func GetIndex(ctx *server.ServerContext) http.HandlerFunc {
+func GetIndex(ctx *simpleserver.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// load data
 		data, err := ctx.Resources.ReadFile("res/static/data.json")

@@ -4,8 +4,8 @@ import (
 	"embed"
 	"log"
 
-	"github.com/andyinabox/linkydink-sketch/pkg/adapters/server"
-	"github.com/andyinabox/linkydink-sketch/pkg/domain"
+	"github.com/andyinabox/linkydink-sketch/app"
+	"github.com/andyinabox/linkydink-sketch/pkg/simpleserver"
 )
 
 //go:embed res/*
@@ -13,7 +13,7 @@ var res embed.FS
 
 func main() {
 
-	s := server.NewServer(&server.ServerConfig{
+	server := simpleserver.NewServer(&simpleserver.Config{
 		Host:           "127.0.0.1",
 		Port:           "8000",
 		EmbedFS:        res,
@@ -22,7 +22,7 @@ func main() {
 		EmbedFSRootDir: "res",
 	})
 
-	s.Route("/", domain.GetIndex, &server.RouteOptions{})
+	server.Route("/", app.GetIndex, &simpleserver.RouteOptions{})
 
-	log.Fatal(s.Serve())
+	log.Fatal(server.Serve())
 }
