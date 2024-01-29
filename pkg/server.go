@@ -23,16 +23,20 @@ type Server struct {
 	templates *template.Template
 }
 
-// nice
 func NewServer(conf *ServerConfig) *Server {
+
+	// compile templates
 	templates, err := template.ParseFS(conf.Res, conf.TemplatesGlob)
 	if err != nil {
 		panic(err)
 	}
+
+	// create fs from embedded files
 	fSys, err := fs.Sub(fs.FS(conf.Res), "res")
 	if err != nil {
 		panic(err)
 	}
+
 	return &Server{conf, fSys, templates}
 }
 
