@@ -4,6 +4,7 @@ import (
 	"embed"
 	"fmt"
 	"html/template"
+	"io/fs"
 	"net/http"
 	"time"
 
@@ -35,8 +36,15 @@ func (s *Server) Run() error {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/", s.GetIndex).Methods(http.MethodGet)
-	router.HandleFunc("/main.css", s.GetMainCss).Methods(http.MethodGet)
-	router.HandleFunc("/main.js", s.GetMainJs).Methods(http.MethodGet)
+	// router.HandleFunc("/main.css", s.GetMainCss).Methods(http.MethodGet)
+	// router.HandleFunc("/main.js", s.GetMainJs).Methods(http.MethodGet)
+
+	embeddedFiles, err := fs.Sub(fs.FS(s.conf.Res), "res")
+	if err != nil {
+		return err
+	}
+	router.PathPrefix("/public/").Handler(http.FileServer(http.FS(embeddedFiles)))
+
 	http.Handle("/", router)
 
 	fmt.Printf("Running server on %s:%s", s.conf.Host, s.conf.Port)
