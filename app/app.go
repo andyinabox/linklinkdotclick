@@ -8,6 +8,13 @@ import (
 	"github.com/andyinabox/linkydink-sketch/pkg/simpleserver"
 )
 
+type testData struct {
+	Links []Link
+	Site  struct {
+		Title string
+	}
+}
+
 type App struct {
 	conf       *Config
 	server     *simpleserver.Server

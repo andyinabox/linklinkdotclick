@@ -1,10 +1,10 @@
 {{ define "link.html.tmpl" }}
 <linky-link data-id={{ .ID }}>
-  <a href="{{ .SiteUrl }}" target="_blank">
+  <a class="link" href="{{ .SiteUrl }}" target="_blank">
     <span class="title">{{ .SiteName }}</span>
     <span class="count" slot="count"></span>
   </a>
 
-  <button class="delete" slot="btnDelete">Delete</button>
+  <button class="delete" slot="delete">✕</button>
 </linky-link>
 {{ end }}

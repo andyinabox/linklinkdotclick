@@ -1,4 +1,38 @@
-@import url('https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css');
+@import url('https://unpkg.com/modern-normalize@2.0.0/modern-normalize.css');
 
+html {
+  font-size: calc(75% + 3vw);
+}
 body {
+  margin: 0;
+  font-family: 'Garamond', 'Georgia', serif;
+  color: hsl(0, 0%, 10%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5em;
+}
+
+footer {
+}
+
+a {
+  text-decoration: none;
+  color: magenta;
+
+  &:hover {
+    color: orange;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: normal;
 }

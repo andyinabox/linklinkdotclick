@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Linkydink</title>
+  <title>{{ .Site.Title }}</title>
   <link rel="stylesheet" href="/static/main.css">
   <meta name="description" content="">
 
@@ -21,13 +21,13 @@
 </head>
 
 <body>
-  <header><h2>Linkydinkkkk</h2></header>
+  <header></header>
   <main>
     {{ range .Links }}
       {{ template "link.html.tmpl" .}}
     {{ end }}
-  <main>
-  <footer>made by Andy Dayton</footer>
+  </main>
+  <footer>{{ template "add.html.tmpl" .}}</footer>
   <script src="/static/main.js"></script>
 </body>
 

@@ -15,7 +15,7 @@ class Link extends Component {
   }
   connectedCallback() {
     this.getData()
-    this.slots.btnDelete.addEventListener('click', (event) => {})
+    this.slots.delete.addEventListener('click', (event) => {})
   }
 }
 customElements.define('linky-link', Link)

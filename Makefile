@@ -29,7 +29,7 @@ res/static:
 res/static/main.js:
 	go run cmd/esbuild/main.go assets/main.js --bundle --outfile=res/static/main.js
 
-res: clean-res res/tmpl res/static res/static/main.js res/static/data.json
+res: clean-res res/tmpl res/static res/static/main.js
 
 
 dist/server: res

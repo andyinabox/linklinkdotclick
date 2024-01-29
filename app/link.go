@@ -13,7 +13,3 @@ type Link struct {
 	LastClicked time.Time `json:"lastClicked"`
 	LastFetched time.Time `json:"lastFetched"`
 }
-
-type testData struct {
-	Links []Link
-}

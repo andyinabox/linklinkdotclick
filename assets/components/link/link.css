@@ -1,0 +1,26 @@
+linky-link {
+  --delete-btn-width: 2rem;
+
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100vw;
+  padding: 0 1rem;
+
+  .link {
+    text-align: center;
+    width: 100%;
+    padding-left: var(--delete-btn-width);
+  }
+
+  .delete {
+    width: var(--delete-btn-width);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    opacity: 30%;
+    &:hover {
+      opacity: 100%;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+linky-add {
+  cursor: pointer;
+  background-color: magenta;
+  color: white;
+  border-radius: 5%;
+  padding: 0.2em 0.4em;
+  &:hover {
+    background-color: orange;
+  }
+}
