@@ -4,7 +4,7 @@ import "testing"
 
 func TestParseRssUrl(t *testing.T) {
 	reader := New()
-	feed, err := reader.ParseFeed("https://www.w3.org/blog/feed/")
+	feed, err := reader.Parse("https://www.w3.org/blog/feed/")
 	if err != nil {
 		t.Fatalf("Error parsing feed url: %s", err)
 	}
@@ -18,7 +18,7 @@ func TestParseRssUrl(t *testing.T) {
 
 func TestParseBlogUrl(t *testing.T) {
 	reader := New()
-	feed, err := reader.ParseFeed("https://www.w3.org/blog/")
+	feed, err := reader.Parse("https://www.w3.org/blog/")
 	if err != nil {
 		t.Fatalf("Error parsing feed url: %s", err)
 	}

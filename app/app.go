@@ -3,12 +3,14 @@ package app
 import (
 	"embed"
 
+	"github.com/andyinabox/linkydink-sketch/pkg/feedreader"
 	"github.com/andyinabox/linkydink-sketch/pkg/simpleserver"
 )
 
 type App struct {
-	conf   *Config
-	server *simpleserver.Server
+	conf       *Config
+	server     *simpleserver.Server
+	feedreader *feedreader.Reader
 }
 
 type Config struct {
@@ -27,9 +29,11 @@ func New(conf *Config) *App {
 		EmbedFSRootDir: "res",
 	})
 
-	app := &App{conf, server}
+	app := &App{conf, server, &feedreader.Reader{}}
 
-	server.Route("/", app.GetIndex, &simpleserver.RouteOptions{})
+	server.Route("/", app.IndexGet, &simpleserver.RouteOptions{})
+	server.Route("/api/links", app.ApiLinksGet, &simpleserver.RouteOptions{})
+	server.Route("/api/links/{id}", app.ApiLinksIdGet, &simpleserver.RouteOptions{})
 
 	return app
 }

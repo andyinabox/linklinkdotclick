@@ -6,13 +6,12 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-
-	"github.com/mmcdole/gofeed"
 )
 
-func (r *Reader) ParseFeed(rawurl string) (result *Result, err error) {
-	var feedUrl *url.URL
-	res, err := http.Get(rawurl)
+// TODO: this is making 2-3 requests when it could make just 1
+func (r *Reader) Parse(rawurl string) (result *Result, err error) {
+	feedUrl := rawurl
+	res, err := http.Get(feedUrl)
 	if err != nil {
 		return
 	}
@@ -43,18 +42,8 @@ func (r *Reader) ParseFeed(rawurl string) (result *Result, err error) {
 			return
 		}
 		firstUrl := urls[0]
-		feedUrl = &firstUrl
-	} else {
-		feedUrl, err = url.Parse(rawurl)
+		feedUrl = firstUrl.String()
 	}
 
-	fp := gofeed.NewParser()
-	var feed *gofeed.Feed
-	feed, err = fp.ParseURL(feedUrl.String())
-
-	result = &Result{
-		Feed: feed,
-	}
-
-	return
+	return r.ParseFeedUrl(feedUrl)
 }
