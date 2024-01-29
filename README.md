@@ -1,5 +1,7 @@
 # linkydink
 
+This app is contained within a single binary.
+
 ```bash
 # build single binary into dist/
 make

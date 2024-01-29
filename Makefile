@@ -14,7 +14,7 @@ clean: clean-dist clean-res
 
 .PHONY: run
 run: build
-	./dist/server
+	./dist/linkydink
 
 .PHONY: watch
 watch:
@@ -32,10 +32,10 @@ res/static/main.js:
 res: clean-res res/tmpl res/static res/static/main.js
 
 
-dist/server: res
-	go build -o dist/server main.go
+dist/linkydink: res
+	go build -o dist/linkydink main.go
 
-dist: clean-dist dist/server
+dist: clean-dist dist/linkydink
 
 
 
