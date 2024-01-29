@@ -1,4 +1,4 @@
-# linkydink
+# 🖇 linkydink
 
 This app is contained within a single binary in `dist/linkydink`
 
