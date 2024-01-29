@@ -1,6 +1,6 @@
 # linkydink
 
-This app is contained within a single binary.
+This app is contained within a single binary in `dist/linkydink`
 
 ```bash
 # build single binary into dist/
