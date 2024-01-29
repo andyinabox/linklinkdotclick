@@ -25,9 +25,9 @@
 <body>
   <header><h2>Linkydinkkkk</h2></header>
   <main>
-    {{/* {{ range .links }}
-      <h2>{{ .siteTitle }}</h2>
-    {{ end }} */}}
+    {{ range .Links }}
+      {{ template "link.html.tmpl" .}}
+    {{ end }}
   <main>
   <footer>made by Andy Dayton</footer>
 </body>

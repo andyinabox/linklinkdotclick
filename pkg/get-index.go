@@ -1,8 +1,13 @@
 package pkg
 
 import (
+	"encoding/json"
 	"net/http"
 )
+
+type testData struct {
+	Links []Link
+}
 
 func (s *Server) GetIndex(w http.ResponseWriter, r *http.Request) {
 
@@ -14,8 +19,17 @@ func (s *Server) GetIndex(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	testData := testData{}
+	err = json.Unmarshal(data, &testData)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
 	// send response
 	w.Header().Set("Content-Type", "text/html")
 	w.WriteHeader(http.StatusOK)
-	s.templates.ExecuteTemplate(w, "index.html.tmpl", data)
+	// w.Write()
+	s.templates.ExecuteTemplate(w, "index.html.tmpl", testData)
 }
