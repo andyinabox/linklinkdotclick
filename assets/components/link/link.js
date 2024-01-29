@@ -8,13 +8,14 @@ class Link extends Component {
     this.data = json
     this.render()
   }
+  async deleteLink() {}
+  async updateLink() {}
   render() {
-    if (this.slots.count) {
-      this.slots.count.innerHTML = `(${this.data.unreadCount})`
-    }
+    this.slots.count.innerHTML = `(${this.data.unreadCount})`
   }
   connectedCallback() {
     this.getData()
+    this.slots.btnDelete.addEventListener('click', (event) => {})
   }
 }
 customElements.define('linky-link', Link)
