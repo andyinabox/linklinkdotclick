@@ -13,12 +13,15 @@ clean-res:
 clean: clean-dist clean-res
 
 .PHONY: run
-run: dist/linkydink
+run: dist/linkydink db
 	./dist/linkydink
 
 .PHONY: watch
 watch:
-	reflex -G 'dist' -G 'res' -s make clean run
+	reflex -G 'dist' -G 'res' -G 'db/*' -s make clean run
+
+db:
+	mkdir -p db
 
 res/tmpl:
 	go run ./cmd/copy -g='assets/**/*.tmpl' -o=res/tmpl

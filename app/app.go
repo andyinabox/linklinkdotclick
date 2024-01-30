@@ -6,6 +6,8 @@ import (
 
 	"github.com/andyinabox/linkydink/pkg/feedreader"
 	"github.com/andyinabox/linkydink/pkg/simpleserver"
+	"github.com/glebarez/sqlite"
+	"gorm.io/gorm"
 )
 
 type TestData struct {
@@ -19,19 +21,26 @@ type App struct {
 	conf       *Config
 	server     *simpleserver.Server
 	feedreader *feedreader.Reader
+	db         *gorm.DB
 }
 
 type Config struct {
 	Host      string
 	Port      string
+	DbFile    string
 	Resources embed.FS
 }
 
 func New(conf *Config) *App {
 
+	db, err := gorm.Open(sqlite.Open(conf.DbFile), &gorm.Config{})
+	if err != nil {
+		panic(err)
+	}
+
 	reader := feedreader.New()
 
-	server := simpleserver.NewServer(&simpleserver.Config{
+	server := simpleserver.New(&simpleserver.Config{
 		Host:           conf.Host,
 		Port:           conf.Port,
 		Resources:      conf.Resources,
@@ -40,7 +49,7 @@ func New(conf *Config) *App {
 		EmbedFSRootDir: "res",
 	})
 
-	app := &App{conf, server, reader}
+	app := &App{conf, server, reader, db}
 
 	// main page
 	server.Route("/", app.IndexGet, &simpleserver.RouteOptions{})
@@ -66,5 +75,6 @@ func New(conf *Config) *App {
 }
 
 func (a *App) Start() error {
+	a.setupDb()
 	return a.server.Serve()
 }

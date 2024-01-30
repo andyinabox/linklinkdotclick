@@ -2,6 +2,7 @@ package app
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 	"strings"
 	"time"
@@ -9,7 +10,7 @@ import (
 	"github.com/andyinabox/linkydink/pkg/simpleserver"
 )
 
-type apiLinksPostBody struct {
+type ApiLinksPostBody struct {
 	Url string
 }
 
@@ -18,49 +19,54 @@ func (a *App) ApiLinksPost(ctx *simpleserver.Context) http.HandlerFunc {
 
 		defer r.Body.Close()
 		decoder := json.NewDecoder(r.Body)
-		var body apiLinksPostBody
+		var body ApiLinksPostBody
 
 		err := decoder.Decode(&body)
 		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(err.Error()))
+			ctx.WriteError(w, http.StatusInternalServerError, err)
 			return
 		}
 
-		result, feedUrl, err := a.feedreader.Parse(body.Url)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(err.Error()))
+		if body.Url == "" {
+			ctx.WriteError(w, http.StatusBadRequest, errors.New("missing url"))
 			return
 		}
-		if result.Feed == nil {
-			w.WriteHeader(http.StatusBadRequest)
-			w.Write([]byte("Feed not found"))
+
+		feed, feedUrl, err := a.feedreader.Parse(body.Url)
+		if err != nil {
+			ctx.WriteError(w, http.StatusInternalServerError, err)
+			return
+		}
+		if feed == nil {
+			ctx.WriteError(w, http.StatusBadRequest, errors.New("feed not found"))
 			return
 		}
 
 		link := &Link{
-			ID:          1,
-			UserID:      1,
-			SiteName:    strings.TrimSpace(result.Title),
-			SiteUrl:     strings.TrimSpace(result.Link),
+			SiteName:    strings.TrimSpace(feed.Title),
+			SiteUrl:     strings.TrimSpace(feed.Link),
 			FeedUrl:     feedUrl,
 			OriginalUrl: body.Url,
-			LastClicked: time.Now(),
+			UnreadCount: int16(len(feed.Items)),
+			LastClicked: time.Date(1993, time.April, 30, 12, 0, 0, 0, time.UTC),
 			LastFetched: time.Now(),
 		}
 
-		var linkJson []byte
-		linkJson, err = json.Marshal(link)
+		tx := a.db.Create(link)
+		err = tx.Error
 		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(err.Error()))
+			ctx.WriteError(w, http.StatusInternalServerError, err)
+			return
+		}
+
+		var responseData []byte
+		responseData, err = json.Marshal(link)
+		if err != nil {
+			ctx.WriteError(w, http.StatusInternalServerError, err)
 			return
 		}
 
 		// send response
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		w.Write(linkJson)
+		ctx.WriteJSON(w, responseData)
 	}
 }

@@ -2,15 +2,11 @@ package simpleserver
 
 import (
 	"embed"
-	"fmt"
 	"html/template"
 	"io/fs"
-	"net/http"
 
 	"github.com/gorilla/mux"
 )
-
-var defaultMethods = []string{http.MethodGet}
 
 type Config struct {
 	Resources      embed.FS
@@ -21,13 +17,6 @@ type Config struct {
 	EmbedFSRootDir string
 }
 
-type Context struct {
-	Resources  embed.FS
-	Templates  *template.Template
-	Vars       func(*http.Request) map[string]string
-	SetUrlVars func(*http.Request, map[string]string) *http.Request
-}
-
 type Server struct {
 	conf   *Config
 	fs     fs.FS
@@ -35,13 +24,7 @@ type Server struct {
 	ctx    *Context
 }
 
-type RouteOptions struct {
-	Methods []string
-}
-
-type HandlerFunc func(ctx *Context) http.HandlerFunc
-
-func NewServer(conf *Config) *Server {
+func New(conf *Config) *Server {
 
 	// compile templates
 	templates, err := template.ParseFS(conf.Resources, conf.TemplatesGlob)
@@ -55,6 +38,8 @@ func NewServer(conf *Config) *Server {
 		Templates:  templates,
 		Vars:       mux.Vars,
 		SetUrlVars: mux.SetURLVars,
+		WriteError: WriteError,
+		WriteJSON:  WriteJSON,
 	}
 
 	// create fs from embedded files
@@ -67,27 +52,4 @@ func NewServer(conf *Config) *Server {
 	router := mux.NewRouter()
 
 	return &Server{conf, fSys, router, ctx}
-}
-
-// Route creates a new http route
-func (s *Server) Route(path string, handler HandlerFunc, opts *RouteOptions) {
-	methods := defaultMethods
-	if len(opts.Methods) > 0 {
-		methods = opts.Methods
-	}
-	s.router.HandleFunc(path, handler(s.ctx)).
-		Methods(methods...)
-}
-
-// Serve starts the simple server
-func (s *Server) Serve() error {
-
-	// serve embedded static files
-	s.router.PathPrefix(s.conf.StaticDirName).Handler(http.FileServer(http.FS(s.fs)))
-
-	// run server
-	http.Handle("/", s.router)
-	addr := fmt.Sprintf("%s:%s", s.conf.Host, s.conf.Port)
-	fmt.Printf("Running server on %s\n", addr)
-	return http.ListenAndServe(addr, s.router)
 }
