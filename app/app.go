@@ -3,6 +3,7 @@ package app
 import (
 	"embed"
 	"net/http"
+	"time"
 
 	"github.com/andyinabox/linkydink/pkg/feedreader"
 	"github.com/andyinabox/linkydink/pkg/simpleserver"
@@ -22,6 +23,17 @@ type Config struct {
 	Port      string
 	DbFile    string
 	Resources embed.FS
+}
+
+type Link struct {
+	gorm.Model
+	SiteName    string    `json:"siteName"`
+	SiteUrl     string    `json:"siteUrl"`
+	FeedUrl     string    `json:"feedUrl"`
+	OriginalUrl string    `json:"originalUrl"`
+	UnreadCount int16     `json:"unreadCount"`
+	LastClicked time.Time `json:"lastClicked"`
+	LastFetched time.Time `json:"lastFetched"`
 }
 
 func New(conf *Config) *App {
@@ -68,6 +80,8 @@ func New(conf *Config) *App {
 }
 
 func (a *App) Start() error {
-	a.setupDb()
+
+	a.db.AutoMigrate(&Link{})
+
 	return a.server.Serve()
 }
