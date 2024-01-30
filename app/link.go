@@ -13,3 +13,15 @@ type Link struct {
 	LastClicked time.Time `json:"lastClicked"`
 	LastFetched time.Time `json:"lastFetched"`
 }
+
+type LinkServiceOptions struct {
+	Refresh bool
+}
+
+type LinkService interface {
+	FetchLinks() ([]Link, error)
+	GetLink(id int64) (*Link, error)
+	DeleteLink(id int64) (*Link, error)
+	UpdateLink(link Link) (*Link, error)
+	CreateLink(url string) (*Link, error)
+}

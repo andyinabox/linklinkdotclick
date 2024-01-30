@@ -17,7 +17,7 @@ func (a *App) IndexGet(ctx *simpleserver.Context) http.HandlerFunc {
 			return
 		}
 
-		testData := testData{}
+		testData := TestData{}
 		err = json.Unmarshal(data, &testData)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)

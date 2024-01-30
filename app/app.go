@@ -8,7 +8,7 @@ import (
 	"github.com/andyinabox/linkydink/pkg/simpleserver"
 )
 
-type testData struct {
+type TestData struct {
 	Links []Link
 	Site  struct {
 		Title string
@@ -28,6 +28,9 @@ type Config struct {
 }
 
 func New(conf *Config) *App {
+
+	reader := feedreader.New()
+
 	server := simpleserver.NewServer(&simpleserver.Config{
 		Host:           conf.Host,
 		Port:           conf.Port,
@@ -37,7 +40,7 @@ func New(conf *Config) *App {
 		EmbedFSRootDir: "res",
 	})
 
-	app := &App{conf, server, &feedreader.Reader{}}
+	app := &App{conf, server, reader}
 
 	// main page
 	server.Route("/", app.IndexGet, &simpleserver.RouteOptions{})
@@ -54,9 +57,6 @@ func New(conf *Config) *App {
 	})
 	server.Route("/api/links/{id}", app.ApiLinksIdPut, &simpleserver.RouteOptions{
 		Methods: []string{http.MethodPut},
-	})
-	server.Route("/api/links/{id}", app.ApiLinksIdPatch, &simpleserver.RouteOptions{
-		Methods: []string{http.MethodPatch},
 	})
 	server.Route("/api/links/{id}", app.ApiLinksIdDelete, &simpleserver.RouteOptions{
 		Methods: []string{http.MethodDelete},
