@@ -21,13 +21,15 @@ make watch
 
 ## Todo
 
- - [ ] Implement API endpoints with test data
+ - [ ] Implement API endpoints with ~~test data~~ sqlite
    -  [x] `GET /api/links`
-   -  [ ] `POST /api/links`
+   -  [x] `POST /api/links`
    -  [x] `GET /api/links/{id}`
-   -  [ ] `DELETE /api/links/{id}`
-   -  [ ] `PUT /api/links/{id}` 
- - [ ] Add persistence (sqlite?)
-   - [ ] Create `linkservice`
+   -  [x] `DELETE /api/links/{id}`
+   -  [x] `PUT /api/links/{id}` 
+ - [x] Add persistence (sqlite?)
+   - [ ] ~~Create `linkservice`~~
  - [ ] Containerize
  - [ ] Deploy
+ - [ ] Add SSL
+ - [ ] Authentication
