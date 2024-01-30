@@ -21,7 +21,7 @@ make watch
 
 ## Todo
 
- - [ ] Implement API endpoints with ~~test data~~ sqlite
+ - [x] Implement API endpoints with ~~test data~~ sqlite
    -  [x] `GET /api/links`
    -  [x] `POST /api/links`
    -  [x] `GET /api/links/{id}`
