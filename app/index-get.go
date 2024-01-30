@@ -1,34 +1,34 @@
 package app
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/andyinabox/linkydink/pkg/simpleserver"
 )
 
+type RenderContext struct {
+	Links []Link
+}
+
 func (a *App) IndexGet(ctx *simpleserver.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		// load data
-		data, err := ctx.Resources.ReadFile("res/static/mock.json")
+
+		var links []Link
+		tx := a.db.Find(&links)
+		err := tx.Error
 		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(err.Error()))
+			ctx.WriteError(w, http.StatusInternalServerError, err)
 			return
 		}
 
-		testData := TestData{}
-		err = json.Unmarshal(data, &testData)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(err.Error()))
-			return
+		renderContext := &RenderContext{
+			Links: links,
 		}
 
 		// send response
 		w.Header().Set("Content-Type", "text/html")
 		w.WriteHeader(http.StatusOK)
 		// w.Write()
-		ctx.Templates.ExecuteTemplate(w, "index.html.tmpl", testData)
+		ctx.Templates.ExecuteTemplate(w, "index.html.tmpl", renderContext)
 	}
 }

@@ -10,13 +10,6 @@ import (
 	"gorm.io/gorm"
 )
 
-type TestData struct {
-	Links []Link
-	Site  struct {
-		Title string
-	}
-}
-
 type App struct {
 	conf       *Config
 	server     *simpleserver.Server
