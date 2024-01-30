@@ -14,7 +14,7 @@ func (a *App) IndexGet(ctx *simpleserver.Context) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		var links []Link
-		tx := a.db.Find(&links)
+		tx := a.db.Order("last_clicked").Find(&links)
 		err := tx.Error
 		if err != nil {
 			ctx.WriteError(w, http.StatusInternalServerError, err)
