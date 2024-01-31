@@ -3,32 +3,24 @@ package app
 import (
 	"net/http"
 
-	"github.com/andyinabox/linkydink/pkg/simpleserver"
+	"github.com/gin-gonic/gin"
 )
 
-type RenderContext struct {
+type IndexRenderContext struct {
 	Links []Link
 }
 
-func (a *App) IndexGet(ctx *simpleserver.Context) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
+func (a *App) IndexGet(ctx *gin.Context) {
 
-		var links []Link
-		tx := a.db.Order("last_clicked").Find(&links)
-		err := tx.Error
-		if err != nil {
-			ctx.WriteError(w, http.StatusInternalServerError, err)
-			return
-		}
-
-		renderContext := &RenderContext{
-			Links: links,
-		}
-
-		// send response
-		w.Header().Set("Content-Type", "text/html")
-		w.WriteHeader(http.StatusOK)
-		// w.Write()
-		ctx.Templates.ExecuteTemplate(w, "index.html.tmpl", renderContext)
+	var links []Link
+	tx := a.db.Order("last_clicked").Find(&links)
+	err := tx.Error
+	if err != nil {
+		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		return
 	}
+
+	ctx.HTML(http.StatusOK, "index.html.tmpl", &IndexRenderContext{
+		Links: links,
+	})
 }

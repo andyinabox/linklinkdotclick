@@ -2,52 +2,43 @@ package app
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
-	"net/url"
-	"strconv"
 
-	"github.com/andyinabox/linkydink/pkg/simpleserver"
+	"github.com/gin-gonic/gin"
 )
 
-func (a *App) ApiLinksIdGet(ctx *simpleserver.Context) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		pathVars := ctx.Vars(r)
-		queryVars, err := url.ParseQuery(r.URL.RawQuery)
-		if err != nil {
-			fmt.Printf("Error parsing query vars: %s", err.Error())
-		}
+func (a *App) ApiLinksIdGet(ctx *gin.Context) {
+	_, refresh := ctx.GetQuery("refresh")
 
-		id, err := strconv.Atoi(pathVars["id"])
-		if err != nil {
-			ctx.WriteError(w, http.StatusInternalServerError, err)
-			return
-		}
-
-		var link Link
-		tx := a.db.First(&link, id)
-		err = tx.Error
-		if err != nil {
-			w.WriteHeader(http.StatusNotFound)
-			return
-		}
-
-		if queryVars.Has("refresh") {
-			err = a.RefreshLink(&link)
-			if err != nil {
-				ctx.WriteError(w, http.StatusInternalServerError, err)
-				return
-			}
-		}
-
-		var responseData []byte
-		responseData, err = json.Marshal(link)
-		if err != nil {
-			ctx.WriteError(w, http.StatusInternalServerError, err)
-			return
-		}
-
-		// send response
-		ctx.WriteJSON(w, responseData)
+	id, err := a.GetID(ctx)
+	if err != nil {
+		a.ErrorResponse(ctx, http.StatusBadRequest, err)
+		return
 	}
+
+	var link Link
+	tx := a.db.First(&link, id)
+	err = tx.Error
+	if err != nil {
+		a.NotFoundResponse(ctx)
+		return
+	}
+
+	if refresh {
+		err = a.RefreshLink(&link)
+		if err != nil {
+			a.ErrorResponse(ctx, http.StatusInternalServerError, err)
+			return
+		}
+	}
+
+	var responseData []byte
+	responseData, err = json.Marshal(link)
+	if err != nil {
+		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		return
+	}
+
+	// send response
+	a.SuccessResponseJSON(ctx, responseData)
 }

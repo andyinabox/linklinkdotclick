@@ -2,28 +2,23 @@ package app
 
 import (
 	"net/http"
-	"strconv"
 
-	"github.com/andyinabox/linkydink/pkg/simpleserver"
+	"github.com/gin-gonic/gin"
 )
 
-func (a *App) ApiLinksIdDelete(ctx *simpleserver.Context) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		pathVars := ctx.Vars(r)
-
-		id, err := strconv.Atoi(pathVars["id"])
-		if err != nil {
-			ctx.WriteError(w, http.StatusInternalServerError, err)
-			return
-		}
-
-		tx := a.db.Delete(&Link{}, id)
-		err = tx.Error
-		if err != nil {
-			ctx.WriteError(w, http.StatusInternalServerError, err)
-			return
-		}
-
-		w.WriteHeader(http.StatusOK)
+func (a *App) ApiLinksIdDelete(ctx *gin.Context) {
+	id, err := a.GetID(ctx)
+	if err != nil {
+		a.ErrorResponse(ctx, http.StatusBadRequest, err)
+		return
 	}
+
+	tx := a.db.Delete(&Link{}, id)
+	err = tx.Error
+	if err != nil {
+		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		return
+	}
+
+	a.SuccessResponse(ctx)
 }
