@@ -16,7 +16,6 @@ export class Link extends Component {
     this.render(data)
   }
   render(data) {
-    console.log('render', data)
     this.slots.delete.setAttribute('data-e-id', data.id)
     this.slots.link.href = data.siteUrl
     this.slots.link.textContent = data.siteName

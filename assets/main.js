@@ -18,9 +18,9 @@ const linkElements = linksContainerEl.querySelectorAll('linky-link')
 const linkTmpl = document.getElementById('tmpl-link')
 
 const appendLinkElement = (link) => {
-  const clone = linkTmpl.content.firstElementChild.cloneNode(true)
-  const node = linksContainerEl.appendChild(clone)
-  node.render(link)
+  const el = linkTmpl.content.firstElementChild.cloneNode(true)
+  linksContainerEl.appendChild(el)
+  el.render(link)
 }
 
 const deleteLinkElement = (id) => {
