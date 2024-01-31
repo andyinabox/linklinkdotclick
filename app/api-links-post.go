@@ -1,7 +1,6 @@
 package app
 
 import (
-	"encoding/json"
 	"errors"
 	"net/http"
 	"strings"
@@ -55,14 +54,7 @@ func (a *App) ApiLinksPost(ctx *gin.Context) {
 		return
 	}
 
-	var responseData []byte
-	responseData, err = json.Marshal(link)
-	if err != nil {
-		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
-		return
-	}
-
 	// send response
-	a.CreatedResponseJSON(ctx, responseData)
+	a.CreatedResponseJSON(ctx, link)
 
 }

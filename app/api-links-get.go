@@ -1,7 +1,6 @@
 package app
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -17,12 +16,5 @@ func (a *App) ApiLinksGet(ctx *gin.Context) {
 		return
 	}
 
-	var responseData []byte
-	responseData, err = json.Marshal(links)
-	if err != nil {
-		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
-		return
-	}
-
-	a.SuccessResponseJSON(ctx, responseData)
+	a.SuccessResponseJSON(ctx, links)
 }

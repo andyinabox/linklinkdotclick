@@ -52,7 +52,7 @@ func New(conf *Config) *App {
 		panic(err)
 	}
 
-	fSys, err := fs.Sub(fs.FS(conf.Resources), "res")
+	staticFiles, err := fs.Sub(fs.FS(conf.Resources), "res/static")
 	if err != nil {
 		panic(err)
 	}
@@ -62,7 +62,7 @@ func New(conf *Config) *App {
 	gin.SetMode(conf.Mode)
 	router := gin.Default()
 	router.SetHTMLTemplate(templates)
-	router.StaticFS("/static", http.FS(fSys))
+	router.StaticFS("/static", http.FS(staticFiles))
 
 	app := &App{conf, router, reader, db}
 
@@ -71,9 +71,9 @@ func New(conf *Config) *App {
 	api := router.Group("/api")
 	api.GET("/links", app.ApiLinksGet)
 	api.POST("/links", app.ApiLinksPost)
-	api.GET("/links/{id}", app.ApiLinksIdGet)
-	api.PUT("/links/{id}", app.ApiLinksIdPut)
-	api.DELETE("/links/{id}", app.ApiLinksIdPut)
+	api.GET("/links/:id", app.ApiLinksIdGet)
+	api.PUT("/links/:id", app.ApiLinksIdPut)
+	api.DELETE("/links/:id", app.ApiLinksIdDelete)
 
 	return app
 }

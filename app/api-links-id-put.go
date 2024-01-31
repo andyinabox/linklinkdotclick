@@ -1,8 +1,7 @@
 package app
 
 import (
-	"encoding/json"
-	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -35,7 +34,7 @@ func (a *App) ApiLinksIdPut(ctx *gin.Context) {
 
 	// if the ids don't match, send bad request error
 	if link.ID != uint(id) {
-		a.ErrorResponse(ctx, http.StatusBadRequest, errors.New("unmatched ids"))
+		a.ErrorResponse(ctx, http.StatusBadRequest, fmt.Errorf("id in request body (%d) does not match url (%d)", link.ID, id))
 		return
 	}
 
@@ -57,14 +56,6 @@ func (a *App) ApiLinksIdPut(ctx *gin.Context) {
 		}
 	}
 
-	// build response
-	var responseData []byte
-	responseData, err = json.Marshal(link)
-	if err != nil {
-		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
-		return
-	}
-
 	// send response
-	a.SuccessResponseJSON(ctx, responseData)
+	a.SuccessResponseJSON(ctx, link)
 }

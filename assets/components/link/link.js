@@ -1,6 +1,10 @@
-import { Component } from '../component'
+import { slotsMixin } from '../mixins'
 import './link.css'
-class Link extends Component {
+class Link extends HTMLElement {
+  constructor() {
+    super()
+    this.registerSlots()
+  }
   async getData() {
     const id = this.getAttribute('data-id')
     const response = await fetch(`/api/links/${id}?refresh`)
@@ -18,4 +22,7 @@ class Link extends Component {
     this.slots.delete.addEventListener('click', (event) => {})
   }
 }
+
+Object.assign(Link.prototype, slotsMixin)
+
 customElements.define('linky-link', Link)
