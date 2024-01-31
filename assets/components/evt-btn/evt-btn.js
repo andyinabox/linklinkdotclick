@@ -21,7 +21,7 @@ export class EvtBtn extends Component {
   connectedCallback() {
     this.addEventListener('click', (event) => {
       this.dispatchEvent(
-        new CustomEvent(name, {
+        new CustomEvent(this.eventName, {
           bubbles: true,
           detail: this.data,
         })

@@ -2,18 +2,22 @@ linky-link {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
 
-.link {
-  flex-grow: 1;
-}
+  &:not([data-id]) {
+    display: none;
+  }
 
-.count {
-  font-size: 0.8rem;
-  flex-grow: 0;
-}
+  .link {
+    flex-grow: 1;
+  }
 
-.delete {
-  display: none;
-  flex-grow: 0;
+  .count {
+    font-size: 0.8rem;
+    flex-grow: 0;
+  }
+
+  .delete {
+    display: none;
+    flex-grow: 0;
+  }
 }

@@ -15,8 +15,14 @@ const emitDocumentEvent = (name, detail = {}) => {
 
 const linksContainerEl = document.getElementById('links')
 const linkElements = linksContainerEl.querySelectorAll('linky-link')
+const linkTmpl = document.getElementById('tmpl-link')
 
-const appendLinkElement = (link) => {}
+const appendLinkElement = (link) => {
+  const clone = linkTmpl.content.firstElementChild.cloneNode(true)
+  const node = linksContainerEl.appendChild(clone)
+  node.render(link)
+}
+
 const deleteLinkElement = (id) => {
   let found = false
   for (const el of linkElements) {
@@ -31,8 +37,9 @@ const deleteLinkElement = (id) => {
 
 const handleCreateLink = async (event) => {
   try {
-    const link = await createLink(event.detail.url)
-    appendNewLink(link)
+    const url = prompt('Enter a website or feed URL')
+    const link = await createLink(url)
+    appendLinkElement(link)
     emitDocumentEvent('create-link-success', { link })
   } catch (error) {
     console.error(error)

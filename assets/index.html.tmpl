@@ -21,7 +21,7 @@
   <body>
     <main id="links">
       {{ range.Links }}
-      {{ template "link.html.tmpl" .}}
+        {{ template "link.html.tmpl" .}}
       {{ end }}
     </main>
     <nav id="actions">
@@ -29,6 +29,9 @@
       <linky-evt-btn data-event-name="create-link">➕</linky-evt-btn>
     </nav>
 
+    <template id="tmpl-link">
+     {{ template "link.html.tmpl" .DummyLink }}
+    </template>
     <script src="/static/main.js"></script>
   </body>
 </html>

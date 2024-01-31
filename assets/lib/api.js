@@ -26,7 +26,7 @@ export const apiCall = async function (endpoint, method, body) {
   if (data.success) {
     return data
   } else {
-    throw APIError(response.status, data)
+    throw new APIError(response.status, data)
   }
 }
 

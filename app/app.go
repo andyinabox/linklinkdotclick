@@ -30,7 +30,11 @@ type Config struct {
 }
 
 type Link struct {
-	gorm.Model
+	// gorm fields
+	ID        uint      `json:"id"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
+	// domain fields
 	SiteName    string    `json:"siteName"`
 	SiteUrl     string    `json:"siteUrl"`
 	FeedUrl     string    `json:"feedUrl"`

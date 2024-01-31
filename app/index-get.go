@@ -7,7 +7,8 @@ import (
 )
 
 type IndexRenderContext struct {
-	Links []Link
+	Links     []Link
+	DummyLink Link
 }
 
 func (a *App) IndexGet(ctx *gin.Context) {
