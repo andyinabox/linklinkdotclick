@@ -7,14 +7,13 @@ body {
   margin: 0;
   font-family: 'Garamond', 'Georgia', serif;
   color: hsl(0, 0%, 10%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 main {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5em;
-}
-
-footer {
+  margin-top: 1.5rem 0px;
 }
 
 a {
@@ -32,4 +31,21 @@ h3,
 h4,
 h5 {
   font-weight: normal;
+}
+
+nav {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+
+.button {
+  font-family: 'Helvetica', sans-serif;
+  font-size: 0.6rem;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 10%;
+  padding: 0.2rem;
 }

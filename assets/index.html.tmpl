@@ -19,17 +19,15 @@
   </head>
 
   <body>
-    <linky-app>
-      <nav>
-        {{ template "add.html.tmpl" .}}
-        {{ template "edit.html.tmpl" .}}
-      </nav>
-      <menu>
-        {{ range.Links }}
-        {{ template "link.html.tmpl" .}}
-        {{ end }}
-      </menu>
-    </linky-app>
+    <nav>
+      {{ template "add.html.tmpl" .}}
+      {{ template "edit.html.tmpl" .}}
+    </nav>
+    <menu>
+      {{ range.Links }}
+      {{ template "link.html.tmpl" .}}
+      {{ end }}
+    </menu>
     <script src="/static/main.js"></script>
   </body>
 </html>
