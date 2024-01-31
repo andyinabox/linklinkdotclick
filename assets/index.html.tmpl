@@ -19,15 +19,16 @@
   </head>
 
   <body>
-    <nav>
-      {{ template "add.html.tmpl" .}}
-      {{ template "edit.html.tmpl" .}}
-    </nav>
-    <menu>
+    <main id="links">
       {{ range.Links }}
       {{ template "link.html.tmpl" .}}
       {{ end }}
-    </menu>
+    </main>
+    <nav id="actions">
+      <linky-evt-btn data-event-name="edit-mode-start">✍︎</linky-evt-btn>
+      <linky-evt-btn data-event-name="create-link">➕</linky-evt-btn>
+    </nav>
+
     <script src="/static/main.js"></script>
   </body>
 </html>

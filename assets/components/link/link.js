@@ -1,26 +1,20 @@
-import { slotsMixin } from '../../lib/mixins'
 import { getLink } from '../../lib/api'
+import { Component } from '../component'
 
 import './link.css'
-class Link extends HTMLLIElement {
+export class Link extends Component {
   constructor() {
     super()
-    this.registerSlots()
   }
-  async getData() {
-    const id = this.getAttribute('data-id')
-    this.data = await getLink(id)
-    this.render()
-  }
-  render() {
-    this.slots.count.innerHTML = `(${this.data.unreadCount})`
-  }
+  // async getData() {
+  //   const id = this.getAttribute('data-id')
+  //   this.data = await getLink(id)
+  //   this.render()
+  // }
+  render() {}
   connectedCallback() {
-    this.getData()
-    this.slots.delete.addEventListener('click', (event) => {})
+    // this.getData()
   }
 }
 
-Object.assign(Link.prototype, slotsMixin)
-
-customElements.define('linky-link', Link, { extends: 'li' })
+customElements.define('linky-link', Link)

@@ -1,26 +1,19 @@
 linky-link {
-  --delete-btn-width: 2rem;
-
   display: flex;
-  align-items: baseline;
   justify-content: space-between;
-  width: 100vw;
-  padding: 0 1rem;
+  align-items: center;
+}
 
-  .link {
-    text-align: center;
-    width: 100%;
-    padding-left: var(--delete-btn-width);
-  }
+.link {
+  flex-grow: 1;
+}
 
-  .delete {
-    width: var(--delete-btn-width);
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    opacity: 30%;
-    &:hover {
-      opacity: 100%;
-    }
-  }
+.count {
+  font-size: 0.8rem;
+  flex-grow: 0;
+}
+
+.delete {
+  display: none;
+  flex-grow: 0;
 }

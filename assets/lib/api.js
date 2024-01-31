@@ -47,11 +47,12 @@ export const getLink = async function (id) {
   const { payload } = await apiCall('/links/' + id, 'GET')
   return payload
 }
-export const updateLink = async function (id, data) {
-  const { payload } = await apiCall('/links/' + id, 'PUT', data)
+export const updateLink = async function (link) {
+  const { payload } = await apiCall('/links/' + link.id, 'PUT', link)
   return payload
 }
 
 export const deleteLink = async function (id) {
   const { payload } = await apiCall('/links/' + id, 'DELETE')
+  return payload
 }

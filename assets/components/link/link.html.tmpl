@@ -1,10 +1,18 @@
 {{ define "link.html.tmpl" }}
-<linky-link data-id={{ .ID }}>
-  <a class="link" href="{{ .SiteUrl }}" target="_blank">
-    <span class="title">{{ .SiteName }}</span>
-    <span class="count" slot="count"></span>
-  </a>
-
-  <button class="delete" slot="delete">✕</button>
+<linky-link {{ if .ID }}data-id="{{ .ID }}"{{ end }}>
+  <linky-evt-btn
+    data-event-name="delete-link"
+    {{ if .ID }}data-e-id="{{ .ID }}"{{ end }}
+    class="delete"
+    slot="delete"
+    >delete</linky-evt-btn>
+  <a
+    slot="link"
+    class="link"
+    href="{{ .SiteUrl }}"
+    target="_blank"
+    >{{ .SiteName }}</a
+  >
+  <span slot="count" class="count">{{ .UnreadCount }}</span>
 </linky-link>
 {{ end }}
