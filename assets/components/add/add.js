@@ -1,7 +1,6 @@
-import { Component } from '../component'
 import './add.css'
 
-class Add extends Component {
+class Add extends HTMLButtonElement {
   async showAddDialog() {
     console.log('showAddDialog')
     const url = prompt('Enter a site or feed URL')
@@ -21,4 +20,4 @@ class Add extends Component {
     this.addEventListener('click', () => this.showAddDialog())
   }
 }
-customElements.define('linky-add', Add)
+customElements.define('linky-add', Add, { extends: 'button' })

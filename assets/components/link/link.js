@@ -1,19 +1,17 @@
-import { slotsMixin } from '../mixins'
+import { slotsMixin } from '../../lib/mixins'
+import { getLink } from '../../lib/api'
+
 import './link.css'
-class Link extends HTMLElement {
+class Link extends HTMLLIElement {
   constructor() {
     super()
     this.registerSlots()
   }
   async getData() {
     const id = this.getAttribute('data-id')
-    const response = await fetch(`/api/links/${id}?refresh`)
-    const json = await response.json()
-    this.data = json
+    this.data = await getLink(id)
     this.render()
   }
-  async deleteLink() {}
-  async updateLink() {}
   render() {
     this.slots.count.innerHTML = `(${this.data.unreadCount})`
   }
@@ -25,4 +23,4 @@ class Link extends HTMLElement {
 
 Object.assign(Link.prototype, slotsMixin)
 
-customElements.define('linky-link', Link)
+customElements.define('linky-link', Link, { extends: 'li' })

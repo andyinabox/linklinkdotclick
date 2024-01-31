@@ -7,9 +7,6 @@ body {
   margin: 0;
   font-family: 'Garamond', 'Georgia', serif;
   color: hsl(0, 0%, 10%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 main {
