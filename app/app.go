@@ -2,6 +2,7 @@ package app
 
 import (
 	"embed"
+	"fmt"
 	"html/template"
 	"io/fs"
 	"net/http"
@@ -23,6 +24,7 @@ type App struct {
 type Config struct {
 	Host      string
 	Port      string
+	Mode      string
 	DbFile    string
 	Resources embed.FS
 }
@@ -57,21 +59,12 @@ func New(conf *Config) *App {
 
 	reader := feedreader.New()
 
-	// server := simpleserver.New(&simpleserver.Config{
-	// 	Host:           conf.Host,
-	// 	Port:           conf.Port,
-	// 	Resources:      conf.Resources,
-	// 	TemplatesGlob:  "res/tmpl/*.tmpl",
-	// 	StaticDirName:  "/static/",
-	// 	EmbedFSRootDir: "res",
-	// })
-
+	gin.SetMode(conf.Mode)
 	router := gin.Default()
+	router.SetHTMLTemplate(templates)
 	router.StaticFS("/static", http.FS(fSys))
 
 	app := &App{conf, router, reader, db}
-
-	router.SetHTMLTemplate(templates)
 
 	router.GET("/", app.IndexGet)
 
@@ -82,26 +75,6 @@ func New(conf *Config) *App {
 	api.PUT("/links/{id}", app.ApiLinksIdPut)
 	api.DELETE("/links/{id}", app.ApiLinksIdPut)
 
-	// main page
-	// server.Route("/", app.IndexGet, &simpleserver.RouteOptions{})
-
-	// api
-	// server.Route("/api/links", app.ApiLinksGet, &simpleserver.RouteOptions{
-	// 	Methods: []string{http.MethodGet},
-	// })
-	// server.Route("/api/links", app.ApiLinksPost, &simpleserver.RouteOptions{
-	// 	Methods: []string{http.MethodPost},
-	// })
-	// server.Route("/api/links/{id}", app.ApiLinksIdGet, &simpleserver.RouteOptions{
-	// 	Methods: []string{http.MethodGet},
-	// })
-	// server.Route("/api/links/{id}", app.ApiLinksIdPut, &simpleserver.RouteOptions{
-	// 	Methods: []string{http.MethodPut},
-	// })
-	// server.Route("/api/links/{id}", app.ApiLinksIdDelete, &simpleserver.RouteOptions{
-	// 	Methods: []string{http.MethodDelete},
-	// })
-
 	return app
 }
 
@@ -109,5 +82,5 @@ func (a *App) Start() error {
 
 	a.db.AutoMigrate(&Link{})
 
-	return a.router.Run()
+	return a.router.Run(fmt.Sprintf("%s:%s", a.conf.Host, a.conf.Port))
 }
