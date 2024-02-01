@@ -43,3 +43,18 @@ func Test_GetFeedUrl(t *testing.T) {
 		t.Fatalf("Undexpected first feed URL: %s", urls[0].String())
 	}
 }
+
+func Test_GetFeedAtom(t *testing.T) {
+	reader := New()
+	urls, err := reader.GetFeedUrls("https://daringfireball.net/")
+	if err != nil {
+		t.Fatalf("Error checking feed urls: %e", err)
+	}
+	if len(urls) != 1 {
+		t.Fatalf("Expected 1 url, got %d", len(urls))
+	}
+
+	if urls[0].String() != "https://daringfireball.net/feeds/main" {
+		t.Fatalf("Undexpected first feed URL: %s", urls[0].String())
+	}
+}

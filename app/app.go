@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"io/fs"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,10 +21,17 @@ type Config struct {
 	Host      string
 	Port      string
 	Mode      string
+	TimeZone  string
 	Resources embed.FS
 }
 
 func New(conf *Config, ls LinkService) *App {
+
+	loc, err := time.LoadLocation(conf.TimeZone)
+	if err != nil {
+		panic(err)
+	}
+	time.Local = loc
 
 	templates, err := template.ParseFS(conf.Resources, "res/tmpl/*.tmpl")
 	if err != nil {

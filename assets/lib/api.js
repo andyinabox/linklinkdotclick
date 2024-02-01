@@ -52,7 +52,7 @@ export const getLink = async function (id, refresh = true) {
 export const updateLink = async function (link, refresh = true) {
   let endpoint = '/links/' + link.id
   if (refresh) endpoint += '?refresh'
-  const { payload } = await apiCall('/links/' + link.id, 'PUT', link)
+  const { payload } = await apiCall(endpoint, 'PUT', link)
   return payload
 }
 

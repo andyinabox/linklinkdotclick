@@ -3,7 +3,7 @@ package linkrepository
 import (
 	"testing"
 
-	"github.com/andyinabox/linkydink/test"
+	"github.com/andyinabox/linkydink/test/fixtures"
 )
 
 func Test_FetchLink(t *testing.T) {
@@ -15,16 +15,16 @@ func Test_FetchLink(t *testing.T) {
 		t.Errorf("expected fetching non-existent record to fail, got %v", fetchedLink)
 	}
 
-	link := test.LinkBeforeInsert()
-	link, err = r.CreateLink(*link)
+	link := fixtures.LinkBeforeInsert()
+	createdLink, err := r.CreateLink(link)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
-	fetchedLink, err = r.FetchLink(link.ID)
+	fetchedLink, err = r.FetchLink(createdLink.ID)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
-	if fetchedLink.ID != link.ID {
+	if fetchedLink.ID != createdLink.ID {
 		t.Errorf("expected fetched link ID to be equal to original link: %v, %v", fetchedLink.ID, link.ID)
 	}
 }

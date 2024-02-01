@@ -32,17 +32,15 @@ export class Link extends Component {
   async updateLastClicked() {
     const link = { ...this._data }
     link.lastClicked = new Date().toJSON()
-    console.log('update last clicked', link)
     const updatedLink = await updateLink(link)
-    console.log('updated', updatedLink)
     this.data = updatedLink
   }
   connectedCallback() {
     this.onClick = () => this.updateLastClicked()
-    this.addEventListener('click', this.onClick)
+    this.slots.link.addEventListener('click', this.onClick)
   }
   disconnectedCallback() {
-    this.removeEventListener('click', this.onClick)
+    this.slots.link.removeEventListener('click', this.onClick)
   }
 }
 

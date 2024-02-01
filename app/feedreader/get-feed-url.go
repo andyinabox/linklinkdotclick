@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -34,25 +35,32 @@ func getFeedUrlsFromResponse(res *http.Response) (feedUrls []url.URL, err error)
 		return
 	}
 
-	doc.Find("[rel='alternate'][type='application/rss+xml']").Each(func(i int, s *goquery.Selection) {
-		// For each item found, get the title
-		href, _ := s.Attr("href")
-		if href != "" {
-			var feedUrl *url.URL
-			feedUrl, err = url.Parse(href)
-			if err != nil {
+	doc.Find("[rel='alternate'][type^='application']").
+		Each(func(i int, s *goquery.Selection) {
+			// For each item found, get the title
+
+			feedType, _ := s.Attr("type")
+			if !strings.Contains(feedType, "xml") {
 				return
 			}
-			if feedUrl.Host == "" {
-				feedUrl, err = url.Parse(siteUrl.Scheme + "://" + siteUrl.Host + feedUrl.String())
+
+			href, _ := s.Attr("href")
+			if href != "" {
+				var feedUrl *url.URL
+				feedUrl, err = url.Parse(href)
 				if err != nil {
 					return
 				}
-			}
+				if feedUrl.Host == "" {
+					feedUrl, err = url.Parse(siteUrl.Scheme + "://" + siteUrl.Host + feedUrl.String())
+					if err != nil {
+						return
+					}
+				}
 
-			feedUrls = append(feedUrls, *feedUrl)
-		}
-	})
+				feedUrls = append(feedUrls, *feedUrl)
+			}
+		})
 
 	return
 
