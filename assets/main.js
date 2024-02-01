@@ -1,7 +1,7 @@
 import { createLink } from './lib/api'
 
 import './main.css'
-import './components/link/link'
+import { Link } from './components/link/link'
 import './components/evt-btn/evt-btn'
 
 const emitDocumentEvent = (name, detail = {}) => {
@@ -22,13 +22,6 @@ const stopLoading = () => {
 
 const linksContainerEl = document.getElementById('links')
 const linkElements = linksContainerEl.querySelectorAll('linky-link')
-const linkTmpl = document.getElementById('tmpl-link')
-
-const appendLinkElement = (link) => {
-  const el = linkTmpl.content.firstElementChild.cloneNode(true)
-  linksContainerEl.appendChild(el)
-  el.render(link)
-}
 
 const deleteLinkElement = (id) => {
   let found = false
@@ -47,7 +40,9 @@ const handleCreateLink = async (event) => {
     startLoading()
     const url = prompt('Enter a website or feed URL')
     const link = await createLink(url)
-    appendLinkElement(link)
+
+    Link.create(linksContainerEl, link)
+
     emitDocumentEvent('create-link-success', { link })
   } catch (error) {
     console.error(error)

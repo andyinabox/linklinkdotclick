@@ -21,4 +21,11 @@ linky-link {
   .delete {
     display: none;
   }
+
+  /* &.loading {
+    .link,
+    .count {
+      cursor: progress;
+    }
+  } */
 }
