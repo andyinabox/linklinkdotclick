@@ -1,11 +1,5 @@
 {{ define "link.html.tmpl" }}
 <linky-link {{ if .ID }}data-id="{{ .ID }}"{{ end }}>
-  <linky-evt-btn
-    data-event-name="delete-link"
-    {{ if .ID }}data-e-id="{{ .ID }}"{{ end }}
-    class="delete"
-    slot="delete"
-    >delete</linky-evt-btn>
   <a
     slot="link"
     class="link"
@@ -14,5 +8,8 @@
     >{{ .SiteName }}</a
   >
   <span slot="count" class="count">{{ .UnreadCount }}</span>
+  <menu slot="edit" class="edit">
+    <button name="delete" class="delete">delete</button>
+  </menu>
 </linky-link>
 {{ end }}

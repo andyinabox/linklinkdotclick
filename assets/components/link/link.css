@@ -18,14 +18,8 @@ linky-link {
     }
   }
 
-  .delete {
-    display: none;
+  .edit {
+    margin: 0;
+    padding: 0;
   }
-
-  /* &.loading {
-    .link,
-    .count {
-      cursor: progress;
-    }
-  } */
 }

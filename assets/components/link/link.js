@@ -1,4 +1,4 @@
-import { getLink, updateLink } from '../../lib/api'
+import { getLink, updateLink, deleteLink } from '../../lib/api'
 import { Component } from '../component'
 
 import './link.css'
@@ -12,6 +12,9 @@ export class Link extends Component {
     this._data = d
     this.render()
   }
+  get data() {
+    return { ...this._data }
+  }
   async fetchData(id) {
     this.classList.add('loading')
     this.data = await getLink(id)
@@ -19,9 +22,8 @@ export class Link extends Component {
   }
 
   render() {
-    const data = this._data
+    const data = this.data
 
-    this.slots.delete.setAttribute('data-e-id', data.id)
     this.slots.link.href = data.siteUrl
     this.slots.link.textContent = data.siteName
     this.slots.count.textContent = data.unreadCount
@@ -29,18 +31,39 @@ export class Link extends Component {
     this.setAttribute('data-id', data.id)
   }
 
-  async updateLastClicked() {
-    const link = { ...this._data }
+  async handleClick(e) {
+    const link = this.data
     link.lastClicked = new Date().toJSON()
     const updatedLink = await updateLink(link)
     this.data = updatedLink
   }
+
+  async handleDelete(e) {
+    const { id, siteName } = this.data
+
+    if (!confirm(`Delete link "${siteName}"?`)) return
+
+    try {
+      await deleteLink(id)
+      this.remove()
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   connectedCallback() {
-    this.onClick = () => this.updateLastClicked()
+    this.onClick = (e) => this.handleClick(e)
     this.slots.link.addEventListener('click', this.onClick)
+    this.onDelete = (e) => this.handleDelete(e)
+    this.slots.edit
+      .querySelector('[name="delete"]')
+      .addEventListener('click', this.onDelete)
   }
   disconnectedCallback() {
     this.slots.link.removeEventListener('click', this.onClick)
+    this.slots.edit
+      .querySelector('[name="delete"]')
+      .removeEventListener('click', this.onDelete)
   }
 }
 
