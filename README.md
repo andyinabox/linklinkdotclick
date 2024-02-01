@@ -27,9 +27,17 @@ make watch
    -  [x] `GET /api/links/{id}`
    -  [x] `DELETE /api/links/{id}`
    -  [x] `PUT /api/links/{id}` 
-   -  [ ] `PATCH /api/links/{id}` 
+   -  [ ] ~~`PATCH /api/links/{id}`~~
  - [x] Add persistence (sqlite?)
-   - [ ] ~~Create `linkrepository`~~
+   - [x] Create `linkrepository`
+ - [ ] Functionality
+   - [x] Fetching updated data for links
+   - [x] Adding links
+   - [ ] Update `LastClicked` after click
+   - [ ] Re-ordering links on frontend
+   - [ ] Deleting links
+   - [ ] Editing link title
+   - [ ] Ability to have non-RSS links
  - [ ] Containerize
  - [ ] Deploy
  - [ ] Add SSL
