@@ -29,7 +29,7 @@ make watch
    -  [x] `PUT /api/links/{id}` 
    -  [ ] `PATCH /api/links/{id}` 
  - [x] Add persistence (sqlite?)
-   - [ ] ~~Create `linkservice`~~
+   - [ ] ~~Create `linkrepository`~~
  - [ ] Containerize
  - [ ] Deploy
  - [ ] Add SSL

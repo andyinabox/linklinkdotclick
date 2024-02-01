@@ -17,8 +17,14 @@ func (a *App) ApiLinksIdDelete(ctx *gin.Context) {
 		return
 	}
 
-	tx := a.db.Delete(&Link{}, id)
-	err = tx.Error
+	// tx := a.db.Delete(&Link{}, id)
+	// err = tx.Error
+	// if err != nil {
+	// 	a.ErrorResponse(ctx, http.StatusInternalServerError, err)
+	// 	return
+	// }
+
+	id, err = a.ls.DeleteLink(id)
 	if err != nil {
 		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
 		return

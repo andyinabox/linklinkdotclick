@@ -6,6 +6,8 @@ import (
 	"log"
 
 	"github.com/andyinabox/linkydink/app"
+	"github.com/andyinabox/linkydink/app/linkrepository"
+	"github.com/andyinabox/linkydink/app/linkservice"
 )
 
 //go:embed res/*
@@ -23,13 +25,17 @@ func main() {
 	flag.StringVar(&mode, "mode", "debug", "run mode, use 'release' for production")
 	flag.Parse()
 
+	lr := linkrepository.New(&linkrepository.Config{
+		DbFile: dbfile,
+	})
+	ls := linkservice.New(lr)
+
 	appInstance := app.New(&app.Config{
 		Host:      host,
 		Port:      port,
 		Mode:      mode,
-		DbFile:    dbfile,
 		Resources: res,
-	})
+	}, ls)
 
 	log.Fatal(appInstance.Start())
 }

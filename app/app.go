@@ -6,50 +6,24 @@ import (
 	"html/template"
 	"io/fs"
 	"net/http"
-	"time"
 
-	"github.com/andyinabox/linkydink/pkg/feedreader"
 	"github.com/gin-gonic/gin"
-	"github.com/glebarez/sqlite"
-	"gorm.io/gorm"
 )
 
 type App struct {
-	conf       *Config
-	router     *gin.Engine
-	feedreader *feedreader.Reader
-	db         *gorm.DB
+	conf   *Config
+	router *gin.Engine
+	ls     LinkService
 }
 
 type Config struct {
 	Host      string
 	Port      string
 	Mode      string
-	DbFile    string
 	Resources embed.FS
 }
 
-type Link struct {
-	// gorm fields
-	ID        uint      `json:"id"`
-	CreatedAt time.Time `json:"createdAt"`
-	UpdatedAt time.Time `json:"updatedAt"`
-	// domain fields
-	SiteName    string    `json:"siteName"`
-	SiteUrl     string    `json:"siteUrl"`
-	FeedUrl     string    `json:"feedUrl"`
-	OriginalUrl string    `json:"originalUrl"`
-	UnreadCount int16     `json:"unreadCount"`
-	LastClicked time.Time `json:"lastClicked"`
-	LastFetched time.Time `json:"lastFetched"`
-}
-
-func New(conf *Config) *App {
-
-	db, err := gorm.Open(sqlite.Open(conf.DbFile), &gorm.Config{})
-	if err != nil {
-		panic(err)
-	}
+func New(conf *Config, ls LinkService) *App {
 
 	templates, err := template.ParseFS(conf.Resources, "res/tmpl/*.tmpl")
 	if err != nil {
@@ -61,14 +35,12 @@ func New(conf *Config) *App {
 		panic(err)
 	}
 
-	reader := feedreader.New()
-
 	gin.SetMode(conf.Mode)
 	router := gin.Default()
 	router.SetHTMLTemplate(templates)
 	router.StaticFS("/static", http.FS(staticFiles))
 
-	app := &App{conf, router, reader, db}
+	app := &App{conf, router, ls}
 
 	router.GET("/", app.IndexGet)
 
@@ -83,8 +55,5 @@ func New(conf *Config) *App {
 }
 
 func (a *App) Start() error {
-
-	a.db.AutoMigrate(&Link{})
-
 	return a.router.Run(fmt.Sprintf("%s:%s", a.conf.Host, a.conf.Port))
 }

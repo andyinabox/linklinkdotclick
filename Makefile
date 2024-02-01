@@ -20,6 +20,10 @@ run: dist/linkydink db
 watch:
 	reflex -G 'dist' -G 'res' -G 'db/*' -s make clean run
 
+.PHONY: test
+test:
+	go test ./...
+
 db:
 	mkdir -p db
 
