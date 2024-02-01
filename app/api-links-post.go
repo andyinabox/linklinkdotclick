@@ -53,6 +53,10 @@ func (a *App) ApiLinksPost(ctx *gin.Context) {
 	// }
 
 	link, err := a.ls.CreateLink(body.Url)
+	if err != nil {
+		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		return
+	}
 
 	// send response
 	a.CreatedResponseJSON(ctx, link)

@@ -22,7 +22,11 @@ watch:
 
 .PHONY: test
 test:
-	go test ./...
+	go test ./app/...
+
+.PHONY: test-verbose
+test-verbose:
+	go test -v ./app/...
 
 db:
 	mkdir -p db

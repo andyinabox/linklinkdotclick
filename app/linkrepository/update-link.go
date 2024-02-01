@@ -5,6 +5,14 @@ import (
 )
 
 func (r *Repository) UpdateLink(link app.Link) (*app.Link, error) {
-	tx := r.db.Save(&link)
+
+	// disallow upsert
+	var testLink app.Link
+	tx := r.db.First(&testLink)
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+
+	tx = r.db.Save(&link)
 	return &link, tx.Error
 }
