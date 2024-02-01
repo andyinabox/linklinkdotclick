@@ -1,22 +1,21 @@
-@import url('https://unpkg.com/modern-normalize@2.0.0/modern-normalize.css');
+:root {
+  --border-width: 1px;
+}
 
 html {
-  font-size: calc(75% + 3vw);
+  font-size: calc(80% + 3vw);
 }
 body {
   margin: 0;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding: 0px 8vw;
 }
 
-a {
-  text-decoration: none;
-  color: magenta;
-
-  &:hover {
-    color: orange;
-  }
+body.loading,
+body.loading * {
+  cursor: progress !important;
 }
 
 h1,
@@ -25,21 +24,27 @@ h3,
 h4,
 h5 {
   font-weight: normal;
+  font-size: 1rem;
 }
 
-#links {
-  display: flex;
-  flex-direction: column;
-  padding: 10vw;
-  gap: 0.5rem;
-}
-
-#actions {
-  position: fixed;
+header {
   display: flex;
   justify-content: space-between;
-  width: 100vw;
-  left: 0px;
-  bottom: 0px;
-  padding: 4vw;
+  align-items: center;
+  border-bottom: var(--border-width) dashed black;
+  padding: 1rem 0;
+
+  h1 {
+    margin: 0;
+  }
+}
+
+nav {
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 0px 1.25rem 0px;
 }

@@ -1,23 +1,24 @@
 linky-link {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
   &:not([data-id]) {
     display: none;
   }
 
   .link {
-    flex-grow: 1;
   }
 
   .count {
     font-size: 0.8rem;
-    flex-grow: 0;
+    font-style: italic;
+
+    &:before {
+      content: '(';
+    }
+    &:after {
+      content: ')';
+    }
   }
 
   .delete {
     display: none;
-    flex-grow: 0;
   }
 }

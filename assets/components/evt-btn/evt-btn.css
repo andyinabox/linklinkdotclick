@@ -1,3 +1,13 @@
 linky-evt-btn {
+  display: inline-block;
   cursor: pointer;
+  font-size: 0.7rem;
+  border: var(--border-width) solid black;
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 }

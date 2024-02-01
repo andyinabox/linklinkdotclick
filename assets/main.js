@@ -13,6 +13,13 @@ const emitDocumentEvent = (name, detail = {}) => {
   )
 }
 
+const startLoading = () => {
+  document.body.classList.add('loading')
+}
+const stopLoading = () => {
+  document.body.classList.remove('loading')
+}
+
 const linksContainerEl = document.getElementById('links')
 const linkElements = linksContainerEl.querySelectorAll('linky-link')
 const linkTmpl = document.getElementById('tmpl-link')
@@ -37,6 +44,7 @@ const deleteLinkElement = (id) => {
 
 const handleCreateLink = async (event) => {
   try {
+    startLoading()
     const url = prompt('Enter a website or feed URL')
     const link = await createLink(url)
     appendLinkElement(link)
@@ -44,21 +52,27 @@ const handleCreateLink = async (event) => {
   } catch (error) {
     console.error(error)
     emitDocumentEvent('create-link-error', { error })
+  } finally {
+    stopLoading()
   }
 }
 
 const handleUpdateLink = async (event) => {
   try {
+    startLoading()
     const link = await updateLink(event.detail.link)
     emitDocumentEvent('update-link-success', { link })
   } catch (error) {
     console.error(error)
     emitDocumentEvent('update-link-error', { error })
+  } finally {
+    stopLoading()
   }
 }
 
 const handleDeleteLink = async (event) => {
   try {
+    startLoading()
     const { id } = await updateLink(event.detail.link)
     const found = deleteLinkElement(id)
     if (!found) {
@@ -70,6 +84,8 @@ const handleDeleteLink = async (event) => {
   } catch (error) {
     console.error(error)
     emitDocumentEvent('delete-link-error', { error })
+  } finally {
+    stopLoading()
   }
 }
 

@@ -19,15 +19,18 @@
   </head>
 
   <body>
+    <header>
+      <h1>linkydink</h1>
+      <nav>
+        <linky-evt-btn data-event-name="edit-mode-start">edit ✎</linky-evt-btn>
+        <linky-evt-btn data-event-name="create-link">add +</linky-evt-btn>
+      </nav>
+    </header>
     <main id="links">
       {{ range.Links }}
         {{ template "link.html.tmpl" .}}
       {{ end }}
     </main>
-    <nav id="actions">
-      <linky-evt-btn data-event-name="edit-mode-start">✍︎</linky-evt-btn>
-      <linky-evt-btn data-event-name="create-link">➕</linky-evt-btn>
-    </nav>
 
     <template id="tmpl-link">
      {{ template "link.html.tmpl" .DummyLink }}
