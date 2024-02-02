@@ -17,6 +17,7 @@ export const apiCall = async function (endpoint, method, body) {
     headers: {
       'Content-Type': 'application/json',
     },
+    mode: 'cors',
   }
   if (method !== 'GET') {
     options.body = JSON.stringify(body)

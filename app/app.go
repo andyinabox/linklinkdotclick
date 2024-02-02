@@ -7,6 +7,7 @@ import (
 	"io/fs"
 	"net/http"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/gin"
 )
@@ -53,6 +54,11 @@ func New(conf *Config, ls LinkService) *App {
 	router.GET("/", app.IndexGet)
 
 	api := router.Group("/api")
+
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowOrigins = []string{"localhost", "127.0.0.1", "linklink.click"}
+	api.Use(cors.New(corsConfig))
+
 	api.GET("/links", app.ApiLinksGet)
 	api.POST("/links", app.ApiLinksPost)
 	api.GET("/links/:id", app.ApiLinksIdGet)
