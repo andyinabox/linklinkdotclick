@@ -3,7 +3,6 @@ import { handleError } from './lib/errors'
 
 export class Link extends HTMLElement {
   constructor() {
-    console.log('constructor')
     super()
 
     // create a collection of elements with the
