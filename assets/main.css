@@ -58,22 +58,22 @@ button:after {
 }
 
 button[name='edit']:after {
-  content: '✎';
+  content: '✏️';
 }
 body.editing button[name='edit']:after {
-  content: '✐';
+  content: '✅';
 }
 
 button[name='add']:after {
-  content: '+';
+  content: '➕';
 }
 
 button[name='delete']:after {
-  content: '⌧';
+  content: '🗑';
 }
 
 button[name='rename']:after {
-  content: '␣';
+  content: '✍️';
 }
 
 /*
