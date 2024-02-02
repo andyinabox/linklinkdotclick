@@ -19,9 +19,52 @@ make run
 make watch
 ```
 
+## Server Setup
+
+### Allow binding to port 80
+
+-> [Bind process to a priveleged port](https://www.baeldung.com/linux/bind-process-privileged-port)
+
+```bash
+sudo setcap 'CAP_NET_BIND_SERVICE+ep' /path/to/linkydink
+```
+
+### Running as a daemon
+
+-> [Setting up a custom service](https://www.slingacademy.com/article/ubuntu-how-to-create-a-custom-systemd-service/)
+
+
+`/etc/systemd/system/linkydink.service`
+```
+[Unit]
+Description=linkydink
+
+[Service]
+Type=simple
+ExecStart=/home/andy/bin/linkydink --port=80 --mode=release --dbfile=/home/andy/db/linkydink>
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Commands
+
+```bash
+# start the service
+sudo systemctl start
+# get info
+sudo systemctl status
+# stop service
+sudo systemctl stop
+# view logs
+sudo journalctl -u linkydink.service
+```
+
 ## Todo
 
- - [ ] Implement API endpoints with ~~test data~~ sqlite
+ - [x] Implement API endpoints with ~~test data~~ sqlite
    -  [x] `GET /api/links`
    -  [x] `POST /api/links`
    -  [x] `GET /api/links/{id}`
@@ -38,9 +81,9 @@ make watch
    - [x] Deleting links
    - [x] Editing link title
    - [ ] Ability to have non-RSS links
- - [ ] Avoid duplicates
+   - [ ] Avoid duplicates
  - [ ] Containerize
- - [ ] Deploy
+ - [x] Deploy
  - [ ] Add SSL
  - [ ] Authentication
  - [ ] Ability to edit styles in browser
