@@ -16,6 +16,14 @@ clean: clean-dist clean-res
 run: dist/linkydink db
 	./dist/linkydink
 
+.PHONY: build-docker-test
+build-docker-test:
+	docker build -t andyinabox/linkydink:test .
+
+.PHONY: run-docker-test
+run-docker-test:
+	docker run -it -p 127.0.0.1:8080:8080 --rm --name linkydink-test andyinabox/linkydink:test
+
 .PHONY: watch
 watch:
 	reflex -G 'dist' -G 'res' -G 'db/*' -s make clean run

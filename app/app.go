@@ -2,11 +2,9 @@ package app
 
 import (
 	"embed"
-	"fmt"
 	"html/template"
 	"io/fs"
 	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -18,20 +16,20 @@ type App struct {
 }
 
 type Config struct {
-	Host      string
-	Port      string
-	Mode      string
-	TimeZone  string
+	Host string
+	Port string
+	Mode string
+	// TimeZone  string
 	Resources embed.FS
 }
 
 func New(conf *Config, ls LinkService) *App {
 
-	loc, err := time.LoadLocation(conf.TimeZone)
-	if err != nil {
-		panic(err)
-	}
-	time.Local = loc
+	// loc, err := time.LoadLocation(conf.TimeZone)
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// time.Local = loc
 
 	templates, err := template.ParseFS(conf.Resources, "res/tmpl/*.tmpl")
 	if err != nil {
@@ -63,5 +61,6 @@ func New(conf *Config, ls LinkService) *App {
 }
 
 func (a *App) Start() error {
-	return a.router.Run(fmt.Sprintf("%s:%s", a.conf.Host, a.conf.Port))
+	// return a.router.Run(fmt.Sprintf("%s:%s", a.conf.Host, a.conf.Port))
+	return a.router.Run()
 }
