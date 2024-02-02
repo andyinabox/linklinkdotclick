@@ -45,8 +45,11 @@ func New(conf *Config, ls LinkService) *App {
 	}
 
 	gin.SetMode(conf.Mode)
+
 	router := gin.Default()
+	router.SetTrustedProxies(nil)
 	router.SetHTMLTemplate(templates)
+
 	router.StaticFS("/static", http.FS(staticFiles))
 
 	app := &App{conf, router, ls}
@@ -56,7 +59,7 @@ func New(conf *Config, ls LinkService) *App {
 	api := router.Group("/api")
 
 	corsConfig := cors.DefaultConfig()
-	corsConfig.AllowOrigins = []string{"localhost", "127.0.0.1", "linklink.click"}
+	corsConfig.AllowOrigins = []string{"http://localhost", "http://127.0.0.1", "https://linklink.click"}
 	api.Use(cors.New(corsConfig))
 
 	api.GET("/links", app.ApiLinksGet)
