@@ -1,10 +1,25 @@
 .PHONY: build
 build: clean dist/linkydink
 
-.PHONY: docker-build
+.PHONY: build-linux-amd64
+build-linux-amd64:
+	./script/build-linux-amd64.sh
+
+.PHONY: deploy
+deploy: build-linux-amd64
+	scp ./dist/linkydink andy@`doctl compute droplet get reading-dot-andydayton-dot-com --template {{.PublicIPv4}}`:/home/andy/bin/linkydink
+	make clean-dist
+
+.PHONY: docker-test
 # note that this is for linux environments
-docker-build:
-	docker run --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp golang:1.18 make
+docker-test:
+	docker build --tag andyinabox/linkydink:test .
+	docker run --rm -p 8080:8080 -v database:/db andyinabox/linkydink:test
+
+.PHONY: docker-save-image
+docker-build-for-deploy:
+	docker buildx build --platform linux/amd64/v3 --tag andyinabox/linkydink:deploy .
+	docker save -o dist/andyinabox-linkydink-deploy.tar andyinabox/linkydink:deploy
 
 .PHONY: clean-dist
 clean-dist:
