@@ -7,6 +7,7 @@ import (
 	"io/fs"
 	"net/http"
 
+	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/gin"
 )
 
@@ -62,8 +63,16 @@ func New(conf *Config, ls LinkService) *App {
 }
 
 func (a *App) Start() error {
-	if a.conf.Host != "" || a.conf.Port != "" {
+
+	// run with let's encrypt
+	if a.conf.Mode == "release" {
+		return autotls.Run(a.router, "linklink.click")
+
+		// run with custom host/port
+	} else if a.conf.Host != "" || a.conf.Port != "" {
 		return a.router.Run(fmt.Sprintf("%s:%s", a.conf.Host, a.conf.Port))
+
+		// run with defaults
 	} else {
 		return a.router.Run()
 	}
