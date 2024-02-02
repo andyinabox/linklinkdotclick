@@ -13,12 +13,12 @@ clean-res:
 clean: clean-dist clean-res
 
 .PHONY: run
-run: dist/linkydink db
+run: clean dist/linkydink db
 	./dist/linkydink
 
 .PHONY: watch
 watch:
-	reflex -G 'dist' -G 'res' -G 'db/*' -s make clean run
+	reflex -d fancy -G 'dist' -G 'res' -G 'db/*' -s make run
 
 .PHONY: test
 test:
