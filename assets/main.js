@@ -1,8 +1,6 @@
 import { createLink } from './lib/api'
 import { handleError } from './lib/errors'
-import { Link } from './components/link/link'
-
-import './main.css'
+import { Link } from './link'
 
 const linksContainerEl = document.getElementById('links')
 
@@ -31,12 +29,15 @@ async function handleCreateLink() {
 
     if (!url) return
 
+    document.body.classList.add('loading')
     const link = await createLink(url)
-
     Link.create(linksContainerEl, link)
+
     sortLinks()
   } catch (err) {
     handleError(err)
+  } finally {
+    document.body.classList.remove('loading')
   }
 }
 const btnAdd = document.querySelector('button[name="add"]')
