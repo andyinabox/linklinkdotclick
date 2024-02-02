@@ -1,6 +1,11 @@
 .PHONY: build
 build: clean dist/linkydink
 
+.PHONY: docker-build
+# note that this is for linux environments
+docker-build:
+	docker run --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp golang:1.18 make
+
 .PHONY: clean-dist
 clean-dist:
 	rm -rf dist
