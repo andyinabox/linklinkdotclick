@@ -38,9 +38,12 @@ res/static:
 	go run ./cmd/copy -g 'assets/static/*' -o=res/static
 
 res/static/main.js:
-	go run cmd/esbuild/main.go assets/main.js --bundle --outfile=res/static/main.js
+	go run cmd/esbuild/main.go assets/main.js --bundle --minify --outfile=res/static/main.js
 
-res: res/tmpl res/static res/static/main.js
+res/static/main.css:
+	go run ./cmd/copy -g 'assets/main.css' -o=res/static
+
+res: res/tmpl res/static res/static/main.js res/static/main.css
 
 dist/linkydink: res
 	go build -o dist/linkydink main.go

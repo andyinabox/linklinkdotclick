@@ -2,8 +2,6 @@ import { createLink } from './lib/api'
 import { handleError } from './lib/errors'
 import { Link } from './link'
 
-import './main.css'
-
 const linksContainerEl = document.getElementById('links')
 
 // re-ordering links
