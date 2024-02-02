@@ -1,8 +1,6 @@
 import { getLink, updateLink, deleteLink } from './lib/api'
 import { handleError } from './lib/errors'
 
-console.log('what')
-
 export class Link extends HTMLElement {
   constructor() {
     console.log('constructor')
@@ -36,12 +34,9 @@ export class Link extends HTMLElement {
   // render data to the element
   render() {
     const data = this.data
-
     this.slots.link.href = data.siteUrl
     this.slots.link.textContent = data.siteName
-
     this.slots.count.textContent = data.unreadCount ? data.unreadCount : ''
-
     this.setAttribute('data-id', data.id)
   }
 
@@ -109,6 +104,7 @@ export class Link extends HTMLElement {
       .querySelector('[name="rename"]')
       .addEventListener('click', this.onRename)
   }
+
   disconnectedCallback() {
     this.slots.link.removeEventListener('click', this.onClick)
     this.slots.edit

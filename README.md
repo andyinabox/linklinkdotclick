@@ -102,6 +102,7 @@ Add this to `sudoers`
    - [ ] Avoid duplicates
  - [ ] Containerize
  - [x] Deploy
- - [ ] Add SSL
+ - [x] Add SSL
+ - [ ] Setup CORS
  - [ ] Authentication
  - [ ] Ability to edit styles in browser
