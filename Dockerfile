@@ -19,4 +19,4 @@ RUN go build -v -o /usr/local/bin/app main.go
 EXPOSE 8080
 
 # ENTRYPOINT ["/usr/local/bin/app"]
-CMD ["app", "--dbfile=/data.db", "--mode=release"]
+CMD ["app", "--dbfile=/db/data.db", "--mode=release"]

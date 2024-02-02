@@ -25,7 +25,7 @@ func main() {
 
 	err := godotenv.Load()
 	if err != nil {
-		fmt.Println("Error loading .dnv file")
+		fmt.Println("Error loading .env file")
 	}
 
 	dbFile := os.Getenv("DB_FILE")
