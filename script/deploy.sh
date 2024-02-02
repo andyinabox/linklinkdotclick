@@ -1,7 +1,20 @@
 #!/bin/bash
 set -e
 
-IP=`doctl compute droplet get linklink.click --template {{.PublicIPv4}}`
-ssh -t andy@$IP sudo systemctl stop linkydink
-scp ./dist/linkydink-linux-amd64 andy@$IP:/home/andy/bin/linkydink
-ssh -t andy@$IP sudo systemctl start linkydink
+HOST=linklink.click
+TIME=$(date +%s)
+
+# copy bin to server
+scp ./dist/linkydink-linux-amd64 andy@$HOST:/home/andy/deploy/linkydink-$TIME
+
+# stop application
+ssh -t andy@$HOST sudo systemctl stop linkydink
+
+# update symlink
+ssh andy@$HOST /bin/bash << EOF
+rm /home/andy/bin/linkydink
+ln -s /home/andy/deploy/linkydink-$TIME /home/andy/bin/linkydink
+EOF
+
+# start application
+ssh -t andy@$HOST sudo systemctl start linkydink

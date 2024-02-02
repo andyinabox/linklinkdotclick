@@ -53,11 +53,11 @@ Commands
 
 ```bash
 # start the service
-sudo systemctl start
+sudo systemctl start linkydink
 # get info
-sudo systemctl status
+sudo systemctl status linkydink
 # stop service
-sudo systemctl stop
+sudo systemctl stop linkydink
 # view logs
 sudo journalctl -u linkydink.service
 ```
@@ -103,6 +103,6 @@ Add this to `sudoers`
  - [ ] Containerize
  - [x] Deploy
  - [x] Add SSL
- - [ ] Setup CORS
+ - [x] Setup CORS
  - [ ] Authentication
  - [ ] Ability to edit styles in browser

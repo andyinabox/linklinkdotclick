@@ -2,7 +2,6 @@ package app
 
 import (
 	"embed"
-	"fmt"
 	"html/template"
 	"io/fs"
 	"net/http"
@@ -19,49 +18,52 @@ type App struct {
 }
 
 type Config struct {
-	Host string
-	Port string
-	Mode string
-	// TimeZone  string
+	Domain    string
+	Port      string
+	Mode      string
 	Resources embed.FS
 }
 
 func New(conf *Config, ls LinkService) *App {
 
-	// loc, err := time.LoadLocation(conf.TimeZone)
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// time.Local = loc
-
+	// load templates
 	templates, err := template.ParseFS(conf.Resources, "res/tmpl/*.tmpl")
 	if err != nil {
 		panic(err)
 	}
 
+	// setup static files filesystem
 	staticFiles, err := fs.Sub(fs.FS(conf.Resources), "res/static")
 	if err != nil {
 		panic(err)
 	}
 
-	gin.SetMode(conf.Mode)
+	// configure cors
+	corsConfig := cors.DefaultConfig()
+	if conf.Mode == "release" {
+		corsConfig.AllowOrigins = []string{"https://" + conf.Domain}
+	} else {
+		corsConfig.AllowOrigins = []string{"http://localhost", "http://127.0.0.1"}
+	}
 
+	// router setup
+	gin.SetMode(conf.Mode)
 	router := gin.Default()
 	router.SetTrustedProxies(nil)
 	router.SetHTMLTemplate(templates)
 
-	router.StaticFS("/static", http.FS(staticFiles))
-
+	// create app
 	app := &App{conf, router, ls}
 
+	// serve static files
+	router.StaticFS("/static", http.FS(staticFiles))
+
+	// http routes
 	router.GET("/", app.IndexGet)
 
+	// api routes
 	api := router.Group("/api")
-
-	corsConfig := cors.DefaultConfig()
-	corsConfig.AllowOrigins = []string{"http://localhost", "http://127.0.0.1", "https://linklink.click"}
 	api.Use(cors.New(corsConfig))
-
 	api.GET("/links", app.ApiLinksGet)
 	api.POST("/links", app.ApiLinksPost)
 	api.GET("/links/:id", app.ApiLinksIdGet)
@@ -75,11 +77,11 @@ func (a *App) Start() error {
 
 	// run with let's encrypt
 	if a.conf.Mode == "release" {
-		return autotls.Run(a.router, "linklink.click")
+		return autotls.Run(a.router, a.conf.Domain)
 
 		// run with custom host/port
-	} else if a.conf.Host != "" || a.conf.Port != "" {
-		return a.router.Run(fmt.Sprintf("%s:%s", a.conf.Host, a.conf.Port))
+	} else if a.conf.Port != "" {
+		return a.router.Run(":" + a.conf.Port)
 
 		// run with defaults
 	} else {
