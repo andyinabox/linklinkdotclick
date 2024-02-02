@@ -1,8 +1,6 @@
 import { getLink, updateLink, deleteLink } from './lib/api'
 import { handleError } from './lib/errors'
 
-console.log('what')
-
 export class Link extends HTMLElement {
   constructor() {
     console.log('constructor')
