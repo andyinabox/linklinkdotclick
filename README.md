@@ -62,6 +62,24 @@ sudo systemctl stop
 sudo journalctl -u linkydink.service
 ```
 
+> **Note:** havent gotten this working yet
+
+Remove sudo password requirement:
+
+ -> https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file
+ -> https://unix.stackexchange.com/questions/192706/how-could-we-allow-non-root-users-to-control-a-systemd-service
+ -> https://linuxize.com/post/how-to-add-user-to-sudoers-in-ubuntu/
+ -> https://help.ubuntu.com/community/Sudoers
+
+Add this to `sudoers`
+
+```
+%andy ALL= NOPASSWD: /bin/usr/systemctl start linkydink
+%andy ALL= NOPASSWD: /bin/usr/systemctl stop linkydink
+%andy ALL= NOPASSWD: /bin/usr/systemctl restart linkydink
+```
+
+
 ## Todo
 
  - [x] Implement API endpoints with ~~test data~~ sqlite
