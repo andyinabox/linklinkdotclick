@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>linkydink</title>
+    <title>🖇 my reading list</title>
     <link rel="stylesheet" href="/static/main.css" />
     <meta name="description" content="" />
 
@@ -20,18 +20,19 @@
 
   <body>
     <header>
-      <h1>linkydink</h1>
-      <nav>
-        <button name="edit">Edit</button>
-        <button name="add">Add</button>
-      </nav>
+      <h1>🖇 my reading list</h1>
     </header>
-    <main id="links">
+    <main>
+      <menu id="links">
       {{ range.Links }}
         {{ template "link.html.tmpl" .}}
       {{ end }}
+      </menu>
     </main>
-
+    <nav>
+      <button name="edit">Edit</button>
+      <button name="add">Add</button>
+    </nav>
     <template id="tmpl-link">
      {{ template "link.html.tmpl" .DummyLink }}
     </template>

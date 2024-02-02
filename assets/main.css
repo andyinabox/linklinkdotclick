@@ -1,16 +1,35 @@
-:root {
-  --border-width: 1px;
-}
-
 html {
   font-size: calc(80% + 3vw);
 }
 body {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  padding: 0px 8vw;
+  margin: 6vw 8vw;
+}
+
+body > header > h1 {
+  font-weight: normal;
+  font-size: 1.4rem;
+}
+
+body > nav {
+  margin-top: 1.5rem;
+}
+
+/*
+ * loading indicator
+ */
+@keyframes loading {
+  0% {
+    content: '(loading)';
+  }
+  25% {
+    content: '(loading.)';
+  }
+  50% {
+    content: '(loading..)';
+  }
+  75% {
+    content: '(loading...)';
+  }
 }
 
 body.loading,
@@ -18,61 +37,70 @@ body.loading * {
   cursor: progress !important;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-weight: normal;
-  font-size: 1rem;
+body.loading > nav:after {
+  content: '(loading)';
+  font-size: 0.6rem;
+  font-style: italic;
+  display: inline-block;
+  animation: loading 3s linear infinite;
 }
 
+/*
+ * button styles
+ */
 button {
   font-size: 0.5rem;
   padding: 0.3em 0.5em;
   cursor: pointer;
-  &:after {
-    margin-left: 0.5em;
-  }
+}
+button:after {
+  margin-left: 0.5em;
 }
 
 button[name='edit']:after {
-  content: '✎';
+  content: '✏️';
 }
 body.editing button[name='edit']:after {
-  content: '✐';
+  content: '✅';
 }
 
 button[name='add']:after {
-  content: '+';
+  content: '➕';
 }
 
 button[name='delete']:after {
-  content: '☠︎';
+  content: '🗑';
 }
 
 button[name='rename']:after {
-  content: '␣';
+  content: '✍️';
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: var(--border-width) dashed black;
-  padding: 1rem 0;
-
-  h1 {
-    margin: 0;
-  }
+/*
+ * link styles
+ */
+linky-link {
+  display: list-item;
+  list-style: decimal;
+  margin-bottom: 0.5em;
 }
 
-nav {
+linky-link:not([data-id]) {
+  display: none;
 }
-
-main {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 1rem 0px 1.25rem 0px;
+linky-link > .count {
+  font-size: 0.8rem;
+  font-style: italic;
+}
+linky-link > .count:not(:empty):before {
+  content: '(';
+}
+linky-link > .count:not(:empty):after {
+  content: ')';
+}
+linky-link > nav {
+  display: none;
+}
+body.editing linky-link > nav {
+  display: block;
 }

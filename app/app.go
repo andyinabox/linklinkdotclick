@@ -2,6 +2,7 @@ package app
 
 import (
 	"embed"
+	"fmt"
 	"html/template"
 	"io/fs"
 	"net/http"
@@ -61,6 +62,9 @@ func New(conf *Config, ls LinkService) *App {
 }
 
 func (a *App) Start() error {
-	// return a.router.Run(fmt.Sprintf("%s:%s", a.conf.Host, a.conf.Port))
-	return a.router.Run()
+	if a.conf.Host != "" || a.conf.Port != "" {
+		return a.router.Run(fmt.Sprintf("%s:%s", a.conf.Host, a.conf.Port))
+	} else {
+		return a.router.Run()
+	}
 }

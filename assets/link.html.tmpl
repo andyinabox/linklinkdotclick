@@ -8,9 +8,9 @@
     >{{ .SiteName }}</a
   >
   <span slot="count" class="count">{{ if .UnreadCount }}{{ .UnreadCount }}{{ end }}</span>
-  <menu slot="edit" class="edit">
+  <nav slot="edit-menu" class="edit-menu">
     <button name="delete" class="delete">Delete</button>
     <button name="rename" class="rename">Rename</button>
-  </menu>
+  </nav>
 </linky-link>
 {{ end }}
