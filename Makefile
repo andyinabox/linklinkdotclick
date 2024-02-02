@@ -2,7 +2,7 @@
 build: clean dist/linkydink
 
 .PHONY: deploy
-deploy: dist/linkydink-linux-amd64
+deploy: clean-dist dist/linkydink-linux-amd64
 	./script/deploy.sh
 
 .PHONY: clean-dist
