@@ -1,10 +1,9 @@
 .PHONY: build
 build: clean dist/linkydink
 
-.PHONY: docker-build
-# note that this is for linux environments
-docker-build:
-	docker run --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp golang:1.18 make
+.PHONY: deploy
+deploy: dist/linkydink-linux-amd64
+	./script/deploy.sh
 
 .PHONY: clean-dist
 clean-dist:
@@ -53,6 +52,7 @@ res: res/tmpl res/static res/static/main.js res/static/main.css
 dist/linkydink: res
 	go build -o dist/linkydink main.go
 
-
+dist/linkydink-linux-amd64:
+	./script/build-linux-amd64.sh
 
 
