@@ -33,10 +33,10 @@ make watch
  - [ ] Functionality
    - [x] Fetching updated data for links
    - [x] Adding links
-   - [ ] Update `LastClicked` after click
-   - [ ] Re-ordering links on frontend
-   - [ ] Deleting links
-   - [ ] Editing link title
+   - [x] Update `LastClicked` after click
+   - [x] Re-ordering links on frontend
+   - [x] Deleting links
+   - [x] Editing link title
    - [ ] Ability to have non-RSS links
  - [ ] Containerize
  - [ ] Deploy

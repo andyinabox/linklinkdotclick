@@ -7,9 +7,10 @@
     target="_blank"
     >{{ .SiteName }}</a
   >
-  <span slot="count" class="count">{{ .UnreadCount }}</span>
+  <span slot="count" class="count">{{ if .UnreadCount }}({{ .UnreadCount }}){{ end }}</span>
   <menu slot="edit" class="edit">
     <button name="delete" class="delete">delete</button>
+    <button name="rename" class="rename">rename</button>
   </menu>
 </linky-link>
 {{ end }}

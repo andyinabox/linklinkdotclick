@@ -27,6 +27,12 @@ h5 {
   font-size: 1rem;
 }
 
+button {
+  font-size: 0.4rem;
+  padding: 0.3em 0.5em;
+  cursor: pointer;
+}
+
 header {
   display: flex;
   justify-content: space-between;
