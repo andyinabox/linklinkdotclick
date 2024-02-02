@@ -1,14 +1,9 @@
 .PHONY: build
 build: clean dist/linkydink
 
-.PHONY: build-linux-amd64
-build-linux-amd64:
-	./script/build-linux-amd64.sh
-
 .PHONY: deploy
-deploy: build-linux-amd64
-	scp ./dist/linkydink andy@`doctl compute droplet get reading-dot-andydayton-dot-com --template {{.PublicIPv4}}`:/home/andy/bin/linkydink
-	make clean-dist
+deploy: dist/linkydink-linux-amd64
+	./script/deploy.sh
 
 .PHONY: clean-dist
 clean-dist:
@@ -24,14 +19,6 @@ clean: clean-dist clean-res
 .PHONY: run
 run: clean dist/linkydink db
 	./dist/linkydink
-
-.PHONY: build-docker-test
-build-docker-test:
-	docker build -t andyinabox/linkydink:test .
-
-.PHONY: run-docker-test
-run-docker-test:
-	docker run -it -p 127.0.0.1:8080:8080 --rm --name linkydink-test andyinabox/linkydink:test
 
 .PHONY: watch
 watch:
@@ -65,6 +52,7 @@ res: res/tmpl res/static res/static/main.js res/static/main.css
 dist/linkydink: res
 	go build -o dist/linkydink main.go
 
-
+dist/linkydink-linux-amd64:
+	./script/build-linux-amd64.sh
 
 
