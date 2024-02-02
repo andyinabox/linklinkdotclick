@@ -9,6 +9,15 @@ linky-link {
   .count {
     font-size: 0.8rem;
     font-style: italic;
+
+    &:not(:empty) {
+      &:before {
+        content: '(';
+      }
+      &:after {
+        content: ')';
+      }
+    }
   }
 
   .edit {

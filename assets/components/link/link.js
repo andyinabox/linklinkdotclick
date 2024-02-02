@@ -23,9 +23,7 @@ export class Link extends Component {
     this.slots.link.href = data.siteUrl
     this.slots.link.textContent = data.siteName
 
-    if (data.unreadCount) {
-      this.slots.count.textContent = `(${data.unreadCount})`
-    }
+    this.slots.count.textContent = data.unreadCount ? data.unreadCount : ''
 
     this.setAttribute('data-id', data.id)
   }
@@ -105,7 +103,7 @@ export class Link extends Component {
 Link.create = function (parentEl, data) {
   const linkTmpl = document.getElementById('tmpl-link')
   const linkEl = linkTmpl.content.firstElementChild.cloneNode(true)
-  parentEl.appendChild(linkEl)
+  parentEl.prepend(linkEl)
   linkEl.data = data
   return linkEl
 }

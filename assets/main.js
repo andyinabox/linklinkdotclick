@@ -28,9 +28,13 @@ document.addEventListener('sort-links', sortLinks)
 async function handleCreateLink() {
   try {
     const url = prompt('Enter a website or feed URL')
+
+    if (!url) return
+
     const link = await createLink(url)
 
     Link.create(linksContainerEl, link)
+    sortLinks()
   } catch (err) {
     handleError(err)
   }
@@ -42,7 +46,6 @@ btnAdd.addEventListener('click', (e) => handleCreateLink(e))
 let editing = false
 const btnEdit = document.querySelector('button[name="edit"]')
 const editingOffText = btnEdit.innerHTML
-const editingOnText = 'done ✐'
 btnEdit.addEventListener('click', (e) => {
   if (editing) {
     document.body.classList.remove('editing')
@@ -50,7 +53,7 @@ btnEdit.addEventListener('click', (e) => {
     editing = false
   } else {
     document.body.classList.add('editing')
-    btnEdit.textContent = editingOnText
+    btnEdit.textContent = 'Done'
     editing = true
   }
 })

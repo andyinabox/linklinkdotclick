@@ -28,9 +28,31 @@ h5 {
 }
 
 button {
-  font-size: 0.4rem;
+  font-size: 0.5rem;
   padding: 0.3em 0.5em;
   cursor: pointer;
+  &:after {
+    margin-left: 0.5em;
+  }
+}
+
+button[name='edit']:after {
+  content: '✎';
+}
+body.editing button[name='edit']:after {
+  content: '✐';
+}
+
+button[name='add']:after {
+  content: '+';
+}
+
+button[name='delete']:after {
+  content: '☠︎';
+}
+
+button[name='rename']:after {
+  content: '␣';
 }
 
 header {

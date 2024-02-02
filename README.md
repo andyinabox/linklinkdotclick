@@ -38,7 +38,9 @@ make watch
    - [x] Deleting links
    - [x] Editing link title
    - [ ] Ability to have non-RSS links
+ - [ ] Avoid duplicates
  - [ ] Containerize
  - [ ] Deploy
  - [ ] Add SSL
  - [ ] Authentication
+ - [ ] Ability to edit styles in browser
