@@ -7,22 +7,22 @@ deploy: clean-dist dist/linkydink-linux-amd64
 
 .PHONY: clean-dist
 clean-dist:
-	rm -rf dist
+	go run ./cmd/clean -g 'dist/*'
 
 .PHONY: clean-res
 clean-res:
-	rm -rf res
+	go run ./cmd/clean -g 'res/**/*'
 
 .PHONY: clean
 clean: clean-dist clean-res
 
 .PHONY: run
-run: clean dist/linkydink db
-	./dist/linkydink
+run: clean resources
+	go run .
 
 .PHONY: watch
 watch:
-	reflex -d fancy -G 'dist' -G 'res' -G 'db/*' -s make run
+	reflex -d fancy -G 'dist/**/*' -G 'res/**/*' -G 'db/**/*' -s make run
 
 .PHONY: test
 test:
@@ -32,24 +32,34 @@ test:
 test-verbose:
 	go test -v ./app/...
 
-db:
-	mkdir -p db
+.PHONY: resources
+resources: res/static/main.js res/static/main.css res/tmpl
 
-res/tmpl:
+# .PHONY: resources
+# resources:
+# 	go run cmd/esbuild/main.go assets/main.js --bundle --minify --outfile=res/static/main.js
+# 	cp assets/main.css res/static/main.css
+# 	go run ./cmd/copy -g='assets/**/*.tmpl' -o=res/tmpl
+
+dist:
+	mkdir dist
+
+res:
+	mkdir res
+
+res/tmpl: res
 	go run ./cmd/copy -g='assets/**/*.tmpl' -o=res/tmpl
 
-res/static:
-	go run ./cmd/copy -g 'assets/static/*' -o=res/static
+# res/static: res
+# 	go run ./cmd/copy -g 'assets/static/*' -o=res/static
 
-res/static/main.js:
+res/static/main.js: res
 	go run cmd/esbuild/main.go assets/main.js --bundle --minify --outfile=res/static/main.js
 
-res/static/main.css:
+res/static/main.css: res
 	go run ./cmd/copy -g 'assets/main.css' -o=res/static
 
-res: res/tmpl res/static res/static/main.js res/static/main.css
-
-dist/linkydink: res
+dist/linkydink: resources
 	go build -o dist/linkydink main.go
 
 dist/linkydink-linux-amd64:
