@@ -2,4 +2,5 @@ db/*
 *.db
 res
 dist
+bin
 .vscode
