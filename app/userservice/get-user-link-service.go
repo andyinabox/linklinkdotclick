@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"path"
+	"sync"
 
 	"github.com/andyinabox/linkydink/app"
 	"github.com/andyinabox/linkydink/app/linkrepository"
@@ -24,8 +25,13 @@ func (s *Service) GetUserLinkService(user *app.User) (app.LinkService, error) {
 		return nil, errors.New("invalid user id: 0")
 	}
 
+	lock := sync.RWMutex{}
+
 	// try and get service from cache
+	lock.RLock()
 	linkService, ok := cachedLinkServices[user.ID]
+	lock.RUnlock()
+
 	if ok {
 		return linkService, nil
 	}
@@ -40,7 +46,10 @@ func (s *Service) GetUserLinkService(user *app.User) (app.LinkService, error) {
 	linkService = linkservice.New(linkRepository)
 
 	// cache result and return
+	lock.Lock()
 	cachedLinkServices[user.ID] = linkService
+	lock.Unlock()
+
 	return linkService, nil
 
 }
