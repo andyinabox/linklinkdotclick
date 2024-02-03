@@ -14,6 +14,7 @@ import (
 type App struct {
 	conf   *Config
 	router *gin.Engine
+	us     UserService
 	ls     LinkService
 }
 
@@ -24,7 +25,16 @@ type Config struct {
 	Resources embed.FS
 }
 
-func New(conf *Config, ls LinkService) *App {
+func New(conf *Config, us UserService) *App {
+
+	user, err := us.EnsureDefaultUser()
+	if err != nil {
+		panic(err)
+	}
+	ls, err := us.GetUserLinkService(*user)
+	if err != nil {
+		panic(err)
+	}
 
 	// load templates
 	templates, err := template.ParseFS(conf.Resources, "res/tmpl/*.tmpl")
@@ -53,7 +63,7 @@ func New(conf *Config, ls LinkService) *App {
 	router.SetHTMLTemplate(templates)
 
 	// create app
-	app := &App{conf, router, ls}
+	app := &App{conf, router, us, ls}
 
 	// serve static files
 	router.StaticFS("/static", http.FS(staticFiles))
