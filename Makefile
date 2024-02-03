@@ -22,7 +22,7 @@ clean-res: bin/clean
 clean: clean-bin clean-res
 
 .PHONY: run
-run: clean resources
+run: resources
 	go run .
 
 .PHONY: watch
