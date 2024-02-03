@@ -1,6 +1,10 @@
 package userrepository
 
 import (
+	"io/fs"
+	"os"
+	"path"
+
 	"github.com/andyinabox/linkydink/app"
 	"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
@@ -15,6 +19,12 @@ type Config struct {
 }
 
 func New(conf *Config) (*Repository, error) {
+
+	err := os.MkdirAll(path.Dir(conf.DbFile), fs.ModePerm)
+	if err != nil {
+		return nil, err
+	}
+
 	db, err := gorm.Open(sqlite.Open(conf.DbFile), &gorm.Config{})
 	if err != nil {
 		return nil, err

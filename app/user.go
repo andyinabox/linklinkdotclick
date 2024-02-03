@@ -23,5 +23,5 @@ type UserService interface {
 	FetchUser(id uint) (*User, error)
 	CreateUser(email string) (*User, error)
 	EnsureDefaultUser() (*User, error)
-	GetUserLinkService(User) (LinkService, error)
+	GetUserLinkService(*User) (LinkService, error)
 }

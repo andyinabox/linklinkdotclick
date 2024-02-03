@@ -13,9 +13,7 @@ func Test_CreateUser(t *testing.T) {
 	if err != nil {
 		t.Fatal(err.Error())
 	}
-	s := New(&Config{
-		UserDbPath: "db/usr",
-	}, r)
+	s := New(&Config{}, r)
 
 	invalidEmail := "example.com"
 	_, err = s.CreateUser(invalidEmail)

@@ -4,7 +4,7 @@ import "github.com/andyinabox/linkydink/app"
 
 const (
 	defaultUserEmail  = "linkydink@linkydink.tld"
-	defaultUserDbPath = "db/usr"
+	defaultUserDbPath = ":memory:"
 )
 
 type Service struct {

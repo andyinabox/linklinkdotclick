@@ -31,7 +31,7 @@ func New(conf *Config, us UserService) *App {
 	if err != nil {
 		panic(err)
 	}
-	ls, err := us.GetUserLinkService(*user)
+	ls, err := us.GetUserLinkService(user)
 	if err != nil {
 		panic(err)
 	}

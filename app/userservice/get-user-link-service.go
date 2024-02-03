@@ -2,22 +2,24 @@ package userservice
 
 import (
 	"errors"
+	"fmt"
 	"path"
-	"strconv"
 
 	"github.com/andyinabox/linkydink/app"
 	"github.com/andyinabox/linkydink/app/linkrepository"
 	"github.com/andyinabox/linkydink/app/linkservice"
 )
 
-var cachedLinkServices map[uint]app.LinkService
+var cachedLinkServices = map[uint]app.LinkService{}
 
 func (s *Service) getUserDbFilePath(id uint) string {
-	idStr := strconv.Itoa(int(id))
-	return path.Join(s.c.UserDbPath, idStr, ".db")
+	if s.c.UserDbPath == ":memory:" {
+		return fmt.Sprintf("file:%d?mode=memory", id)
+	}
+	return path.Join(s.c.UserDbPath, fmt.Sprintf("%d.db", id))
 }
 
-func (s *Service) GetUserLinkService(user app.User) (app.LinkService, error) {
+func (s *Service) GetUserLinkService(user *app.User) (app.LinkService, error) {
 	if user.ID == 0 {
 		return nil, errors.New("invalid user id: 0")
 	}
