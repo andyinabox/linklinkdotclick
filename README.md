@@ -62,21 +62,19 @@ sudo systemctl stop linkydink
 sudo journalctl -u linkydink.service
 ```
 
-> **Note:** havent gotten this working yet
-
 Remove sudo password requirement:
 
- -> https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file
- -> https://unix.stackexchange.com/questions/192706/how-could-we-allow-non-root-users-to-control-a-systemd-service
- -> https://linuxize.com/post/how-to-add-user-to-sudoers-in-ubuntu/
- -> https://help.ubuntu.com/community/Sudoers
+ - https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file
+ - https://unix.stackexchange.com/questions/192706/how-could-we-allow-non-root-users-to-control-a-systemd-service
+ - https://linuxize.com/post/how-to-add-user-to-sudoers-in-ubuntu/
+ - https://help.ubuntu.com/community/Sudoers
 
 Add this to `sudoers`
 
 ```
-%andy ALL= NOPASSWD: /bin/usr/systemctl start linkydink
-%andy ALL= NOPASSWD: /bin/usr/systemctl stop linkydink
-%andy ALL= NOPASSWD: /bin/usr/systemctl restart linkydink
+andy ALL=(ALL) NOPASSWD:/usr/bin/systemctl start linkydink
+andy ALL=(ALL) NOPASSWD:/usr/bin/systemctl stop linkydink
+andy ALL=(ALL) NOPASSWD:/usr/bin/systemctl restart linkydink
 ```
 
 
@@ -104,5 +102,7 @@ Add this to `sudoers`
  - [x] Deploy
  - [x] Add SSL
  - [x] Setup CORS
+ - [ ] Multi-user
+ - [ ] OPML import
  - [ ] Authentication
  - [ ] Ability to edit styles in browser

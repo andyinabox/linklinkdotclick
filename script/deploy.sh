@@ -8,13 +8,20 @@ TIME=$(date +%s)
 scp ./dist/linkydink-linux-amd64 andy@$HOST:/home/andy/deploy/linkydink-$TIME
 
 # stop application
-ssh -t andy@$HOST sudo systemctl stop linkydink
+# ssh -t andy@$HOST sudo systemctl stop linkydink
 
 # update symlink
 ssh andy@$HOST /bin/bash << EOF
+echo "stopping server"
+sudo systemctl stop linkydink
+
+echo "replacing symlink for linkydink-$TIME"
 rm /home/andy/bin/linkydink
 ln -s /home/andy/deploy/linkydink-$TIME /home/andy/bin/linkydink
+
+echo "starting server"
+sudo systemctl start linkydink
 EOF
 
 # start application
-ssh -t andy@$HOST sudo systemctl start linkydink
+# ssh -t andy@$HOST sudo systemctl start linkydink
