@@ -1,4 +1,4 @@
-package linkrepository
+package userrepository
 
 import (
 	"github.com/andyinabox/linkydink/app"
@@ -15,13 +15,11 @@ type Config struct {
 }
 
 func New(conf *Config) (*Repository, error) {
-
 	db, err := gorm.Open(sqlite.Open(conf.DbFile), &gorm.Config{})
 	if err != nil {
 		return nil, err
 	}
-
-	err = db.AutoMigrate(&app.Link{})
+	err = db.AutoMigrate(&app.User{})
 	if err != nil {
 		return nil, err
 	}

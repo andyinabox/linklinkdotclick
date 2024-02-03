@@ -7,7 +7,10 @@ import (
 )
 
 func Test_CreateLink(t *testing.T) {
-	r := New(&Config{":memory:"})
+	r, err := New(&Config{":memory:"})
+	if err != nil {
+		t.Fatal(err.Error())
+	}
 	link := fixtures.LinkBeforeInsert()
 	createdLink, err := r.CreateLink(link)
 	if err != nil {

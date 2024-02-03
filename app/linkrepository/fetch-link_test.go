@@ -7,7 +7,10 @@ import (
 )
 
 func Test_FetchLink(t *testing.T) {
-	r := New(&Config{":memory:"})
+	r, err := New(&Config{":memory:"})
+	if err != nil {
+		t.Fatal(err.Error())
+	}
 
 	// test fetching non-existent record
 	fetchedLink, err := r.FetchLink(99)

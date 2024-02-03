@@ -25,9 +25,12 @@ func main() {
 	flag.StringVar(&mode, "mode", "debug", "run mode, use 'release' for production")
 	flag.Parse()
 
-	lr := linkrepository.New(&linkrepository.Config{
+	lr, err := linkrepository.New(&linkrepository.Config{
 		DbFile: dbfile,
 	})
+	if err != nil {
+		panic(err)
+	}
 	ls := linkservice.New(lr)
 
 	appInstance := app.New(&app.Config{

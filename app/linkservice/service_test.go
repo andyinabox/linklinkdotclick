@@ -7,8 +7,11 @@ import (
 )
 
 func Test_New(t *testing.T) {
-	lr := linkrepository.New(&linkrepository.Config{
+	lr, err := linkrepository.New(&linkrepository.Config{
 		DbFile: ":memory:",
 	})
+	if err != nil {
+		t.Fatal(err.Error())
+	}
 	_ = New(lr)
 }

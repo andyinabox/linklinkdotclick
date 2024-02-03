@@ -41,7 +41,7 @@ Description=linkydink
 
 [Service]
 Type=simple
-ExecStart=/home/andy/bin/linkydink --port=80 --mode=release --dbfile=/home/andy/db/linkydink>
+ExecStart=/home/andy/bin/linkydink --port=80 --mode=release --dbfile=/home/andy/db/linkydink
 Restart=on-failure
 RestartSec=5s
 
@@ -69,7 +69,7 @@ Remove sudo password requirement:
  - https://linuxize.com/post/how-to-add-user-to-sudoers-in-ubuntu/
  - https://help.ubuntu.com/community/Sudoers
 
-Add this to `sudoers`
+Add this to `/etc/sudoers.d/andy`
 
 ```
 andy ALL=(ALL) NOPASSWD:/usr/bin/systemctl start linkydink

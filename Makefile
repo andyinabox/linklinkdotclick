@@ -17,7 +17,7 @@ clean-res:
 clean: clean-dist clean-res
 
 .PHONY: run
-run: clean dist/linkydink db
+run: clean dist/linkydink db/usr
 	./dist/linkydink
 
 .PHONY: watch
@@ -32,8 +32,8 @@ test:
 test-verbose:
 	go test -v ./app/...
 
-db:
-	mkdir -p db
+db/usr:
+	mkdir -p db/usr
 
 res/tmpl:
 	go run ./cmd/copy -g='assets/**/*.tmpl' -o=res/tmpl
