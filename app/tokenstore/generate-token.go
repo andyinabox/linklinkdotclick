@@ -1,12 +1,11 @@
-package magiclinkservice
+package tokenstore
 
 import (
 	"crypto/rand"
 	"encoding/base64"
 )
 
-// GenerateToken generates a token
-func (s *Service) generateToken(n int) (string, error) {
+func generateHash(n int) (string, error) {
 	b := make([]byte, n)
 	_, err := rand.Read(b)
 	if err != nil {
