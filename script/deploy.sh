@@ -5,7 +5,7 @@ HOST=linklink.click
 TIME=$(date +%s)
 
 # copy bin to server
-scp ./dist/linkydink-linux-amd64 andy@$HOST:/home/andy/deploy/linkydink-$TIME
+scp ./bin/linkydink-linux-amd64 andy@$HOST:/home/andy/deploy/linkydink-$TIME
 
 # stop application
 # ssh -t andy@$HOST sudo systemctl stop linkydink
