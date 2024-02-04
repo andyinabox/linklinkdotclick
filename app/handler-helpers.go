@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -52,4 +53,36 @@ func (a *App) GetID(ctx *gin.Context) (uint, error) {
 	str := ctx.Param("id")
 	id, err := strconv.Atoi(str)
 	return uint(id), err
+}
+
+func (a *App) GetUserIdFromSession(ctx *gin.Context) (id uint, err error) {
+	session := sessions.Default(ctx)
+	value := session.Get("user")
+	if value == nil {
+		err = ErrUnauthorized
+		return
+	}
+	var ok bool
+	id, ok = value.(uint)
+	if !ok {
+		err = ErrServerError
+		return
+	}
+	return
+}
+
+func (a *App) GetUserLinkServiceFromSession(ctx *gin.Context) (LinkService, error) {
+	user, err := a.GetUserFromSession(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return a.us.GetUserLinkService(user)
+}
+
+func (a *App) GetUserFromSession(ctx *gin.Context) (*User, error) {
+	id, err := a.GetUserIdFromSession(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return a.us.FetchUser(id)
 }
