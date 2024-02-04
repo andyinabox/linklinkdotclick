@@ -88,13 +88,7 @@ func (a *App) Start() error {
 	// run with let's encrypt
 	if a.conf.Mode == "release" {
 		return autotls.Run(a.router, a.conf.Domain)
-
-		// run with custom host/port
-	} else if a.conf.Port != "" {
-		return a.router.Run(":" + a.conf.Port)
-
-		// run with defaults
-	} else {
-		return a.router.Run()
 	}
+
+	return a.router.RunTLS(":"+a.conf.Port, "./.cert/localhost.crt", "./.cert/localhost.key")
 }

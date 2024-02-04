@@ -22,7 +22,7 @@ clean-res: bin/clean
 clean: clean-bin clean-res
 
 .PHONY: run
-run: resources
+run: resources .cert/localhost.crt
 	go run .
 
 .PHONY: watch
@@ -34,7 +34,7 @@ test:
 	go test ./app/...
 
 .PHONY: resources
-resources: res/static/main.js res/static/main.css res/tmpl
+resources: clean-res res/static/main.js res/static/main.css res/tmpl
 
 bin:
 	mkdir bin
@@ -66,3 +66,6 @@ bin/linkydink: bin resources
 # this actually just runs `make build` inside a docker container
 bin/linkydink-linux-amd64:
 	./script/build-linux-amd64.sh
+
+.cert/localhost.crt:
+	./script/cert.sh

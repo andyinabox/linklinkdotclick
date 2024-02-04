@@ -53,6 +53,9 @@ button {
   padding: 0.3em 0.5em;
   cursor: pointer;
 }
+button:before {
+  margin-right: 0.5em;
+}
 button:after {
   margin-left: 0.5em;
 }
@@ -74,6 +77,10 @@ button[name='delete']:after {
 
 button[name='rename']:after {
   content: '✍️';
+}
+
+button[name='login']:before {
+  content: '🐿';
 }
 
 /*

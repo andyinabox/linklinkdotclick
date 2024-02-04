@@ -4,3 +4,4 @@ res
 dist
 bin
 .vscode
+.cert

@@ -1,8 +1,19 @@
-import { createLink } from './lib/api'
-import { handleError } from './lib/errors'
+import { createLink } from './api'
+import { handleError } from './errors'
 import { Link } from './link'
 
 const linksContainerEl = document.getElementById('links')
+
+// login/signup
+
+const btnLogin = document.querySelector('button[name="login"]')
+btnLogin.addEventListener('click', () => {
+  const email = prompt('Enter your email:')
+  if (email === '') {
+    return
+  }
+  console.log('login user ' + email)
+})
 
 // re-ordering links
 function sortLinks() {

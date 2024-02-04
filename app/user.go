@@ -24,4 +24,6 @@ type UserService interface {
 	CreateUser(email string) (*User, error)
 	EnsureDefaultUser() (*User, error)
 	GetUserLinkService(*User) (LinkService, error)
+	Login(email string) (token string, err error)
+	Logout(token string) error
 }

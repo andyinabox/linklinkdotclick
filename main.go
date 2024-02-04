@@ -22,7 +22,7 @@ func main() {
 	var defaultemail string
 
 	flag.StringVar(&domain, "domain", "linklink.click", "the domain the site is hosted on (linklink.click)")
-	flag.StringVar(&port, "port", "", "port to run the webserver on")
+	flag.StringVar(&port, "port", "8080", "port to run the webserver on")
 	flag.StringVar(&dbfile, "dbfile", "db/linkydink.db", "location on sqlite db")
 	flag.StringVar(&mode, "mode", "debug", "run mode, use 'release' for production")
 	flag.StringVar(&defaultemail, "defaultemail", "linkydink@linkydink.tld", "an email for the default user that appears when not logged in")
