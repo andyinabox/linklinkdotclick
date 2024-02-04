@@ -1,6 +1,7 @@
 package app
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,25 +10,32 @@ import (
 type IndexRenderContext struct {
 	Links     []Link
 	DummyLink Link
+	User      *User
 }
 
 func (a *App) IndexGet(ctx *gin.Context) {
 
-	// var links []Link
-	// tx := a.db.Order("last_clicked").Find(&links)
-	// err := tx.Error
-	// if err != nil {
-	// 	a.ErrorResponse(ctx, http.StatusInternalServerError, err)
-	// 	return
-	// }
+	user, err := a.GetUserFromSession(ctx)
+	// it's ok if no user is found, but we want to abort for server errors
+	if err != nil && errors.Is(err, ErrServerError) {
+		ctx.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
 
-	links, err := a.ls.FetchLinks()
+	ls, err := a.GetUserLinkServiceFromSession(ctx)
 	if err != nil {
-		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		ctx.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	links, err := ls.FetchLinks()
+	if err != nil {
+		ctx.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
 	ctx.HTML(http.StatusOK, "index.html.tmpl", &IndexRenderContext{
 		Links: links,
+		User:  user,
 	})
 }

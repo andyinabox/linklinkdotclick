@@ -46,16 +46,36 @@ body.loading > nav:after {
 }
 
 /*
- * button styles
+ * form/button styles
  */
-button {
+form {
+  display: inline-block;
+}
+
+button,
+input {
   font-size: 0.5rem;
   padding: 0.3em 0.5em;
+}
+button,
+input[type='submit'] {
   cursor: pointer;
 }
-button:after {
+
+button:before,
+input[type='submit']:before {
+  display: inline-block;
+  margin-right: 0.5em;
+}
+button:after,
+input[type='submit']:after {
+  display: inline-block;
   margin-left: 0.5em;
 }
+
+/*
+ * button icons
+ */
 
 button[name='edit']:after {
   content: '✏️';
@@ -74,6 +94,14 @@ button[name='delete']:after {
 
 button[name='rename']:after {
   content: '✍️';
+}
+
+input[name='login']:after {
+  content: '🐿';
+}
+
+input[name='logout']:after {
+  content: '🐿';
 }
 
 /*

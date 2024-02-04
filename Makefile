@@ -1,58 +1,71 @@
 .PHONY: build
-build: clean dist/linkydink
+build: clean bin/linkydink
+
+.PHONY: dist
+dist: bin/linkydink-linux-amd64
+	-mkdir dist
+	tar -czvf dist/linkydink-linux-amd64.tar.gz bin/linkydink-linux-amd64
 
 .PHONY: deploy
-deploy: clean-dist dist/linkydink-linux-amd64
+deploy: clean-bin bin/linkydink-linux-amd64
 	./script/deploy.sh
 
-.PHONY: clean-dist
-clean-dist:
-	rm -rf dist
+.PHONY: clean-bin
+clean-bin: bin/clean
+	./bin/clean -g 'bin/linkydink*'
 
 .PHONY: clean-res
-clean-res:
-	rm -rf res
+clean-res: bin/clean
+	./bin/clean -g 'res/**/*'
 
 .PHONY: clean
-clean: clean-dist clean-res
+clean: clean-bin clean-res
 
 .PHONY: run
-run: clean dist/linkydink db
-	./dist/linkydink
+run: resources .cert/localhost.crt
+	go run .
 
 .PHONY: watch
 watch:
-	reflex -d fancy -G 'dist' -G 'res' -G 'db/*' -s make run
+	reflex -d fancy -G 'bin/**/*' -G 'res/**/*' -G 'db/**/*' -s make run
 
 .PHONY: test
 test:
 	go test ./app/...
 
-.PHONY: test-verbose
-test-verbose:
-	go test -v ./app/...
+.PHONY: resources
+resources: clean-res res/static/main.js res/static/main.css res/tmpl
 
-db:
-	mkdir -p db
+bin:
+	mkdir bin
 
-res/tmpl:
-	go run ./cmd/copy -g='assets/**/*.tmpl' -o=res/tmpl
+res:
+	mkdir res
 
-res/static:
-	go run ./cmd/copy -g 'assets/static/*' -o=res/static
+res/tmpl: res bin/copy
+	./bin/copy -g='assets/**/*.tmpl' -o=res/tmpl
 
-res/static/main.js:
-	go run cmd/esbuild/main.go assets/main.js --bundle --minify --outfile=res/static/main.js
+res/static/main.js: res bin/esbuild
+	./bin/esbuild assets/main.js --bundle --minify --outfile=res/static/main.js
 
-res/static/main.css:
-	go run ./cmd/copy -g 'assets/main.css' -o=res/static
+res/static/main.css: res bin/copy
+	./bin/copy -g 'assets/main.css' -o=res/static
 
-res: res/tmpl res/static res/static/main.js res/static/main.css
+bin/clean: bin
+	go build -o bin/clean cmd/clean/main.go
 
-dist/linkydink: res
-	go build -o dist/linkydink main.go
+bin/copy: bin
+	go build -o bin/copy cmd/copy/main.go
 
-dist/linkydink-linux-amd64:
+bin/esbuild: bin
+	go build -o bin/esbuild cmd/esbuild/main.go
+
+bin/linkydink: bin resources
+	go build -o bin/linkydink main.go
+
+# this actually just runs `make build` inside a docker container
+bin/linkydink-linux-amd64:
 	./script/build-linux-amd64.sh
 
-
+.cert/localhost.crt:
+	./script/cert.sh

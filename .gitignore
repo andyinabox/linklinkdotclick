@@ -1,4 +1,7 @@
 db/*
+*.db
 res
 dist
+bin
 .vscode
+.cert

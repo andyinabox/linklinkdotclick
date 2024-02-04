@@ -1,5 +1,5 @@
-import { createLink } from './lib/api'
-import { handleError } from './lib/errors'
+import { createLink } from './api'
+import { handleError } from './errors'
 import { Link } from './link'
 
 const linksContainerEl = document.getElementById('links')

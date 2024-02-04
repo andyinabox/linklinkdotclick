@@ -1,5 +1,5 @@
-import { getLink, updateLink, deleteLink } from './lib/api'
-import { handleError } from './lib/errors'
+import { getLink, updateLink, deleteLink } from './api'
+import { handleError } from './errors'
 
 export class Link extends HTMLElement {
   constructor() {

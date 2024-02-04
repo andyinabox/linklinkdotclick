@@ -1,4 +1,4 @@
-package linkrepository
+package userrepository
 
 import (
 	"io/fs"
@@ -29,8 +29,7 @@ func New(conf *Config) (*Repository, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	err = db.AutoMigrate(&app.Link{})
+	err = db.AutoMigrate(&app.User{})
 	if err != nil {
 		return nil, err
 	}

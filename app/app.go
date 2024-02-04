@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/gin"
 )
@@ -14,6 +15,7 @@ import (
 type App struct {
 	conf   *Config
 	router *gin.Engine
+	us     UserService
 	ls     LinkService
 }
 
@@ -24,7 +26,16 @@ type Config struct {
 	Resources embed.FS
 }
 
-func New(conf *Config, ls LinkService) *App {
+func New(conf *Config, us UserService, store sessions.Store) *App {
+
+	user, err := us.EnsureDefaultUser()
+	if err != nil {
+		panic(err)
+	}
+	ls, err := us.GetUserLinkService(user)
+	if err != nil {
+		panic(err)
+	}
 
 	// load templates
 	templates, err := template.ParseFS(conf.Resources, "res/tmpl/*.tmpl")
@@ -51,15 +62,18 @@ func New(conf *Config, ls LinkService) *App {
 	router := gin.Default()
 	router.SetTrustedProxies(nil)
 	router.SetHTMLTemplate(templates)
+	router.Use(sessions.Sessions("session", store))
 
 	// create app
-	app := &App{conf, router, ls}
+	app := &App{conf, router, us, ls}
 
 	// serve static files
 	router.StaticFS("/static", http.FS(staticFiles))
 
 	// http routes
 	router.GET("/", app.IndexGet)
+	router.POST("/login", app.LoginPost)
+	router.POST("/logout", app.LogoutPost)
 
 	// api routes
 	api := router.Group("/api")
@@ -78,13 +92,7 @@ func (a *App) Start() error {
 	// run with let's encrypt
 	if a.conf.Mode == "release" {
 		return autotls.Run(a.router, a.conf.Domain)
-
-		// run with custom host/port
-	} else if a.conf.Port != "" {
-		return a.router.Run(":" + a.conf.Port)
-
-		// run with defaults
-	} else {
-		return a.router.Run()
 	}
+
+	return a.router.RunTLS(":"+a.conf.Port, "./.cert/localhost.crt", "./.cert/localhost.key")
 }
