@@ -15,23 +15,13 @@ func (a *App) ApiLinksIdGet(ctx *gin.Context) {
 		return
 	}
 
-	// var link Link
-	// tx := a.db.First(&link, id)
-	// err = tx.Error
-	// if err != nil {
-	// 	a.NotFoundResponse(ctx)
-	// 	return
-	// }
+	ls, err := a.GetUserLinkServiceFromSession(ctx)
+	if err != nil {
+		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		return
+	}
 
-	// if refresh {
-	// 	err = a.RefreshLink(&link)
-	// 	if err != nil {
-	// 		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
-	// 		return
-	// 	}
-	// }
-
-	link, err := a.ls.FetchLink(id, refresh)
+	link, err := ls.FetchLink(id, refresh)
 	if err != nil {
 		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
 		return

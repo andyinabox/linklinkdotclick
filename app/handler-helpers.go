@@ -71,10 +71,11 @@ func (a *App) GetUserIdFromSession(ctx *gin.Context) (id uint, err error) {
 	return
 }
 
+// if user is not found, use the default link service instead
 func (a *App) GetUserLinkServiceFromSession(ctx *gin.Context) (LinkService, error) {
 	user, err := a.GetUserFromSession(ctx)
 	if err != nil {
-		return nil, err
+		return a.ls, nil
 	}
 	return a.us.GetUserLinkService(user)
 }

@@ -13,17 +13,15 @@ type IndexRenderContext struct {
 
 func (a *App) IndexGet(ctx *gin.Context) {
 
-	// var links []Link
-	// tx := a.db.Order("last_clicked").Find(&links)
-	// err := tx.Error
-	// if err != nil {
-	// 	a.ErrorResponse(ctx, http.StatusInternalServerError, err)
-	// 	return
-	// }
-
-	links, err := a.ls.FetchLinks()
+	ls, err := a.GetUserLinkServiceFromSession(ctx)
 	if err != nil {
-		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		ctx.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	links, err := ls.FetchLinks()
+	if err != nil {
+		ctx.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
