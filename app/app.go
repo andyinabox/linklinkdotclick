@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/gin"
 )
@@ -25,7 +26,7 @@ type Config struct {
 	Resources embed.FS
 }
 
-func New(conf *Config, us UserService) *App {
+func New(conf *Config, us UserService, store sessions.Store) *App {
 
 	user, err := us.EnsureDefaultUser()
 	if err != nil {
@@ -61,6 +62,7 @@ func New(conf *Config, us UserService) *App {
 	router := gin.Default()
 	router.SetTrustedProxies(nil)
 	router.SetHTMLTemplate(templates)
+	router.Use(sessions.Sessions("session", store))
 
 	// create app
 	app := &App{conf, router, us, ls}

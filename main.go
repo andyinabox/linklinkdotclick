@@ -9,6 +9,7 @@ import (
 	"github.com/andyinabox/linkydink/app"
 	"github.com/andyinabox/linkydink/app/userrepository"
 	"github.com/andyinabox/linkydink/app/userservice"
+	"github.com/gin-contrib/sessions/cookie"
 )
 
 //go:embed res/*
@@ -28,6 +29,9 @@ func main() {
 	flag.StringVar(&defaultemail, "defaultemail", "linkydink@linkydink.tld", "an email for the default user that appears when not logged in")
 	flag.Parse()
 
+	// maybe not the most secure?
+	store := cookie.NewStore([]byte(domain + port + dbfile + mode + defaultemail))
+
 	userRepository, err := userrepository.New(&userrepository.Config{
 		DbFile: dbfile,
 	})
@@ -45,7 +49,7 @@ func main() {
 		Port:      port,
 		Mode:      mode,
 		Resources: res,
-	}, userService)
+	}, userService, store)
 
 	log.Fatal(appInstance.Start())
 }
