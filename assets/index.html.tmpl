@@ -23,6 +23,7 @@
       <h1>🖇 my reading list</h1>
     </header>
     <main>
+      {{ template "login.html.tmpl" }}
       <menu id="links">
       {{ range.Links }}
         {{ template "link.html.tmpl" .}}

@@ -83,6 +83,12 @@ button[name='login']:before {
   content: '🐿';
 }
 
+/* input styles */
+input {
+  font-size: 0.5rem;
+  padding: 0.3em 0.5em;
+}
+
 /*
  * link styles
  */

@@ -21,9 +21,7 @@ type UserRepository interface {
 
 type UserService interface {
 	FetchUser(id uint) (*User, error)
-	CreateUser(email string) (*User, error)
+	FetchOrCreateUserByEmail(email string) (*User, error)
 	EnsureDefaultUser() (*User, error)
 	GetUserLinkService(*User) (LinkService, error)
-	Login(email string) (token string, err error)
-	Logout(token string) error
 }
