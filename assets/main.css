@@ -48,6 +48,10 @@ body.loading > nav:after {
 /*
  * form/button styles
  */
+form {
+  display: inline-block;
+}
+
 button,
 input {
   font-size: 0.5rem;
@@ -63,13 +67,10 @@ input[type='submit']:before {
   display: inline-block;
   margin-right: 0.5em;
 }
-button:after input[type='submit']:after {
+button:after,
+input[type='submit']:after {
   display: inline-block;
   margin-left: 0.5em;
-}
-
-form#logout {
-  display: inline-block;
 }
 
 /*

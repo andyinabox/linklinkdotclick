@@ -23,12 +23,6 @@
       <h1>🖇 my reading list</h1>
     </header>
     <main>
-      {{ if not .User }}
-        <form method="post" action="/login">
-          <input type="text" name="email" placeholder="you@example.com">
-          <input type="submit" name="login" value="Login/Signup">
-        </form>
-      {{ end }}
       <menu id="links">
       {{ range.Links }}
         {{ template "link.html.tmpl" .}}
@@ -40,7 +34,13 @@
       <button name="add">Add</button>
       {{ if .User }}
         <form id="logout" method="post" action="/logout">
-          <input type="submit" name="logout" value="Logout">
+          <input type="submit" name="logout" value="Logout 👋">
+        </form>
+      {{ end }}
+      {{ if not .User }}
+        <form method="post" action="/login">
+          <input type="text" name="email" placeholder="you@example.com">
+          <input type="submit" name="login" value="Login/Signup 🚪">
         </form>
       {{ end }}
     </nav>
