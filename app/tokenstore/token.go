@@ -3,7 +3,7 @@ package tokenstore
 import "time"
 
 type Token struct {
-	ID        string
+	ID        uint
 	Hash      string `gorm:"uniqueIndex"`
 	UserID    uint
 	CreatedAt time.Time

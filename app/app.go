@@ -80,7 +80,7 @@ func New(conf *Config, us UserService, store sessions.Store) *App {
 	// http routes
 	router.GET("/", app.IndexGet)
 	router.POST("/login", app.LoginPost)
-	router.GET("/login/:hash", app.LoginPost)
+	router.GET("/login/:hash", app.LoginGet)
 	router.POST("/logout", app.LogoutPost)
 
 	// api routes

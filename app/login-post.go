@@ -3,20 +3,26 @@ package app
 import (
 	"fmt"
 	"net/http"
+	"net/mail"
 
+	"github.com/andyinabox/linkydink/pkg/mailservice"
 	"github.com/gin-gonic/gin"
 )
 
 var emailBodyTemplate = `
 Here you go!
 
-https://%s/login/%s
+%s
 
 🖇
 `
 
 func (a *App) LoginPost(ctx *gin.Context) {
 	email := ctx.PostForm("email")
+	if email == "" {
+		ctx.AbortWithStatus(http.StatusBadRequest)
+		return
+	}
 
 	user, err := a.us.FetchOrCreateUserByEmail(email)
 	if err != nil {
@@ -30,13 +36,20 @@ func (a *App) LoginPost(ctx *gin.Context) {
 		return
 	}
 
-	// err := a.ms.Send(&mailservice.Email{
-	// 	From:    mail.Address{"Linky", "linky@" + a.conf.Domain},
-	// 	To:      mail.Address{"You", user.Email},
-	// 	Subject: c.conf.Domain + " magic login link ✨",
-	// 	Body:    fmt.Sprintf(emailBodyTemplate, a.conf.Domain, hash),
-	// })
+	magicLink := fmt.Sprintf("https://%s/login/%s", ctx.Request.Host, hash)
 
-	magicLink := fmt.Sprintf("https://%s/%s", ctx.Request.Host, hash)
-	ctx.String(http.StatusOK, magicLink)
+	err = a.ms.Send(&mailservice.Email{
+		From:    mail.Address{"Linky", "linky@" + a.conf.Domain},
+		To:      mail.Address{"You", user.Email},
+		Subject: a.conf.Domain + " magic login link ✨",
+		Body:    fmt.Sprintf(emailBodyTemplate, magicLink),
+	})
+	if err != nil {
+		if err != nil {
+			ctx.AbortWithError(http.StatusInternalServerError, err)
+			return
+		}
+	}
+
+	ctx.Redirect(http.StatusSeeOther, "/")
 }
