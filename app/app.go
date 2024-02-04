@@ -72,6 +72,8 @@ func New(conf *Config, us UserService, store sessions.Store) *App {
 
 	// http routes
 	router.GET("/", app.IndexGet)
+	router.POST("/login", app.LoginPost)
+	router.POST("/logout", app.LogoutPost)
 
 	// api routes
 	api := router.Group("/api")
