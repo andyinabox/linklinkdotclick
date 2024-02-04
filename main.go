@@ -3,13 +3,18 @@ package main
 import (
 	"embed"
 	"flag"
+	"io/fs"
 	"log"
+	"os"
 	"path"
 
 	"github.com/andyinabox/linkydink/app"
+	"github.com/andyinabox/linkydink/app/tokenstore"
 	"github.com/andyinabox/linkydink/app/userrepository"
 	"github.com/andyinabox/linkydink/app/userservice"
 	"github.com/gin-contrib/sessions/cookie"
+	"github.com/glebarez/sqlite"
+	"gorm.io/gorm"
 )
 
 //go:embed res/*
@@ -34,22 +39,32 @@ func main() {
 	// maybe not the most secure?
 	store := cookie.NewStore([]byte(domain + port + dbfile + mode + defaultemail))
 
-	userRepository, err := userrepository.New(&userrepository.Config{
-		DbFile: dbfile,
-	})
+	userDbPath := path.Join(path.Dir(dbfile), "usr")
+
+	err := os.MkdirAll(path.Dir(userDbPath), fs.ModePerm)
 	if err != nil {
 		panic(err)
 	}
 
+	db, err := gorm.Open(sqlite.Open(dbfile), &gorm.Config{})
+	if err != nil {
+		panic(err)
+	}
+
+	userRepository := userrepository.New(db)
+
+	tokenStore := tokenstore.New(db, &tokenstore.Config{})
+
 	userService := userservice.New(&userservice.Config{
-		UserDbPath:       path.Join(path.Dir(dbfile), "usr"),
+		UserDbPath:       userDbPath,
 		DefaultUserEmail: defaultemail,
-	}, userRepository)
+	}, userRepository, tokenStore)
 
 	appInstance := app.New(&app.Config{
 		Domain:    domain,
 		Port:      port,
 		Mode:      mode,
+		SmtpAddr:  smtpaddr,
 		Resources: res,
 	}, userService, store)
 

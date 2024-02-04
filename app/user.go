@@ -24,4 +24,6 @@ type UserService interface {
 	FetchOrCreateUserByEmail(email string) (*User, error)
 	EnsureDefaultUser() (*User, error)
 	GetUserLinkService(*User) (LinkService, error)
+	GetLoginHashForUser(*User) (string, error)
+	GetUserFromLoginHash(string) (*User, error)
 }

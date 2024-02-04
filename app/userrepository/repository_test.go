@@ -1,10 +1,12 @@
 package userrepository
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/andyinabox/linkydink/test"
+)
 
 func Test_New(t *testing.T) {
-	_, err := New(&Config{":memory:"})
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+	db := test.NewInMemoryDb(t)
+	_ = New(db)
 }

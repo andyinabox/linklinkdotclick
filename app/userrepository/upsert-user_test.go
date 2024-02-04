@@ -4,15 +4,12 @@ import (
 	"testing"
 
 	"github.com/andyinabox/linkydink/app"
+	"github.com/andyinabox/linkydink/test"
 )
 
 func Test_UpsertUser(t *testing.T) {
-	r, err := New(&Config{
-		DbFile: ":memory:",
-	})
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+	db := test.NewInMemoryDb(t)
+	r := New(db)
 
 	expectedEmail := "test2@example.com"
 

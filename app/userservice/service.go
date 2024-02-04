@@ -1,6 +1,8 @@
 package userservice
 
-import "github.com/andyinabox/linkydink/app"
+import (
+	"github.com/andyinabox/linkydink/app"
+)
 
 const (
 	defaultUserEmail  = "linkydink@linkydink.tld"
@@ -8,8 +10,9 @@ const (
 )
 
 type Service struct {
-	c *Config
-	r app.UserRepository
+	c          *Config
+	r          app.UserRepository
+	tokenStore app.TokenStore
 }
 
 type Config struct {
@@ -17,7 +20,7 @@ type Config struct {
 	DefaultUserEmail string
 }
 
-func New(c *Config, r app.UserRepository) *Service {
+func New(c *Config, r app.UserRepository, tokenStore app.TokenStore) *Service {
 
 	if c.DefaultUserEmail == "" {
 		c.DefaultUserEmail = defaultUserEmail
@@ -25,5 +28,5 @@ func New(c *Config, r app.UserRepository) *Service {
 	if c.UserDbPath == "" {
 		c.UserDbPath = defaultUserDbPath
 	}
-	return &Service{c, r}
+	return &Service{c, r, tokenStore}
 }

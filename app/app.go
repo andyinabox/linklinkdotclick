@@ -6,6 +6,7 @@ import (
 	"io/fs"
 	"net/http"
 
+	"github.com/andyinabox/linkydink/pkg/mailservice"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/autotls"
@@ -15,6 +16,7 @@ import (
 type App struct {
 	conf   *Config
 	router *gin.Engine
+	ms     *mailservice.Service
 	us     UserService
 	ls     LinkService
 }
@@ -23,10 +25,15 @@ type Config struct {
 	Domain    string
 	Port      string
 	Mode      string
+	SmtpAddr  string
 	Resources embed.FS
 }
 
 func New(conf *Config, us UserService, store sessions.Store) *App {
+
+	ms := mailservice.New(&mailservice.Config{
+		SmtpAddr: conf.SmtpAddr,
+	})
 
 	user, err := us.EnsureDefaultUser()
 	if err != nil {
@@ -65,7 +72,7 @@ func New(conf *Config, us UserService, store sessions.Store) *App {
 	router.Use(sessions.Sessions("session", store))
 
 	// create app
-	app := &App{conf, router, us, ls}
+	app := &App{conf, router, ms, us, ls}
 
 	// serve static files
 	router.StaticFS("/static", http.FS(staticFiles))
@@ -73,6 +80,7 @@ func New(conf *Config, us UserService, store sessions.Store) *App {
 	// http routes
 	router.GET("/", app.IndexGet)
 	router.POST("/login", app.LoginPost)
+	router.GET("/login/:hash", app.LoginPost)
 	router.POST("/logout", app.LogoutPost)
 
 	// api routes

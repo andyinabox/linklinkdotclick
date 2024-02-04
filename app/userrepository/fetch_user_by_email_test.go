@@ -4,13 +4,12 @@ import (
 	"testing"
 
 	"github.com/andyinabox/linkydink/app"
+	"github.com/andyinabox/linkydink/test"
 )
 
 func Test_FetchUserByEmail(t *testing.T) {
-	r, err := New(&Config{":memory:"})
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+	db := test.NewInMemoryDb(t)
+	r := New(db)
 
 	email := "test@example.com"
 
@@ -20,10 +19,10 @@ func Test_FetchUserByEmail(t *testing.T) {
 		t.Errorf("expected fetching non-existent record to fail, got %v", fetchedUser)
 	}
 
-	link := app.User{
+	user := app.User{
 		Email: email,
 	}
-	_, err = r.CreateUser(link)
+	_, err = r.CreateUser(user)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
