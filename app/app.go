@@ -14,9 +14,7 @@ import (
 
 type App struct {
 	conf   *Config
-	router *gin.Engine
-	us     UserService
-	ls     LinkService
+	engine *gin.Engine
 }
 
 type Config struct {
@@ -26,16 +24,11 @@ type Config struct {
 	Resources embed.FS
 }
 
-func New(conf *Config, us UserService, store sessions.Store) *App {
-
-	user, err := us.EnsureDefaultUser()
-	if err != nil {
-		panic(err)
-	}
-	ls, err := us.GetUserLinkService(user)
-	if err != nil {
-		panic(err)
-	}
+func New(
+	store sessions.Store,
+	routers []RouterGroup,
+	conf *Config,
+) *App {
 
 	// load templates
 	templates, err := template.ParseFS(conf.Resources, "res/tmpl/*.tmpl")
@@ -59,40 +52,27 @@ func New(conf *Config, us UserService, store sessions.Store) *App {
 
 	// router setup
 	gin.SetMode(conf.Mode)
-	router := gin.Default()
-	router.SetTrustedProxies(nil)
-	router.SetHTMLTemplate(templates)
-	router.Use(sessions.Sessions("session", store))
-
-	// create app
-	app := &App{conf, router, us, ls}
+	engine := gin.Default()
+	engine.SetTrustedProxies(nil)
+	engine.SetHTMLTemplate(templates)
+	engine.Use(sessions.Sessions("session", store))
 
 	// serve static files
-	router.StaticFS("/static", http.FS(staticFiles))
+	engine.StaticFS("/static", http.FS(staticFiles))
 
-	// http routes
-	router.GET("/", app.IndexGet)
-	router.POST("/login", app.LoginPost)
-	router.POST("/logout", app.LogoutPost)
+	for _, group := range routers {
+		group.Register(engine)
+	}
 
-	// api routes
-	api := router.Group("/api")
-	api.Use(cors.New(corsConfig))
-	api.GET("/links", app.ApiLinksGet)
-	api.POST("/links", app.ApiLinksPost)
-	api.GET("/links/:id", app.ApiLinksIdGet)
-	api.PUT("/links/:id", app.ApiLinksIdPut)
-	api.DELETE("/links/:id", app.ApiLinksIdDelete)
-
-	return app
+	return &App{conf, engine}
 }
 
 func (a *App) Start() error {
 
 	// run with let's encrypt
 	if a.conf.Mode == "release" {
-		return autotls.Run(a.router, a.conf.Domain)
+		return autotls.Run(a.engine, a.conf.Domain)
 	}
 
-	return a.router.RunTLS(":"+a.conf.Port, "./.cert/localhost.crt", "./.cert/localhost.key")
+	return a.engine.RunTLS(":"+a.conf.Port, "./.cert/localhost.crt", "./.cert/localhost.key")
 }

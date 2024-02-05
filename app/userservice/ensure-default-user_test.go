@@ -2,22 +2,14 @@ package userservice
 
 import (
 	"testing"
-
-	"github.com/andyinabox/linkydink/app/userrepository"
 )
 
 func Test_EnsureDefaultUser(t *testing.T) {
-	r, err := userrepository.New(&userrepository.Config{
-		DbFile: ":memory:",
-	})
-	if err != nil {
-		t.Fatal(err.Error())
-	}
-
 	email := "default@user.com"
-	s := New(&Config{
+
+	s := NewUserService(t, &Config{
 		DefaultUserEmail: email,
-	}, r)
+	})
 
 	user, err := s.EnsureDefaultUser()
 	if err != nil {

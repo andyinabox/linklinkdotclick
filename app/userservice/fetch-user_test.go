@@ -2,20 +2,13 @@ package userservice
 
 import (
 	"testing"
-
-	"github.com/andyinabox/linkydink/app/userrepository"
 )
 
 func Test_FetchUser(t *testing.T) {
-	r, err := userrepository.New(&userrepository.Config{
-		DbFile: ":memory:",
-	})
-	if err != nil {
-		t.Fatal(err.Error())
-	}
-	s := New(&Config{
+	s := NewUserService(t, &Config{
+		// TODO: I don't think this should be necessary
 		UserDbPath: "db/usr",
-	}, r)
+	})
 
 	validEmail := "test@example.com"
 	createdUser, err := s.CreateUser(validEmail)

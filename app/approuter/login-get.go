@@ -1,4 +1,4 @@
-package app
+package approuter
 
 import (
 	"net/http"
@@ -7,12 +7,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (a *App) LoginPost(ctx *gin.Context) {
-	email := ctx.PostForm("email")
+func (r *Router) LoginGet(ctx *gin.Context) {
+	hash := ctx.Param("hash")
+	user, err := r.sc.UserService().GetUserFromLoginHash(hash)
 
-	user, err := a.us.FetchOrCreateUserByEmail(email)
-	if err != nil {
-		ctx.AbortWithError(http.StatusInternalServerError, err)
+	if err != nil || user == nil {
+		ctx.Redirect(http.StatusSeeOther, "/")
 		return
 	}
 

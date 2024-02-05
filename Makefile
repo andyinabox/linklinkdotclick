@@ -36,6 +36,10 @@ test:
 .PHONY: resources
 resources: clean-res res/static/main.js res/static/main.css res/tmpl
 
+.PHONY: smtp-test
+smtp-test:
+	mailpit
+
 bin:
 	mkdir bin
 

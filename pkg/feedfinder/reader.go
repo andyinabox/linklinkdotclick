@@ -1,4 +1,4 @@
-package feedreader
+package feedfinder
 
 import "github.com/mmcdole/gofeed"
 

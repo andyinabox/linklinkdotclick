@@ -1,24 +1,23 @@
 package userservice
 
 import (
+	"io/fs"
 	"os"
 	"path"
 	"testing"
 
+	"github.com/andyinabox/linkydink/app/tokenstore"
 	"github.com/andyinabox/linkydink/app/userrepository"
+	"github.com/glebarez/sqlite"
+	"gorm.io/gorm"
 )
 
 func Test_GetUserLinkServiceInMemoryDb(t *testing.T) {
-	r, err := userrepository.New(&userrepository.Config{
-		DbFile: ":memory:",
-	})
-	if err != nil {
-		t.Fatal(err.Error())
-	}
 	email := "test@example.com"
-	s := New(&Config{
+	s := NewUserService(t, &Config{
 		DefaultUserEmail: email,
-	}, r)
+	})
+
 	user, err := s.EnsureDefaultUser()
 	if err != nil {
 		t.Fatal(err.Error())
@@ -34,17 +33,26 @@ func Test_GetUserLinkServiceFsDb(t *testing.T) {
 	usersDb := "../../test/db/test.db"
 	linksDbDir := path.Join(path.Dir(usersDb), "usr")
 
-	r, err := userrepository.New(&userrepository.Config{
-		DbFile: usersDb,
-	})
+	err := os.MkdirAll(path.Dir(linksDbDir), fs.ModePerm)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
+
+	db, err := gorm.Open(sqlite.Open(usersDb), &gorm.Config{})
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	r := userrepository.New(db)
+
 	email := "test@example.com"
-	s := New(&Config{
+	config := &Config{
 		UserDbPath:       linksDbDir,
 		DefaultUserEmail: email,
-	}, r)
+	}
+	ts := tokenstore.New(db, &tokenstore.Config{})
+	s := New(r, ts, config)
+
 	user, err := s.EnsureDefaultUser()
 	if err != nil {
 		t.Fatal(err.Error())

@@ -1,4 +1,4 @@
-package app
+package approuter
 
 import (
 	"net/http"
@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (a *App) LogoutPost(ctx *gin.Context) {
+func (r *Router) LogoutPost(ctx *gin.Context) {
 	session := sessions.Default(ctx)
 	session.Clear()
 	session.Save()
