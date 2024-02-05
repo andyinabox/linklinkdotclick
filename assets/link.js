@@ -106,7 +106,7 @@ export class Link extends HTMLElement {
 
   disconnectedCallback() {
     this.slots.link.removeEventListener('click', this.onClick)
-    this.slots.edit
+    this.slots['edit-menu']
       .querySelector('[name="delete"]')
       .removeEventListener('click', this.onDelete)
   }

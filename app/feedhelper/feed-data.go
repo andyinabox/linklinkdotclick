@@ -31,7 +31,7 @@ func (d *FeedData) NewItemsCount(after *time.Time) uint {
 	var count uint = 0
 	for _, item := range d.Items {
 		if item.PublishedParsed.After(*after) {
-			count += 1
+			count = count + 1
 		}
 	}
 
