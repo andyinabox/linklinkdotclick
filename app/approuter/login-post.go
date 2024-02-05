@@ -1,4 +1,4 @@
-package app
+package approuter
 
 import (
 	"fmt"
@@ -17,14 +17,14 @@ Here you go!
 🖇
 `
 
-func (a *App) LoginPost(ctx *gin.Context) {
+func (r *Router) LoginPost(ctx *gin.Context) {
 	email := ctx.PostForm("email")
 	if email == "" {
 		ctx.AbortWithStatus(http.StatusBadRequest)
 		return
 	}
 
-	userService := a.sc.UserService()
+	userService := r.sc.UserService()
 
 	user, err := userService.FetchOrCreateUserByEmail(email)
 	if err != nil {
@@ -40,10 +40,16 @@ func (a *App) LoginPost(ctx *gin.Context) {
 
 	magicLink := fmt.Sprintf("https://%s/login/%s", ctx.Request.Host, hash)
 
-	err = a.sc.MailService().Send(&mailservice.Email{
-		From:    mail.Address{"Linky", "linky@" + a.conf.Domain},
-		To:      mail.Address{"You", user.Email},
-		Subject: a.conf.Domain + " magic login link ✨",
+	err = r.sc.MailService().Send(&mailservice.Email{
+		From: mail.Address{
+			Name:    "Linky",
+			Address: "noreply@" + ctx.Request.Host,
+		},
+		To: mail.Address{
+			Name:    "You",
+			Address: user.Email,
+		},
+		Subject: ctx.Request.Host + " magic login link ✨",
 		Body:    fmt.Sprintf(emailBodyTemplate, magicLink),
 	})
 	if err != nil {

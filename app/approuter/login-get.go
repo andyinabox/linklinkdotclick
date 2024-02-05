@@ -1,4 +1,4 @@
-package app
+package approuter
 
 import (
 	"net/http"
@@ -7,9 +7,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (a *App) LoginGet(ctx *gin.Context) {
+func (r *Router) LoginGet(ctx *gin.Context) {
 	hash := ctx.Param("hash")
-	user, err := a.sc.UserService().GetUserFromLoginHash(hash)
+	user, err := r.sc.UserService().GetUserFromLoginHash(hash)
 
 	if err != nil || user == nil {
 		ctx.Redirect(http.StatusSeeOther, "/")

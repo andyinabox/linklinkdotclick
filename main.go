@@ -10,6 +10,8 @@ import (
 	"time"
 
 	"github.com/andyinabox/linkydink/app"
+	"github.com/andyinabox/linkydink/app/apirouter"
+	"github.com/andyinabox/linkydink/app/approuter"
 	"github.com/andyinabox/linkydink/app/handlerhelper"
 	"github.com/andyinabox/linkydink/app/servicecontainer"
 	"github.com/andyinabox/linkydink/app/tokenstore"
@@ -99,11 +101,21 @@ func main() {
 		Resources: res,
 	}
 
+	appRouter := approuter.New(serviceContainer, handlerHelper)
+
+	apiRouter := apirouter.New(serviceContainer, handlerHelper, &apirouter.Config{
+		Domain: domain,
+		Mode:   mode,
+	})
+
+	routers := []app.RouterGroup{appRouter, apiRouter}
+
 	appInstance := app.New(
-		appConfig,
 		serviceContainer,
 		handlerHelper,
 		sessionStore,
+		routers,
+		appConfig,
 	)
 
 	log.Fatal(appInstance.Start())
