@@ -85,8 +85,19 @@ andy ALL=(ALL) NOPASSWD:/usr/bin/systemctl restart linkydink
 
 ### Setting up postfix
 
+> **Note:** it's probably going to work better to just use Gmail SMTP if I can do it for free
+
  - Golang settings for postfix https://gist.github.com/jniltinho/d90034994f29d7d25e59c9e0fe5548d2
  - https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-postfix-on-ubuntu-20-04
+
+
+Also had to set up some DNS records:
+
+| Record | Domain                | Value             |
+|--------|-----------------------|-------------------|
+| MX     | linklink.click        | linklink.click 10 |
+| TXT    | _dmarc.linklink.click | v=DMARC1; p=none; rua=mailto:dmarc@linklink.click  |
+| TXT    | linklink.click        | v=spf1 ip4:161.35.108.49 include:linklink.click -all |
 
 
 ## Todo
@@ -113,10 +124,10 @@ andy ALL=(ALL) NOPASSWD:/usr/bin/systemctl restart linkydink
  - [x] Deploy
  - [x] Add SSL
  - [x] Setup CORS
- - [ ] Multi-user
+ - [x] Multi-user
    - [x] User model 
    - [x] Authentication
-   - [ ] Magic link
+   - [x] Magic link
 
  - [ ] OPML import
  - [ ] Ability to edit styles in browser
