@@ -33,7 +33,6 @@ make run
 make watch
 ```
 
-
 ## Additional Documentation
 
  - [Server Setup](./docs/server-setup.md)
