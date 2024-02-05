@@ -15,14 +15,14 @@ type IndexRenderContext struct {
 
 func (a *App) IndexGet(ctx *gin.Context) {
 
-	user, err := a.GetUserFromSession(ctx)
+	user, err := a.hh.GetUserFromSession(ctx)
 	// it's ok if no user is found, but we want to abort for server errors
 	if err != nil && errors.Is(err, ErrServerError) {
 		ctx.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
-	ls, err := a.GetUserLinkServiceFromSession(ctx)
+	ls, err := a.hh.GetUserLinkServiceFromSession(ctx)
 	if err != nil {
 		ctx.AbortWithError(http.StatusInternalServerError, err)
 		return

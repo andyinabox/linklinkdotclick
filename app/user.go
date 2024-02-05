@@ -20,6 +20,7 @@ type UserRepository interface {
 }
 
 type UserService interface {
+	CreateUser(email string) (*User, error)
 	FetchUser(id uint) (*User, error)
 	FetchOrCreateUserByEmail(email string) (*User, error)
 	EnsureDefaultUser() (*User, error)

@@ -11,23 +11,23 @@ type ApiLinksIdDeleteResponse struct {
 }
 
 func (a *App) ApiLinksIdDelete(ctx *gin.Context) {
-	id, err := a.GetID(ctx)
+	id, err := a.hh.GetID(ctx)
 	if err != nil {
-		a.ErrorResponse(ctx, http.StatusBadRequest, err)
+		a.hh.ErrorResponse(ctx, http.StatusBadRequest, err)
 		return
 	}
 
-	ls, err := a.GetUserLinkServiceFromSession(ctx)
+	ls, err := a.hh.GetUserLinkServiceFromSession(ctx)
 	if err != nil {
-		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		a.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	id, err = ls.DeleteLink(id)
 	if err != nil {
-		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		a.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
-	a.SuccessResponseJSON(ctx, &ApiLinksIdDeleteResponse{id})
+	a.hh.SuccessResponseJSON(ctx, &ApiLinksIdDeleteResponse{id})
 }

@@ -8,18 +8,15 @@ import (
 
 	"github.com/andyinabox/linkydink/app/tokenstore"
 	"github.com/andyinabox/linkydink/app/userrepository"
-	"github.com/andyinabox/linkydink/test"
 	"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
 )
 
 func Test_GetUserLinkServiceInMemoryDb(t *testing.T) {
 	email := "test@example.com"
-	db := test.NewInMemoryDb(t)
-	r := userrepository.New(db)
-	s := New(&Config{
+	s := NewUserService(t, &Config{
 		DefaultUserEmail: email,
-	}, r, tokenstore.New(db, &tokenstore.Config{}))
+	})
 
 	user, err := s.EnsureDefaultUser()
 	if err != nil {
@@ -49,10 +46,12 @@ func Test_GetUserLinkServiceFsDb(t *testing.T) {
 	r := userrepository.New(db)
 
 	email := "test@example.com"
-	s := New(&Config{
+	config := &Config{
 		UserDbPath:       linksDbDir,
 		DefaultUserEmail: email,
-	}, r, tokenstore.New(db, &tokenstore.Config{}))
+	}
+	ts := tokenstore.New(db, &tokenstore.Config{})
+	s := New(r, ts, config)
 
 	user, err := s.EnsureDefaultUser()
 	if err != nil {

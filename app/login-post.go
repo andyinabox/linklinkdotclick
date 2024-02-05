@@ -24,13 +24,15 @@ func (a *App) LoginPost(ctx *gin.Context) {
 		return
 	}
 
-	user, err := a.us.FetchOrCreateUserByEmail(email)
+	userService := a.sc.UserService()
+
+	user, err := userService.FetchOrCreateUserByEmail(email)
 	if err != nil {
 		ctx.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
-	hash, err := a.us.GetLoginHashForUser(user)
+	hash, err := userService.GetLoginHashForUser(user)
 	if err != nil {
 		ctx.AbortWithError(http.StatusInternalServerError, err)
 		return
@@ -38,7 +40,7 @@ func (a *App) LoginPost(ctx *gin.Context) {
 
 	magicLink := fmt.Sprintf("https://%s/login/%s", ctx.Request.Host, hash)
 
-	err = a.ms.Send(&mailservice.Email{
+	err = a.sc.MailService().Send(&mailservice.Email{
 		From:    mail.Address{"Linky", "linky@" + a.conf.Domain},
 		To:      mail.Address{"You", user.Email},
 		Subject: a.conf.Domain + " magic login link ✨",

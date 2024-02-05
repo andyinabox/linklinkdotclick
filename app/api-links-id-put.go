@@ -9,32 +9,32 @@ import (
 func (a *App) ApiLinksIdPut(ctx *gin.Context) {
 	_, refresh := ctx.GetQuery("refresh")
 
-	id, err := a.GetID(ctx)
+	id, err := a.hh.GetID(ctx)
 	if err != nil {
-		a.ErrorResponse(ctx, http.StatusBadRequest, err)
+		a.hh.ErrorResponse(ctx, http.StatusBadRequest, err)
 		return
 	}
 
 	var link Link
 
-	ls, err := a.GetUserLinkServiceFromSession(ctx)
+	ls, err := a.hh.GetUserLinkServiceFromSession(ctx)
 	if err != nil {
-		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		a.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	err = ctx.BindJSON(&link)
 	if err != nil {
-		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		a.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	updatedLink, err := ls.UpdateLink(id, link, refresh)
 	if err != nil {
-		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		a.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	// send response
-	a.SuccessResponseJSON(ctx, updatedLink)
+	a.hh.SuccessResponseJSON(ctx, updatedLink)
 }

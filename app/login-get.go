@@ -9,7 +9,7 @@ import (
 
 func (a *App) LoginGet(ctx *gin.Context) {
 	hash := ctx.Param("hash")
-	user, err := a.us.GetUserFromLoginHash(hash)
+	user, err := a.sc.UserService().GetUserFromLoginHash(hash)
 
 	if err != nil || user == nil {
 		ctx.Redirect(http.StatusSeeOther, "/")

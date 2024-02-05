@@ -9,24 +9,24 @@ import (
 func (a *App) ApiLinksIdGet(ctx *gin.Context) {
 	_, refresh := ctx.GetQuery("refresh")
 
-	id, err := a.GetID(ctx)
+	id, err := a.hh.GetID(ctx)
 	if err != nil {
-		a.ErrorResponse(ctx, http.StatusBadRequest, err)
+		a.hh.ErrorResponse(ctx, http.StatusBadRequest, err)
 		return
 	}
 
-	ls, err := a.GetUserLinkServiceFromSession(ctx)
+	ls, err := a.hh.GetUserLinkServiceFromSession(ctx)
 	if err != nil {
-		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		a.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	link, err := ls.FetchLink(id, refresh)
 	if err != nil {
-		a.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		a.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	// send response
-	a.SuccessResponseJSON(ctx, link)
+	a.hh.SuccessResponseJSON(ctx, link)
 }

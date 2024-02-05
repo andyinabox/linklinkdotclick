@@ -20,7 +20,7 @@ type Config struct {
 	DefaultUserEmail string
 }
 
-func New(c *Config, r app.UserRepository, tokenStore app.TokenStore) *Service {
+func New(r app.UserRepository, tokenStore app.TokenStore, c *Config) *Service {
 
 	if c.DefaultUserEmail == "" {
 		c.DefaultUserEmail = defaultUserEmail

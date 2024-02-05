@@ -2,18 +2,13 @@ package userservice
 
 import (
 	"testing"
-
-	"github.com/andyinabox/linkydink/app/tokenstore"
-	"github.com/andyinabox/linkydink/app/userrepository"
-	"github.com/andyinabox/linkydink/test"
 )
 
 func Test_FetchUser(t *testing.T) {
-	db := test.NewInMemoryDb(t)
-	r := userrepository.New(db)
-	s := New(&Config{
+	s := NewUserService(t, &Config{
+		// TODO: I don't think this should be necessary
 		UserDbPath: "db/usr",
-	}, r, tokenstore.New(db, &tokenstore.Config{}))
+	})
 
 	validEmail := "test@example.com"
 	createdUser, err := s.CreateUser(validEmail)

@@ -6,7 +6,6 @@ import (
 	"io/fs"
 	"net/http"
 
-	"github.com/andyinabox/linkydink/pkg/mailservice"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/autotls"
@@ -16,33 +15,18 @@ import (
 type App struct {
 	conf   *Config
 	router *gin.Engine
-	ms     *mailservice.Service
-	us     UserService
-	ls     LinkService
+	sc     ServiceContainer
+	hh     HandlerHelper
 }
 
 type Config struct {
 	Domain    string
 	Port      string
 	Mode      string
-	SmtpAddr  string
 	Resources embed.FS
 }
 
-func New(conf *Config, us UserService, store sessions.Store) *App {
-
-	ms := mailservice.New(&mailservice.Config{
-		SmtpAddr: conf.SmtpAddr,
-	})
-
-	user, err := us.EnsureDefaultUser()
-	if err != nil {
-		panic(err)
-	}
-	ls, err := us.GetUserLinkService(user)
-	if err != nil {
-		panic(err)
-	}
+func New(conf *Config, sc ServiceContainer, hh HandlerHelper, store sessions.Store) *App {
 
 	// load templates
 	templates, err := template.ParseFS(conf.Resources, "res/tmpl/*.tmpl")
@@ -72,7 +56,7 @@ func New(conf *Config, us UserService, store sessions.Store) *App {
 	router.Use(sessions.Sessions("session", store))
 
 	// create app
-	app := &App{conf, router, ms, us, ls}
+	app := &App{conf, router, sc, hh}
 
 	// serve static files
 	router.StaticFS("/static", http.FS(staticFiles))

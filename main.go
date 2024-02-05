@@ -7,11 +7,15 @@ import (
 	"log"
 	"os"
 	"path"
+	"time"
 
 	"github.com/andyinabox/linkydink/app"
+	"github.com/andyinabox/linkydink/app/handlerhelper"
+	"github.com/andyinabox/linkydink/app/servicecontainer"
 	"github.com/andyinabox/linkydink/app/tokenstore"
 	"github.com/andyinabox/linkydink/app/userrepository"
 	"github.com/andyinabox/linkydink/app/userservice"
+	"github.com/andyinabox/linkydink/pkg/mailservice"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
@@ -36,37 +40,71 @@ func main() {
 	flag.StringVar(&smtpaddr, "smtpaddr", "127.0.0.1:1025", "smtp server")
 	flag.Parse()
 
-	// maybe not the most secure?
-	store := cookie.NewStore([]byte(domain + port + dbfile + mode + defaultemail))
-
 	userDbPath := path.Join(path.Dir(dbfile), "usr")
-
 	err := os.MkdirAll(path.Dir(userDbPath), fs.ModePerm)
 	if err != nil {
 		panic(err)
 	}
-
 	db, err := gorm.Open(sqlite.Open(dbfile), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
 
+	// create session store
+	sessionStore := cookie.NewStore([]byte(domain + port + dbfile + mode + defaultemail))
+
+	// create user repository
 	userRepository := userrepository.New(db)
 
-	tokenStore := tokenstore.New(db, &tokenstore.Config{})
-
-	userService := userservice.New(&userservice.Config{
+	// create user service
+	tokenStore := tokenstore.New(db, &tokenstore.Config{
+		ExpireseIn: 10 * time.Minute,
+	})
+	userServiceConfig := &userservice.Config{
 		UserDbPath:       userDbPath,
 		DefaultUserEmail: defaultemail,
-	}, userRepository, tokenStore)
+	}
+	userService := userservice.New(userRepository, tokenStore, userServiceConfig)
 
-	appInstance := app.New(&app.Config{
+	// create mail service
+	mailService := mailservice.New(&mailservice.Config{
+		SmtpAddr: smtpaddr,
+	})
+
+	// get default linkService
+	user, err := userService.EnsureDefaultUser()
+	if err != nil {
+		panic(err)
+	}
+	linkService, err := userService.GetUserLinkService(user)
+	if err != nil {
+		panic(err)
+	}
+
+	// create servuce container
+	serviceContainer := servicecontainer.New(
+		userService,
+		linkService,
+		mailService,
+	)
+
+	// create handler helper
+	handlerHelper := handlerhelper.New(serviceContainer)
+
+	// create app
+	appConfig := &app.Config{
 		Domain:    domain,
 		Port:      port,
 		Mode:      mode,
-		SmtpAddr:  smtpaddr,
 		Resources: res,
-	}, userService, store)
+	}
+
+	appInstance := app.New(
+		appConfig,
+		serviceContainer,
+		handlerHelper,
+		sessionStore,
+	)
 
 	log.Fatal(appInstance.Start())
 }
