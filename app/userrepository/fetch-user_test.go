@@ -4,22 +4,12 @@ import (
 	"testing"
 
 	"github.com/andyinabox/linkydink/app"
-<<<<<<< HEAD
 	"github.com/andyinabox/linkydink/test"
 )
 
 func Test_FetchUser(t *testing.T) {
 	db := test.NewInMemoryDb(t)
 	r := New(db)
-=======
-)
-
-func Test_FetchUser(t *testing.T) {
-	r, err := New(&Config{":memory:"})
-	if err != nil {
-		t.Fatal(err.Error())
-	}
->>>>>>> main
 
 	// test fetching non-existent record
 	fetchedUser, err := r.FetchUser(99)
