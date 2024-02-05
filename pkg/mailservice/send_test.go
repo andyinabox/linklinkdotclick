@@ -10,7 +10,7 @@ func Test_Send(t *testing.T) {
 
 	// test if mailpit is running
 	resp, _ := http.Get("http://127.0.0.1:8025/")
-	if resp.StatusCode != http.StatusOK {
+	if resp == nil || resp.StatusCode != http.StatusOK {
 		t.Skip("mailpit doesn't seem to be running, skipping mail test")
 		return
 	}
