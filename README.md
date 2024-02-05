@@ -41,7 +41,11 @@ Description=linkydink
 
 [Service]
 Type=simple
-ExecStart=/home/andy/bin/linkydink --port=80 --mode=release --dbfile=/home/andy/db/linkydink
+ExecStart=/home/andy/bin/linkydink\
+ --domain=linklink.click\
+ --mode=release\
+ --dbfile=/home/andy/db/linkydink.db\
+ --smtpaddr=127.0.0.1:25
 Restart=on-failure
 RestartSec=5s
 
@@ -52,6 +56,8 @@ WantedBy=multi-user.target
 Commands
 
 ```bash
+# reload after changing settings
+sudo systemctl daemon-reload
 # start the service
 sudo systemctl start linkydink
 # get info
@@ -76,6 +82,11 @@ andy ALL=(ALL) NOPASSWD:/usr/bin/systemctl start linkydink
 andy ALL=(ALL) NOPASSWD:/usr/bin/systemctl stop linkydink
 andy ALL=(ALL) NOPASSWD:/usr/bin/systemctl restart linkydink
 ```
+
+### Setting up postfix
+
+ - Golang settings for postfix https://gist.github.com/jniltinho/d90034994f29d7d25e59c9e0fe5548d2
+ - https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-postfix-on-ubuntu-20-04
 
 
 ## Todo
