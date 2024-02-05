@@ -6,3 +6,4 @@ bin
 .vscode
 .cert
 .DS_Store
+.env
