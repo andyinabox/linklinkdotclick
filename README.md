@@ -103,9 +103,14 @@ andy ALL=(ALL) NOPASSWD:/usr/bin/systemctl restart linkydink
  - [x] Add SSL
  - [x] Setup CORS
  - [ ] Multi-user
+<<<<<<< HEAD
    - [x] User model 
    - [x] Authentication
    - [ ] Magic link
 
  - [ ] OPML import
+=======
+ - [ ] OPML import
+ - [ ] Authentication
+>>>>>>> main
  - [ ] Ability to edit styles in browser

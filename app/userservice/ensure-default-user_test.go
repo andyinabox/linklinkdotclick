@@ -2,6 +2,7 @@ package userservice
 
 import (
 	"testing"
+<<<<<<< HEAD
 )
 
 func Test_EnsureDefaultUser(t *testing.T) {
@@ -10,6 +11,24 @@ func Test_EnsureDefaultUser(t *testing.T) {
 	s := NewUserService(t, &Config{
 		DefaultUserEmail: email,
 	})
+=======
+
+	"github.com/andyinabox/linkydink/app/userrepository"
+)
+
+func Test_EnsureDefaultUser(t *testing.T) {
+	r, err := userrepository.New(&userrepository.Config{
+		DbFile: ":memory:",
+	})
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+
+	email := "default@user.com"
+	s := New(&Config{
+		DefaultUserEmail: email,
+	}, r)
+>>>>>>> main
 
 	user, err := s.EnsureDefaultUser()
 	if err != nil {

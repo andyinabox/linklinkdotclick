@@ -5,6 +5,7 @@ import (
 	"flag"
 	"io/fs"
 	"log"
+<<<<<<< HEAD
 	"os"
 	"path"
 	"time"
@@ -21,6 +22,14 @@ import (
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
+=======
+	"path"
+
+	"github.com/andyinabox/linkydink/app"
+	"github.com/andyinabox/linkydink/app/userrepository"
+	"github.com/andyinabox/linkydink/app/userservice"
+	"github.com/gin-contrib/sessions/cookie"
+>>>>>>> main
 )
 
 //go:embed res/*
@@ -32,13 +41,17 @@ func main() {
 	var dbfile string
 	var mode string
 	var defaultemail string
+<<<<<<< HEAD
 	var smtpaddr string
+=======
+>>>>>>> main
 
 	flag.StringVar(&domain, "domain", "linklink.click", "the domain the site is hosted on (linklink.click)")
 	flag.StringVar(&port, "port", "8080", "port to run the webserver on")
 	flag.StringVar(&dbfile, "dbfile", "db/linkydink.db", "location on sqlite db")
 	flag.StringVar(&mode, "mode", "debug", "run mode, use 'release' for production")
 	flag.StringVar(&defaultemail, "defaultemail", "linkydink@linkydink.tld", "an email for the default user that appears when not logged in")
+<<<<<<< HEAD
 	flag.StringVar(&smtpaddr, "smtpaddr", "127.0.0.1:1025", "smtp server")
 	flag.Parse()
 
@@ -101,6 +114,24 @@ func main() {
 		Mode:   mode,
 	})
 	routers := []app.RouterGroup{appRouter, apiRouter}
+=======
+	flag.Parse()
+
+	// maybe not the most secure?
+	store := cookie.NewStore([]byte(domain + port + dbfile + mode + defaultemail))
+
+	userRepository, err := userrepository.New(&userrepository.Config{
+		DbFile: dbfile,
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	userService := userservice.New(&userservice.Config{
+		UserDbPath:       path.Join(path.Dir(dbfile), "usr"),
+		DefaultUserEmail: defaultemail,
+	}, userRepository)
+>>>>>>> main
 
 	// create app
 	appConfig := &app.Config{
@@ -108,12 +139,16 @@ func main() {
 		Port:      port,
 		Mode:      mode,
 		Resources: res,
+<<<<<<< HEAD
 	}
 	appInstance := app.New(
 		sessionStore,
 		routers,
 		appConfig,
 	)
+=======
+	}, userService, store)
+>>>>>>> main
 
 	log.Fatal(appInstance.Start())
 }

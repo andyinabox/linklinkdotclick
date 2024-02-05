@@ -36,6 +36,7 @@ test:
 .PHONY: resources
 resources: clean-res res/static/main.js res/static/main.css res/tmpl
 
+<<<<<<< HEAD
 .PHONY: smtp-test
 smtp-test:
 	mailpit
@@ -61,6 +62,29 @@ bin/clean: bin
 bin/copy: bin
 	go build -o bin/copy cmd/copy/main.go
 
+=======
+bin:
+	mkdir bin
+
+res:
+	mkdir res
+
+res/tmpl: res bin/copy
+	./bin/copy -g='assets/**/*.tmpl' -o=res/tmpl
+
+res/static/main.js: res bin/esbuild
+	./bin/esbuild assets/main.js --bundle --minify --outfile=res/static/main.js
+
+res/static/main.css: res bin/copy
+	./bin/copy -g 'assets/main.css' -o=res/static
+
+bin/clean: bin
+	go build -o bin/clean cmd/clean/main.go
+
+bin/copy: bin
+	go build -o bin/copy cmd/copy/main.go
+
+>>>>>>> main
 bin/esbuild: bin
 	go build -o bin/esbuild cmd/esbuild/main.go
 
