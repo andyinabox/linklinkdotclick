@@ -23,7 +23,7 @@ make watch
 
 ### Allow binding to port 80
 
--> [Bind process to a priveleged port](https://www.baeldung.com/linux/bind-process-privileged-port)
+- [Bind process to a priveleged port](https://www.baeldung.com/linux/bind-process-privileged-port)
 
 ```bash
 sudo setcap 'CAP_NET_BIND_SERVICE+ep' /path/to/linkydink
@@ -31,7 +31,7 @@ sudo setcap 'CAP_NET_BIND_SERVICE+ep' /path/to/linkydink
 
 ### Running as a daemon
 
--> [Setting up a custom service](https://www.slingacademy.com/article/ubuntu-how-to-create-a-custom-systemd-service/)
+- [Setting up a custom service](https://www.slingacademy.com/article/ubuntu-how-to-create-a-custom-systemd-service/)
 
 
 `/etc/systemd/system/linkydink.service`
@@ -100,34 +100,6 @@ Also had to set up some DNS records:
 | TXT    | linklink.click        | v=spf1 ip4:161.35.108.49 include:linklink.click -all |
 
 
-## Todo
+### Avoiding getting sent to spam
 
- - [x] Implement API endpoints with ~~test data~~ sqlite
-   -  [x] `GET /api/links`
-   -  [x] `POST /api/links`
-   -  [x] `GET /api/links/{id}`
-   -  [x] `DELETE /api/links/{id}`
-   -  [x] `PUT /api/links/{id}` 
-   -  [ ] ~~`PATCH /api/links/{id}`~~
- - [x] Add persistence (sqlite?)
-   - [x] Create `linkrepository`
- - [ ] Functionality
-   - [x] Fetching updated data for links
-   - [x] Adding links
-   - [x] Update `LastClicked` after click
-   - [x] Re-ordering links on frontend
-   - [x] Deleting links
-   - [x] Editing link title
-   - [ ] Ability to have non-RSS links
-   - [ ] Avoid duplicates
- - [ ] Containerize
- - [x] Deploy
- - [x] Add SSL
- - [x] Setup CORS
- - [x] Multi-user
-   - [x] User model 
-   - [x] Authentication
-   - [x] Magic link
-
- - [ ] OPML import
- - [ ] Ability to edit styles in browser
+- https://blog.codinghorror.com/so-youd-like-to-send-some-email-through-code/
