@@ -8,6 +8,7 @@ type Link struct {
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 	// domain fields
+	FeedFound   bool      `json:"feedFound"`
 	SiteName    string    `json:"siteName"`
 	SiteUrl     string    `json:"siteUrl"`
 	FeedUrl     string    `json:"feedUrl"`
@@ -31,4 +32,5 @@ type LinkService interface {
 	FetchLink(id uint, refresh bool) (*Link, error)
 	UpdateLink(id uint, link Link, refresh bool) (*Link, error)
 	DeleteLink(id uint) (uint, error)
+	RefreshLink(link Link) (*Link, error)
 }

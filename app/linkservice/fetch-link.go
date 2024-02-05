@@ -13,7 +13,7 @@ func (s *Service) FetchLink(id uint, refresh bool) (*app.Link, error) {
 
 	if refresh {
 		// refresh link feed data
-		link, err = s.refreshLink(*link)
+		link, err = s.RefreshLink(*link)
 		if err != nil {
 			return nil, err
 		}

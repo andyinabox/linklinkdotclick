@@ -16,7 +16,7 @@ func (s *Service) UpdateLink(id uint, link app.Link, refresh bool) (*app.Link, e
 	}
 
 	if refresh {
-		updatedLink, err = s.refreshLink(*updatedLink)
+		updatedLink, err = s.RefreshLink(*updatedLink)
 		if err != nil {
 			return nil, err
 		}

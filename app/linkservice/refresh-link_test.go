@@ -3,21 +3,14 @@ package linkservice
 import (
 	"testing"
 
-	"github.com/andyinabox/linkydink/app/linkrepository"
 	"github.com/andyinabox/linkydink/test/fixtures"
 )
 
 func Test_RefreshLink(t *testing.T) {
-	lr, err := linkrepository.New(&linkrepository.Config{
-		DbFile: ":memory:",
-	})
-	if err != nil {
-		t.Fatal(err.Error())
-	}
-	ls := New(lr)
+	ls := NewLinkService(t)
 
 	link := fixtures.LinkJustClicked()
-	refreshed, err := ls.refreshLink(link)
+	refreshed, err := ls.RefreshLink(link)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
