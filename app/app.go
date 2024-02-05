@@ -15,8 +15,6 @@ import (
 type App struct {
 	conf   *Config
 	engine *gin.Engine
-	sc     ServiceContainer
-	hh     HandlerHelper
 }
 
 type Config struct {
@@ -27,8 +25,6 @@ type Config struct {
 }
 
 func New(
-	sc ServiceContainer,
-	hh HandlerHelper,
 	store sessions.Store,
 	routers []RouterGroup,
 	conf *Config,
@@ -68,7 +64,7 @@ func New(
 		group.Register(engine)
 	}
 
-	return &App{conf, engine, sc, hh}
+	return &App{conf, engine}
 }
 
 func (a *App) Start() error {

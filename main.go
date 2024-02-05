@@ -42,6 +42,7 @@ func main() {
 	flag.StringVar(&smtpaddr, "smtpaddr", "127.0.0.1:1025", "smtp server")
 	flag.Parse()
 
+	// setup users db
 	userDbPath := path.Join(path.Dir(dbfile), "usr")
 	err := os.MkdirAll(path.Dir(userDbPath), fs.ModePerm)
 	if err != nil {
@@ -83,7 +84,7 @@ func main() {
 		panic(err)
 	}
 
-	// create servuce container
+	// create service container
 	serviceContainer := servicecontainer.New(
 		userService,
 		linkService,
@@ -93,6 +94,14 @@ func main() {
 	// create handler helper
 	handlerHelper := handlerhelper.New(serviceContainer)
 
+	// create routers
+	appRouter := approuter.New(serviceContainer, handlerHelper)
+	apiRouter := apirouter.New(serviceContainer, handlerHelper, &apirouter.Config{
+		Domain: domain,
+		Mode:   mode,
+	})
+	routers := []app.RouterGroup{appRouter, apiRouter}
+
 	// create app
 	appConfig := &app.Config{
 		Domain:    domain,
@@ -100,19 +109,7 @@ func main() {
 		Mode:      mode,
 		Resources: res,
 	}
-
-	appRouter := approuter.New(serviceContainer, handlerHelper)
-
-	apiRouter := apirouter.New(serviceContainer, handlerHelper, &apirouter.Config{
-		Domain: domain,
-		Mode:   mode,
-	})
-
-	routers := []app.RouterGroup{appRouter, apiRouter}
-
 	appInstance := app.New(
-		serviceContainer,
-		handlerHelper,
 		sessionStore,
 		routers,
 		appConfig,
