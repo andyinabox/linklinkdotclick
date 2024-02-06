@@ -24,6 +24,7 @@ run: build .cert/localhost.crt
 watch:
 	reflex -d fancy -G 'bin/*' -G 'release/*' -G 'res/**/*' -G 'db/*' -s make run
 
+
 # run tests
 .PHONY: test
 test:
