@@ -32,12 +32,12 @@
     <nav>
       <button name="edit">Edit</button>
       <button name="add">Add</button>
-      {{ if .User }}
+      {{ if not .IsDefaultUser }}
         <form id="logout" method="post" action="/logout">
           <input type="submit" name="logout" value="Logout 👋">
         </form>
       {{ end }}
-      {{ if not .User }}
+      {{ if .IsDefaultUser }}
         <form method="post" action="/login">
           <input type="text" name="email" placeholder="you@example.com">
           <input type="submit" name="login" value="Login/Signup 🚪">

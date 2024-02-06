@@ -13,6 +13,6 @@ type HandlerHelper interface {
 
 	// data retrieval
 	GetIdParam(ctx *gin.Context) (uint, error)
-	GetUserIdFromSession(ctx *gin.Context) (id uint, err error)
-	GetUserFromSession(ctx *gin.Context) (*User, error)
+	GetUserIdFromSession(ctx *gin.Context) (id uint, fakeUser bool, err error)
+	GetUserFromSession(ctx *gin.Context) (user *User, fakeUser bool, err error)
 }

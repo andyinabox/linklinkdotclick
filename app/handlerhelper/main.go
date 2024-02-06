@@ -64,11 +64,11 @@ func (h *Helper) GetIdParam(ctx *gin.Context) (uint, error) {
 	return uint(id), err
 }
 
-func (h *Helper) GetUserIdFromSession(ctx *gin.Context) (id uint, err error) {
+func (h *Helper) GetUserIdFromSession(ctx *gin.Context) (id uint, isDefaultUser bool, err error) {
 	session := sessions.Default(ctx)
 	value := session.Get("user")
 	if value == nil {
-		return h.sc.UserService().GetDefaultUserId(), nil
+		return h.sc.UserService().GetDefaultUserId(), true, nil
 	}
 	var ok bool
 	id, ok = value.(uint)
@@ -79,10 +79,11 @@ func (h *Helper) GetUserIdFromSession(ctx *gin.Context) (id uint, err error) {
 	return
 }
 
-func (h *Helper) GetUserFromSession(ctx *gin.Context) (*app.User, error) {
-	id, err := h.GetUserIdFromSession(ctx)
+func (h *Helper) GetUserFromSession(ctx *gin.Context) (*app.User, bool, error) {
+	id, isDefaultUser, err := h.GetUserIdFromSession(ctx)
 	if err != nil {
-		return nil, err
+		return nil, false, err
 	}
-	return h.sc.UserService().FetchUser(id)
+	user, err := h.sc.UserService().FetchUser(id)
+	return user, isDefaultUser, err
 }

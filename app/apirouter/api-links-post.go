@@ -25,7 +25,7 @@ func (r *Router) ApiLinksPost(ctx *gin.Context) {
 		return
 	}
 
-	userId, err := r.hh.GetUserIdFromSession(ctx)
+	userId, _, err := r.hh.GetUserIdFromSession(ctx)
 	if err != nil {
 		r.hh.ErrorResponse(ctx, http.StatusUnauthorized, err)
 		return

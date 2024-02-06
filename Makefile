@@ -22,7 +22,7 @@ run: build .cert/localhost.crt
 # run the main application and reload when files are changed
 .PHONY: watch
 watch:
-	reflex -d fancy -G 'bin/*' -G 'release/*' -G 'res/**/*' -G 'db/**/*' -s make run
+	reflex -d fancy -G 'bin/*' -G 'release/*' -G 'res/**/*' -G 'db/*' -s make run
 
 # run tests
 .PHONY: test

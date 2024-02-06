@@ -8,7 +8,7 @@ import (
 
 func (r *Router) ApiLinksGet(ctx *gin.Context) {
 
-	id, err := r.hh.GetUserIdFromSession(ctx)
+	id, _, err := r.hh.GetUserIdFromSession(ctx)
 	if err != nil {
 		r.hh.ErrorResponse(ctx, http.StatusUnauthorized, err)
 		return
