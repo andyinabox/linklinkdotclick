@@ -12,8 +12,7 @@ type HandlerHelper interface {
 	NotFoundResponse(ctx *gin.Context)
 
 	// data retrieval
-	GetID(ctx *gin.Context) (uint, error)
+	GetIdParam(ctx *gin.Context) (uint, error)
 	GetUserIdFromSession(ctx *gin.Context) (id uint, err error)
-	GetUserLinkServiceFromSession(ctx *gin.Context) (LinkService, error)
 	GetUserFromSession(ctx *gin.Context) (*User, error)
 }

@@ -19,7 +19,7 @@ func (c *Container) UserService() app.UserService {
 	return c.us
 }
 
-func (c *Container) DefaultLinkService() app.LinkService {
+func (c *Container) LinkService() app.LinkService {
 	return c.ls
 }
 

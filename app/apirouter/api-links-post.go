@@ -25,13 +25,13 @@ func (r *Router) ApiLinksPost(ctx *gin.Context) {
 		return
 	}
 
-	ls, err := r.hh.GetUserLinkServiceFromSession(ctx)
+	userId, err := r.hh.GetUserIdFromSession(ctx)
 	if err != nil {
-		r.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		r.hh.ErrorResponse(ctx, http.StatusUnauthorized, err)
 		return
 	}
 
-	link, err := ls.CreateLink(body.Url)
+	link, err := r.sc.LinkService().CreateLink(userId, body.Url)
 	if err != nil {
 		r.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
 		return

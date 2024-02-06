@@ -23,13 +23,7 @@ func (r *Router) IndexGet(ctx *gin.Context) {
 		return
 	}
 
-	ls, err := r.hh.GetUserLinkServiceFromSession(ctx)
-	if err != nil {
-		ctx.AbortWithError(http.StatusInternalServerError, err)
-		return
-	}
-
-	links, err := ls.FetchLinks()
+	links, err := r.sc.LinkService().FetchLinks(user.ID)
 	if err != nil {
 		ctx.AbortWithError(http.StatusInternalServerError, err)
 		return

@@ -11,7 +11,7 @@ import (
 
 func NewUserService(t *testing.T, conf *Config) app.UserService {
 	if conf.DefaultUserEmail == "" {
-		conf.DefaultUserEmail = "test@example.com"
+		conf.DefaultUserEmail = "test2@example.com"
 	}
 	db := test.NewInMemoryDb(t)
 	r := userrepository.New(db)

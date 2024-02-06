@@ -7,6 +7,6 @@ import (
 type ServiceContainer interface {
 	UserService() UserService
 	// this will get the link service for the default user
-	DefaultLinkService() LinkService
+	LinkService() LinkService
 	MailService() *mailservice.Service
 }

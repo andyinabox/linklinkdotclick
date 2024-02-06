@@ -58,7 +58,7 @@ func (h *Helper) NotFoundResponse(ctx *gin.Context) {
 	h.ResponseJSON(ctx, http.StatusNotFound, false, errors.New("not found"), nil)
 }
 
-func (h *Helper) GetID(ctx *gin.Context) (uint, error) {
+func (h *Helper) GetIdParam(ctx *gin.Context) (uint, error) {
 	str := ctx.Param("id")
 	id, err := strconv.Atoi(str)
 	return uint(id), err
@@ -68,8 +68,7 @@ func (h *Helper) GetUserIdFromSession(ctx *gin.Context) (id uint, err error) {
 	session := sessions.Default(ctx)
 	value := session.Get("user")
 	if value == nil {
-		err = app.ErrUnauthorized
-		return
+		return h.sc.UserService().GetDefaultUserId(), nil
 	}
 	var ok bool
 	id, ok = value.(uint)
@@ -78,15 +77,6 @@ func (h *Helper) GetUserIdFromSession(ctx *gin.Context) (id uint, err error) {
 		return
 	}
 	return
-}
-
-// if user is not found, use the default link service instead
-func (h *Helper) GetUserLinkServiceFromSession(ctx *gin.Context) (app.LinkService, error) {
-	user, err := h.GetUserFromSession(ctx)
-	if err != nil {
-		return h.sc.DefaultLinkService(), nil
-	}
-	return h.sc.UserService().GetUserLinkService(user)
 }
 
 func (h *Helper) GetUserFromSession(ctx *gin.Context) (*app.User, error) {
