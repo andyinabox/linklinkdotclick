@@ -5,6 +5,7 @@ import "time"
 type Link struct {
 	// gorm fields
 	ID        uint      `json:"id"`
+	UserID    uint      `json:"-"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 	// domain fields
@@ -18,18 +19,18 @@ type Link struct {
 }
 
 type LinkRepository interface {
-	FetchLinks() ([]Link, error)
-	CreateLink(Link) (*Link, error)
+	FetchLinks(userId uint) ([]Link, error)
+	CreateLink(link Link) (*Link, error)
 	FetchLink(id uint) (*Link, error)
-	UpdateLink(Link) (*Link, error)
+	UpdateLink(link Link) (*Link, error)
 	DeleteLink(id uint) (uint, error)
 }
 
 type LinkService interface {
-	FetchLinks() ([]Link, error)
-	CreateLink(url string) (*Link, error)
-	FetchLink(id uint, refresh bool) (*Link, error)
-	UpdateLink(id uint, link Link, refresh bool) (*Link, error)
-	DeleteLink(id uint) (uint, error)
-	RefreshLink(link Link) (*Link, error)
+	FetchLinks(userId uint) ([]Link, error)
+	CreateLink(userId uint, url string) (*Link, error)
+	FetchLink(userId uint, id uint, refresh bool) (*Link, error)
+	UpdateLink(userId uint, id uint, link Link, refresh bool) (*Link, error)
+	DeleteLink(userId uint, id uint) (uint, error)
+	RefreshLink(userId uint, link Link) (*Link, error)
 }

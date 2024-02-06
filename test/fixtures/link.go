@@ -10,6 +10,7 @@ func LinkBeforeInsert() app.Link {
 	now := time.Now()
 	return app.Link{
 		SiteName:    "W3C - Blog",
+		UserID:      1,
 		SiteUrl:     "https://www.w3.org/blog/",
 		FeedUrl:     "https://www.w3.org/blog/feed/",
 		OriginalUrl: "https://www.w3.org/blog/",

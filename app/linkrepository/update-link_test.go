@@ -8,43 +8,38 @@ import (
 )
 
 func Test_UpdateLink(t *testing.T) {
-	r, err := New(&Config{":memory:"})
-	if err != nil {
-		t.Fatal(err.Error())
+	r := NewLinkRepository(t)
+
+	{
+		link := fixtures.LinkBeforeInsert()
+		createdLink, err := r.CreateLink(link)
+		if err != nil {
+			t.Fatal(err.Error())
+		}
+
+		updateLink := *createdLink
+		updateLink.LastClicked = time.Now()
+		updateLink.UnreadCount = 0
+
+		result, err := r.UpdateLink(updateLink)
+		if err != nil {
+			t.Fatal(err.Error())
+		}
+		if result.ID != createdLink.ID {
+			t.Errorf("expected result link ID to be equal to original link: %v, %v", result.ID, link.ID)
+		}
+		if result.LastClicked == createdLink.LastClicked {
+			t.Errorf("expected result LastClicked value to be different: %v, %v", result.LastClicked, link.LastClicked)
+		}
 	}
 
-	link := fixtures.LinkBeforeInsert()
-	createdLink, err := r.CreateLink(link)
-	if err != nil {
-		t.Fatal(err.Error())
+	{
+		link := fixtures.LinkBeforeInsert()
+		link.UserID = 0
+		_, err := r.UpdateLink(link)
+		if err == nil {
+			t.Fatal("expected error createing link with zero-value UserID")
+		}
 	}
 
-	updateLink := *createdLink
-	updateLink.LastClicked = time.Now()
-	updateLink.UnreadCount = 0
-
-	result, err := r.UpdateLink(updateLink)
-	if err != nil {
-		t.Fatal(err.Error())
-	}
-	if result.ID != createdLink.ID {
-		t.Errorf("expected result link ID to be equal to original link: %v, %v", result.ID, link.ID)
-	}
-	if result.LastClicked == createdLink.LastClicked {
-		t.Errorf("expected result LastClicked value to be different: %v, %v", result.LastClicked, link.LastClicked)
-	}
 }
-
-// func Test_UpdateLinkInsert(t *testing.T) {
-// 	r := New(&Config{":memory:"})
-
-// 	link := test.LinkBeforeInsert()
-// 	link.ID = 1
-// 	_, err := r.UpdateLink(*link)
-// 	if err == nil {
-// 		t.Fatal("expeted error when attempting to update non-existing record")
-// 	}
-// 	if errors.Is(err, app.ErrNotFound) {
-// 		t.Fatalf("expected ErrNotFound error, got %v", err)
-// 	}
-// }
