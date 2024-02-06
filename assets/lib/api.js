@@ -76,6 +76,6 @@ export const updateSelf = async function (user) {
 
 export const getSelf = async function () {
   let endpoint = '/self'
-  const { payload } = await apiCall(endpoint, 'GET', user)
+  const { payload } = await apiCall(endpoint, 'GET')
   return payload
 }

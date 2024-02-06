@@ -1,6 +1,8 @@
 import { getSelf } from '../../lib/api'
 import { handleError } from '../../lib/errors'
 import { Component } from '../component'
+import { Link } from '../link/link'
+
 export class Site extends Component {
   constructor() {
     super()
@@ -88,7 +90,7 @@ export class Site extends Component {
   render() {
     const data = this.data
     this.slots['site-title'].innerText = data.siteTitle
-    this.querySelector('title').innerText = data.siteTitle
+    document.head.querySelector('title').innerText = data.siteTitle
   }
   connectedCallback() {
     this.onRenameSiteClick = () => this.handleRenameSiteClick()
@@ -107,4 +109,4 @@ export class Site extends Component {
     this.slots['add'].removeEventListener('click', this.onAddClick)
   }
 }
-customElements.define(Site, 'linky-site')
+customElements.define('linky-site', Site)
