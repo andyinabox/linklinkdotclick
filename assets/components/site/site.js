@@ -1,4 +1,4 @@
-import { getSelf } from '../../lib/api'
+import { getSelf, updateSelf, createLink } from '../../lib/api'
 import { handleError } from '../../lib/errors'
 import { Component } from '../component'
 import { Link } from '../link/link'
@@ -29,22 +29,10 @@ export class Site extends Component {
       this.loading = false
     }
   }
-  sortLinks() {
-    const linksContainer = this.slots.links
-    const links = linksContainer.querySelectorAll('linky-link')
-    for (var i = 1; i <= links.length; i++) {
-      const l1 = links[i - 1]
-      const l2 = links[i]
-      const d1 = new Date(l1.data.lastClicked)
-      const d2 = new Date(l2.data.lastClicked)
-
-      // swap links
-      if (d2 > d1) {
-        linksContainer.replaceChild(l2, l1)
-        linksContainer.insertBefore(l1, l2)
-      }
-    }
+  moveLinkToBottom(link) {
+    this.slots.links.appendChild(link)
   }
+
   async handleCreateLink() {
     try {
       const url = prompt('Enter a website or feed URL')
@@ -53,8 +41,7 @@ export class Site extends Component {
 
       this.loading = true
       const link = await createLink(url)
-      Link.create(linksContainerEl, link)
-      this.sortLinks()
+      Link.create(this.slots.links, link)
     } catch (err) {
       handleError(err)
     } finally {
@@ -99,6 +86,8 @@ export class Site extends Component {
     this.slots['edit'].addEventListener('click', this.onEditClick)
     this.onAddClick = () => this.handleCreateLink()
     this.slots['add'].addEventListener('click', this.onAddClick)
+    this.onLinkClick = ({ target }) => this.moveLinkToBottom(target)
+    this.addEventListener('link-click', this.onLinkClick)
   }
   disconnectedCallback() {
     this.slots['rename-site'].removeEventListener(
@@ -107,6 +96,7 @@ export class Site extends Component {
     )
     this.slots['edit'].removeEventListener('click', this.onEditClick)
     this.slots['add'].removeEventListener('click', this.onAddClick)
+    this.removeEventListener('link-click', this.onLinkClick)
   }
 }
 customElements.define('linky-site', Site)

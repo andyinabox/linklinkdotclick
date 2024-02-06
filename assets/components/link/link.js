@@ -23,7 +23,6 @@ export class Link extends Component {
     try {
       this.loading = true
       this.data = await getLink(id)
-      this.dispatchEvent(new CustomEvent('sort-links', { bubbles: true }))
     } catch (err) {
       handleError(err)
     } finally {
@@ -37,7 +36,7 @@ export class Link extends Component {
     try {
       const updatedLink = await updateLink(link)
       this.data = updatedLink
-      this.dispatchEvent(new CustomEvent('sort-links', { bubbles: true }))
+      this.dispatchEvent(new CustomEvent('link-click', { bubbles: true }))
     } catch (err) {
       handleError(err)
     }

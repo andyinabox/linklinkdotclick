@@ -1,21 +1,20 @@
 package userservice
 
 import (
-	"errors"
-
 	"github.com/andyinabox/linkydink/app"
 )
 
 func (s *Service) UpdateUser(id uint, user app.User) (*app.User, error) {
-	if id != user.ID {
-		return nil, errors.New("unmatching ids in update request")
-	}
+
+	user.ID = id
 
 	// disallow upsert
-	_, err := s.ur.FetchUser(id)
+	fetchedUser, err := s.ur.FetchUser(id)
 	if err != nil {
 		return nil, err
 	}
+
+	user.Email = fetchedUser.Email
 
 	return s.ur.UpsertUser(user)
 }

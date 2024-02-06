@@ -23,8 +23,6 @@ func (r *Router) ApiSelfPut(ctx *gin.Context) {
 		return
 	}
 
-	user.ID = userId
-
 	updatedUser, err := r.sc.UserService().UpdateUser(userId, user)
 	if err != nil {
 		r.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
