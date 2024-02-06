@@ -4,7 +4,7 @@ import "time"
 
 type User struct {
 	// gorm fields
-	ID        uint      `json:"id"`
+	ID        uint      `json:"-"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 

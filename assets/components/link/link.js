@@ -1,33 +1,13 @@
-import { getLink, updateLink, deleteLink } from './api'
-import { handleError } from './errors'
-
-export class Link extends HTMLElement {
+import { getLink, updateLink, deleteLink } from '../../lib/api'
+import { handleError } from '../../lib/errors'
+import { Component } from '../component'
+export class Link extends Component {
   constructor() {
     super()
-
-    // create a collection of elements with the
-    // "slot" attribute
-    this.slots = {}
-    this.querySelectorAll('[slot]').forEach((el) => {
-      this.slots[el.getAttribute('slot')] = el
-    })
-
     // if an id is defined, automatically fetch
     // the latest data from api
     const id = this.getAttribute('data-id')
     if (id) this.fetchData(id)
-  }
-
-  // automatically render when data is set
-  set data(d) {
-    this._data = d
-    this.render()
-  }
-
-  // create a clone of data when retrieving
-  // (we only want this changed when using setter)
-  get data() {
-    return { ...this._data }
   }
 
   // render data to the element

@@ -1,6 +1,7 @@
-import { createLink, updateSelf } from './api'
-import { handleError } from './errors'
-import { Link } from './link'
+import { createLink, updateSelf } from './lib/api'
+import { handleError } from './lib/errors'
+import { Link } from './components/link/link'
+import { Site } from './components/link/link'
 
 const linksContainerEl = document.getElementById('links')
 

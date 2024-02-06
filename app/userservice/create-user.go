@@ -14,6 +14,7 @@ func (s *Service) CreateUser(email string) (*app.User, error) {
 	}
 
 	return s.ur.CreateUser(app.User{
-		Email: email,
+		Email:     email,
+		SiteTitle: s.conf.DefaultUserSiteTitle,
 	})
 }
