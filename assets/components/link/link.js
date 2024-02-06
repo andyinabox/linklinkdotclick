@@ -20,14 +20,14 @@ export class Link extends Component {
   }
 
   async fetchData(id) {
-    this.classList.add('loading')
     try {
+      this.loading = true
       this.data = await getLink(id)
       this.dispatchEvent(new CustomEvent('sort-links', { bubbles: true }))
     } catch (err) {
       handleError(err)
     } finally {
-      this.classList.remove('loading')
+      this.loading = false
     }
   }
 
@@ -49,10 +49,13 @@ export class Link extends Component {
     if (!confirm(`Delete link "${siteName}"?`)) return
 
     try {
+      this.loading = true
       await deleteLink(id)
       this.remove()
     } catch (err) {
       handleError(err)
+    } finally {
+      this.loading = false
     }
   }
 
@@ -62,10 +65,13 @@ export class Link extends Component {
     if (!name) return
     data.siteName = name
     try {
+      this.loading = true
       const updated = await updateLink(data)
       this.data = updated
     } catch (err) {
       handleError(err)
+    } finally {
+      this.loading = false
     }
   }
 
