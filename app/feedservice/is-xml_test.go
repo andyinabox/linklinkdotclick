@@ -3,6 +3,7 @@ package feedservice
 import (
 	"testing"
 
+	"github.com/andyinabox/linkydink/app/util"
 	"github.com/andyinabox/linkydink/test"
 )
 
@@ -11,21 +12,27 @@ func Test_IsXml(t *testing.T) {
 
 	// test feed url
 	{
-		feedUrl := "https://www.w3.org/blog/feed/"
-		r := test.NewMockResponse(feedUrl, "../../test/fixtures/www.w3.org/feed.xml", t)
-		isXml := s.IsXml(r)
+		ts := test.NewFixtureTestServer("../../test/fixtures/www.w3c.org/feed.xml", t)
+		body, err := util.GetResponseBodyFromUrl(ts.URL)
+		if err != nil {
+			t.Fatal(err.Error())
+		}
+		isXml := s.IsXml(body)
 		if !isXml {
-			t.Errorf("expected IsFeed to be true for %s, got false", feedUrl)
+			t.Errorf("expected IsXml to be true for %s, got false", ts.URL)
 		}
 	}
 
 	// test non-feed url
 	{
-		siteUrl := "https://www.w3.org/blog/"
-		r := test.NewMockResponse(siteUrl, "../../test/fixtures/www.w3.org/index.html", t)
-		isXml := s.IsXml(r)
+		ts := test.NewFixtureTestServer("../../test/fixtures/www.w3c.org/index.html", t)
+		body, err := util.GetResponseBodyFromUrl(ts.URL)
+		if err != nil {
+			t.Fatal(err.Error())
+		}
+		isXml := s.IsXml(body)
 		if isXml {
-			t.Errorf("expected IsFeed to be false for %s, got false", siteUrl)
+			t.Errorf("expected IsXml to be false for %s, got false", ts.URL)
 		}
 	}
 }

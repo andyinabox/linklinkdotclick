@@ -1,7 +1,8 @@
 package feedservice
 
 import (
-	"net/http"
+	"bytes"
+	"io/ioutil"
 	"net/url"
 	"strings"
 
@@ -22,17 +23,21 @@ func (s *SiteData) FeedUrls() []string {
 	return s.feedUrls
 }
 
-func (s *Service) GetSiteData(res *http.Response) (data app.SiteData, err error) {
+func (s *Service) GetSiteData(body []byte, reqUrl string) (data app.SiteData, err error) {
 
-	siteUrl := res.Request.URL
-
-	doc, err := goquery.NewDocumentFromReader(res.Body)
+	bodyReader := ioutil.NopCloser(bytes.NewBuffer(body))
+	doc, err := goquery.NewDocumentFromReader(bodyReader)
 	if err != nil {
 		return
 	}
 
 	feedUrls := []string{}
 	title := doc.Find("title").First().Text()
+
+	reqUrlData, err := url.Parse(reqUrl)
+	if err != nil {
+		return
+	}
 
 	doc.Find("[rel='alternate'][type^='application']").
 		Each(func(i int, s *goquery.Selection) {
@@ -51,7 +56,7 @@ func (s *Service) GetSiteData(res *http.Response) (data app.SiteData, err error)
 					return
 				}
 				if feedUrl.Host == "" {
-					feedUrl, err = url.Parse(siteUrl.Scheme + "://" + siteUrl.Host + feedUrl.String())
+					feedUrl, err = url.Parse(reqUrlData.Scheme + "://" + reqUrlData.Host + feedUrl.String())
 					if err != nil {
 						return
 					}

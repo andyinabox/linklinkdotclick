@@ -1,6 +1,7 @@
 package linkservice
 
 import (
+	"io/ioutil"
 	"net/http"
 	"time"
 
@@ -16,14 +17,20 @@ func (s *Service) RefreshLink(link app.Link) (*app.Link, error) {
 
 	res, err := http.Get(link.FeedUrl)
 	if err != nil {
-		return nil, app.ErrServerError
+		return nil, err
 	}
 
 	if res.StatusCode != http.StatusOK {
-		return nil, app.ErrNotFound
+		return nil, app.ErrServerError
 	}
 
-	feedData, err := s.fs.ParseFeedResponse(res)
+	defer res.Body.Close()
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	feedData, err := s.fs.ParseFeedResponse(body, link.FeedUrl)
 	if err != nil {
 		return nil, err
 	}

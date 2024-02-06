@@ -4,16 +4,22 @@ import (
 	"testing"
 	"time"
 
+	"github.com/andyinabox/linkydink/app/util"
 	"github.com/andyinabox/linkydink/test"
 )
 
 func Test_ParseFeed(t *testing.T) {
-	s := New()
-	feedUrl := "https://www.w3.org/blog/feed/"
-	r := test.NewMockResponse(feedUrl, "../../test/fixtures/www.w3.org/feed.xml", t)
-	d, err := s.ParseFeedResponse(r)
+	ts := test.NewFixtureTestServer("../../test/fixtures/www.w3c.org/feed.xml", t)
+	body, err := util.GetResponseBodyFromUrl(ts.URL)
 	if err != nil {
-		t.Fatalf(err.Error())
+		t.Fatal(err.Error())
+	}
+
+	s := New()
+
+	d, err := s.ParseFeedResponse(body, ts.URL)
+	if err != nil {
+		t.Fatal(err.Error())
 	}
 
 	expectedName := "W3C - Blog"

@@ -30,8 +30,8 @@ func LinkJustCreated() app.Link {
 	return link
 }
 
-func LinkJustClicked() app.Link {
+func LinkSetLastCLicked(t *time.Time) app.Link {
 	link := LinkJustCreated()
-	link.LastClicked = time.Now()
+	link.LastClicked = *t
 	return link
 }

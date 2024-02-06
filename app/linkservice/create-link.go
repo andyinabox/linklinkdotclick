@@ -1,36 +1,37 @@
 package linkservice
 
 import (
-	"net/http"
 	"time"
 
 	"github.com/andyinabox/linkydink/app"
+	"github.com/andyinabox/linkydink/app/util"
 )
 
-func newBaseLink(res *http.Response) *app.Link {
+func newBaseLink(reqUrl string) *app.Link {
 	return &app.Link{
-		OriginalUrl: res.Request.URL.String(),
+		OriginalUrl: reqUrl,
 		LastClicked: time.Date(1993, time.April, 30, 12, 0, 0, 0, time.UTC),
 		LastFetched: time.Now(),
 	}
 }
 
-func (s *Service) createLinkFeedUrl(res *http.Response) (*app.Link, error) {
-	feedData, err := s.fs.ParseFeedResponse(res)
+func (s *Service) createLinkFeedUrl(body []byte, reqUrl string) (*app.Link, error) {
+	feedData, err := s.fs.ParseFeedResponse(body, reqUrl)
 	if err != nil {
 		return nil, err
 	}
-	link := newBaseLink(res)
+	link := newBaseLink(reqUrl)
 	link.SiteName = feedData.SiteName()
 	link.SiteUrl = feedData.SiteUrl()
-	link.FeedUrl = res.Request.URL.String()
+	link.FeedUrl = reqUrl
 	link.UnreadCount = int16(feedData.NewItemsCount(&link.LastClicked))
 
 	return link, nil
 }
 
-func (s *Service) createLinkSiteUrl(res *http.Response) (*app.Link, error) {
-	siteData, err := s.fs.GetSiteData(res)
+func (s *Service) createLinkSiteUrl(body []byte, reqUrl string) (*app.Link, error) {
+
+	siteData, err := s.fs.GetSiteData(body, reqUrl)
 	if err != nil {
 		return nil, err
 	}
@@ -38,43 +39,34 @@ func (s *Service) createLinkSiteUrl(res *http.Response) (*app.Link, error) {
 
 	// no feeds found
 	if len(feedUrls) == 0 {
-		link := newBaseLink(res)
+		link := newBaseLink(reqUrl)
 		link.SiteName = siteData.SiteName()
-		link.SiteUrl = res.Request.URL.String()
+		link.SiteUrl = reqUrl
 		return link, nil
 	}
 
-	feedRes, err := http.Get(feedUrls[0])
+	body, err = util.GetResponseBodyFromUrl(feedUrls[0])
 	if err != nil {
-		return nil, app.ErrServerError
+		return nil, err
 	}
-
-	if feedRes.StatusCode != http.StatusOK {
-		return nil, app.ErrNotFound
-	}
-
-	return s.createLinkFeedUrl(feedRes)
+	return s.createLinkFeedUrl(body, reqUrl)
 }
 
 func (s *Service) CreateLink(url string) (*app.Link, error) {
 
-	res, err := http.Get(url)
+	body, err := util.GetResponseBodyFromUrl(url)
 	if err != nil {
-		return nil, app.ErrServerError
-	}
-
-	if res.StatusCode != http.StatusOK {
-		return nil, app.ErrNotFound
+		return nil, err
 	}
 
 	var link *app.Link
-	if s.fs.IsXml(res) {
-		link, err = s.createLinkFeedUrl(res)
+	if s.fs.IsXml(body) {
+		link, err = s.createLinkFeedUrl(body, url)
 	} else {
-		link, err = s.createLinkSiteUrl(res)
+		link, err = s.createLinkSiteUrl(body, url)
 	}
 	if err != nil {
-		return nil, app.ErrServerError
+		return nil, err
 	}
 
 	return s.lr.CreateLink(*link)

@@ -1,7 +1,6 @@
 package app
 
 import (
-	"net/http"
 	"time"
 )
 
@@ -18,7 +17,7 @@ type FeedData interface {
 }
 
 type FeedService interface {
-	IsXml(*http.Response) bool
-	GetSiteData(*http.Response) (SiteData, error)
-	ParseFeedResponse(*http.Response) (FeedData, error)
+	IsXml(body []byte) bool
+	GetSiteData(body []byte, reqUrl string) (SiteData, error)
+	ParseFeedResponse(body []byte, reqUrl string) (FeedData, error)
 }
