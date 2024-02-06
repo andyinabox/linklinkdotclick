@@ -58,3 +58,20 @@ btnEdit.addEventListener('click', (e) => {
     editing = true
   }
 })
+
+// renaming site
+const btnRenameSite = document.querySelector('button[name="rename-site"]')
+async function handleRenameSiteClick() {
+  try {
+    const name = prompt('Enter a new title')
+
+    if (!name) return
+
+    if (!url) return
+  } catch (err) {
+    handleError(err)
+  } finally {
+    document.body.classList.remove('loading')
+  }
+}
+btnRenameSite.addEventListener('click', () => handleRenameSiteClick())

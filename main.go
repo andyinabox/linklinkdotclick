@@ -67,7 +67,8 @@ func main() {
 		ExpireseIn: 10 * time.Minute,
 	})
 	userServiceConfig := &userservice.Config{
-		DefaultUserEmail: defaultemail,
+		DefaultUserEmail:     defaultemail,
+		DefaultUserSiteTitle: "🖇 linklink.click",
 	}
 	userService := userservice.New(userRepository, tokenStore, userServiceConfig)
 

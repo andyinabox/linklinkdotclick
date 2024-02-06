@@ -92,7 +92,8 @@ button[name='delete']:after {
   content: '🗑';
 }
 
-button[name='rename']:after {
+button[name='rename']:after,
+button[name='rename-site']:after {
   content: '✍️';
 }
 
@@ -102,6 +103,13 @@ input[name='login']:after {
 
 input[name='logout']:after {
   content: '🐿';
+}
+
+button[name='rename-site'] {
+  display: none;
+}
+body.editing button[name='rename-site'] {
+  display: block;
 }
 
 /*

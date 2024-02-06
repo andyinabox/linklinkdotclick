@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>🖇 my reading list</title>
+    <title>{{ .User.SiteTitle }}</title>
     <link rel="stylesheet" href="/static/main.css" />
     <meta name="description" content="" />
 
@@ -20,7 +20,8 @@
 
   <body>
     <header>
-      <h1>🖇 my reading list</h1>
+      <h1>{{ .User.SiteTitle }}</h1>
+      <button name="rename-site" class="rename-site">Rename</button>
     </header>
     <main>
       <menu id="links">
