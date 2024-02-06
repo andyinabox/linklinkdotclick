@@ -1,6 +1,8 @@
 package linkservice
 
 import (
+	"errors"
+	"net/url"
 	"time"
 
 	"github.com/andyinabox/linkydink/app"
@@ -15,14 +17,60 @@ func newBaseLink(reqUrl string) *app.Link {
 	}
 }
 
-func (s *Service) createLinkFeedUrl(body []byte, reqUrl string) (*app.Link, error) {
+// seems like this should happen in feed service
+func (s *Service) getSiteUrl(feedDataSiteUrl string, reqUrl string, siteData app.SiteData) (siteUrl string, err error) {
+	siteUrl = feedDataSiteUrl
+	if siteUrl == "" && siteData != nil {
+		siteUrl = siteData.SiteUrl()
+	}
+	if siteUrl == "" {
+		reqUrlData, _ := url.Parse(reqUrl)
+		siteUrl = reqUrlData.Scheme + "://" + reqUrlData.Host
+	}
+	if siteUrl == "" {
+		err = errors.New("could not parse site url")
+	}
+	return
+}
+
+// seems like this should happen in feed service
+func (s *Service) getSiteName(feedDataSiteName string, siteUrl string, siteData app.SiteData) (siteName string, err error) {
+	siteName = feedDataSiteName
+	if siteName == "" {
+		if siteData == nil && siteUrl != "" {
+			var body []byte
+			body, err = util.GetResponseBodyFromUrl(siteUrl)
+			if err != nil {
+				return
+			}
+			siteData, err = s.fs.GetSiteData(body, siteUrl)
+		}
+		if siteData != nil {
+			siteName = siteData.SiteName()
+		}
+	}
+	return
+}
+
+func (s *Service) createLinkFeedUrl(body []byte, reqUrl string, siteData app.SiteData) (*app.Link, error) {
 	feedData, err := s.fs.ParseFeedResponse(body, reqUrl)
 	if err != nil {
 		return nil, err
 	}
 	link := newBaseLink(reqUrl)
-	link.SiteName = feedData.SiteName()
-	link.SiteUrl = feedData.SiteUrl()
+
+	siteUrl, err := s.getSiteUrl(feedData.SiteUrl(), reqUrl, siteData)
+	if err != nil {
+		return nil, err
+	}
+
+	siteName, err := s.getSiteName(feedData.SiteName(), siteUrl, siteData)
+	if err != nil {
+		return nil, err
+	}
+
+	link.SiteName = siteName
+	link.SiteUrl = siteUrl
 	link.FeedUrl = feedData.FeedUrl()
 	link.UnreadCount = int16(feedData.NewItemsCount(&link.LastClicked))
 
@@ -50,7 +98,7 @@ func (s *Service) createLinkSiteUrl(body []byte, reqUrl string) (*app.Link, erro
 	if err != nil {
 		return nil, err
 	}
-	return s.createLinkFeedUrl(body, reqUrl)
+	return s.createLinkFeedUrl(body, reqUrl, siteData)
 }
 
 func (s *Service) CreateLink(url string) (*app.Link, error) {
@@ -62,7 +110,7 @@ func (s *Service) CreateLink(url string) (*app.Link, error) {
 
 	var link *app.Link
 	if s.fs.IsXml(body) {
-		link, err = s.createLinkFeedUrl(body, url)
+		link, err = s.createLinkFeedUrl(body, url, nil)
 	} else {
 		link, err = s.createLinkSiteUrl(body, url)
 	}

@@ -12,11 +12,16 @@ import (
 
 type SiteData struct {
 	siteName string
+	siteUrl  string
 	feedUrls []string
 }
 
 func (s *SiteData) SiteName() string {
 	return s.siteName
+}
+
+func (s *SiteData) SiteUrl() string {
+	return s.siteUrl
 }
 
 func (s *SiteData) FeedUrls() []string {
@@ -69,5 +74,6 @@ func (s *Service) GetSiteData(body []byte, reqUrl string) (data app.SiteData, er
 	return &SiteData{
 		siteName: title,
 		feedUrls: feedUrls,
+		siteUrl:  reqUrl,
 	}, nil
 }

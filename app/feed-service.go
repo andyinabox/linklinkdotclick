@@ -6,6 +6,7 @@ import (
 
 type SiteData interface {
 	SiteName() string
+	SiteUrl() string
 	FeedUrls() []string
 }
 
