@@ -8,11 +8,11 @@ func (r *Repository) UpdateLink(link app.Link) (*app.Link, error) {
 
 	// disallow upsert
 	var testLink app.Link
-	tx := r.db.First(&testLink)
+	tx := r.withUserId(link.UserID).First(&testLink)
 	if tx.Error != nil {
 		return nil, tx.Error
 	}
 
-	tx = r.db.Save(&link)
+	tx = r.withUserId(link.UserID).Save(&link)
 	return &link, tx.Error
 }

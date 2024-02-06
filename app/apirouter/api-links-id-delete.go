@@ -11,19 +11,19 @@ type ApiLinksIdDeleteResponse struct {
 }
 
 func (r *Router) ApiLinksIdDelete(ctx *gin.Context) {
-	id, err := r.hh.GetID(ctx)
+	id, err := r.hh.GetIdParam(ctx)
 	if err != nil {
 		r.hh.ErrorResponse(ctx, http.StatusBadRequest, err)
 		return
 	}
 
-	ls, err := r.hh.GetUserLinkServiceFromSession(ctx)
+	userId, _, err := r.hh.GetUserIdFromSession(ctx)
 	if err != nil {
-		r.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		r.hh.ErrorResponse(ctx, http.StatusUnauthorized, err)
 		return
 	}
 
-	id, err = ls.DeleteLink(id)
+	id, err = r.sc.LinkService().DeleteLink(userId, id)
 	if err != nil {
 		r.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
 		return

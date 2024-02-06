@@ -2,26 +2,32 @@ package linkservice
 
 import (
 	"testing"
+	"time"
 
-	"github.com/andyinabox/linkydink/app/linkrepository"
-	"github.com/andyinabox/linkydink/test/fixtures"
+	"github.com/andyinabox/linkydink/app"
+	"github.com/andyinabox/linkydink/test"
 )
 
 func Test_RefreshLink(t *testing.T) {
-	lr, err := linkrepository.New(&linkrepository.Config{
-		DbFile: ":memory:",
-	})
-	if err != nil {
-		t.Fatal(err.Error())
-	}
-	ls := New(lr)
+	ts := test.NewFixtureTestServer("../../test/fixtures/www.w3c.org/feed.xml", t)
+	ls := NewLinkService(t)
 
-	link := fixtures.LinkJustClicked()
-	refreshed, err := ls.refreshLink(link)
+	dateFormat := "2006-Jan-02"
+	afterDate, err := time.Parse(dateFormat, "2024-Jan-27")
 	if err != nil {
 		t.Fatal(err.Error())
 	}
-	if refreshed.UnreadCount != 0 {
-		t.Errorf("expected unread count to be 0, got %d", refreshed.UnreadCount)
+
+	link := app.Link{
+		FeedUrl:     ts.URL + "/blog/feed",
+		LastClicked: afterDate,
+	}
+
+	refreshed, err := ls.RefreshLink(1, link)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+	if refreshed.UnreadCount != 2 {
+		t.Errorf("expected unread count to be 2, got %d", refreshed.UnreadCount)
 	}
 }

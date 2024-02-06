@@ -9,19 +9,19 @@ import (
 func (r *Router) ApiLinksIdGet(ctx *gin.Context) {
 	_, refresh := ctx.GetQuery("refresh")
 
-	id, err := r.hh.GetID(ctx)
+	id, err := r.hh.GetIdParam(ctx)
 	if err != nil {
 		r.hh.ErrorResponse(ctx, http.StatusBadRequest, err)
 		return
 	}
 
-	ls, err := r.hh.GetUserLinkServiceFromSession(ctx)
+	userId, _, err := r.hh.GetUserIdFromSession(ctx)
 	if err != nil {
-		r.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		r.hh.ErrorResponse(ctx, http.StatusUnauthorized, err)
 		return
 	}
 
-	link, err := ls.FetchLink(id, refresh)
+	link, err := r.sc.LinkService().FetchLink(userId, id, refresh)
 	if err != nil {
 		r.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
 		return

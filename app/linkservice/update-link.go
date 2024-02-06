@@ -6,7 +6,7 @@ import (
 	"github.com/andyinabox/linkydink/app"
 )
 
-func (s *Service) UpdateLink(id uint, link app.Link, refresh bool) (*app.Link, error) {
+func (s *Service) UpdateLink(userId uint, id uint, link app.Link, refresh bool) (*app.Link, error) {
 	if id != link.ID {
 		return nil, errors.New("unmatching ids in update request")
 	}
@@ -16,7 +16,7 @@ func (s *Service) UpdateLink(id uint, link app.Link, refresh bool) (*app.Link, e
 	}
 
 	if refresh {
-		updatedLink, err = s.refreshLink(*updatedLink)
+		updatedLink, err = s.RefreshLink(userId, *updatedLink)
 		if err != nil {
 			return nil, err
 		}

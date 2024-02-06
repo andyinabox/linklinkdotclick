@@ -1,12 +1,7 @@
 package linkrepository
 
 import (
-	"io/fs"
-	"os"
-	"path"
-
 	"github.com/andyinabox/linkydink/app"
-	"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
 )
 
@@ -18,21 +13,19 @@ type Config struct {
 	DbFile string
 }
 
-func New(conf *Config) (*Repository, error) {
+func New(db *gorm.DB) *Repository {
 
-	err := os.MkdirAll(path.Dir(conf.DbFile), fs.ModePerm)
+	err := db.AutoMigrate(&app.Link{})
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
-	db, err := gorm.Open(sqlite.Open(conf.DbFile), &gorm.Config{})
-	if err != nil {
-		return nil, err
-	}
+	return &Repository{db}
+}
 
-	err = db.AutoMigrate(&app.Link{})
-	if err != nil {
-		return nil, err
+func (r *Repository) withUserId(userId uint) *gorm.DB {
+	if userId == 0 {
+		panic("zero-value user id")
 	}
-	return &Repository{db}, nil
+	return r.db.Where("user_id = ?", userId)
 }

@@ -5,10 +5,7 @@ import (
 )
 
 func Test_FetchUser(t *testing.T) {
-	s := NewUserService(t, &Config{
-		// TODO: I don't think this should be necessary
-		UserDbPath: "db/usr",
-	})
+	s := NewUserService(t, &Config{})
 
 	validEmail := "test@example.com"
 	createdUser, err := s.CreateUser(validEmail)

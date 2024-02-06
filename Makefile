@@ -22,7 +22,8 @@ run: build .cert/localhost.crt
 # run the main application and reload when files are changed
 .PHONY: watch
 watch:
-	reflex -d fancy -G 'bin/*' -G 'release/*' -G 'res/**/*' -G 'db/**/*' -s make run
+	reflex -d fancy -G 'bin/*' -G 'release/*' -G 'res/**/*' -G 'db/*' -s make run
+
 
 # run tests
 .PHONY: test
@@ -40,6 +41,10 @@ clean:
 	rm -rf bin
 	rm -rf res
 	rm -rf dist
+
+.PHONY: clobber-db
+clobber-db:
+	rm -rf db
 
 .PHONY: smtp
 smtp:

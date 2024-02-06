@@ -9,34 +9,30 @@ import (
 )
 
 type IndexRenderContext struct {
-	Links     []app.Link
-	DummyLink app.Link
-	User      *app.User
+	Links         []app.Link
+	DummyLink     app.Link
+	User          *app.User
+	IsDefaultUser bool
 }
 
 func (r *Router) IndexGet(ctx *gin.Context) {
 
-	user, err := r.hh.GetUserFromSession(ctx)
+	user, isDefaultUser, err := r.hh.GetUserFromSession(ctx)
 	// it's ok if no user is found, but we want to abort for server errors
 	if err != nil && errors.Is(err, app.ErrServerError) {
 		ctx.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
-	ls, err := r.hh.GetUserLinkServiceFromSession(ctx)
-	if err != nil {
-		ctx.AbortWithError(http.StatusInternalServerError, err)
-		return
-	}
-
-	links, err := ls.FetchLinks()
+	links, err := r.sc.LinkService().FetchLinks(user.ID)
 	if err != nil {
 		ctx.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
 	ctx.HTML(http.StatusOK, "index.html.tmpl", &IndexRenderContext{
-		Links: links,
-		User:  user,
+		Links:         links,
+		User:          user,
+		IsDefaultUser: isDefaultUser,
 	})
 }

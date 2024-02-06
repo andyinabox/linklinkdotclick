@@ -5,6 +5,6 @@ import (
 )
 
 func (r *Repository) CreateLink(link app.Link) (*app.Link, error) {
-	tx := r.db.Create(&link)
+	tx := r.withUserId(link.UserID).Create(&link)
 	return &link, tx.Error
 }

@@ -1,32 +1,37 @@
 package userservice
 
 import (
+	"errors"
+
 	"github.com/andyinabox/linkydink/app"
 )
 
-const (
-	defaultUserEmail  = "linkydink@linkydink.tld"
-	defaultUserDbPath = ":memory:"
-)
-
 type Service struct {
-	c          *Config
-	r          app.UserRepository
-	tokenStore app.TokenStore
+	defaultUserId uint
+	ur            app.UserRepository
+	ts            app.TokenStore
+	conf          *Config
 }
 
 type Config struct {
-	UserDbPath       string
 	DefaultUserEmail string
 }
 
-func New(r app.UserRepository, tokenStore app.TokenStore, c *Config) *Service {
+func New(ur app.UserRepository, ts app.TokenStore, conf *Config) *Service {
+	if conf.DefaultUserEmail == "" {
+		panic("no default user email provided")
+	}
 
-	if c.DefaultUserEmail == "" {
-		c.DefaultUserEmail = defaultUserEmail
+	// create default user
+	user, err := ur.FetchUserByEmail(conf.DefaultUserEmail)
+	if errors.Is(err, app.ErrNotFound) {
+		user, err = ur.CreateUser(app.User{
+			Email: conf.DefaultUserEmail,
+		})
 	}
-	if c.UserDbPath == "" {
-		c.UserDbPath = defaultUserDbPath
+	if err != nil {
+		panic(err)
 	}
-	return &Service{c, r, tokenStore}
+
+	return &Service{user.ID, ur, ts, conf}
 }

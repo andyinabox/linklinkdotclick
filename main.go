@@ -12,7 +12,10 @@ import (
 	"github.com/andyinabox/linkydink/app"
 	"github.com/andyinabox/linkydink/app/apirouter"
 	"github.com/andyinabox/linkydink/app/approuter"
+	"github.com/andyinabox/linkydink/app/feedservice"
 	"github.com/andyinabox/linkydink/app/handlerhelper"
+	"github.com/andyinabox/linkydink/app/linkrepository"
+	"github.com/andyinabox/linkydink/app/linkservice"
 	"github.com/andyinabox/linkydink/app/servicecontainer"
 	"github.com/andyinabox/linkydink/app/tokenstore"
 	"github.com/andyinabox/linkydink/app/userrepository"
@@ -64,7 +67,6 @@ func main() {
 		ExpireseIn: 10 * time.Minute,
 	})
 	userServiceConfig := &userservice.Config{
-		UserDbPath:       userDbPath,
 		DefaultUserEmail: defaultemail,
 	}
 	userService := userservice.New(userRepository, tokenStore, userServiceConfig)
@@ -74,15 +76,10 @@ func main() {
 		SmtpAddr: smtpaddr,
 	})
 
-	// get default linkService
-	user, err := userService.EnsureDefaultUser()
-	if err != nil {
-		panic(err)
-	}
-	linkService, err := userService.GetUserLinkService(user)
-	if err != nil {
-		panic(err)
-	}
+	// create link service
+	feedService := feedservice.New()
+	linkRepository := linkrepository.New(db)
+	linkService := linkservice.New(linkRepository, feedService)
 
 	// create service container
 	serviceContainer := servicecontainer.New(

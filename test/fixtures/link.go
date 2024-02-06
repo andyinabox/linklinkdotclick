@@ -6,7 +6,7 @@ import (
 	"github.com/andyinabox/linkydink/app"
 )
 
-func LinkBeforeInsert() app.Link {
+func LinkBeforeInsertNoUserID() app.Link {
 	now := time.Now()
 	return app.Link{
 		SiteName:    "W3C - Blog",
@@ -17,6 +17,12 @@ func LinkBeforeInsert() app.Link {
 		LastClicked: time.Date(1993, time.April, 30, 12, 0, 0, 0, time.UTC),
 		LastFetched: now,
 	}
+}
+
+func LinkBeforeInsert() app.Link {
+	link := LinkBeforeInsertNoUserID()
+	link.UserID = 1
+	return link
 }
 
 func LinkJustCreated() app.Link {
@@ -30,8 +36,8 @@ func LinkJustCreated() app.Link {
 	return link
 }
 
-func LinkJustClicked() app.Link {
+func LinkSetLastCLicked(t *time.Time) app.Link {
 	link := LinkJustCreated()
-	link.LastClicked = time.Now()
+	link.LastClicked = *t
 	return link
 }

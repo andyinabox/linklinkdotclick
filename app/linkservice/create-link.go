@@ -1,32 +1,27 @@
 package linkservice
 
 import (
-	"errors"
-	"strings"
 	"time"
 
 	"github.com/andyinabox/linkydink/app"
 )
 
-func (s *Service) CreateLink(url string) (*app.Link, error) {
-
-	feed, feedUrl, err := s.fr.Parse(url)
+func (s *Service) CreateLink(userId uint, originalUrl string) (*app.Link, error) {
+	feedData, err := s.fs.GetFeedDataForUrl(originalUrl)
 	if err != nil {
 		return nil, err
 	}
-	if feed == nil {
-		return nil, errors.New("no feed detected")
-	}
 
-	link := &app.Link{
-		SiteName:    strings.TrimSpace(feed.Title),
-		SiteUrl:     strings.TrimSpace(feed.Link),
-		FeedUrl:     feedUrl,
-		OriginalUrl: url,
-		UnreadCount: int16(len(feed.Items)),
-		LastClicked: time.Date(1993, time.April, 30, 12, 0, 0, 0, time.UTC),
+	lastClicked := time.Date(1993, time.April, 30, 12, 0, 0, 0, time.UTC)
+
+	return s.lr.CreateLink(app.Link{
+		UserID:      userId,
+		OriginalUrl: originalUrl,
+		LastClicked: lastClicked,
 		LastFetched: time.Now(),
-	}
-
-	return s.lr.CreateLink(*link)
+		SiteName:    feedData.SiteName(),
+		SiteUrl:     feedData.SiteUrl(),
+		FeedUrl:     feedData.FeedUrl(),
+		UnreadCount: int16(feedData.NewItemsCount(&lastClicked)),
+	})
 }

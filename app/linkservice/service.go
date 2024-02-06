@@ -2,15 +2,13 @@ package linkservice
 
 import (
 	"github.com/andyinabox/linkydink/app"
-	"github.com/andyinabox/linkydink/pkg/feedfinder"
 )
 
 type Service struct {
 	lr app.LinkRepository
-	fr *feedfinder.Reader
+	fs app.FeedService
 }
 
-func New(lr app.LinkRepository) *Service {
-	fr := feedfinder.New()
-	return &Service{lr, fr}
+func New(lr app.LinkRepository, fs app.FeedService) *Service {
+	return &Service{lr, fs}
 }

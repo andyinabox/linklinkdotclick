@@ -13,7 +13,7 @@ func (s *Service) CreateUser(email string) (*app.User, error) {
 		return nil, err
 	}
 
-	return s.r.CreateUser(app.User{
+	return s.ur.CreateUser(app.User{
 		Email: email,
 	})
 }
