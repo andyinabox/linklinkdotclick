@@ -1,11 +1,10 @@
 package linkservice
 
 import (
-	"io/ioutil"
-	"net/http"
 	"time"
 
 	"github.com/andyinabox/linkydink/app"
+	"github.com/andyinabox/linkydink/app/util"
 )
 
 func (s *Service) RefreshLink(link app.Link) (*app.Link, error) {
@@ -15,17 +14,7 @@ func (s *Service) RefreshLink(link app.Link) (*app.Link, error) {
 		return &link, nil
 	}
 
-	res, err := http.Get(link.FeedUrl)
-	if err != nil {
-		return nil, err
-	}
-
-	if res.StatusCode != http.StatusOK {
-		return nil, app.ErrServerError
-	}
-
-	defer res.Body.Close()
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := util.GetResponseBodyFromUrl(link.FeedUrl)
 	if err != nil {
 		return nil, err
 	}

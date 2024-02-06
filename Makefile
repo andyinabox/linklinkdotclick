@@ -41,6 +41,10 @@ clean:
 	rm -rf res
 	rm -rf dist
 
+.PHONY: clobber-db
+clobber-db:
+	rm -rf db
+
 .PHONY: smtp
 smtp:
 	mailpit

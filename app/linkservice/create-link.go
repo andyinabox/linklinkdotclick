@@ -23,7 +23,7 @@ func (s *Service) createLinkFeedUrl(body []byte, reqUrl string) (*app.Link, erro
 	link := newBaseLink(reqUrl)
 	link.SiteName = feedData.SiteName()
 	link.SiteUrl = feedData.SiteUrl()
-	link.FeedUrl = reqUrl
+	link.FeedUrl = feedData.FeedUrl()
 	link.UnreadCount = int16(feedData.NewItemsCount(&link.LastClicked))
 
 	return link, nil
@@ -45,7 +45,8 @@ func (s *Service) createLinkSiteUrl(body []byte, reqUrl string) (*app.Link, erro
 		return link, nil
 	}
 
-	body, err = util.GetResponseBodyFromUrl(feedUrls[0])
+	reqUrl = feedUrls[0]
+	body, err = util.GetResponseBodyFromUrl(reqUrl)
 	if err != nil {
 		return nil, err
 	}
