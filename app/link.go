@@ -21,9 +21,9 @@ type Link struct {
 type LinkRepository interface {
 	FetchLinks(userId uint) ([]Link, error)
 	CreateLink(link Link) (*Link, error)
-	FetchLink(id uint) (*Link, error)
+	FetchLink(userId uint, id uint) (*Link, error)
 	UpdateLink(link Link) (*Link, error)
-	DeleteLink(id uint) (uint, error)
+	DeleteLink(userId uint, id uint) (uint, error)
 }
 
 type LinkService interface {

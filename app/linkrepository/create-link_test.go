@@ -21,12 +21,12 @@ func Test_CreateLink(t *testing.T) {
 	}
 
 	{
-		link := fixtures.LinkBeforeInsert()
-		link.UserID = 0
-		_, err := r.CreateLink(link)
-		if err == nil {
-			t.Fatal("expected error createing link with zero-value UserID")
-		}
+		defer func() {
+			if r := recover(); r == nil {
+				t.Error("creating link without userId did not panic")
+			}
+		}()
+		_, _ = r.CreateLink(fixtures.LinkBeforeInsertNoUserID())
 	}
 
 }

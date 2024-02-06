@@ -6,7 +6,10 @@ import (
 	"github.com/andyinabox/linkydink/app"
 )
 
-func (s *Service) CreateLink(originalUrl string) (*app.Link, error) {
+func (s *Service) CreateLink(userId uint, originalUrl string) (*app.Link, error) {
+	if userId == 0 {
+		return nil, app.ErrMissingUserId
+	}
 
 	feedData, err := s.fs.GetFeedDataForUrl(originalUrl)
 	if err != nil {
@@ -16,6 +19,7 @@ func (s *Service) CreateLink(originalUrl string) (*app.Link, error) {
 	lastClicked := time.Date(1993, time.April, 30, 12, 0, 0, 0, time.UTC)
 
 	return s.lr.CreateLink(app.Link{
+		UserID:      userId,
 		OriginalUrl: originalUrl,
 		LastClicked: lastClicked,
 		LastFetched: time.Now(),
