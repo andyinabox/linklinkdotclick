@@ -1,6 +1,7 @@
 package linkrepository
 
 import (
+	"github.com/andyinabox/linkydink/app"
 	"gorm.io/gorm"
 )
 
@@ -13,6 +14,12 @@ type Config struct {
 }
 
 func New(db *gorm.DB) *Repository {
+
+	err := db.AutoMigrate(&app.Link{})
+	if err != nil {
+		panic(err)
+	}
+
 	return &Repository{db}
 }
 

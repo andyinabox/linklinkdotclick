@@ -3,5 +3,5 @@ package userservice
 import "github.com/andyinabox/linkydink/app"
 
 func (s *Service) FetchUser(id uint) (*app.User, error) {
-	return s.r.FetchUser(id)
+	return s.ur.FetchUser(id)
 }

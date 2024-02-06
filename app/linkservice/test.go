@@ -6,15 +6,12 @@ import (
 	"github.com/andyinabox/linkydink/app"
 	"github.com/andyinabox/linkydink/app/feedservice"
 	"github.com/andyinabox/linkydink/app/linkrepository"
+	"github.com/andyinabox/linkydink/test"
 )
 
 func NewLinkService(t *testing.T) app.LinkService {
-	lr, err := linkrepository.New(&linkrepository.Config{
-		DbFile: ":memory:",
-	})
-	if err != nil {
-		t.Fatal(err.Error())
-	}
+	db := test.NewInMemoryDb(t)
+	lr := linkrepository.New(db)
 	fs := feedservice.New()
 	return New(lr, fs)
 }

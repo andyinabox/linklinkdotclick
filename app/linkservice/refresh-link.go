@@ -6,7 +6,7 @@ import (
 	"github.com/andyinabox/linkydink/app"
 )
 
-func (s *Service) RefreshLink(link app.Link) (*app.Link, error) {
+func (s *Service) RefreshLink(userId uint, link app.Link) (*app.Link, error) {
 
 	if link.FeedUrl == "" {
 		return &link, nil

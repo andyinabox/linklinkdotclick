@@ -4,29 +4,19 @@ import (
 	"github.com/andyinabox/linkydink/app"
 )
 
-const (
-	defaultUserEmail  = "linkydink@linkydink.tld"
-	defaultUserDbPath = ":memory:"
-)
-
 type Service struct {
-	c          *Config
-	r          app.UserRepository
-	tokenStore app.TokenStore
+	ur   app.UserRepository
+	ts   app.TokenStore
+	conf *Config
 }
 
 type Config struct {
-	UserDbPath       string
 	DefaultUserEmail string
 }
 
-func New(r app.UserRepository, tokenStore app.TokenStore, c *Config) *Service {
-
-	if c.DefaultUserEmail == "" {
-		c.DefaultUserEmail = defaultUserEmail
+func New(ur app.UserRepository, ts app.TokenStore, conf *Config) *Service {
+	if conf.DefaultUserEmail == "" {
+		panic("no default user email provided")
 	}
-	if c.UserDbPath == "" {
-		c.UserDbPath = defaultUserDbPath
-	}
-	return &Service{c, r, tokenStore}
+	return &Service{ur, ts, conf}
 }

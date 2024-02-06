@@ -10,6 +10,9 @@ import (
 )
 
 func NewUserService(t *testing.T, conf *Config) app.UserService {
+	if conf.DefaultUserEmail == "" {
+		conf.DefaultUserEmail = "test@example.com"
+	}
 	db := test.NewInMemoryDb(t)
 	r := userrepository.New(db)
 	ts := tokenstore.New(db, &tokenstore.Config{})

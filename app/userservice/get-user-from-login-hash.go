@@ -3,7 +3,7 @@ package userservice
 import "github.com/andyinabox/linkydink/app"
 
 func (s *Service) GetUserFromLoginHash(hash string) (*app.User, error) {
-	id, err := s.tokenStore.Get(hash)
+	id, err := s.ts.Get(hash)
 	if err != nil {
 		return nil, err
 	}
@@ -12,6 +12,6 @@ func (s *Service) GetUserFromLoginHash(hash string) (*app.User, error) {
 		return nil, err
 	}
 	// if we are successfully using the hash, delete it
-	s.tokenStore.Delete(hash)
+	s.ts.Delete(hash)
 	return user, err
 }

@@ -23,7 +23,7 @@ func Test_RefreshLink(t *testing.T) {
 		LastClicked: afterDate,
 	}
 
-	refreshed, err := ls.RefreshLink(link)
+	refreshed, err := ls.RefreshLink(1, link)
 	if err != nil {
 		t.Fatal(err.Error())
 	}

@@ -7,10 +7,6 @@ import (
 )
 
 func (s *Service) CreateLink(userId uint, originalUrl string) (*app.Link, error) {
-	if userId == 0 {
-		return nil, app.ErrMissingUserId
-	}
-
 	feedData, err := s.fs.GetFeedDataForUrl(originalUrl)
 	if err != nil {
 		return nil, err
