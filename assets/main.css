@@ -1,14 +1,16 @@
 html {
-  font-size: calc(80% + 3vw);
+  font-size: clamp(1rem, 80% + 3vw, 3rem);
 }
 body {
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
 }
 
 linky-site {
   padding: 6vw 8vw;
+  margin: 0px auto;
   display: block;
+  max-width: 960px;
 }
 
 linky-site > header > h1 {
