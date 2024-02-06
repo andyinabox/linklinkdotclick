@@ -43,6 +43,6 @@ func (r *Router) Register(engine *gin.Engine) {
 	api.DELETE("/links/:id", r.ApiLinksIdDelete)
 
 	// users
-	api.PUT("/users/:id", r.ApiUsersIdPut)
+	api.PUT("/self", r.ApiSelfPut)
 
 }

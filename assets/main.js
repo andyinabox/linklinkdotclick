@@ -1,4 +1,4 @@
-import { createLink } from './api'
+import { createLink, updateSelf } from './api'
 import { handleError } from './errors'
 import { Link } from './link'
 
@@ -61,13 +61,18 @@ btnEdit.addEventListener('click', (e) => {
 
 // renaming site
 const btnRenameSite = document.querySelector('button[name="rename-site"]')
+const siteTitleEl = document.getElementById('site-title')
+const headTitle = document.querySelector('title')
 async function handleRenameSiteClick() {
   try {
-    const name = prompt('Enter a new title')
+    const siteTitle = prompt('Enter a new title')
 
-    if (!name) return
+    if (!siteTitle) return
 
-    if (!url) return
+    const user = await updateSelf({ siteTitle })
+
+    siteTitleEl.innerHTML = user.siteTitle
+    headTitle.innerHTML = user.siteTitle
   } catch (err) {
     handleError(err)
   } finally {

@@ -31,6 +31,9 @@ export const apiCall = async function (endpoint, method, body) {
   }
 }
 
+//
+// links
+//
 export const getLinks = async function () {
   const { payload } = await apiCall('/links', 'GET')
   if (error) {
@@ -59,5 +62,14 @@ export const updateLink = async function (link, refresh = true) {
 
 export const deleteLink = async function (id) {
   const { payload } = await apiCall('/links/' + id, 'DELETE')
+  return payload
+}
+
+//
+// users
+//
+export const updateSelf = async function (user) {
+  let endpoint = '/self'
+  const { payload } = await apiCall(endpoint, 'PUT', user)
   return payload
 }
