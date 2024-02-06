@@ -4,22 +4,15 @@ import (
 	"time"
 
 	"github.com/andyinabox/linkydink/app"
-	"github.com/andyinabox/linkydink/app/util"
 )
 
 func (s *Service) RefreshLink(link app.Link) (*app.Link, error) {
 
-	// skip if there is no feed
 	if link.FeedUrl == "" {
 		return &link, nil
 	}
 
-	body, err := util.GetResponseBodyFromUrl(link.FeedUrl)
-	if err != nil {
-		return nil, err
-	}
-
-	feedData, err := s.fs.ParseFeedResponse(body, link.FeedUrl)
+	feedData, err := s.fs.RefreshFeedDataForUrl(link.FeedUrl)
 	if err != nil {
 		return nil, err
 	}

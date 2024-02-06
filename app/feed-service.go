@@ -4,12 +4,6 @@ import (
 	"time"
 )
 
-type SiteData interface {
-	SiteName() string
-	SiteUrl() string
-	FeedUrls() []string
-}
-
 type FeedData interface {
 	SiteName() string
 	SiteUrl() string
@@ -18,7 +12,6 @@ type FeedData interface {
 }
 
 type FeedService interface {
-	IsXml(body []byte) bool
-	GetSiteData(body []byte, reqUrl string) (SiteData, error)
-	ParseFeedResponse(body []byte, reqUrl string) (FeedData, error)
+	GetFeedDataForUrl(string) (FeedData, error)
+	RefreshFeedDataForUrl(string) (FeedData, error)
 }

@@ -7,28 +7,15 @@ import (
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
-	"github.com/andyinabox/linkydink/app"
 )
 
 type SiteData struct {
-	siteName string
-	siteUrl  string
-	feedUrls []string
+	SiteName string
+	SiteUrl  string
+	FeedUrls []string
 }
 
-func (s *SiteData) SiteName() string {
-	return s.siteName
-}
-
-func (s *SiteData) SiteUrl() string {
-	return s.siteUrl
-}
-
-func (s *SiteData) FeedUrls() []string {
-	return s.feedUrls
-}
-
-func (s *Service) GetSiteData(body []byte, reqUrl string) (data app.SiteData, err error) {
+func (s *Service) GetSiteData(body []byte, reqUrl string) (data *SiteData, err error) {
 
 	bodyReader := ioutil.NopCloser(bytes.NewBuffer(body))
 	doc, err := goquery.NewDocumentFromReader(bodyReader)
@@ -72,8 +59,8 @@ func (s *Service) GetSiteData(body []byte, reqUrl string) (data app.SiteData, er
 		})
 
 	return &SiteData{
-		siteName: title,
-		feedUrls: feedUrls,
-		siteUrl:  reqUrl,
+		SiteName: title,
+		FeedUrls: feedUrls,
+		SiteUrl:  reqUrl,
 	}, nil
 }

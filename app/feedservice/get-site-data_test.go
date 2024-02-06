@@ -22,13 +22,13 @@ func Test_GetSiteData(t *testing.T) {
 		}
 
 		expectedSiteName := "Blog | W3C"
-		if data.SiteName() != expectedSiteName {
-			t.Errorf("expected SiteName for %s to return %s, got %s", ts.URL, expectedSiteName, data.SiteName())
+		if data.SiteName != expectedSiteName {
+			t.Errorf("expected SiteName for %s to return %s, got %s", ts.URL, expectedSiteName, data.SiteName)
 		}
 
 		expectedFeedCount := 1
 		expectedFirstFeedUrl := ts.URL + "/blog/feed/"
-		feedUrls := data.FeedUrls()
+		feedUrls := data.FeedUrls
 		if len(feedUrls) != expectedFeedCount {
 			t.Errorf("expected feed count for %s to be %d, got %d", ts.URL, expectedFeedCount, len(feedUrls))
 		}

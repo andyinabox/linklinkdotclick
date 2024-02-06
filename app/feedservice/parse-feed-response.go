@@ -1,11 +1,10 @@
 package feedservice
 
 import (
-	"github.com/andyinabox/linkydink/app"
 	"github.com/mmcdole/gofeed"
 )
 
-func (s *Service) ParseFeedResponse(body []byte, reqUrl string) (app.FeedData, error) {
+func (s *Service) ParseFeedResponse(body []byte, reqUrl string) (*FeedData, error) {
 
 	fp := gofeed.NewParser()
 	feed, err := fp.ParseString(string(body))
@@ -13,10 +12,10 @@ func (s *Service) ParseFeedResponse(body []byte, reqUrl string) (app.FeedData, e
 		return nil, err
 	}
 
-	feedData := &FeedData{*feed}
+	feedData := NewFeedDataFromFeed(feed)
 
-	if feedData.Feed.FeedLink == "" {
-		feedData.Feed.FeedLink = reqUrl
+	if feedData.feedUrl == "" {
+		feedData.feedUrl = reqUrl
 	}
 
 	return feedData, nil
