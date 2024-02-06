@@ -7,16 +7,56 @@ import (
 	"github.com/andyinabox/linkydink/app"
 )
 
-func (s *Service) CreateLink(url string) (*app.Link, error) {
-
-	link := &app.Link{
-		OriginalUrl: url,
+func newBaseLink(res *http.Response) *app.Link {
+	return &app.Link{
+		OriginalUrl: res.Request.URL.String(),
 		LastClicked: time.Date(1993, time.April, 30, 12, 0, 0, 0, time.UTC),
 		LastFetched: time.Now(),
 	}
+}
 
-	feedUrl := url
-	var siteData app.SiteData
+func (s *Service) createLinkFeedUrl(res *http.Response) (*app.Link, error) {
+	feedData, err := s.fs.ParseFeedResponse(res)
+	if err != nil {
+		return nil, err
+	}
+	link := newBaseLink(res)
+	link.SiteName = feedData.SiteName()
+	link.SiteUrl = feedData.SiteUrl()
+	link.FeedUrl = res.Request.URL.String()
+	link.UnreadCount = int16(feedData.NewItemsCount(&link.LastClicked))
+
+	return link, nil
+}
+
+func (s *Service) createLinkSiteUrl(res *http.Response) (*app.Link, error) {
+	siteData, err := s.fs.GetSiteData(res)
+	if err != nil {
+		return nil, err
+	}
+	feedUrls := siteData.FeedUrls()
+
+	// no feeds found
+	if len(feedUrls) == 0 {
+		link := newBaseLink(res)
+		link.SiteName = siteData.SiteName()
+		link.SiteUrl = res.Request.URL.String()
+		return link, nil
+	}
+
+	feedRes, err := http.Get(feedUrls[0])
+	if err != nil {
+		return nil, app.ErrServerError
+	}
+
+	if feedRes.StatusCode != http.StatusOK {
+		return nil, app.ErrNotFound
+	}
+
+	return s.createLinkFeedUrl(feedRes)
+}
+
+func (s *Service) CreateLink(url string) (*app.Link, error) {
 
 	res, err := http.Get(url)
 	if err != nil {
@@ -27,32 +67,15 @@ func (s *Service) CreateLink(url string) (*app.Link, error) {
 		return nil, app.ErrNotFound
 	}
 
-	if !s.fs.IsXml(res) {
-		siteData, err = s.fs.GetSiteData(res)
-		if err != nil {
-			return nil, err
-		}
-		feedUrls := siteData.FeedUrls()
-
-		// no feeds found
-		if len(feedUrls) == 0 {
-			link.SiteName = siteData.SiteName()
-			link.SiteUrl = url
-			return link, nil
-		}
-
-		feedUrl = feedUrls[0]
+	var link *app.Link
+	if s.fs.IsXml(res) {
+		link, err = s.createLinkFeedUrl(res)
+	} else {
+		link, err = s.createLinkSiteUrl(res)
 	}
-
-	feedData, err := s.fs.ParseFeed(feedUrl)
 	if err != nil {
-		return nil, err
+		return nil, app.ErrServerError
 	}
-
-	link.SiteName = feedData.SiteName()
-	link.SiteUrl = feedData.SiteUrl()
-	link.FeedUrl = feedUrl
-	link.UnreadCount = int16(feedData.NewItemsCount(&link.LastClicked))
 
 	return s.lr.CreateLink(*link)
 }
