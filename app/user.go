@@ -4,12 +4,13 @@ import "time"
 
 type User struct {
 	// gorm fields
-	ID        uint      `json:"id"`
+	ID        uint      `json:"-"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 
 	// domain fields
-	Email string `json:"email" gorm:"uniqueIndex"`
+	Email     string `json:"email" gorm:"uniqueIndex"`
+	SiteTitle string `json:"siteTitle"`
 }
 
 type UserRepository interface {
@@ -22,6 +23,7 @@ type UserRepository interface {
 type UserService interface {
 	CreateUser(email string) (*User, error)
 	FetchUser(id uint) (*User, error)
+	UpdateUser(id uint, user User) (*User, error)
 	FetchDefaultUser() (*User, error)
 	FetchOrCreateUserByEmail(email string) (*User, error)
 	GetDefaultUserId() uint

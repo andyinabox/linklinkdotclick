@@ -1,33 +1,13 @@
-import { getLink, updateLink, deleteLink } from './api'
-import { handleError } from './errors'
-
-export class Link extends HTMLElement {
+import { getLink, updateLink, deleteLink } from '../../lib/api'
+import { handleError } from '../../lib/errors'
+import { Component } from '../component'
+export class Link extends Component {
   constructor() {
     super()
-
-    // create a collection of elements with the
-    // "slot" attribute
-    this.slots = {}
-    this.querySelectorAll('[slot]').forEach((el) => {
-      this.slots[el.getAttribute('slot')] = el
-    })
-
     // if an id is defined, automatically fetch
     // the latest data from api
     const id = this.getAttribute('data-id')
     if (id) this.fetchData(id)
-  }
-
-  // automatically render when data is set
-  set data(d) {
-    this._data = d
-    this.render()
-  }
-
-  // create a clone of data when retrieving
-  // (we only want this changed when using setter)
-  get data() {
-    return { ...this._data }
   }
 
   // render data to the element
@@ -40,14 +20,13 @@ export class Link extends HTMLElement {
   }
 
   async fetchData(id) {
-    this.classList.add('loading')
     try {
+      this.loading = true
       this.data = await getLink(id)
-      this.dispatchEvent(new CustomEvent('sort-links', { bubbles: true }))
     } catch (err) {
       handleError(err)
     } finally {
-      this.classList.remove('loading')
+      this.loading = false
     }
   }
 
@@ -57,7 +36,7 @@ export class Link extends HTMLElement {
     try {
       const updatedLink = await updateLink(link)
       this.data = updatedLink
-      this.dispatchEvent(new CustomEvent('sort-links', { bubbles: true }))
+      this.dispatchEvent(new CustomEvent('link-click', { bubbles: true }))
     } catch (err) {
       handleError(err)
     }
@@ -69,10 +48,13 @@ export class Link extends HTMLElement {
     if (!confirm(`Delete link "${siteName}"?`)) return
 
     try {
+      this.loading = true
       await deleteLink(id)
       this.remove()
     } catch (err) {
       handleError(err)
+    } finally {
+      this.loading = false
     }
   }
 
@@ -82,10 +64,13 @@ export class Link extends HTMLElement {
     if (!name) return
     data.siteName = name
     try {
+      this.loading = true
       const updated = await updateLink(data)
       this.data = updated
     } catch (err) {
       handleError(err)
+    } finally {
+      this.loading = false
     }
   }
 

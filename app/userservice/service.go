@@ -14,7 +14,8 @@ type Service struct {
 }
 
 type Config struct {
-	DefaultUserEmail string
+	DefaultUserEmail     string
+	DefaultUserSiteTitle string
 }
 
 func New(ur app.UserRepository, ts app.TokenStore, conf *Config) *Service {
@@ -26,7 +27,8 @@ func New(ur app.UserRepository, ts app.TokenStore, conf *Config) *Service {
 	user, err := ur.FetchUserByEmail(conf.DefaultUserEmail)
 	if errors.Is(err, app.ErrNotFound) {
 		user, err = ur.CreateUser(app.User{
-			Email: conf.DefaultUserEmail,
+			Email:     conf.DefaultUserEmail,
+			SiteTitle: conf.DefaultUserSiteTitle,
 		})
 	}
 	if err != nil {

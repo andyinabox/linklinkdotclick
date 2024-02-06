@@ -1,16 +1,24 @@
 html {
-  font-size: calc(80% + 3vw);
+  font-size: clamp(1rem, 80% + 3vw, 3rem);
 }
 body {
-  margin: 6vw 8vw;
+  margin: 0px;
+  padding: 0px;
 }
 
-body > header > h1 {
+linky-site {
+  padding: 6vw 8vw;
+  margin: 0px auto;
+  display: block;
+  max-width: 960px;
+}
+
+linky-site > header > h1 {
   font-weight: normal;
   font-size: 1.4rem;
 }
 
-body > nav {
+linky-site > nav {
   margin-top: 1.5rem;
 }
 
@@ -32,12 +40,12 @@ body > nav {
   }
 }
 
-body.loading,
-body.loading * {
+linky-site.loading,
+linky-site.loading * {
   cursor: progress !important;
 }
 
-body.loading > nav:after {
+linky-site.loading > nav:after {
   content: '(loading)';
   font-size: 0.6rem;
   font-style: italic;
@@ -80,7 +88,7 @@ input[type='submit']:after {
 button[name='edit']:after {
   content: '✏️';
 }
-body.editing button[name='edit']:after {
+linky-site.editing button[name='edit']:after {
   content: '✅';
 }
 
@@ -92,7 +100,8 @@ button[name='delete']:after {
   content: '🗑';
 }
 
-button[name='rename']:after {
+button[name='rename']:after,
+button[name='rename-site']:after {
   content: '✍️';
 }
 
@@ -102,6 +111,13 @@ input[name='login']:after {
 
 input[name='logout']:after {
   content: '🐿';
+}
+
+button[name='rename-site'] {
+  display: none;
+}
+linky-site.editing button[name='rename-site'] {
+  display: block;
 }
 
 /*
@@ -129,6 +145,6 @@ linky-link > .count:not(:empty):after {
 linky-link > nav {
   display: none;
 }
-body.editing linky-link > nav {
+linky-site.editing linky-link > nav {
   display: block;
 }

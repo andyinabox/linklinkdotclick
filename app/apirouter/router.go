@@ -34,9 +34,16 @@ func (r *Router) Register(engine *gin.Engine) {
 
 	api := engine.Group("/api")
 	api.Use(cors.New(corsConfig))
+
+	// links
 	api.GET("/links", r.ApiLinksGet)
 	api.POST("/links", r.ApiLinksPost)
 	api.GET("/links/:id", r.ApiLinksIdGet)
 	api.PUT("/links/:id", r.ApiLinksIdPut)
 	api.DELETE("/links/:id", r.ApiLinksIdDelete)
+
+	// users
+	api.GET("/self", r.ApiSelfGet)
+	api.PUT("/self", r.ApiSelfPut)
+
 }

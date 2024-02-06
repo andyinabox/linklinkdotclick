@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>🖇 my reading list</title>
+    <title>{{ .User.SiteTitle }}</title>
     <link rel="stylesheet" href="/static/main.css" />
     <meta name="description" content="" />
 
@@ -19,31 +19,35 @@
   </head>
 
   <body>
-    <header>
-      <h1>🖇 my reading list</h1>
-    </header>
-    <main>
-      <menu id="links">
-      {{ range.Links }}
-        {{ template "link.html.tmpl" .}}
-      {{ end }}
-      </menu>
-    </main>
-    <nav>
-      <button name="edit">Edit</button>
-      <button name="add">Add</button>
-      {{ if not .IsDefaultUser }}
-        <form id="logout" method="post" action="/logout">
-          <input type="submit" name="logout" value="Logout 👋">
-        </form>
-      {{ end }}
-      {{ if .IsDefaultUser }}
-        <form method="post" action="/login">
-          <input type="text" name="email" placeholder="you@example.com">
-          <input type="submit" name="login" value="Login/Signup 🚪">
-        </form>
-      {{ end }}
-    </nav>
+    <linky-site>
+      <header>
+        <h1 slot="site-title" id="site-title" >{{ .User.SiteTitle }}</h1>
+        <button slot="rename-site" name="rename-site" class="rename-site">Rename</button>
+      </header>
+      <main>
+        <menu slot="links" id="links">
+        {{ range.Links }}
+          {{ template "link.html.tmpl" .}}
+        {{ end }}
+        </menu>
+      </main>
+      <nav>
+        <button slot="edit" name="edit">Edit</button>
+        <button slot="add" name="add">Add</button>
+        {{ if not .IsDefaultUser }}
+          <form id="logout" method="post" action="/logout">
+            <input type="submit" name="logout" value="Logout 👋">
+          </form>
+        {{ end }}
+        {{ if .IsDefaultUser }}
+          <form method="post" action="/login">
+            <input type="text" name="email" placeholder="you@example.com">
+            <input type="submit" name="login" value="Login/Signup 🚪">
+          </form>
+        {{ end }}
+      </nav>
+    </linky-site>
+
     <template id="tmpl-link">
      {{ template "link.html.tmpl" .DummyLink }}
     </template>
