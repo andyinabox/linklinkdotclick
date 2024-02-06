@@ -7,7 +7,7 @@ import (
 	"sync"
 
 	"github.com/andyinabox/linkydink/app"
-	"github.com/andyinabox/linkydink/app/feedhelper"
+	"github.com/andyinabox/linkydink/app/feedservice"
 	"github.com/andyinabox/linkydink/app/linkrepository"
 	"github.com/andyinabox/linkydink/app/linkservice"
 )
@@ -44,8 +44,8 @@ func (s *Service) GetUserLinkService(user *app.User) (app.LinkService, error) {
 	if err != nil {
 		return nil, err
 	}
-	feedHelper := feedhelper.New()
-	linkService = linkservice.New(linkRepository, feedHelper)
+	feedService := feedservice.New()
+	linkService = linkservice.New(linkRepository, feedService)
 
 	// cache result and return
 	lock.Lock()

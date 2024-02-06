@@ -8,7 +8,6 @@ type Link struct {
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 	// domain fields
-	FeedFound   bool      `json:"feedFound"`
 	SiteName    string    `json:"siteName"`
 	SiteUrl     string    `json:"siteUrl"`
 	FeedUrl     string    `json:"feedUrl"`

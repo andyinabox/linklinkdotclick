@@ -1,4 +1,4 @@
-package feedhelper
+package feedservice
 
 import (
 	"io"
@@ -6,9 +6,12 @@ import (
 	"strings"
 )
 
-func (h *Helper) IsFeed(res *http.Response) bool {
+func (s *Service) IsXml(res *http.Response) bool {
 	defer res.Body.Close()
-	b, _ := io.ReadAll(res.Body)
+	b, err := io.ReadAll(res.Body)
+	if err != nil {
+		return false
+	}
 	docStart := strings.TrimSpace(string(b))[:5]
 	return docStart == "<?xml"
 }

@@ -27,8 +27,8 @@ func (s *Service) CreateLink(url string) (*app.Link, error) {
 		return nil, app.ErrNotFound
 	}
 
-	if !s.fh.IsFeed(res) {
-		siteData, err = s.fh.GetSiteData(res)
+	if !s.fs.IsXml(res) {
+		siteData, err = s.fs.GetSiteData(res)
 		if err != nil {
 			return nil, err
 		}
@@ -36,7 +36,6 @@ func (s *Service) CreateLink(url string) (*app.Link, error) {
 
 		// no feeds found
 		if len(feedUrls) == 0 {
-			link.FeedFound = false
 			link.SiteName = siteData.SiteName()
 			link.SiteUrl = url
 			return link, nil
@@ -45,12 +44,11 @@ func (s *Service) CreateLink(url string) (*app.Link, error) {
 		feedUrl = feedUrls[0]
 	}
 
-	feedData, err := s.fh.ParseFeed(feedUrl)
+	feedData, err := s.fs.ParseFeed(feedUrl)
 	if err != nil {
 		return nil, err
 	}
 
-	link.FeedFound = true
 	link.SiteName = feedData.SiteName()
 	link.SiteUrl = feedData.SiteUrl()
 	link.FeedUrl = feedUrl

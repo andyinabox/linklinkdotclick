@@ -1,4 +1,4 @@
-package feedhelper
+package feedservice
 
 import (
 	"net/http"
@@ -22,7 +22,7 @@ func (s *SiteData) FeedUrls() []string {
 	return s.feedUrls
 }
 
-func (h *Helper) GetSiteData(res *http.Response) (data app.SiteData, err error) {
+func (s *Service) GetSiteData(res *http.Response) (data app.SiteData, err error) {
 
 	siteUrl := res.Request.URL
 

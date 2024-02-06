@@ -9,11 +9,11 @@ import (
 func (s *Service) RefreshLink(link app.Link) (*app.Link, error) {
 
 	// skip if there is no feed
-	if !link.FeedFound {
+	if link.FeedUrl == "" {
 		return &link, nil
 	}
 
-	feedData, err := s.fh.ParseFeed(link.FeedUrl)
+	feedData, err := s.fs.ParseFeed(link.FeedUrl)
 	if err != nil {
 		return nil, err
 	}

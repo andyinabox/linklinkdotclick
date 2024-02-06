@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
+  <channel>
+    <language>en</language>
+    <title>W3C - Blog</title>
+    <description>The W3C blog is for in-depth Web standards topics and educational materials.</description>
+    <pubDate>Tue, 06 Feb 2024 05:40:31 +0000</pubDate>
+    <generator>Laminas_Feed_Writer 2 (https://getlaminas.org)</generator>
+    <link>https://www.w3.org/blog/</link>
+    <atom:link rel="self" type="application/rss+xml" href="https://www.w3.org/blog/feed/"/>
+    <item>
+      <title>Internationalization (I18N) leadership change and goals for the future</title>
+      <description><![CDATA[This post is about transitions within the Internationalization Team at W3C, and goals for the future in Internationalization of the Web.]]></description>
+      <pubDate>Thu, 01 Feb 2024 15:20:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2024/internationalization-i18n-leadership-change-and-goals-for-the-future/</link>
+      <guid>https://www.w3.org/blog/2024/internationalization-i18n-leadership-change-and-goals-for-the-future/</guid>
+      <author>Coralie Mercier</author>
+      <comments>https://www.w3.org/blog/2024/internationalization-i18n-leadership-change-and-goals-for-the-future/#comments</comments>
+      <category><![CDATA[internationalization]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Coralie Mercier</dc:creator>
+      <content:encoded><![CDATA[            <figure class="component component--image">
+        <img src="https://www.w3.org/cms-uploads/_580xAUTO_crop_center-center_none/flags-vladislav-klapin-9mE5MQfXInE-unsplash.jpg" extension="jpg"             sizes="100vw"
+            loading="lazy"
+                            alt=""
+                       />
+            <figcaption>
+            <p>Photo of flags of the world by <a href="https://unsplash.com/@lemonvlad">Vladislav Klapin</a> on <a href="https://unsplash.com/photos/red-yellow-and-green-flags-9mE5MQfXInE">Unsplash</a></p>
+        </figcaption>
+    </figure>
+                <div class="component component--text">
+                    <p>At the end of 2023 W3C staff members <a href="/staff/#rishida">Richard Ishida</a> and <a href="/staff/#xfq">Fuqiao Xue</a> were running the <a href="/mission/internationalization/">internationalization</a> work of the Consortium. When Richard transitioned to semi-retirement on 1 January, 2024, Fuqiao Xue took over the role of Internationalization Lead, and is now the contact point for all internationalization related activity at W3C. Richard has reduced his time commitment, and will focus largely on the aspects of the work related to Language Enablement.</p><p>Internationalization is making the World Wide Web worldwide. The Web needs to work for anyone who speaks any language or writes in any script.<br>Internationalization is designing content, applications, technologies and specifications in a manner that they can be adapted to all languages and writing systems. It makes it possible for people throughout the world to use the Web in their own language and feel natural about it. I18N isn't translations and localization although it sets up the architecture to provide them. It is really a design paradigm. One that sets out to deliver the promise that the Web breaks down geographical barriers.<br>Internationalization is about communication. It counters the digital divide, fosters digital economy and individual development, it promotes cultural understanding, inclusivity. I18N is one of the pillars of the Web for All.</p><p>Richard joined the W3C Team in 2002 with a background in translation and interpreting, computational linguistics, translation tools, and global user interface design. He had become involved in Internationalization by learning various languages -- French, then Spanish, Italian, German, Russian, and Japanese, choosing languages with the aim of communicating with a large proportion of the earthâ€™s inhabitants. Coming from Xerox, where he received a corporate award for the Xerox product development process, Richard provided services and training in international design and localizability of user interfaces and documents. Over the years at W3C, Richard introduced outreach activities to the internationalization work, and then went on to develop, in phases, a robust gap-analysis framework to document and figure out which specific issues need fixing. The framework can be applied to all the languages we are investigating. Gap-analysis documents describe gaps, give them a priority, and point to specifications, tests, etc. This is complemented by a suite of GitHub issue lists, an issue tracker page, and a notification system that sends one email a day to subscribers related to their area of interest, and contains links to issues that have changed in the framework repositories, or those of CSS, HTML, or other W3C working groups. This allows individuals who use the Web like you and me to easily and quickly contribute. This is what Richard wants to achieve: language enablement.</p><p>To appreciate the place it holds within Internationalization work at W3C, you need to understand that three axes are critical to achieving progress in making the World Wide Web truly worldwide:</p><ol><li>Language enablement is a <a href="/International/i18n-drafts/pages/language_framework_overview">framework</a> through which gaps are identified relating to how well languages or writing systems are supported on the Web. The gaps are then mapped out as areas to fix or typographic features to support so more languages win more shares of the Web, thus enabling participation by more people.</li><li>Developer support enables the creation of standards and applications that support a global Web. It consists of advice and guidelines or focus projects that help other W3C groups, notably <a href="/TR/international-specs/">best practices for spec developers</a>. Review of all specifications produced by other W3C groups is done as part of this to make sure they work for all around the globe.</li><li>Education and outreach helps people create content in their own language, or create content that will be localized. It includes an online <a href="https://validator.w3.org/i18n-checker/">validator</a>, test suites, and the creation and dissemination of <a href="/International/articlelist">educational materials</a> to help authors, developers and users understand and use I18N features.</li></ol><p>Watch Richard present "Making the World Wide Web worldwide" in a <a href="https://youtu.be/mx2eDHujM4c">15 minute video</a>. Then see <a href="/TR/?filter-tr-name=&amp;tags%5B%5D=i18n">the W3C standards and drafts tagged with I18N</a>.</p><p>Fuqiao Xue joined the W3C Team in 2017 and the first project he worked on was CLReq, which set out to document requirements for Simplified and Traditional Chinese, and discussed Chinese layout requirements with a number of technologists and linguists from Mainland China, Taiwan, Singapore, and other regions. The work is still ongoing but the results are documented as an <a href="/TR/clreq/">evergreen document</a>. Interested in languages and writing systems since childhood, Fuqiao learned more and more about Internationalization and began to understand its importance. Fuqiao wants more experts, both technical and linguistic, to get involved and help us ensure that the Web meets local needs around the world.</p><p>"<i>Languages are more than just a means of communication,</i>" said Fuqiao Xue. "<i>They are vessels of culture, carrying with them traditions, stories, knowledge, and ways of understanding the world that have been passed down through generations.</i>"</p><p>Like Web accessibility, Internationalization needs to be built from day one because it can be very expensive and time consuming to retrofit. It's also good to develop in more than one language at a time to do it well and thoroughly. We're familiar with the notion that there are costs to non-conformance, but there are also opportunities in further breaking the language barriers. The best one is bridging the digital divide within and between countries. Another is leveling the playing field of market dominance. As internet penetration and digital literacy increase in regions like Asia and Africa, non-English content and platforms will gain prominence. 2024 is the 30th year of the Internet in China. Thanks to Internet penetration, there's been an increase in netizens and speed, as well as the emergence of non-English markets. Consider that of all the country levels, the .cn domain has the most domain names registrations.</p><p>To conclude, Internationalization of the Web is where communication meets emerging technologies and platforms, and where people all over the world connect. The scope of work is immense and the potential is exciting. To produce the change we want to our Web, we need people like you to step up to <a href="/International/i18n-drafts/nav/participate">participate</a> and work through the issues.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>W3C Publishes Report for the Secure the Web Forward Workshop</title>
+      <description><![CDATA[This report contains a brief summary, collects highlights from the live sessions, links to the presentation videos, and details next steps.]]></description>
+      <pubDate>Thu, 01 Feb 2024 03:00:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2024/w3c-publishes-report-for-the-secure-the-web-forward-workshop/</link>
+      <guid>https://www.w3.org/blog/2024/w3c-publishes-report-for-the-secure-the-web-forward-workshop/</guid>
+      <author>Francois Daoust</author>
+      <comments>https://www.w3.org/blog/2024/w3c-publishes-report-for-the-secure-the-web-forward-workshop/#comments</comments>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Francois Daoust</dc:creator>
+      <content:encoded><![CDATA[            <figure class="component component--image">
+        <img src="https://www.w3.org/cms-uploads/_580xAUTO_crop_center-center_none/banner.png" extension="png"             sizes="100vw"
+            loading="lazy"
+                            alt=""
+                       />
+    </figure>
+                <div class="component component--text">
+                    <p>W3C is pleased to announce a <a href="https://www.w3.org/2023/03/secure-the-web-forward/report.html">report</a> from the <a href="https://www.w3.org/2023/03/secure-the-web-forward/report.html">W3C Workshop Secure the Web Forward</a>, held online in September 2023 in coordination with OpenSSF, OWASP and OpenJS.</p><p>This report contains a brief summary, collects highlights from the live sessions, links to the presentation videos, and details next steps.</p><p>The workshop was organized to review the state of technologies (existing, in development, or proposed), guidelines, tools, and documentation available to developers to secure applications deployed on the web, and coordinate relevant activities. About 30 people attended the live sessions to discuss the 9 selected position papers along 3 different themes: supply chain security (including Software Bills of Materials, also known as SBOMs), JavaScript security, and developer awareness. Participants acknowledged the growing complexity of web applications and of security related web technologies (e.g., <a href="https://fetch.spec.whatwg.org/#http-cors-protocol"><abbr title="Cross-Origin Resource Sharing">CORS</abbr></a>, <a href="https://www.w3.org/TR/CSP3/"><abbr title="Content Security Policy">CSP</abbr></a>), which together makes it challenging for developers to secure applications. The main outcomes are that:</p><ul><li>The use of SBOMs, which some regulations may require, could help developers keep track of security vulnerabilities.</li><li>A verification mechanism, such as the Source Code Transparency proposal, would allow browsers to validate that the application resources received match the resources advertised by the application developer in a web bundle or an SBOM and possibly analyzed by security researchers.</li><li>In parallel, JavaScript execution could be split in <a href="https://github.com/tc39/proposal-compartments#compartments">Compartments</a> to isolate third party code and keep their power under control. Making this foolproof with the design of the <a href="https://dom.spec.whatwg.org/">DOM API</a> remains a challenge.</li><li>Additionally, same origin realms can be manipulated by an attacker against the web application itself when they are not properly handled. Web applications should have the ability to control, at load time, how the potentially untrusted code they contain can create or access same origin realms.</li><li>Cookies are another source of security vulnerabilities. The deprecation of third party cookies creates a unique opportunity to revise the defaults of the cookies model for the web for increased security.</li><li>Regardless of technical solutions, a documentation effort is warranted: tutorials, how-tos, references, guides and best practices, targeted at developers as well as policy makers.</li></ul><p>On top of progressing technical topics mentioned above, one of the suggested next steps is to <strong>initiate an activity, possibly hosted within a W3C Community Group, set to take a holistic approach to security and coordinate collaborations with other organizations</strong> (OpenSSF, OWASP, OpenJS, Open Web Docs, MDN, IETF, etc.). This activity could start by documenting threat models on the web and formulating end-user stories related to security to inform standardization groups, developers, and policy makers. Progress on this proposal is tracked in a <a href="https://github.com/w3c/secure-the-web-forward-workshop/issues/42">GitHub issue</a>.</p><p>W3C thanks those who helped with the organization and execution of the workshop, including members of the Program Committee, speakers, the MDN team, the WebDX Community Group and workshop participants.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>WebEvolve â€” Solid: Technologies, Standards and Ecosystem Event Recap</title>
+      <description><![CDATA[W3C China held an online discussion on the topic of Solid Technologies, Standards and Ecosystem on 11 January 2024. This is a summary report of the event.]]></description>
+      <pubDate>Fri, 26 Jan 2024 03:00:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2024/webevolve-solid-technologies-standards-and-ecosystem-event-recap/</link>
+      <guid>https://www.w3.org/blog/2024/webevolve-solid-technologies-standards-and-ecosystem-event-recap/</guid>
+      <author>Xueyuan Jia</author>
+      <comments>https://www.w3.org/blog/2024/webevolve-solid-technologies-standards-and-ecosystem-event-recap/#comments</comments>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Xueyuan Jia</dc:creator>
+      <content:encoded><![CDATA[            <div class="component component--text">
+                    <p>W3C China held an online discussion on the topic of <a href="https://www.w3.org/2024/01/webevolve-series-events/solid.html">Solid Technologies, Standards and Ecosystem</a> on 11 January 2024. We sincerely thank W3C Members Huawei and Memect for co-organizing this event.&nbsp;</p><p>The event brought together experts from the industry, academia, standardization field and the interested parties from the Chinese Web community to share their views on Solid.&nbsp;</p><p><strong>This event consisted of three presentations and a panel discussion.&nbsp;</strong></p><p>Pierre-Antoine Champin (W3C) presented <strong>Solid and its standardization in W3C</strong> [<a href="https://www.bilibili.com/video/BV1EZ4y1n7cE/">recording</a>, <a href="https://perso.liris.cnrs.fr/pierre-antoine.champin/2024/webevolve/">slides</a>]: He introduced the Solid Project and the benefits of decoupling data from applications for users and applications providers, as well as the efforts in W3C since last September on standardizing Solid (see <a href="https://www.w3.org/2023/09/proposed-solid-wg-charter.html">draft charter</a>) with the focus on developing a <a href="https://solidproject.org/TR/2022/protocol-20221231">Solid Protocol</a> specification. Based on feedback received, W3C now works on better framing the problem space of Solid, further clarifying the relationship with other groups/standards (ActivityPub, DID, FedCM, HTTP WG @ IETF...), and emphasizing that Solid mostly builds on existing technologies but uses them in novel ways. The <a href="https://www.w3.org/community/solid/">W3C Solid Community Group</a> is open to new participants.&nbsp;</p><p>Prof. Huajun Chen (Zhejiang University) shared <strong>Possible Combination of Solid and AI Large Model </strong>[<a href="https://www.bilibili.com/video/BV1zZ4y1n7wX/">recording</a>, <a href="https://www.w3.org/2024/01/webevolve-series-events/slides/solid/huajun-chen.pdf">slides</a>]: Starting with stating the connection between Solid and the Semantic Web, he presented the work of his team on Semantic Web and knowledge graphs, looked forward to possible approaches of combining Solid (both as knowledge graphs and general data) and AI Large Models in the future, including using public large models (data queries) in Retrieval-Augmented Generation (RAG) mode, and using private data to train small models and then combining them with public large models. He also mentioned that these combinations are accompanied with their own problems to solve.&nbsp;</p><p>Dr. Rui Zhao (Oxford University) shared his explorations on the <strong>Social Aspect of Solid</strong> [<a href="https://www.bilibili.com/video/BV1ec411v7AT/">recording</a>, <a href="https://www.w3.org/2024/01/webevolve-series-events/slides/solid/rui-zhao.pdf">slides</a>]: He introduced the EWADA project (Ethical Web And Data Architecture in the Age of AI) and its related work on Solid, and highlighted three explorations that are more directly related to social, namely Solidflix, KNoodle (+Orchestrator) and Libertas. He also summarized the experience and observations during the explorations, including the functionality and generalities of Solid, and the differences between the development on Solid and the traditional system development. He further raised some potentials of Solid, such as focusing on extending features and protocols. Read <a href="https://blog.ryey.icu/zhs/w3c-china-solid-seminar-2024-reaction.html">Rui Zhaoâ€™s blog post</a> (in Chinese) to learn more about his thoughts on Solid.</p><p>The <strong>panel discussion</strong> was moderated by Dr. Jie Bao (Memect). The meeting speakers, Dr. Thomas Li (Huawei) and Yang Xie (Authing) joined the panel for an open discussion with participants on topics such as the relationship between Solid and the blockchain, as well as development and promotion of Solid.&nbsp;</p><p><strong>About the WebEvolve open forum</strong></p><p>"<a href="https://www.w3.org/2024/01/webevolve-series-events/index.html">WebEvolve</a>" is an open forum composed of a series of events on community-interested topics such as introduction to the latest Web technologies, exchanging ideas around emerging technologies, exploring the needs of new Web technology standards, promoting the implementations of standards, etc. The "WebEvolve" serial events are driven by the community, free and open to the public. â€œSolid Technologies, Standards and Ecosystemâ€ was the first event of WebEvolve open forum. More events will come soon!</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>Mapping key themes for the year</title>
+      <description><![CDATA[In this blog post, W3C CEO Seth Dobbs looks back at the strengths of the Web and forward at its opportunities.]]></description>
+      <pubDate>Wed, 24 Jan 2024 15:25:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2024/mapping-key-themes-for-the-year/</link>
+      <guid>https://www.w3.org/blog/2024/mapping-key-themes-for-the-year/</guid>
+      <author>Seth Dobbs</author>
+      <comments>https://www.w3.org/blog/2024/mapping-key-themes-for-the-year/#comments</comments>
+      <category><![CDATA[corporate]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Seth Dobbs</dc:creator>
+      <content:encoded><![CDATA[            <figure class="component component--image">
+        <img src="https://www.w3.org/cms-uploads/Hero-illustrations/_580xAUTO_crop_center-center_none/annie-spratt-AFB6S2kibuk-unsplash.jpg" extension="jpg"             sizes="100vw"
+            loading="lazy"
+                            alt=""
+                       />
+            <figcaption>
+            <p>Photo by <a href="https://unsplash.com/@anniespratt">Annie Spratt</a> on <a href="https://unsplash.com/photos/white-and-green-state-maps-AFB6S2kibuk">Unsplash</a></p>
+        </figcaption>
+    </figure>
+                <div class="component component--text">
+                    <p>Since I joined the Web Consortium I've had the pleasure to meet a number of our Members and the W3C Team, and a growing number of contributors. I have been impressed by the passion for the mission to lead the community in defining a World Wide Web that puts users first, by developing technical standards and guidelines to empower an equitable, informed, and interconnected society.</p><h2>Looking back</h2><p>I believe in the Web as a single worldwide platform to connect humanity. The collective efforts in the past 30 years across the world to make it what it is today is one of the greatest global achievements.</p><p>I have a deep admiration and respect for all of the team, all of the members, and the Web community at large who have coalesced around what the web needs to serve people, and made it a reality. I am happy to now be a part of it.</p><p>The unimaginable impact it has had on the world is in large part due to the decision to make the web protocols open standards instead of a walled garden. But also, technologies that meet the deep needs of society do not happen by chance. They are designed and standardized, not by one company, country, or community, but through the work of the Web Consortium, which has earned trust, acted as a global and neutral body and scaled along with the Web.</p><p>W3C works at problems that are at the nexus of three axes: core technology, industry needs, and societal needs. These are areas of constant change, which stimulates a need for interoperability and standardization. Engineers come to W3C's community groups to innovate. Companies - large and small - come to W3C to achieve interoperability. As we move forward, we continue to facilitate interoperability and ecosystem collaboration and seek to expand the benefits a vendor-neutral forum can provide.</p><p>Weâ€™ve seen changes to personal and social interaction, commerce, to how we access services, how we engage with our government, and more. We are shaping a Web that has evolved into a multi-faceted platform enabling people to thrive.</p><p>2024 is our 30th year. 30 years of gathering incredible experts, of honing the best and fairest process to develop Standards, of shepherding Member contributions and innovations according to key principles and values. Through our work together, today is better than yesterday. Iâ€™m confident that together, tomorrow will be better than today.</p><h2>Looking forward</h2><p>The past decade has seen key enhancements in video, real-time communications, payments on the web, and cryptographic authentication. The stream of possibilities continues based on new standardization work recently started, or, further out in time, incubation work underway in our community groups. Examples of that include immersive (VR/AR), machine and federated learning, high performance graphics and high dynamic range color. But there are growth opportunities and big ideas in the Web community also around Smart Devices, Digital Trust, Green computing and more.</p><p>I am looking forward to making <strong>sustainability</strong> a new key aspect and goal of web standards. We built in the W3C Process Document our dedication to security, privacy, internationalization and web accessibility. It is high time we designed and implemented digital products and services that put the planet first.</p><p>With W3C's new corporate entity being a 501(c)(3) organization, we exist in the eyes of the US government, for the public good. While it is nice to get the formal legal recognition of something that so many of us already know which we've demonstrated by being committed to being a global organization, this gives us further incentive to pursue new avenues which <strong>put people first</strong>.</p><p>Thereâ€™s a lot of predictions about what the next big thing might be. While Iâ€™m going to avoid making big predictions myself, I will say that without enablement through global standards, none of them will be as big as they could be. These technologies, whether burgeoning or maturing, each have a common underlying framework, without ensuring they are accessible by all, secure, maintain privacy, respect the planet, and work anywhere in the world, they will not be able to reach their full potential.</p><p>This is our mission. And with our new responsibility to work for the public good by making available the best consensus process, the best patent policy, the best forum for corporations big and small and the public to develop the Web that best serves people, I am looking forward to growing the Consortium to meet the demands and deliver on promising opportunities to enable a better, interconnected world.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>Happy holidays from the World Wide Web Consortium!</title>
+      <description><![CDATA[Our bespoke End of Year card with good wishes for the new year to our community]]></description>
+      <pubDate>Thu, 14 Dec 2023 22:12:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/happy-holidays-from-the-world-wide-web-consortium/</link>
+      <guid>https://www.w3.org/blog/2023/happy-holidays-from-the-world-wide-web-consortium/</guid>
+      <author>Coralie Mercier</author>
+      <comments>https://www.w3.org/blog/2023/happy-holidays-from-the-world-wide-web-consortium/#comments</comments>
+      <category><![CDATA[corporate]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Coralie Mercier</dc:creator>
+      <content:encoded><![CDATA[            <figure class="component component--image">
+        <img src="https://www.w3.org/cms-uploads/_580xAUTO_crop_center-center_none/w3c-eoy-2023-30-big.png" extension="png"             sizes="100vw"
+            loading="lazy"
+                            alt="W3C logo turned into W30C (1994-2024), Tim Berners-Lee quote &quot;the web is humanity connected by technology&quot; and our greeting."
+                       />
+    </figure>
+                <div class="component component--text">
+                    <p>This card is dedicated to all the people who join forces at the Web Consortium to make the Web work, for everyone.</p><p>Your participation matters. We are stronger thanks to your careful and meaningful contributions. The Web is at the same time more powerful and safer, more accessible, more secure, more interoperable and better honed for users from any culture, region, or language.</p><p>We wish you happy holidays and all the best for 2024! Weâ€™re looking forward to what weâ€™ll accomplish together in 2024.</p><p>We will celebrate our thirtieth anniversary next year. We want 2024 to be a year where we not only further our work but celebrate it, celebrate the people in our community and our many advances, culminating in a celebration both online and in-person during <a href="https://www.w3.org/events/tpac/2024/tpac-2024-hybrid-meeting/">TPAC 2024</a>. We are looking forward to sharing more as soon as possible.</p><p>Warmly, from all of us at the World Wide Web Consortium.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>Seeking W3C community input for TAG appointees</title>
+      <description><![CDATA[W3C is seeking input for appointment to the W3C Technical Architecture Group (TAG) as part of new rules set by the Process Document.]]></description>
+      <pubDate>Thu, 14 Dec 2023 12:32:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/seeking-w3c-community-input-for-tag-appointees/</link>
+      <guid>https://www.w3.org/blog/2023/seeking-w3c-community-input-for-tag-appointees/</guid>
+      <author>Yves Lafon, Coralie Mercier</author>
+      <comments>https://www.w3.org/blog/2023/seeking-w3c-community-input-for-tag-appointees/#comments</comments>
+      <category><![CDATA[corporate]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Yves Lafon, Coralie Mercier</dc:creator>
+      <content:encoded><![CDATA[            <div class="component component--text">
+                    <p>
+    Having released the <a href="https://www.w3.org/news/2023/w3c-advisory-committee-elects-technical-architecture-group/">election results</a>, W3C is seeking input for appointment to the <a href="https://www.w3.org/2001/tag/&quot;">W3C Technical Architecture Group</a> (TAG). We have opened a mail address for an internal list that you can use to make suggestions for us to consider. This call ends after January 5, 2024.
+</p>
+<p>
+    Please read more below to learn about the TAG, the new rules for TAG appointees, and the specific skills deemed important by the TAG.
+</p>
+<h2>
+    Roles of the W3C TAG
+</h2>
+<p>
+    The <a href="https://www.w3.org/2023/Process-20231103/#tag-role">TAG</a> was created in 2001 as a special W3C working group, chartered to steward the Web architecture. To do so, it fulfills 3 missions:
+</p>
+<ul>
+    <li>
+        to document and build consensus around principles of Web architecture and to interpret and clarify these principles when necessary;
+    </li>
+    <li>
+        to resolve issues involving general Web architecture brought to the TAG;
+    </li>
+    <li>
+        to help coordinate cross-technology architecture developments inside and outside W3C.
+    </li>
+</ul>
+<p>
+    The TAG is part of the <a href="https://www.w3.org/Guide/documentreview/">Horizontal Review Process</a> and reviews a large number of specifications done at W3C and outside, even during their early stage.
+</p>
+<p>
+    The TAG and the <a href="https://www.w3.org/2002/ab/">W3C Advisory Board</a> are also part of the <a href="https://www.w3.org/2023/Process-20231103/#council">W3C Council</a> to help resolve objections on specifications.
+</p>
+<h2>
+    New rules for TAG appointments
+</h2>
+<p>
+    Process 2023, which W3C <a href="https://www.w3.org/news/2023/w3c-updates-its-2023-process-document/">adopted</a> last November, sets <a href="https://www.w3.org/2023/Process-20230612/#TAG-appointments">new rules for the TAG appointees</a>. Quoting the most relevant parts:
+</p>
+<blockquote>
+    <p>
+        â€œThe Team [...] must make available to the W3C community at large a means to propose candidates for consideration, explicitly soliciting input from at least current and incoming TAG members, the Advisory Committee, and Working Group Chairs.â€&nbsp;<br>
+        â€œselection begins once the results of the elections are known [14 December 2023], and the Team should announce the ratified appointment(s) no later than the start of the regularly scheduled term [1 February 2024].â€<br>
+        â€œThe Team should use its appointments to support a diverse and well-balanced TAG, including diversity of technical background, knowledge, and skill sets.â€
+    </p>
+</blockquote>
+<h2>
+    Skills deemed important for effective work on the TAG
+</h2>
+<p>
+    Architectural vision, design review, diplomacy, chairing skills, cultural/social diversity, technical writing and copy editing, deep/broad technical knowledge (including but not limited to <abbr title="Artificial Intelligence">AI</abbr> and <abbr title="Extended reality">XR</abbr>, Web accessibility, security, JavaScript, as well as web platform).
+</p>
+<h2>
+    Participating as a TAG member
+</h2>
+<p>
+    Individuals elected or appointed to TAG act in their personal capacity, to serve the needs of the W3C membership as a whole, and the Web community. Whether they are Member representatives or Invited Experts, their activities in those roles are separate and distinct from their activities on the TAG. The TAG participants use their best judgment to find the best solutions for the Web, not just for any particular network, technology, vendor, or user. The participation commitment for the TAG includes:
+</p>
+<ol>
+    <li>
+        one teleconference per week,
+    </li>
+    <li>
+        three to four in-person meetings per year,
+    </li>
+    <li>
+        participation in TAG mailing list discussions,
+    </li>
+    <li>
+        participation at the two Advisory Committee meetings each year (encouraged, but not required).
+    </li>
+</ol>
+<p>
+    Please, note two important aspects:
+</p>
+<ul>
+    <li>
+        The Process <a href="https://www.w3.org/2023/Process-20231103/#AB-TAG-constraints">limits</a> participation in the TAG to no more than one individual with a primary affiliation to a given organization. Affiliations of the individuals on the TAG are: Digital Bazaar, Apple, Samsung, Alibaba and Mozilla.
+    </li>
+    <li>
+        Appointees secure their own funding for TAG work, including travel.
+    </li>
+</ul>
+<h2>
+    Call to action
+</h2>
+<p>
+    Please write to us at <a href="mailto:nomination@w3.org">nomination@w3.org</a> as briefly as you can, <strong>until January 5, 2024</strong>, to self-nominate or to suggest persons for us to consider, and why.
+</p>
+<h2>
+    Timeline
+</h2>
+<p>
+    During the window spanning 14 December 2023 - 1 February 2024, suggestions are made to â€“and assessed byâ€“ the W3C Team (including seeking willingness and financial ability to serve from individuals), and the W3C Team's choice of appointees is subject to ratification by secret ballot by both the W3C Advisory Board and the TAG itself.
+</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>Digital accessibility updates on International Day of Persons with Disabilities (IDPD) 2024</title>
+      <description><![CDATA[Read about free online accessibility resources, translations, the international W3C WAI team, and how to get WAI updates]]></description>
+      <pubDate>Thu, 30 Nov 2023 12:07:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/digital-accessibility-updates-on-international-day-of-persons-with-disabilities-idpd-2024/</link>
+      <guid>https://www.w3.org/blog/2023/digital-accessibility-updates-on-international-day-of-persons-with-disabilities-idpd-2024/</guid>
+      <author>Shawn Lawton Henry</author>
+      <comments>https://www.w3.org/blog/2023/digital-accessibility-updates-on-international-day-of-persons-with-disabilities-idpd-2024/#comments</comments>
+      <category><![CDATA[accessibility]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Shawn Lawton Henry</dc:creator>
+      <content:encoded><![CDATA[            <div class="component component--text">
+                    <p>As we approach the <abbr title="United Nations">UN</abbr> <a href="https://social.desa.un.org/issues/disability/events/2023-international-day-of-persons-with-disabilities-idpd">International Day of Persons with Disabilities</a> (IDPD), we are excited to share W3C Web Accessibility Initiative (<a href="/WAI/">WAI</a>) updates.</p><p>IDPD promotes an understanding of disability issues and mobilizes support for the dignity, rights, and well-being of persons with disabilities. A key aspect of this is digital accessibility and ensuring that everyone can participate in the Web equally. Since 1997, W3C WAI has championed digital accessibility through international standards, guidelines, and supporting resources.</p><h2 id="free-online-resources">Accessibility resources free online</h2><figure class="image"><img src="https://www.w3.org/cms-uploads/imported-assets/blog/w3cx-accessibility-intro1.png" alt="Photo of a man and woman looking at a computer in a relaxed atmosphere. The side of the picture displays pictograms for hand, eye, ear, voice and brain."></figure><p>To learn more, see the <a href="/WAI/">W3C WAI website</a> and annotated list of <a href="/WAI/resources/">WAI resources</a>. From there you can find videos, tips, tutorials, tools, translations, and training - including a free online <a href="/WAI/courses/foundations-course/">Digital Accessibility Foundations course</a>. There are resources for content authors, designers, developers, evaluators, testers, managers, policy makers, trainers, educators, web users, advocates, and people with disabilities.</p><p>When you find helpful information on the WAI website, would you share the links with others?</p><h2 id="translations">Translations</h2><figure class="image"><img src="https://www.w3.org/cms-uploads/imported-assets/blog/social-translations.png" alt=""></figure><p>For IDPD, we are highlighting translations of accessibility resources. <a href="/WAI/translations/">All WAI translations</a> lists accessibility resources in over 35 languages. Thanks to volunteer translators!</p><p>In French, we have over 45 pages. A good starting place is <a href="/WAI/fundamentals/accessibility-intro/fr"><i><span lang="fr" dir="ltr">Introduction Ã  l'accessibilitÃ© du web</span></i></a>. To tell others about these resources, you can share these announcements in French: <a href="https://www.linkedin.com/feed/update/urn:li:share:7135881945405685762/">LinkedIn French note</a> and <a href="https://w3c.social/@wai/111498179975738741">Mastodon French note</a>.</p><p>If you might want to volunteer to contribute to translations, please see <a href="/WAI/about/translating/">Translating WAI resources</a>. You can share this invitation with others through <a href="https://www.linkedin.com/feed/update/urn:li:activity:7134999861505974273">LinkedIn translation invite</a> and <a href="https://w3c.social/@wai/111420855597924344">Mastodon translation invite</a>.</p><h2 id="wai-team">International W3C WAI Team<img src="https://www.w3.org/cms-uploads/imported-assets/blog/wai-team-collage-2023-11.png" alt="Collage of portraits of the WAI Team. From top to bottom and left to right: Shawn Henry, Kevin White, Roy Ran, Daniel Montalvo, Kosi Asebere"></h2><p>W3C WAI staff also brings perspectives from around the world. The collaborative W3C team includes:</p><ul><li><a href="/staff/#shawn">Shawn Lawton Henry</a> is Web Accessibility Initiative (WAI) Program Lead; Accessibility Education and Communications Lead.</li><li><a href="/staff/#kevin">Kevin White</a> is Accessibility Technical Lead and supports the Accessibility Guidelines Working Group that develops Web Content Accessibility Guidelines (WCAG).</li><li><a href="/staff/#ran">Roy Ruoxi Ran (<span lang="zh-hans" dir="ltr">å†‰è‹¥æ›¦</span>)</a> supports accessibility Working Groups and accessibility in China.</li><li><a href="/staff/#dmontalvo">Daniel Montalvo</a> supports accessibility Working Groups and standards harmonization in Europe.</li><li><a href="/staff/#kosi">Akosua â€œKosiâ€ Asabere</a> recently joined the W3C Team and brings first-hand experience with mobile accessibility in Africa.</li></ul><p>W3C's <a href="/blog/2023/introduction-and-ceo-goals-and-aspirations/">CEO, Seth Dobbs</a>, also has first-hand experience with accessibility and with international teams.</p><h2 id="updates">Get updates</h2><p>To get up-to-date on what W3C WAI is up to, see <a href="/WAI/update/">What we're working on - Accessibility activities and publications</a>. We also encourage you to subscribe to <a href="/WAI/news/subscribe/">get WAI news</a> via <a href="/WAI/about/groups/waiig/#mailinglist">e-mail</a>, <a href="https://w3c.social/@wai">Mastodon</a>, and/or <a href="https://www.linkedin.com/company/w3c-wai/">LinkedIn</a>.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>Public Health Foundation adds to its learning network W3C's online course Introduction to Web Accessibility</title>
+      <description><![CDATA[W3C believes that enabling greater web accessibility in healthcare is important and is in service to the public good.]]></description>
+      <pubDate>Tue, 21 Nov 2023 13:53:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/public-health-foundation-adds-to-its-learning-network-w3cs-online-course-introduction-to-web-accessibility/</link>
+      <guid>https://www.w3.org/blog/2023/public-health-foundation-adds-to-its-learning-network-w3cs-online-course-introduction-to-web-accessibility/</guid>
+      <author>Marie-Claire Forgue</author>
+      <comments>https://www.w3.org/blog/2023/public-health-foundation-adds-to-its-learning-network-w3cs-online-course-introduction-to-web-accessibility/#comments</comments>
+      <category><![CDATA[training]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Marie-Claire Forgue</dc:creator>
+      <content:encoded><![CDATA[            <div class="component component--text">
+                    <p>In today's digital age, web accessibility has emerged as a critical aspect of creating an inclusive online environment for all users. World Wide Web Consortiumâ€™s&nbsp;<a href="https://www.w3.org/WAI/">Web Accessibility Initiative (WAI)</a> and The Public Health Foundation (PHF) are excited to offer the free online course,&nbsp;<a href="https://www.train.org/main/course/1112451/details"><i>Introduction to Web Accessibility</i></a>, to the public health audience through the&nbsp;<a href="https://www.train.org/main/welcome">TRAIN Learning Network</a>.</p><p>Since its inception in 1997, Web Accessibility&nbsp;has been an integral part of the mission of W3C. Our Web Accessibility Initiative (WAI) &nbsp;pursues increasing the accessibility of the Web for people with disabilities, notably by developing guidelines for web content, user agents, and authoring tools.</p><p>Public health agencies such as PHF have a critical role in ensuring the health and well-being of their communities. As Diversity, Equity, Inclusion, and Justice (DEIJ) are central public health principles, incorporating training for web accessibility is a tangible way public health agencies can demonstrate a commitment to these principles. &nbsp;</p><p>W3C believes that enabling greater web accessibility in healthcare is important and is in service to the public good. &nbsp;</p><p>The Public Health Foundation is a USA-wide non-profit 501(c)3 organization developing effective resources, tools, information, and training for health agencies, organizations, and individuals to help improve performance and community health outcomes. Through their TRAIN Learning Network, they reach more than 4â€‹â€‹ million health workers.</p><p>W3Câ€™s Web Accessibility course, Introduction to Web Accessibility, is available on W3Cx, W3Câ€™s online learning platform on edX, and now also through PHFâ€™s TRAIN learning network. In this course, learners discover the wide-ranging aspects of web accessibility, how people use different assistive technologies and adaptive strategies, the business benefits it offers, and where to access W3C resources for implementation.&nbsp;Introduction to Web Accessibility can be used as a component of training public health communicators, assuring that they are knowledgeable about how to meet the needs of all users within their work.</p><p>Web accessibility is not just a technical consideration; it's a fundamental aspect of public health. It's about ensuring that everyone, regardless of their abilities, can access crucial health information. The inclusion of a W3Cx course on Web Accessibility through TRAIN aims to support public health professionals and agencies in having easy access to resources and training that will help them create a more accessible and inclusive web presence.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>Introduction and CEO goals and aspirations</title>
+      <description><![CDATA[In this introductory blog post by newly appointed W3C President and CEO, Seth Dobbs shares background information and his ambition to ensure the durability and viability of W3C.]]></description>
+      <pubDate>Tue, 14 Nov 2023 07:55:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/introduction-and-ceo-goals-and-aspirations/</link>
+      <guid>https://www.w3.org/blog/2023/introduction-and-ceo-goals-and-aspirations/</guid>
+      <author>Seth Dobbs</author>
+      <comments>https://www.w3.org/blog/2023/introduction-and-ceo-goals-and-aspirations/#comments</comments>
+      <category><![CDATA[corporate]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Seth Dobbs</dc:creator>
+      <content:encoded><![CDATA[            <figure class="component component--image">
+        <img src="https://www.w3.org/cms-uploads/_580xAUTO_crop_center-center_none/connected-network-1024.jpeg" extension="jpeg"             sizes="100vw"
+            loading="lazy"
+                            alt=""
+                       />
+    </figure>
+                <div class="component component--text">
+                    <p>Hello, Iâ€™m Seth Dobbs, the new CEO of W3C, and Iâ€™d like to introduce myself, share some details about me as well as a few thoughts on our future together.</p><h2>Who am I?</h2><p>First a little on my background - Iâ€™ve been writing code since the late 70s, getting my start on a Sinclair personal computer attached to a television set and using a cassette recorder to load and save programs. I eventually went to Illinois Tech where I earned a BS in Computer Science and have since spent over 30 years in the industry, writing code, architecting systems, starting companies, and building teams and organizations. Iâ€™ve done a bit of public speaking and training on technology and leadership, Iâ€™m a published author, have written many articles and blogs, and host a leadership podcast. I was part of the Program Committee for Oâ€™Reilly Media's Software Architecture Conference the last few years that it ran, where I helped define the program and select the content to ensure a meaningful experience for a global audience.</p><p>On a personal level, Iâ€™ve spent most of my life in the Chicago area, a little bit of time in Florida, and Iâ€™m currently in Colorado. Iâ€™m hard of hearing and have been wearing hearing aids for the past few years, a long overdue requirement given how difficult it is for me to follow discussions in a conference room or even one-on-one. Due to a chronic pain condition, Iâ€™ve spent several years using speech-to-text and voice command interfaces for everything. Thanks to various treatments Iâ€™m currently in better shape and can use a mouse and keyboard again. Iâ€™m an avid reader (around 70 books per year) and I like to start my day doing the New York Times crossword puzzle.</p><h2>Where do I come from?</h2><p>Most recently, I worked as CTO at Bounteous for a little over 19 years, where I joined as fourth employee and which Iâ€™ve helped grow to over 2000 team members. Iâ€™ve helped build a global organization, built and grown the Technology operating unit to over 900 team members worldwide, and coached and trained many leaders. In my time there Iâ€™ve made heavy use of web technology to help clients build and grow their businesses, including architecting and coding one of the four highest transaction e-commerce systems of its time. Iâ€™ve also used web technology to connect real time bidders with live auction rooms, patients with physicians, eldercare residents with their families, and so much more.</p><h2>What do I plan to accomplish?</h2><p>Which leads me to why Iâ€™m here. Iâ€™ve spent much of my life believing in the power of technology to change the world and making that belief a reality. I believe the Web is one of the most profound technology changes in our lifetime and is truly a world-changing invention. I am excited and honored to have the opportunity to lead our efforts to move the world forward through the web platform.</p><p>My goal is both simple and ambitious - to ensure the durability and viability of the mission to have one Web, one worldwide platform that enables the interconnectivity of humanity.</p><p>This will be done in large part by ensuring the durability and viability of W3C. I am moved by a desire to transform unresolved change into resolved change. I plan to come back to this through this blog.</p><p>My efforts will start with addressing two key unresolved changes: solidifying in the wake of launching our legal entity and the retirement of Web inventor and W3C Founding Director Sir Tim Berners-Lee. This will give us a foundation to ensure the success of the next 30 years.</p><p>I look forward to working with all of you - the team, partners, members, and community - to challenge each other, to go deep into what each of us believe in for the future of the Web, and to make that a reality.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>Award-winning work for the W3C website redesign</title>
+      <description><![CDATA[Studio 24, the partner who worked on our website redesign and continue to support and develop the site with us, have been recognized by a number of pretigious awards, most notably celebrating outstanding web accessibility work.]]></description>
+      <pubDate>Thu, 09 Nov 2023 11:37:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/award-winning-work-for-the-w3c-website-redesign/</link>
+      <guid>https://www.w3.org/blog/2023/award-winning-work-for-the-w3c-website-redesign/</guid>
+      <author>Coralie Mercier</author>
+      <comments>https://www.w3.org/blog/2023/award-winning-work-for-the-w3c-website-redesign/#comments</comments>
+      <category><![CDATA[corporate]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Coralie Mercier</dc:creator>
+      <content:encoded><![CDATA[            <div class="component component--text">
+                    <p>We are very proud to share that the work we did to redesign the W3C website with <a href="https://www.studio24.net/blog/award-winning-work/">Studio 24 is being recognized by many awards</a>, including the prestigious <a href="https://gaad.foundation/what-we-do/gaadys">Gaady award</a>. The Gaadys are run by the Global Accessibility Awareness Day Foundation, and honor advances in digital accessibility. Studio 24 is among the three winners that will be celebrated tonight at the LightHouse for the Blind and Visually Impaired in San Francisco, USA. Studio 24 Client Services Director Emma Lane will represent the agency at the event.</p><h3>Excerpt from the Gaadys Awards winners section</h3><p><i>The new W3C website meets the highest level of accessibility standards, WCAG 2.1 AAA, and was developed with input from the W3C community. It features a number of accessibility features, including:</i></p><ul><li><i>A keyboard-only navigation system</i></li><li><i>High-contrast text and images</i></li><li><i>ARIA labels for all non-visual elements</i></li><li><i>Support for screen readers and other assistive technologies</i></li></ul><p><i>The W3C website is a valuable resource for web developers and designers, and the new redesign makes it even more accessible to everyone. Studio 24's work on this project is a shining example of how accessibility can be achieved without sacrificing design or usability.</i></p><p>Read more in Studio 24's <a href="https://www.studio24.net/blog/award-winning-work/">blog post</a> about the 2023 w3 Awards Gold Award in the category Website Features: Best Practices; and Silver award in the category Websites: Redesign, and come back to their site after November 21 to find out if they were awarded Bronze, Silver, or Gold in the 2023 BIMA Awards which recognize since 1985 the work in the British digital sector that is truly making a difference in business, culture and society.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>W3C Virtual Workshop on Secure the Web Forward - 26-28 September 2023</title>
+      <description><![CDATA[The workshop aims to develop a comprehensive picture and roadmap to address the challenges Web developers face in ensuring their applications are secure.]]></description>
+      <pubDate>Thu, 21 Sep 2023 13:00:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/w3c-virtual-workshop-on-secure-the-web-forward-26-28-september-2023/</link>
+      <guid>https://www.w3.org/blog/2023/w3c-virtual-workshop-on-secure-the-web-forward-26-28-september-2023/</guid>
+      <author>Francois Daoust</author>
+      <comments>https://www.w3.org/blog/2023/w3c-virtual-workshop-on-secure-the-web-forward-26-28-september-2023/#comments</comments>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Francois Daoust</dc:creator>
+      <content:encoded><![CDATA[            <figure class="component component--image">
+        <img src="https://www.w3.org/cms-uploads/_580xAUTO_crop_center-center_none/banner.png" extension="png"             sizes="100vw"
+            loading="lazy"
+                            alt=""
+                       />
+    </figure>
+                <div class="component component--text">
+                    <p>The <a href="https://www.w3.org/2023/03/secure-the-web-forward/">W3C Workshop â€œSecure the Web Forwardâ€</a> will take place next week, through three live sessions on Tuesday 26 September, Wednesday 27 September and Thursday 28 September, at 3pm UTC, for two hours. The <a href="https://www.w3.org/2023/03/secure-the-web-forward/agenda.html">agenda</a> is now available. Each live session will explore a specific topic:</p><ul><li>Session 1: Supply Chain Security</li><li>Session 2: JavaScript Security</li><li>Session 3: Developer Awareness</li></ul><p>The Secure the Web Forward W3C Workshop brings together experts in standards and best practices needed to secure Web Applications, practitioners of Security Supply Chain in Open Source contexts, developer advocates with a focus on security and developers, designers and technologists with experience in adopting and deploying Web security standards and practices. We aim to develop a comprehensive picture and roadmap to address the challenges Web developers face in ensuring their applications are secure.</p><p>You may still register to attend the workshop! Attendance is free for all invited participants and is open to the public, whether or not W3C members. If you would like to register, please send an email to <a href="mailto:group-secure-the-web-forward-ws@w3.org">group-secure-the-web-forward-ws@w3.org</a> with your name and affiliation.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>Introducing Web Sustainability Guidelines</title>
+      <description><![CDATA[The Sustainable Web Design Community Group announced draft guidelines on Sustainable Web Design, that explain how to design and implement digital products and services that put people and the planet first.]]></description>
+      <pubDate>Thu, 07 Sep 2023 19:56:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/introducing-web-sustainability-guidelines/</link>
+      <guid>https://www.w3.org/blog/2023/introducing-web-sustainability-guidelines/</guid>
+      <author>Tzviya Siegman</author>
+      <comments>https://www.w3.org/blog/2023/introducing-web-sustainability-guidelines/#comments</comments>
+      <category><![CDATA[sustainability]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Tzviya Siegman</dc:creator>
+      <content:encoded><![CDATA[            <div class="component component--text">
+                    <p>The <a href="/community/sustyweb/">Sustainable Web Design Community Group</a> is excited to announce a draft Community Group Report on Sustainable Web Design. The <a href="https://w3c.github.io/sustyweb/">Web Sustainability Guidelines (WSG) 1.0</a> explains how to design and implement digital products and services that put people and the planet first. The guidelines are best practices based on measurable, evidence-based research; aimed at end-users, web workers, stakeholders, tool authors, educators, and policymakers. The guidelines are in line with the <a href="https://www.sustainablewebmanifesto.com/">Sustainable Web Manifesto</a> and aligned with <a href="https://www.globalreporting.org/standards/">GRI Standards</a> to help organizations incorporate digital products and services into broader sustainability reporting initiatives.</p>
+ 
+<p>The digital industry is responsible for 2-5% of global emissions, more than the aviation industry. If the Internet were a country it would be one of the top five polluters. This guideline provides best practices and recommendations for reducing the environmental impact of web development and design, such as minimizing data transfer, optimizing images, using green hosting, and more.</p>
+ 
+<p>The structure of WSG is inspired by <abbr title="Web Content Accessibility Guidelines">WCAG</abbr> with 93 guidelines and 232 success criteria. Every guideline is supported by evidence and examples with information about the impact it has, the effort involved in implementation, and the specific benefits. WSG has four major categories: User Experience Design; Web Development; Hosting, Infrastructure and Systems; and Business Strategy And Product Management. See <a href="https://w3c.github.io/sustyweb/glance.html">WSG At a Glance</a> for a quick review of the guidelines.</p>
+ 
+<p>We welcome your participation and feedback. Please post any issues to our <a href="https://github.com/w3c/sustyweb/">GitHub repository issues</a> and join our <a href="/community/sustyweb/">community group</a>.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>Infinite Intelligence and Secure Connection: W3C China's Web Technology Forum Report</title>
+      <description><![CDATA[This post summarizes the conversation during the Web Technology Forum in June 2023, organized by W3C China as a hybrid event with the main in-person hub in Beijing.]]></description>
+      <pubDate>Thu, 24 Aug 2023 02:00:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/infinite-intelligence-and-secure-connection-w3c-chinas-web-technology-forum-report/</link>
+      <guid>https://www.w3.org/blog/2023/infinite-intelligence-and-secure-connection-w3c-chinas-web-technology-forum-report/</guid>
+      <author>Xueyuan Jia</author>
+      <comments>https://www.w3.org/blog/2023/infinite-intelligence-and-secure-connection-w3c-chinas-web-technology-forum-report/#comments</comments>
+      <category><![CDATA[events]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Xueyuan Jia</dc:creator>
+      <content:encoded><![CDATA[            <div class="component component--text">
+                    <p>W3C China organized a <a href="https://www.w3.org/2023/06/china-web-forum/index.html">Web Technology Forum</a> in June 2023, which was held as a hybrid event with the main in-person hub in Beijing. We are now pleased to share the <a href="https://www.w3.org/2023/06/china-web-forum/report-en.html">report</a> of the event, including recorded videos of the 20 talks during the forum (English and Chinese captions are available).</p><p>The forum gathered the Web community in China, nearly 100 onsite attendees and over 17,000 watching the live streaming, discussed the latest Web technologies and identified the possible requirements for Web standards.</p><p>The forum was kicked off by Philippe Le Hegaret (W3C Strategy and Project Management Lead) giving an overview of the Web standardization work on Web Neural Network, Machine Learning, Security, Private Advertising, Web Real-Time Communications (WebRTC), WebAssembly, WebGPU, WebTransport, WebCodecs, Wide Color Gamut (WCG), High Dynamic Range (HDR), Incremental font transfer, Decentralized Identifier (DID), Verifiable Credentials (VC), Web Content Accessibility Guidelines (WCAG) and Sustainability.&nbsp;&nbsp;&nbsp;</p>
+            </div>
+                <figure class="component component--video">
+    <div class="l-frame l-frame--16-9">
+                                                    <iframe width="200" height="113" src="https://www.youtube-nocookie.com/embed/rNFpgT8ZRqQ?feature=oembed"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" title="A&#x20;More&#x20;Intelligent&#x20;and&#x20;Secure&#x20;Web"></iframe>
+                        </div>
+    </figure>
+                <div class="component component--text">
+                    <p>Participants actively communicated around the latest Web technologies and trends, with a focus on cutting-edge technologies including <strong>Web Security, intelligent applications, multimedia, distributed identity, cloud and Web interaction</strong>, and topics related to <strong>internationalization and accessibility</strong>, and explored how to address the challenges the Web is facing today to further meet the needs of industry and users.&nbsp;</p><p>We would like to express our gratitude to Microsoft Reactor for hosting this event. Sincere thanks to Migu Tech-Talks and Microsoft Reactor for providing the live streaming to connect wider remote audience. Many thanks to all the speakers and participants for their supports and contributions that made this forum successful.&nbsp;</p><p>Through the <a href="/groups/ig/chinese-web/">Chinese Web Interest Group</a> and <a href="/groups/wg/miniapps/">MiniApps Working Group</a> &amp; <a href="/groups/cg/miniapps/">Community Group</a>, the W3C China team organizes activities regularly on Web technologies and standards with the goal to provide a forum for W3C members to enhance participation in Web standards work from the Chinese Web community. We focus primarily on identifying unique requirements from China, on facilitating the Chinese community discussion of technical ideas with the potential to be proposed to W3C, on standards testing and implementation, as well as explorations of corresponding standardization opportunities.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>Web Environment Integrity has no standing at W3C; understanding new W3C work</title>
+      <description><![CDATA[This article addresses that Web Environment Integrity is not being worked on at W3C, and proceeds to explaining how work is brought to W3C and the processes that foster the development of Web standards and guidelines that ensure the long-term growth of the Web.]]></description>
+      <pubDate>Fri, 11 Aug 2023 19:54:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/web-environment-integrity-has-no-standing-at-w3c/</link>
+      <guid>https://www.w3.org/blog/2023/web-environment-integrity-has-no-standing-at-w3c/</guid>
+      <author>Philippe Le HÃ©garet</author>
+      <comments>https://www.w3.org/blog/2023/web-environment-integrity-has-no-standing-at-w3c/#comments</comments>
+      <category><![CDATA[corporate]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Philippe Le HÃ©garet</dc:creator>
+      <content:encoded><![CDATA[            <div class="component component--text">
+                    <p>For a few weeks now we have been hearing concern in the Web community in regard to <a href="https://github.com/RupertBenWiser/Web-Environment-Integrity">Web Environment Integrity</a>, and are asked more and more about it. Our silence is due to the fact that the Web Environment Integrity API is not being worked on in W3C, nor has there been any submission to W3C for <a href="/groups/other/tag/">W3C Technical Architecture Group</a> (TAG) review.</p><p>In the rest of this article, I want to take the opportunity to explain generally <a href="/standards/about/#funnel">how new work is brought</a> to the World Wide Web Consortium, and how several W3C work groups coordinate what we call "<a href="/Guide/documentreview/#how_to_get_horizontal_review">horizontal review</a>". This review and other safeguards we have in place, transcends a particular technology by focusing on aspects that impact people and the Web: Web accessibility, architecture, internationalization, privacy, and security.</p><h2>Bringing new work to W3C</h2><p>Candidate W3C work arises from <a href="/Consortium/Process/#GAEvents">W3C Workshops</a> or <a href="/Submission/">Member Submissions</a>, or tracking the activity in public <a href="/community/groups/">W3C Community Groups</a>. New work starts at W3C by <a href="/Consortium/Process/#WGCharterDevelopment">initiating new working groups</a> based on interest from W3C Members and Team, or landing in <a href="/groups/">existing working groups</a> (in which case, the groups' charters are updated.) New charters and revised charters both require Member consensus.</p><h2>Passing W3C "horizontal review"</h2><p>The W3C Process Document enshrines <a href="/Consortium/Process/#doc-reviews">"horizontal review" as a requirement</a>. For a new working group, the review is done internally before any proposed charter is brought to W3C Members for approval. For new technology or specifications, the review must be done as part of publication on the W3C Recommendation track (i.e., the progression stages from an idea to a Web Standard.)</p>
+            </div>
+                <blockquote class="component component--quote">
+    <p>
+                        &quot;The objective is to ensure that the entire set of stakeholders of the Web community, including the general public, have had adequate notice of the progress of the Working Group and were able to actually perform reviews of and provide comments on the specification. A second objective is to encourage groups to request reviews early enough that comments and suggested changes can still be reasonably incorporated in response to the review.&quot;
+                </p>
+            <footer>Excerpt from the requirement for wide review (Section 6.2.2.1, W3C Process)</footer>
+    </blockquote>                <div class="component component--text">
+                    <h2>
+    Self-review for Web platform designers
+</h2>
+<p>
+    As a starting point and as part of web developer advocacy, most W3C horizontal review groups have created guides and self-review documents so that key aspects can be resolved autonomously:
+</p>
+<ul>
+    <li>
+        The Technical Architecture Group exists to help ensure that the Web makes sense as a platform, and that the design is coherent. Among the criteria of any<a href="https://tag.w3.org/workmode/"> TAG review</a> is evaluation against the <a href="/TR/design-principles/">Design Principles</a> (which includes the priority of constituencies), the <a href="/TR/privacy-principles/">Privacy Principles</a>, and the <a href="/TR/ethical-web-principles/">Ethical Web Principles</a>.
+    </li>
+    <li>
+        The Framework for Accessibility in the Specification of Technologies (<a href="https://w3c.github.io/apa/fast/checklist.html">FAST</a>) explains by types of features how to ensure that a technology is accessible to users with disabilities.
+    </li>
+    <li>
+        A <a href="https://w3c.github.io/i18n-drafts/techniques/shortchecklist">short i18n review</a> flags areas to pay particular attention to in the Internationalization (i18n) quality approach taken early to avoid costly and sometimes prohibitive obstacles when rolling out products or a technology to meet the needs of people in different cultures, or who use different languages or writing systems.
+    </li>
+    <li>
+        The <a href="/TR/security-privacy-questionnaire/">Security and Privacy self-review questionnaire</a> helps specification authors as they think through the security and privacy implications of their work designing new features for the Web platform.
+    </li>
+</ul>
+<h2>
+    From an idea to a Web standard
+</h2>
+<p>
+    If there is interest in describing more the various steps new work takes at W3C, we can start a series of articles. In the meantime, I thought I would leave you with a final note on how any specification becomes a "standard" in W3C: it needs to show multiple, interoperable <a href="/Consortium/Process/#implementation-experience">implementations</a>.
+</p>
+<p>
+    Let us know via <a href="mailto:contact@w3.org">email</a> if you have questions or what you would like to hear more about.
+</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>3</slash:comments>
+    </item>
+    <item>
+      <title>Securing the Web forward: Addressing developer concerns in web security</title>
+      <description><![CDATA[A recent survey affirms the need to drive developer awareness and adoption of Web security standards & practices.]]></description>
+      <pubDate>Mon, 24 Jul 2023 10:18:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/securing-the-web-forward-addressing-developer-concerns-in-web-security/</link>
+      <guid>https://www.w3.org/blog/2023/securing-the-web-forward-addressing-developer-concerns-in-web-security/</guid>
+      <author>Daniel Appelquist</author>
+      <comments>https://www.w3.org/blog/2023/securing-the-web-forward-addressing-developer-concerns-in-web-security/#comments</comments>
+      <category><![CDATA[privacy-and-security]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Daniel Appelquist</dc:creator>
+      <content:encoded><![CDATA[            <div class="component component--text">
+                    <p><a href="https://www.w3.org/2023/03/secure-the-web-forward/"><img src="https://www.w3.org/2023/03/secure-the-web-forward/banner.png" alt="black and white photo of padlocks on a metallic fence"></a></p><p>In the ever-evolving landscape of web development, security remains a key concern for developers. A <a href="https://github.com/web-platform-dx/developer-research/blob/main/mdn-short-surveys/2023-05-15-security-dx/interpretation.md">recent survey</a> gathered responses from 297 developers visiting MDN, asking them to rate the challenge they face with various security aspects in their development workflows. These responses offer a clear indication of the complexities and challenges encountered in daily development tasks.</p><p>60% of developers find the addressed security aspects 'Somewhat challenging' or 'Very challenging'. It's evident from this that we have a problem. There is a substantial need for enhanced education, tools, and best practices to assist developers with security issues across the board.</p><p>Delving deeper into the individual security aspects:</p><ul><li>Detecting security vulnerabilities was highlighted as the most challenging aspect, with 71% of developers marking it as 'Somewhat challenging' or 'Very challenging'. An area with clear scope for improvement, it further emphasizes the need for better tools and education.</li><li>Understanding security threats followed closely, gathering 69% of 'Somewhat challenging' or 'Very challenging' responses. As threats evolve continuously, this response underscores the crucial requirement for up-to-date education and efficient tools.</li><li>The intricacy of understanding the web browser's security model came third, seen as challenging by 66% of developers. The ongoing evolution of web technologies may contribute to the difficulty in understanding the security model.</li><li>Safely integrating third-party services received mixed responses. While 55% found it challenging, 27% felt neutral about it. This perhaps reflects the trust developers place in identified companies offering these services.</li><li>Keeping frameworks and libraries up-to-date was another mixed bag, with 54% finding it challenging but 20% considering it easy. This suggests that while the actual updating of dependencies remains challenging, the tools alerting developers about new dependency releases have become mainstream.</li><li>HTTPS Configuration was rated the least challenging aspect, with 45% finding it challenging and 31% considering it easy. It indicates that either server configuration is seen as a well-known task, or hosting services may be assisting developers with these issues.</li></ul><p>The survey also highlighted the challenges of staying updated with new security threats, integrating third-party code securely, the lack of cybersecurity content in formal education, and other issues such as regulatory compliance.</p><p>One thing is clear: if we want to address these challenges we need to do so holistically. <strong>That means we need to get people talking to each other across silos</strong>.</p><p>To further address these concerns and foster an open dialogue, we're inviting you to participate in the W3C, OpenSSF, OpenJSF, and OWASP workshop: â€œ<a href="https://www.w3.org/2023/03/secure-the-web-forward/">Secure the Web Forward</a>.â€ If you would like to participate in this groundbreaking workshop you have one week left to submit position statements. Itâ€™s clear that the ecosystem needs to come together to address these challenges. We hope that this workshop can be a step along the road to building a secure future for web development.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>New W3C website deployed</title>
+      <description><![CDATA[The redesign provides a more modern, inclusive, usable website.]]></description>
+      <pubDate>Tue, 20 Jun 2023 12:07:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/new-w3c-website-deployed/</link>
+      <guid>https://www.w3.org/blog/2023/new-w3c-website-deployed/</guid>
+      <author>Coralie Mercier</author>
+      <comments>https://www.w3.org/blog/2023/new-w3c-website-deployed/#comments</comments>
+      <category><![CDATA[corporate]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Coralie Mercier</dc:creator>
+      <content:encoded><![CDATA[            <div class="component component--text">
+                    <figure class="image"><img src="https://www.w3.org/cms-uploads/redesign-2023.png"></figure><p>The redesigned <a href="https://www.w3.org/">W3C website</a> is now live!&nbsp;</p><p>There is more to do, but this deployment concludes the four months the site was available in <a href="https://www.w3.org/blog/2023/02/w3c-launches-beta-of-its-new-website/">Beta</a>, which followed a year of internal preparation, and two years of work with UK-based&nbsp;digital&nbsp;agency Studio 24, to whom we <a href="https://www.w3.org/press-releases/2020/studio-24-w3c-website-redesign/">awarded</a> the website redesign project in early 2020. For me personally, this is a milestone of the â€œaction itemâ€ I took over 4 years ago to communicate more effectively&nbsp;what our organization&nbsp;does with a more modern, inclusive, usable website.&nbsp;</p><p>Redesigning a website and content that has been building up since 1994 is a massive undertaking, so we chose to break it down into phases and focus first on a&nbsp;subset of the public-facing pages most useful to key audiences:&nbsp;</p><ul><li>W3C homepage&nbsp;</li><li>/Standards, /Participate,&nbsp;/Membership, /Consortium&nbsp;</li><li>W3C Blog &amp; Blog article&nbsp;</li><li>Business ecosystem landing pages&nbsp;</li><li>Work Groups 'profile' pages (new)&nbsp;</li><li>/TR homepage&nbsp;</li><li>Account pages&nbsp;</li><li>Others as determined by Information Architecture&nbsp;</li></ul><p>This as well as goals and other related elements are documented in a <a href="https://www.w3.org/Press/slides/202002-website-redesign/#rfp">slide deck</a> I created at the start of the project.&nbsp;</p><p>On the surface, the new site implements current web best&nbsp;practices and technologies, donned a cleaner and elegant visual design, and provides information (in many cases rewritten and consolidated) in a more user-friendly fashion.&nbsp;</p><p>Under the hood, everything changed. From the complete information architecture to the CMS and the tools that make all of our sub-sites work together.&nbsp;</p><p>Feedback on the site itself and the content is expected as issues on our <a href="https://github.com/w3c/w3c-website">GitHub repository</a>.&nbsp;</p><p>We will gradually work to address existing non-blocking issues (in association with Studio 24 who now help us with support and maintenance), and to include the rest of the site as part of this design, starting with deploying the Chinese and Japanese localized sites for which we have seeded a lot of the work already.&nbsp;</p><p>Finally, I want to acknowledge the considerable help I got along this captivating project from the entire <a href="https://www.w3.org/staff/systeam/">W3C Systems Team</a>, in particular this project could not have happened without the contributions from Vivien Lacourba,&nbsp;Jean-Guilhem Rouel, Gerald Oskoboiny, Laurent Carcone, Denis Ah-Kang. Thank you.&nbsp;</p><h3>More information on the W3C Website redesign:&nbsp;</h3><p>The goals of the redesign were to achieve a cleaner and modern look and greater usability, better accessibility, as well as ultimately simplifying how the site is managed. We also want to offer integrated Japanese and Chinese versions.&nbsp;</p><p>Studio 24 documented the collaboration and process on the redesign of our website in a â€œwork in the openâ€ site, notably today's <a href="https://w3c.studio24.net/updates/live-website-launch">update</a>. You can read more about todayâ€™s milestone from Studio 24â€™s <a href="https://www.studio24.net/blog/w3c-launch-their-new-website/">blog post</a>.&nbsp;</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>5</slash:comments>
+    </item>
+    <item>
+      <title>Web technologies for applications: workshop and coding contest in Paris, 13 June 2023</title>
+      <description><![CDATA[Web technologies for applications: workshop and coding contest in Paris, 13 June 2023]]></description>
+      <pubDate>Mon, 05 Jun 2023 16:07:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/web-technologies-for-applications-workshop-and-coding-contest-in-paris-13-june-2023/</link>
+      <guid>https://www.w3.org/blog/2023/web-technologies-for-applications-workshop-and-coding-contest-in-paris-13-june-2023/</guid>
+      <author>Marie-Claire Forgue</author>
+      <comments>https://www.w3.org/blog/2023/web-technologies-for-applications-workshop-and-coding-contest-in-paris-13-june-2023/#comments</comments>
+      <category><![CDATA[developers]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Marie-Claire Forgue</dc:creator>
+      <content:encoded><![CDATA[            <div class="component component--text">
+                    <p>The convergence of web innovation, light app technologies, and mobile devices is transforming the digital landscape. The â€œWeb Technologies for Applicationsâ€ workshop and coding contest, organized the <a href="https://systematic-paris-region.org/?lang=en" rel="noopener" target="_blank">Systematic Paris-Region cluster</a> and the Open-Source Software for Information Systems (<a href="https://www.ow2.org/">OW2</a>) in coordination with W3C, brings together industry professionals, web developers, researchers, programmers, and technology enthusiasts to explore the latest trends and advancements in web applications in a mobile context.</p><p><strong>Take part in this exciting day and </strong><a href="https://systematic-paris-region.org/evenement/web-technologies-for-applications-workshop-and-coding-contest/"><strong>register free of charge </strong></a><strong>for June 13, 2023, in Paris <img style="vertical-align:sub;width:15px;" src="https://s.w.org/images/core/emoji/14.0.0/svg/1f1eb-1f1f7.svg" alt="&#x1f1eb;&#x1f1f7;"> !</strong></p><p><a href="https://systematic-paris-region.org/evenement/web-technologies-for-applications-workshop-and-coding-contest/"><img class="aligncenter size-medium" src="https://systematic-paris-region.org/wp-content/uploads/2023/06/1685707300_image_event_c.png" alt="W3C, OW2 and Systematic organize a workshop and coding contest in Paris, on 13 June 2023. The event is entitled: " decoding="async"></a></p><p>Starting from the mid-2000s, web access through mobile devices experienced a remarkable surge, driven by the popularity of smartphones and the availability of affordable, high-speed mobile data networks. At that time, W3C launched the <a href="https://www.w3.org/2005/05/mwi-pressrelease.html.en" rel="noopener" target="_blank">Mobile Web Initiative</a> to make browsing the Web from mobile devices a reality. In parallel, mobile native apps were adapting to user expectations, including seamless connectivity, smooth interactivity, etc. To orient developers and content providers who wanted to create the same or even a better experience on mobile, W3C maintained and published <a href="https://www.w3.org/Mobile/roadmap/" rel="noopener" target="_blank">roadmaps of Web Applications for Mobile</a> collecting information about standardization and implementation status of features described in W3C specifications and others.</p><p>As society embraces an â€œalways on, always connectedâ€ real-time paradigm, coupled with the emergence of smart homes, smart cities, AR/VR, AI bots, etc., new challenges have arisen. These challenges prompt us to evolve existing global standards and forge new ones, while addressing concerns such as data privacy, cyber security, online harassment, and more. Simultaneously, we must strive to maintain an accessible and user-friendly development process.</p><p>At the event (9h00 â€“ 14h00), renowned experts will deliver engaging sessions:</p><ul><li>Dominique HazaÃ«l-Massieux (Head of DevRel, W3C) will review and compare how Web technologies are used across ecosystems, and highlight opportunities for greater convergence among them.</li><li>Martin Alvarez-Espinar (Head of Web Standards, Huawei) will present the background and current status of the W3C MiniApp specifications, developed collaboratively by industry leaders and stakeholders within the <a href="https://www.w3.org/2021/miniapps/" rel="noopener" target="_blank">W3C MiniApps Working Group</a>.</li><li>Alex Bourlier (Co-founder, Startinâ€™blox) will explore how Data Interoperability and Data Sovereignty can be enhanced among the MiniApps ecosystem by making use of initiatives like the Solid Project, International Data Spaces (IDS) or Gaia-X.</li><li>Simon Phipps (Standards &amp; Policy Director, OSI) will suggest some definitions and principles over what open source and open standards have in common, and what distinguishes them.</li><li>Fabien Benetou (Prototypist, consultant in WebXR for the European Parliament innovation team) will demonstrate how an immersive experience can take place directly in the browser we are already so familiar with.</li><li>Romain Vailleux (Partnership &amp; Ecosystem Manager, Apizee) will explore the possibilities offered by WebRTC, with a particular focus on use cases and applications.</li></ul><p>With an informative workshop, a challenging coding contest, and opportunities for networking and recognition, this event is a must-attend for those looking to expand their knowledge, showcase their skills, and take their web development career to new heights.</p><p><a href="https://systematic-paris-region.org/evenement/web-technologies-for-applications-workshop-and-coding-contest/" rel="noopener" target="_blank">Join us</a> to shape the future of web and mobile experiences, ensuring inclusivity, security, and accessibility for all. The event is located at 16-18 Rue Vulpian, 75013 Paris.</p><p>The afternoon will be devoted to a code contest for students, who will have to develop and test a lightweight application (PWA, Quick App) to promote a cityâ€™s resources. The 3 best projects will win cool prizes! <a href="https://my.weezevent.com/coding-contest-1306?_gl=1*nj3hlw*_ga*NDI0ODY4MzYzLjE2ODMyMDI4NjQ.*_ga_39H9VBFX7G*MTY4MzIwMjg2My4xLjEuMTY4MzIwMjkxNy4wLjAuMA..">Register here</a>.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>W3C WAI Updates for GAAD 2023</title>
+      <description><![CDATA[Relevant resources from the W3C Web Accessibility Initiative (WAI) for Global Accessibility Awareness Day (GAAD).]]></description>
+      <pubDate>Wed, 17 May 2023 17:32:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/w3c-wai-updates-for-gaad-2023/</link>
+      <guid>https://www.w3.org/blog/2023/w3c-wai-updates-for-gaad-2023/</guid>
+      <author>Shawn Lawton Henry</author>
+      <comments>https://www.w3.org/blog/2023/w3c-wai-updates-for-gaad-2023/#comments</comments>
+      <category><![CDATA[accessibility]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Shawn Lawton Henry</dc:creator>
+      <content:encoded><![CDATA[            <div class="component component--text">
+                    <p>In your materials for Global Accessibility Awareness Day (GAAD), we encourage you to include relevant resources from the W3C Web Accessibility Initiative (WAI).</p>
+
+<h2>WAI Resources for GAAD</h2>
+
+<p>For a list of free online resources to support digital accessibility, see <a href="https://www.w3.org/WAI/resources/">WAI Resources</a>.</p>
+
+<p>Resources particularly relevant for GAAD include:</p>
+
+<ul>
+	<li><a href="https://www.w3.org/WAI/teach-advocate/accessible-presentations/">Making Events Accessible &ndash; Checklist for meetings, conferences, training, and presentations that are remote/virtual, in-person, or hybrid</a></li>
+	<li><a href="https://www.w3.org/WAI/fundamentals/accessibility-intro/">Introduction to Web Accessibility</a></li>
+	<li><a href="https://www.w3.org/WAI/courses/">Digital Accessibility Courses</a></li>
+</ul>
+
+<h2>WAI Updates</h2>
+
+<p>For monthly updates on current WAI work, see <a href="https://www.w3.org/WAI/update/">What We&rsquo;re Working On &ndash; Accessibility Activities and Publications</a>.</p>
+
+<p>For those interested in Web Content Accessibility Guidelines (WCAG):</p>
+
+<ul>
+	<li>An updated draft of WCAG 2.2 was published on 17 May 2023. See <a href="https://www.w3.org/WAI/standards-guidelines/wcag/">WCAG 2 Overview</a> and <a href="https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/">What&rsquo;s New in WCAG 2.2 Draft</a>.</li>
+	<li>WCAG 3.0 is exploring a different approach. It is years away from being completed. See <a href="https://www.w3.org/WAI/standards-guidelines/wcag/wcag3-intro/">WCAG 3 Introduction</a>.</li>
+	<li>You can get announcements of WCAG updates via e-mail. See <a href="https://www.w3.org/WAI/news/subscribe/">Get WAI News</a>.</li>
+</ul>
+
+<h2>WAI Leadership</h2>
+
+<p>W3C accessibility work is led by:</p>
+
+<ul>
+	<li><a href="https://www.w3.org/People/kevin/">Kevin White</a>, Development and Operations Lead</li>
+	<li><a href="https://www.w3.org/People/cooper/">Michael Cooper</a>, Strategy and Technical Lead</li>
+	<li><a href="https://www.w3.org/People/Shawn/">Shawn Lawton Henry</a>, Education and Communications Lead</li>
+</ul>
+
+<p>WAI staff also includes <a href="https://www.w3.org/People#ran">Ruoxi Ran</a> and <a href="https://www.w3.org/People#dmontalvo">Daniel Montalvo</a>.</p>
+
+<p>To reach WAI staff, you can e-mail <a href="mailto:wai@w3.org">wai@w3.org</a>.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>30th anniversary of licensing the Web for general use and at no cost</title>
+      <description><![CDATA[The post illustrates why selected W3C standards made the Web the premier information commons it is today; and features a graphical timeline that puts W3C standards in perspective with Internet adoption figures, and important websites or services launched.]]></description>
+      <pubDate>Sun, 30 Apr 2023 16:55:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/30th-anniversary-of-licensing-the-web-for-general-use-and-at-no-cost/</link>
+      <guid>https://www.w3.org/blog/2023/30th-anniversary-of-licensing-the-web-for-general-use-and-at-no-cost/</guid>
+      <author>Coralie Mercier</author>
+      <comments>https://www.w3.org/blog/2023/30th-anniversary-of-licensing-the-web-for-general-use-and-at-no-cost/#comments</comments>
+      <category><![CDATA[corporate]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Coralie Mercier</dc:creator>
+      <content:encoded><![CDATA[            <div class="component component--text">
+                    <p><small><a href="https://www.chinaw3c.org/30th-anniversary-of-licensing-the-web-for-general-use-and-at-no-cost.html" hreflang="zh-hans">æœ¬å¸–ä¹Ÿæœ‰ç®€ä½“ä¸­æ–‡ç‰ˆæœ¬</a> (This post also exists in <a href="https://www.chinaw3c.org/30th-anniversary-of-licensing-the-web-for-general-use-and-at-no-cost.html" hreflang="zh-hans">Simplified Chinese</a>)</small></p>
+
+<hr />
+            </div>
+                <div class="component component--text">
+                    <p>Today marks the 30th anniversary of the <a href="https://home.cern/science/computing/birth-web/licensing-web">release of the World Wide Web into the public domain, for general use, and at no cost</a>, on 30 April 1993 by <abbr title="Conseil EuropÃ©en pour la Recherche NuclÃ©aire">CERN</abbr>.</p>
+
+<p>This quiet gesture, advocated by Web inventor <a href="https://www.w3.org/People/Berners-Lee/">Sir Tim Berners-Lee</a>, has had implications beyond what he or anyone imagined at that time: the Web, free for everyone, has changed our lives.</p>
+
+<p>Please, join me in taking a moment to appreciate the impact and the sheer magnitude of the revolution that started just two years prior. &ldquo;Try it&rdquo;, Sir Tim noted in his August 1991 email introducing the World Wide Web &ndash; and since then, billions of people have.</p>
+
+<p><img alt="graphic showing a historical photo of Sir Tim Berners-Lee at his desk, next to the text 'try it'" class="alignnone size-medium" decoding="async" src="https://www.w3.org/comm/assets/graphics/try-it-v3.png" /></p>
+
+<p><a href="https://www.statista.com/statistics/273018/number-of-internet-users-worldwide/">Two thirds of the world are online</a> today (66% of the global population, or 5.3 billion people), and although access may vary greatly between parts of the world, there was a noticeable surge in the steady increase as a result of the Coronavirus pandemic, when suddenly <strong>people become reliant on the Web</strong> for communication, work, education, democracy, online shopping and business, connecting with family and friends, and entertainment, among myriad reasons to use the world&rsquo;s truest social network.</p>
+
+<p><strong>The Web has been life-changing for people</strong>. I ran a short <a href="https://w3c.social/@koalie/110140401080412458">poll</a> on social media a few weeks ago, asking people in what way(s) the Web changed their life. <a href="https://w3c.social/@xuf@geraffel.social/110141023455582285">One response</a>, of the many I got, stayed with me:</p>
+
+<blockquote>
+<p>&ldquo;I think there are two type of persons, the ones that the web changed their lives, and the ones that they are not aware that it changed their lives.&rdquo;</p>
+</blockquote>
+
+<p>It warmed my heart and reinforced the sense of purpose I get from working at W3C how people overwhelmingly and enthusiastically lauded the Web. Its positive impact can be broken into three main categories:</p>
+
+<ol>
+	<li><strong>Vital family and social interactions.</strong> Also, it&rsquo;s astounding the number of people who met the love of their life thanks to the Web!</li>
+	<li><strong>Earning a living.</strong> Many found jobs as web developers, many conduct business online, many work from home thanks to the Internet and the Web.</li>
+	<li><strong>Empowerment and personal growth.</strong> From enabling people with disabilities or ill people to lead better lives, to breaking world frontiers and expanding horizons to learn, play and discover.</li>
+</ol>
+
+<p>Sir Tim Berners-Lee founded the World Wide Web Consortium in 1994 as an <strong>international multi-stakeholder consortium to advance a consistent architecture accommodating progress in web standards</strong>, where member organizations, a full-time staff, and the public develop open web standards.</p>
+
+<p>CERN&rsquo;s decision to provide unencumbered access to the basic Web protocols and software developed there was instrumental to the success of the technical work done at the World Wide Web Consortium. The decision to base the Web on royalty-free standards from the beginning has been vital to its success. The open platform of royalty-free standards enabled software companies to profit by selling new products with powerful features, enabled e-commerce companies to profit from services that grew on this foundation, and brought social benefits in the non-commercial realm beyond simple economic valuation.</p>
+
+<p>In May 2003, coinciding almost exactly with the tenth anniversary of CERN&rsquo;s decision, W3C <a href="https://www.w3.org/2003/05/patentpolicy-pressrelease.html.en">adopted a Patent Policy</a> to enable continued innovation and widespread adoption of Web standards developed by the World Wide Web Consortium. The W3C Patent Policy governs the handling of patents in the process of producing Web Standards. The goal of this policy is to assure that Recommendations produced under this policy can be implemented on a Royalty-Free (RF) basis. By adopting this Patent Policy with its commitment to royalty-free standards, W3C laid the foundation for future decades of technical innovation, economic growth, and social advancement.</p>
+
+<p>To date, W3C has published more than <a href="https://www.w3.org/2002/01/tr-automation/tr-stats?form[startdate]=1994-10-01&amp;form[enddate]=2023-04-30">11,000 specifications</a>, of which 470 are web standards.</p>
+
+<p><a href="https://www.w3.org/comm/assets/graphics/2023-04-30_timeline-1994-2023/2023-04-30_timeline-1994-2023.pdf"><img alt="timeline showing W3C technologies that have had particular impact on the Web, showing websites and product launches that put the web into perspective, showing the number of websites and internet users every 5 years" class="alignnone size-medium" decoding="async" loading="lazy" longdesc="https://www.w3.org/comm/assets/graphics/2023-04-30_timeline-1994-2023/2023-04-30_timeline-1994-2023.html" src="https://www.w3.org/comm/assets/graphics/2023-04-30_timeline-1994-2023/2023-04-30_timeline-1994-2023.png" /></a></p>
+
+<p>Among the many achievements originating from W3C that influenced the Web for the better, those that made it the premier information commons that it has become are:</p>
+
+<ul>
+	<li><abbr title="hypertext markup language">HTML</abbr>, <abbr title="cascading style sheets">CSS</abbr>, <abbr title="portable network graphics">PNG</abbr> (1995), the foundational technologies to display content on the web.</li>
+	<li><abbr title="extensible markup language">XML</abbr> (1996), enabling structured data on the web.</li>
+	<li><a href="https://www.w3.org/WAI/">Web Accessibility Initiative (WAI)</a> (1997), for planning content and sites that are accessible to all, including disabled people.</li>
+	<li>Patent Policy Working Group formed (1999), to reduce the threat of blocking patents on key components of Web infrastructure, and ultimately allow W3C to deliver royalty-free standards for the Web.</li>
+	<li><abbr title="document object model">DOM</abbr> (1997), for giving logical structure allowing online documents to be accessed and manipulated.</li>
+	<li><a href="https://www.w3.org/International/">Internationalization</a> (1998), for making the World Wide Web truly world-wide, adapted for people from any culture, region, or language, and ensuring text layout and typographic needs of scripts and languages around the world are built in Web technology.</li>
+	<li>Ecommerce/Micropayment (1998), to make it possible to buy and sell goods and services online reliably and securely, and which led to a series of Web Payments work.</li>
+	<li><abbr title="resource description framework">RDF</abbr> (1999), to model data interchange, and enable structured data to be mixed, exposed, and shared.</li>
+	<li><abbr title="scalable vector graphics">SVG</abbr> (2001), to enable two-dimensional graphics, allowing shapes, text and embedded graphics to be displayed on the web and integrated with HTML and CSS.</li>
+	<li><a href="https://www.w3.org/2003/05/patentpolicy-pressrelease.html.en">W3C Patent Policy</a> (2003), to assure that specifications can be implemented on a Royalty-Free (RF) basis and used at no cost, thus boosting adoption and usage.</li>
+	<li>Mobile Web Initiative (2005), which made web access from a mobile device simple, easy, and convenient. As of August 2021, <a href="https://www.statista.com/topics/1145/internet-usage-worldwide/#topicOverview">mobile devices accounted for 57% of web page views worldwide</a>.</li>
+	<li>W3C in China (2006), where the online presence has been leading for a long time, gave way notably to ongoing standardization of MiniApps to enhance the interoperability, accessibility, internationalization, privacy and security between different MiniApp platforms and the web.</li>
+	<li><a href="https://www.w3.org/2008/12/wcag20-pressrelease.html.en"><abbr title="Web Content Accessibility Guidelines">WCAG</abbr>&nbsp;2.0</a>, to make content accessible to a wider range of people with disabilities, including blindness and low vision, deafness and hearing loss, learning disabilities, cognitive limitations, limited movement, speech disabilities, photo sensitivity and combinations of these. Following these guidelines often makes content more usable to users in general.</li>
+	<li><a href="https://www.w3.org/2021/01/pressrelease-webrtc-rec.html.en">Web<abbr title="real-time communications">RTC</abbr></a> (2011), for bringing audio and video communications anywhere on the web, from any connected device.</li>
+	<li><abbr title="web open font format">WOFF</abbr> (2012), for providing downloadable fonts easily licensed and reliably used in any browser on laptops, mobile and TV. W3C received its <a href="https://www.w3.org/2022/04/pressrelease-woff-emmyaward.html.en">third Technology &amp; Engineering Emmy&reg; Award</a> in 2022 for standardizing font technology for custom downloadable fonts and typography for web and TV devices.</li>
+	<li>JSON-LD (2014), for making Linked Data and RDF much easier to adopt by developers. Its most resounding success is its use in schema.org, allowing people to simply include machine readable data in their web pages, to help search engine better index them, and other web agents to better understand them.</li>
+	<li>Web Payments (2014) for making web payments easier and more secure.</li>
+	<li>ActivityPub (2018), for powering the world&rsquo;s greatest decentralized network. The protocol enables creating, updating and deleting content across several federated servers.</li>
+	<li><a href="https://www.w3.org/2019/12/pressrelease-wasm-rec.html.en">WebAssembly</a> (2019), for enabling high-performance applications relying on a low-level infrastructure, and enhancing web performance and power consumption.</li>
+	<li><a href="https://www.w3.org/2019/03/pressrelease-webauthn-rec.html.en"><abbr title="web authentication">WebAuthn</abbr></a> (2019), for making the web more secure and usable, by building support for easy and secure logins via biometrics, mobile devices and other implements.</li>
+	<li><a href="https://www.w3.org/2022/07/pressrelease-did-rec.html.en"><abbr title="decentralized identifiers">DIDs</abbr></a> (2022), to empower everyone on the web with privacy-respecting online identity and consent-based data sharing.</li>
+</ul>
+
+<p>Our <a href="https://www.w3.org/Consortium/mission#vision">vision</a> for the future is a Web that is truly a force for good. A World Wide Web that is international and inclusive, respectful of its users. A Web that supports truth better than falsehood, people more than profits, humanity rather than hate. A Web that works for everyone, because of everyone.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>3</slash:comments>
+    </item>
+    <item>
+      <title>Answering â€œWhat ARIA can I use?â€</title>
+      <description><![CDATA[Announcing the launch of â€œAssistive Technology Supportâ€ tables in the ARIA Authoring Practices Guide (APG).]]></description>
+      <pubDate>Mon, 17 Apr 2023 17:20:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/answering-what-aria-can-i-use/</link>
+      <guid>https://www.w3.org/blog/2023/answering-what-aria-can-i-use/</guid>
+      <author>Matthew King</author>
+      <comments>https://www.w3.org/blog/2023/answering-what-aria-can-i-use/#comments</comments>
+      <category><![CDATA[accessibility]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Matthew King</dc:creator>
+      <content:encoded><![CDATA[            <div class="component component--text">
+                    <h2>New! AT support tables in the Authoring Practices Guide (APG)</h2>
+
+<p>The <a href="https://www.w3.org/groups/cg/aria-at">ARIA and Assistive Technologies Community Group</a> (ARIA-AT CG) and <a href="https://www.w3.org/groups/tf/aria-practices">ARIA Authoring Practices Task Force</a> (APG TF) are excited to announce the launch of &ldquo;Assistive Technology Support&rdquo; tables in the ARIA Authoring Practices Guide (APG). This initial release includes tables showing JAWS, NVDA, and VoiceOver support levels on four pages that demonstrate pattern implementations, including <a href="https://www.w3.org/WAI/ARIA/apg/patterns/button/examples/button/#assistivetechnologysupport">Button Examples</a>, <a href="https://www.w3.org/WAI/ARIA/apg/patterns/link/examples/link/#assistivetechnologysupport">Link Examples</a>, <a href="https://www.w3.org/WAI/ARIA/apg/patterns/radio/examples/radio-activedescendant/#assistivetechnologysupport">Radio Group Example Using aria-activedescendant</a>, and <a href="https://www.w3.org/WAI/ARIA/apg/patterns/alert/examples/alert/#assistivetechnologysupport">Alert Example</a>. More are coming soon.</p>
+
+<p>This &ldquo;Can I Use&hellip;&rdquo; like data showing how three screen readers support four UI pattern implementations represents a sea change in accessibility engineering. The data are the first taste of the fruits of nearly five years of collaboration, learning, community building, and process and infrastructure development.</p>
+
+<p><strong>That fruit makes predictable screen reader behavior possible.</strong> That possibility portends a world where any web developer can build rich web experiences that work well with any assistive technology as readily as they can create experiences that work in any browser for people who do not rely on assistive technology.</p>
+
+<h2>The problem of the &ldquo;accessibility supported&rdquo; puzzle</h2>
+
+<p>It has always been a struggle, often a monumental and expensive one, for web developers to find ways of coding experiences that are understandable by users of any assistive technology (AT). You get your site working with one AT and it ends up not working as well with another. Then the experience of your site with an important AT degrades because the latest version of that AT includes changes to better support a popular site that has encoded a similar experience in a different way. Of course, the degradation was unintentional. As is often the case, accessibility experts frequently have conflicting understandings of how to satisfy relevant specifications. Consequently, unintentional negative side effects are difficult if not impossible to avoid.</p>
+
+<p>Web, browser, operating system, and AT developers are all attempting to cut pieces of a puzzle. Everyone hopes that, when assembled, the puzzle will picture a usable web built from accessibility supported experiences. Unfortunately, while browser and operating system developers get pretty clear and stable maps showing where to draw their cutting lines from specifications for ARIA, HTML, and various accessibility APIs, web and AT developers do not. They do their best, but the act of drawing moves the puzzle board, messing up the lines being drawn by others. What&rsquo;s worse is they occasionally discover ink has randomly disappeared. So, the way the picture is divided constantly changes. Sometimes pieces fit together, giving users a good experience, but far too often, they don&rsquo;t.</p>
+
+<p><a href="https://www.w3.org/WAI/WCAG22/Understanding/conformance#accessibility-support">Understanding WCAG conformance</a> defines what we need for a new technology, like an ARIA-enabled UI pattern, to be accessibility supported:</p>
+
+<blockquote>
+<p>&ldquo;When new technologies are introduced, two things must happen in order for people using assistive technologies to be able to access them. First, the technologies must be designed in a way that user agents including assistive technologies could access all the information they need to present the content to the user. Secondly, the user agents and assistive technologies may need to be redesigned or modified to be able to actually work with these new technologies.&rdquo;</p>
+</blockquote>
+
+<p>So, even when browsers and accessibility APIs are perfectly implementing their specs, we don&rsquo;t yet have everything necessary to design and build web UI patterns that are &ldquo;accessibility supported.&rdquo; For that, we also need:</p>
+
+<ol>
+	<li>Consistent understanding across web development communities of &ldquo;all the information assistive technologies need to present&rdquo; a given pattern, which accessibility semantics best represent that information, and which ways of coding the pattern accurately express those semantics.</li>
+	<li>Consistent interpretation and rendering of accessibility semantics across the AT industry, such that there are shared expectations for acceptable AT responses to a given semantic in a given pattern.</li>
+	<li>All stakeholders having sufficiently similar understanding of the meaning of &ldquo;actually works&rdquo; for any given pattern.</li>
+</ol>
+
+<p>In other words, web developers and AT developers need to be on the same page, and that page must not only synthesize information from a wide variety of specifications but also include information about what &ldquo;actually works&rdquo; for AT users that has not been available anywhere.</p>
+
+<h2>Helping map the rest of the &ldquo;accessibility supported&rdquo; puzzle</h2>
+
+<p>The ARIA-AT CG and APG TF have been jointly working to align the web development and AT developer communities. They are building missing pieces of the foundational infrastructure needed to generate the information and consensus that can make &ldquo;accessibility supported&rdquo; web UI patterns available to any web developer and users of any AT.</p>
+
+<p>First, to foster harmonization of how accessibility semantics are used in practice by web developers, the APG TF has been transforming the Authoring Practices Guide into a platform that supports the multiple facets of that goal. To start, it provides <a href="https://www.w3.org/WAI/ARIA/apg/patterns/">thirty patterns for using ARIA semantics</a>. To demonstrate how to apply those patterns in practice, it also includes more than 60 <a href="https://www.w3.org/WAI/ARIA/apg/example-index/">example implementations of the patterns</a>. As of the time of this announcement, the APG also provides the equivalent of &ldquo;can I use &hellip;&rdquo; data, i.e., AT support tables, for four of the reference implementations.</p>
+
+<p>That &ldquo;can I use &hellip;&rdquo; type of data comes from the <a href="https://aria-at.w3.org/">ARIA-AT project</a>. The objective of ARIA-AT stated in terms of &ldquo;WCAG accessibility supported&rdquo; is to build consensus for definitions of &ldquo;actually works&rdquo; that are specific to every accessibility semantic defined within a specification related to ARIA. It is starting with semantics employed in APG patterns.</p>
+
+<h2>The challenge of defining and testing AT behavior that &ldquo;actually works&rdquo;</h2>
+
+<p>Figuring out how to define, develop consensus for, and test baseline expectations for AT behaviors has proven to be as fantastically challenging as anyone might have imagined. In 2018, the ARIA-AT CG set a five-year goal of testing 60 APG examples with three desktop screen readers and two mobile screen readers. Even with the scope limited to a select few screen readers, the goal was more ambitious than we anticipated. Last year, we had to dial back our end of 2023 target to testing 30 examples with three desktop screen readers. The good news is that progress is solid, and the community group is proving that 1) AT interoperability is a realistic industry goal, and 2) if we can keep the work funded, universally available accessibility supported web sites can one day be a reality.</p>
+
+<p>At a high level, the major elements of the APG TF and ARIA-AT CG AT interoperability work are:</p>
+
+<ol>
+	<li>Build the supply of sufficient, robust, and stable test cases that represent real-world usage of accessibility semantics. The initial source is the APG. There could be many more in the future.</li>
+	<li>Craft statements of expected AT behaviors in the form of test plans. This is very difficult work that is executed by community group members from Prime Access Consulting, which you can read about on the <a href="https://www.pac.bz/blog/pac-and-aria-at-helping-to-define-and-evaluate-screen-reader-support-expectations">PAC blog</a>.</li>
+	<li>Develop systems for managing the stakeholder consensus process, manually running tests, and serving reports. These systems are being delivered by community group members who work at Bocoup, and you can learn more about that work in <a href="https://bocoup.com/blog/can-i-use-but-for-aria">this post on their blog</a>.</li>
+	<li>Develop and implement an AT automation standard that enables tests to be re-run within continuous integration systems for every new version of an assistive technology or browser. As described in the two previously referenced posts, Bocoup is leading development of the <a href="https://w3c.github.io/at-driver/">AT Driver standard</a>, and PAC is developing the <a href="https://github.com/Prime-Access-Consulting/nvda-at-automation/">NVDA implementation</a>.</li>
+</ol>
+
+<p>All that is enablement. The deliverables from those workstreams make it possible for community group members and stakeholders to run tests, gather feedback on test plans, define issues, negotiate consensus solutions, incorporate resolutions into test plans, and finally raise and resolve AT bugs.</p>
+
+<h2>Screen reader partnership</h2>
+
+<p>Given that the community group is kickstarting AT interoperability with an initial focus on the three most popular desktop screen readers, progress depends on effective collaboration with the developers of those screen readers. One of the critical enablers of today&rsquo;s launch has been the involvement and responsiveness of Vispero and Apple.</p>
+
+<p>Negotiating the details of how to test interoperability and adjusting screen reader behaviors to align with the expectations defined by the tests is substantive work. The community group is seeking ways of helping NVAccess (developer of NVDA) build the capacity it would need to support it as well.</p>
+
+<h2>What&rsquo;s next</h2>
+
+<p>In coming months, AT support tables will be added to more APG example pages. The ARIA-AT CG is developing a quarterly schedule for covering the rest of the APG, and we plan to make it publicly available soon. Over the course of 2023, as we integrate automation into the process, the tables will include data for more screen reader and browser combinations.</p>
+
+<p>In 2024, as we complete the first round of test plans for desktop screen readers, we plan to start adding test plans for mobile screen readers. Assuming continued success and funding, the project will expand to support more types of assistive technologies and test more accessibility semantics.</p>
+
+<h2>Get involved</h2>
+
+<p>To learn more about how you or your organization can participate or support the project, visit our <a href="https://github.com/w3c/aria-at/wiki/Contributing-to-the-ARIA-and-Assistive-Technologies-Project">wiki page about contributing to the project</a>.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>1</slash:comments>
+    </item>
+    <item>
+      <title>Privacy Principles for the Web</title>
+      <description><![CDATA[The W3C Technical Architecture Group (TAG) is seeking public comments by the end of April on a set of privacy principles for the web.]]></description>
+      <pubDate>Wed, 22 Mar 2023 09:04:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/privacy-principles-for-the-web/</link>
+      <guid>https://www.w3.org/blog/2023/privacy-principles-for-the-web/</guid>
+      <author>Samuel Weiler</author>
+      <comments>https://www.w3.org/blog/2023/privacy-principles-for-the-web/#comments</comments>
+      <category><![CDATA[privacy-and-security]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Samuel Weiler</dc:creator>
+      <content:encoded><![CDATA[            <div class="component component--text">
+                    <p>The World Wide Web Consortium&rsquo;s <a href="https://www.w3.org/groups/other/tag">Technical Architecture Group (TAG)</a> has recently established a task force to create a set of <a href="https://www.w3.org/TR/privacy-principles/">privacy principles&nbsp;for the web</a>. This initiative is part of the W3C&rsquo;s ongoing efforts to promote and protect privacy on the web. The Privacy Principles document lays&nbsp;out a set of principles that aim to guide the development of new specifications for the web platform, with the goal of eventually publishing it as a&nbsp;<a href="https://www.w3.org/2021/Process-20211102/#statement">W3C Statement</a>. This effort builds on previous work by the W3C&rsquo;s Privacy Interest Group and the TAG&rsquo;s Security &amp; Privacy Questionnaire and&nbsp;Ethical Web Principles, which underscore the importance of respecting users&rsquo; privacy in web design and development.</p>
+
+<p>We welcome your feedback on the document. We encourage you to <a href="https://github.com/w3ctag/privacy-principles">leave that feedback in the document&rsquo;s Github repository</a>. We would like&nbsp;comments before the end of April.</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+    <item>
+      <title>W3C launches beta of its new website</title>
+      <description><![CDATA[W3C welcomes feedback on the beta of its new website.]]></description>
+      <pubDate>Mon, 27 Feb 2023 07:31:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/w3c-launches-beta-of-its-new-website/</link>
+      <guid>https://www.w3.org/blog/2023/w3c-launches-beta-of-its-new-website/</guid>
+      <author>Coralie Mercier</author>
+      <comments>https://www.w3.org/blog/2023/w3c-launches-beta-of-its-new-website/#comments</comments>
+      <category><![CDATA[corporate]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Coralie Mercier</dc:creator>
+      <content:encoded><![CDATA[            <figure class="component component--image">
+        <img src="https://www.w3.org/cms-uploads/_580xAUTO_crop_center-center_none/betasite-2023-02-27.png" extension="png"             sizes="100vw"
+            loading="lazy"
+                            alt=""
+                       />
+            <figcaption>
+            <p>Screenshot of the beta homepage of the redesigned W3C website</p>
+        </figcaption>
+    </figure>
+                <div class="component component--text">
+                    <p>Today we launched a<a href="https://www.w3.org/" style="text-decoration:none"> <u>beta version</u></a> of the redesign of our website.</p>
+
+<p>The goals of the redesign are to achieve a cleaner and modern look and greater usability, better accessibility, as well as ultimately simplifying how the site is managed. We also want to offer integrated Japanese and Chinese versions, which we will roll out after the beta of the English site has concluded.</p>
+
+<p>For several years, W3C has worked in close partnership with <a href="https://w3c.studio24.net" style="text-decoration:none"><u>Studio 24</u></a> to redesign our website. This is, as many in our community know, an enormous undertaking and one which has been of great importance to us. You can read more from <a href="https://www.studio24.net/blog/w3c-beta-site-launch/" style="text-decoration:none"><u>Studio 24&rsquo;s blog post</u></a> about our collaboration (&ldquo;the journey!&rdquo;) and process.</p>
+
+<p>The scope of the redesign is limited to most of our public pages, but we will gradually work to include the rest of the site.</p>
+
+<p>We invite your feedback on the beta site, on website or content issues, we&#39;re using <a href="https://github.com/w3c/w3c-website" style="text-decoration:none"><u>GitHub</u></a> to manage comments.</p>
+
+<p>My heartfelt thanks to the W3C Systems Team for its tremendous work for several years as well as to the many people in the WAI and i18n teams and to everyone so far and in the near future who&rsquo;ve worked with Studio 24 and us on this project. We are grateful to Studio 24 for their incredible work, dedication and technical skills - our new site would not exist without them.</p>
+
+<p>We&rsquo;re not done, but we&rsquo;ve reached a significant milestone!</p>
+
+<p>Please let us know what you think.&nbsp;</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>7</slash:comments>
+    </item>
+    <item>
+      <title>Farewell Karen Myers, W3C Business Development Leader Extraordinaire</title>
+      <description><![CDATA[Farewell Karen Myers, W3C Business Development Leader Extraordinaire]]></description>
+      <pubDate>Wed, 18 Jan 2023 11:05:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/farewell-karen-myers-w3c-business-development-leader-extraordinaire/</link>
+      <guid>https://www.w3.org/blog/2023/farewell-karen-myers-w3c-business-development-leader-extraordinaire/</guid>
+      <author>J. Alan Bird</author>
+      <comments>https://www.w3.org/blog/2023/farewell-karen-myers-w3c-business-development-leader-extraordinaire/#comments</comments>
+      <category><![CDATA[corporate]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>J. Alan Bird</dc:creator>
+      <content:encoded><![CDATA[            <div class="component component--text">
+                    <p><img alt="group picture at the Emmy Awards ceremony" src="https://www.w3.org/2016/01/MDB_5533-TTWG-Emmy-1-small.jpg" /></p>
+
+<p>It is with bittersweet emotions, that I share that Karen Myers&rsquo; time as W3C Business Development Leader for the Americas and Australia is ending.</p>
+
+<p>After 18 years, Karen has chosen to retire from the World Wide Web Consortium to pursue personal endeavors. We want to take this opportunity to thank Karen and to reflect upon her contributions to W3C over her many years of service.</p>
+
+<p>We welcomed Karen Myers in 2004 to assume the role of Acting Director of Communications, and we were fortunate to later gain her help with marketing and business development for memberships. In both areas, Karen&rsquo;s technology marketing experience, her positive energy and love of learning were strengths which enabled her to accomplish the challenge to create business value propositions that made clear both the power of the Web and the value of Membership so that organizations would consider joining W3C.</p>
+
+<p>Karen&rsquo;s achievements over the years, allocating her time between marketing, media coordination, and business development were numerous. To name only a few:</p>
+
+<ul>
+	<li>coordinating the communications of our Director Tim Berners-Lee&rsquo;s knighthood by Her Majesty Queen Elizabeth in 2004.</li>
+	<li>planning the W3C ten-year anniversary events and gala.</li>
+	<li>working with Tim on some of his speeches &mdash;including his first TED talk.</li>
+	<li>putting together international W3C events at the Consumer Electronics Show (CES) in Las Vegas (USA) and Mobile World Congress (MWC) in Barcelona (Spain), the first Web and TV W3C Workshop in Hollywood (USA) where we began the work to &ldquo;make video a first-class citizen of the web&rdquo;, which in turn led a few years after to W3C receiving one of 3 National Academy of Television Arts and Sciences (NATAS) technical Emmy&reg; Awards.</li>
+	<li>coordinating with W3C Evangelists and Chapters in publishing, media and entertainment, automotive and accessibility, and supporting global outreach and educational events.</li>
+	<li>recruiting and onboarding hundreds of new members to participate in W3C standards activities and more.</li>
+</ul>
+
+<p>Going forward, I, <a href="https://www.w3.org/People/AlanBird/">Alan Bird</a>, Global W3C Business Development Lead, will resume Karen&rsquo;s day-to-day responsibilities immediately. <a href="https://www.w3.org/People#Y">Naomi Yoshizawa</a>, Global W3C Member Relations Lead, will handle member relationship and other administrative questions. And <a href="https://www.w3.org/People/LeHegaret/">Philippe Le H&eacute;garet</a>, W3C Project Management Lead is the contact for operational questions regarding W3C groups charters, W3C process, and participation in work groups.</p>
+
+<p>Farewell and best wishes to Karen in whatever new adventures she chooses to pursue next!</p>
+            </div>
+    ]]></content:encoded>
+      <slash:comments>1</slash:comments>
+    </item>
+    <item>
+      <title>2023; a new era for W3C</title>
+      <pubDate>Mon, 09 Jan 2023 12:27:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2023/2023-a-new-era-for-w3c/</link>
+      <guid>https://www.w3.org/blog/2023/2023-a-new-era-for-w3c/</guid>
+      <author>Ralph Swick</author>
+      <comments>https://www.w3.org/blog/2023/2023-a-new-era-for-w3c/#comments</comments>
+      <category><![CDATA[corporate]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Ralph Swick</dc:creator>
+      <content:encoded><![CDATA[<div class="component component--text">
+<p>With the start of the year 2023 we pass a <a href="/news/2022/w3c-board-of-directors-successfully-brokered-mit-asset-transfer-agreement/">milestone</a> in the evolution of the global collaboration project that is the World Wide Web Consortium: In our 29th year of operation, we are <a href="https://www.w3.org/2022/09/w3c-inc-faq">operating</a> now as World Wide Web Consortium Inc, continuing with Beihang University (China), <abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr> (France), and Keio University (Japan) as partners.</p>
+
+<p>At the broadest level our <a href="https://www.w3.org/Consortium/mission">mission</a> continues unchanged, with the W3C Advisory Board leading a project to <a href="https://github.com/w3c/AB-public/tree/main/Vision">renew the expression of that mission</a>.</p>
+
+<p>Our community &ndash; our <a href="https://www.w3.org/Consortium/Member/List">Members</a>, non-Member contributors, <a href="https://www.w3.org/People">Team</a>, and all who use the results of our collective work &ndash; will continue to refine their expectations of this project and we will continue to adapt to those expectations.</p>
+
+<p>Our strength derives from the diversity of our global inclusion. This should be our guide as we continue to refine the best arrangement of the elements of this project.</p>
+
+<p>Thank you for your continued engagement in this global effort to maintain <strong>one world wide web with equitable access for all</strong> its users.</p>
+
+<p>&ndash;Ralph Swick, W3C Interim CEO</p>
+</div>]]></content:encoded>
+      <slash:comments>1</slash:comments>
+    </item>
+    <item>
+      <title>Latest EPUBCheck 5.0.0 Preview</title>
+      <pubDate>Mon, 28 Nov 2022 18:36:00 +0000</pubDate>
+      <link>https://www.w3.org/blog/2022/latest-epubcheck-5-0-0-preview/</link>
+      <guid>https://www.w3.org/blog/2022/latest-epubcheck-5-0-0-preview/</guid>
+      <author>Tzviya Siegman</author>
+      <comments>https://www.w3.org/blog/2022/latest-epubcheck-5-0-0-preview/#comments</comments>
+      <category><![CDATA[developers]]></category>
+      <category><![CDATA[blogs]]></category>
+      <dc:creator>Tzviya Siegman</dc:creator>
+      <content:encoded><![CDATA[<div class="component component--text">
+<h2>Latest EPUBCheck 5.0.0 preview is available!</h2>
+
+<p>We are pleased to announce the latest <strong>preview release</strong> of the next major version of EPUBCheck, v5.0.0. For the first time, this version <strong>fully implements</strong> the new rules in <a href="https://www.w3.org/TR/epub-33">EPUB 3.3</a> (W3C Candidate Recommendation Draft).</p>
+
+<p>We encourage users to effectively test this version of EPUBCheck in their production workflows to get ready for EPUB 3.3!</p>
+
+<p>The full change log is available on the EPUBCheck <a href="https://github.com/w3c/epubcheck/releases/tag/preview">preview release page</a>.</p>
+
+<p>Please file comments, bug reports, and feature request to our <a href="https://github.com/w3c/epubcheck/issues">issue tracker</a>. Or, come <a href="https://www.w3.org/publishing/epubcheck/docs/translating">help with the translation</a> of EPUBCheck into your favorite language!</p>
+</div>]]></content:encoded>
+      <slash:comments>0</slash:comments>
+    </item>
+  </channel>
+</rss>

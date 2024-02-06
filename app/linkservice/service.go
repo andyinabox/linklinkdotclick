@@ -6,9 +6,9 @@ import (
 
 type Service struct {
 	lr app.LinkRepository
-	fh app.FeedHelper
+	fs app.FeedService
 }
 
-func New(lr app.LinkRepository, fh app.FeedHelper) *Service {
-	return &Service{lr, fh}
+func New(lr app.LinkRepository, fs app.FeedService) *Service {
+	return &Service{lr, fs}
 }

@@ -17,8 +17,8 @@ type FeedData interface {
 	NewItemsCount(after *time.Time) uint
 }
 
-type FeedHelper interface {
-	IsFeed(*http.Response) bool
+type FeedService interface {
+	IsXml(*http.Response) bool
 	GetSiteData(*http.Response) (SiteData, error)
-	ParseFeed(feedUrl string) (FeedData, error)
+	ParseFeedResponse(*http.Response) (FeedData, error)
 }

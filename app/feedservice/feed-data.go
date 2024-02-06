@@ -1,4 +1,4 @@
-package feedhelper
+package feedservice
 
 import (
 	"strings"

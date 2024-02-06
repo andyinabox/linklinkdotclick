@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/andyinabox/linkydink/app"
-	"github.com/andyinabox/linkydink/app/feedhelper"
+	"github.com/andyinabox/linkydink/app/feedservice"
 	"github.com/andyinabox/linkydink/app/linkrepository"
 )
 
@@ -15,6 +15,6 @@ func NewLinkService(t *testing.T) app.LinkService {
 	if err != nil {
 		t.Fatal(err.Error())
 	}
-	fh := feedhelper.New()
-	return New(lr, fh)
+	fs := feedservice.New()
+	return New(lr, fs)
 }
