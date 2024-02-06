@@ -7,7 +7,8 @@ build: bin resources
 # under the hood this cross-compiles `make build` using a docker container 
 .PHONY: build-release
 build-release: dist
-	./script/build/release.sh
+	GOOS=linux GOARCH=amd64 go build -o bin/linkydink-linux-amd64 main.go
+	cd ./bin && tar -czvf ../dist/linkydink-linux-amd64.tar.gz linkydink-linux-amd64 
 
 # deploy 
 .PHONY: deploy
