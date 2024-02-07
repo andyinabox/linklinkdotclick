@@ -1,6 +1,7 @@
 package mailservice
 
 import (
+	"bytes"
 	"net/smtp"
 )
 
@@ -30,7 +31,13 @@ func (s *Service) Send(email *Email) (err error) {
 		return
 	}
 
-	_, err = w.Write(email.Bytes())
+	buf := &bytes.Buffer{}
+	err = s.tmpl.Execute(buf, email)
+	if err != nil {
+		return
+	}
+
+	_, err = w.Write(buf.Bytes())
 	if err != nil {
 		return
 	}

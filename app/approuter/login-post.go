@@ -38,9 +38,9 @@ func (r *Router) LoginPost(ctx *gin.Context) {
 		MagicLink string
 		ImageUrl  string
 	}{
-		Subject:   "Your linklink.click magic login link ✨",
+		Subject:   "🖇 Your linklinkclick login link",
 		MagicLink: magicLink,
-		ImageUrl:  ctx.Request.Proto + "://" + ctx.Request.Host + "/static/android-chrome-192x192.png",
+		ImageUrl:  "https://" + ctx.Request.Host + "/static/android-chrome-192x192.png",
 	}
 
 	bodyBuffer := &bytes.Buffer{}
@@ -62,8 +62,8 @@ func (r *Router) LoginPost(ctx *gin.Context) {
 			Address: user.Email,
 		},
 		Subject: bodyData.Subject,
-		Mime:    "",     // mailservice.MimeHtml,
-		Body:    "Test", // bodyBuffer.String(),
+		Mime:    mailservice.MimeHtml,
+		Body:    bodyBuffer.String(),
 	})
 	if err != nil {
 		if err != nil {
