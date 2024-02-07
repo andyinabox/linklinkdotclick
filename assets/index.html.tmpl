@@ -35,12 +35,12 @@
         <button slot="edit" name="edit">Edit</button>
         <button slot="add" name="add">Add</button>
         {{ if not .IsDefaultUser }}
-          <form id="logout" method="post" action="/logout">
+          <form id="logout" method="post" class="inline-form" action="/logout">
             <input type="submit" name="logout" value="Logout 👋">
           </form>
         {{ end }}
         {{ if .IsDefaultUser }}
-          <form method="post" action="/login">
+          <form method="post" class="inline-form" action="/login">
             <input type="text" name="email" placeholder="you@example.com">
             <input type="submit" name="login" value="Login/Signup 🚪">
           </form>

@@ -8,9 +8,13 @@
     >{{ .SiteName }}</a
   >
   <span slot="count" class="count">{{ if .UnreadCount }}{{ .UnreadCount }}{{ end }}</span>
-  <nav slot="edit-menu" class="edit-menu">
+  <form slot="edit-menu" class="edit-menu">
+    <fieldset><label for="site-url">Site:</label> <input name="site-url" type="text" value="{{ .SiteUrl}}" disabled><button name="edit-site-url">Edit</button></fieldset>
+    <fieldset><label for="feed-url">Feed:</label> <input name="feed-url" type="text" value="{{ .FeedUrl}}" disabled><button name="edit-feed-url">Edit</button></fieldset>
+    <fieldset>
     <button name="delete" class="delete">Delete</button>
     <button name="rename" class="rename">Rename</button>
-  </nav>
+    </fieldset>
+  </form>
 </linky-link>
 {{ end }}

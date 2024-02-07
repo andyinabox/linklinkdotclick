@@ -32,6 +32,13 @@ export class Site extends Component {
       this.loading = false
     }
   }
+
+  render() {
+    const data = this.data
+    this.slots['site-title'].innerText = data.siteTitle
+    document.head.querySelector('title').innerText = data.siteTitle
+  }
+
   async reloadAllLinks() {
     try {
       this.loading = true
@@ -43,18 +50,19 @@ export class Site extends Component {
       this.loading = false
     }
   }
+
   sortLinks() {
     this.loading = true
-    const sortedLinks = this.links.toSorted((a, b) => {
-      return new Date(a.data.lastClicked) > new Date(b.data.lastClicked)
+    const links = [...this.links]
+    links.sort((a, b) => {
+      const d1 = new Date(a.data.lastClicked)
+      const d2 = new Date(b.data.lastClicked)
+      return d1 < d2 ? -1 : 1
     })
     const linksContainer = this.slots.links
     linksContainer.innerHTML = ''
-    sortedLinks.forEach((link) => linksContainer.appendChild(link))
+    links.forEach((link) => linksContainer.appendChild(link))
     this.loading = false
-  }
-  moveLinkToBottom(link) {
-    this.slots.links.appendChild(link)
   }
 
   async handleCreateLink() {
@@ -69,9 +77,11 @@ export class Site extends Component {
     } catch (err) {
       handleError(err)
     } finally {
+      this.sortLinks()
       this.loading = false
     }
   }
+
   async handleRenameSiteClick() {
     try {
       const siteTitle = prompt('Enter a new title')
@@ -87,6 +97,7 @@ export class Site extends Component {
       this.loading = false
     }
   }
+
   handleEditButtonClick() {
     const button = this.slots.edit
     if (this.editing) {
@@ -98,39 +109,13 @@ export class Site extends Component {
     }
   }
 
-  render() {
-    const data = this.data
-    this.slots['site-title'].innerText = data.siteTitle
-    document.head.querySelector('title').innerText = data.siteTitle
-  }
   connectedCallback() {
-    this.reloadAllLinks()
-
-    this.onRenameSiteClick = () => this.handleRenameSiteClick()
-    this.slots['rename-site'].addEventListener('click', this.onRenameSiteClick)
-
-    this.onEditClick = () => this.handleEditButtonClick()
-    this.slots['edit'].addEventListener('click', this.onEditClick)
-
-    this.onAddClick = () => this.handleCreateLink()
-    this.slots['add'].addEventListener('click', this.onAddClick)
-
-    this.onLinkClick = () => this.sortLinks()
-    this.addEventListener('link-click', this.onLinkClick)
-
-    this.onWindowFocus = () => this.reloadAllLinks()
-    window.addEventListener('focus', this.onWindowFocus)
-  }
-  disconnectedCallback() {
-    this.slots['rename-site'].removeEventListener(
-      'click',
-      this.onRenameSiteClick
-    )
-    this.slots['edit'].removeEventListener('click', this.onEditClick)
-    this.slots['add'].removeEventListener('click', this.onAddClick)
-    this.removeEventListener('link-click', this.onLinkClick)
-
-    window.remove('focus', this.onWindowFocus)
+    this.reloadAllLinks() // re-fetch all links
+    this.listen(this.slots['rename-site'], 'click', this.handleRenameSiteClick)
+    this.listen(this.slots['edit'], 'click', this.handleEditButtonClick)
+    this.listen(this.slots['add'], 'click', this.handleCreateLink)
+    this.listen(this, 'link-click', this.sortLinks)
+    this.listen(window, 'focus', this.reloadAllLinks)
   }
 }
 customElements.define('linky-site', Site)
