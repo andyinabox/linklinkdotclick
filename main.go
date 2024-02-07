@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"flag"
+	"html/template"
 	"io/fs"
 	"log"
 	"os"
@@ -56,6 +57,12 @@ func main() {
 		panic(err)
 	}
 
+	// load templates
+	templates, err := template.ParseFS(res, "res/tmpl/*.tmpl")
+	if err != nil {
+		panic(err)
+	}
+
 	// create session store
 	sessionStore := cookie.NewStore([]byte(domain + port + dbfile + mode + defaultemail))
 
@@ -93,7 +100,9 @@ func main() {
 	handlerHelper := handlerhelper.New(serviceContainer)
 
 	// create routers
-	appRouter := approuter.New(serviceContainer, handlerHelper)
+	appRouter := approuter.New(serviceContainer, handlerHelper, &approuter.Config{
+		Templates: templates,
+	})
 	apiRouter := apirouter.New(serviceContainer, handlerHelper, &apirouter.Config{
 		Domain: domain,
 		Mode:   mode,
@@ -106,6 +115,7 @@ func main() {
 		Port:      port,
 		Mode:      mode,
 		Resources: res,
+		Templates: templates,
 	}
 	appInstance := app.New(
 		sessionStore,

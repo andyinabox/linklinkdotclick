@@ -1,15 +1,15 @@
 package tokenstore
 
 import (
-	"crypto/rand"
-	"encoding/base64"
+	"github.com/google/uuid"
 )
 
 func generateHash(n int) (string, error) {
-	b := make([]byte, n)
-	_, err := rand.Read(b)
-	if err != nil {
-		return "", err
-	}
-	return base64.URLEncoding.EncodeToString(b), err
+	// b := make([]byte, n)
+	// _, err := rand.Read(b)
+	// if err != nil {
+	// 	return "", err
+	// }
+	id := uuid.New()
+	return id.String(), nil
 }
