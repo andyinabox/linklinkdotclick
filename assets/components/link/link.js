@@ -4,22 +4,11 @@ import { Component } from '../component'
 export class Link extends Component {
   constructor() {
     super()
-    // if an id is defined, automatically fetch
-    // the latest data from api
+  }
+
+  async fetchData() {
     const id = this.getAttribute('data-id')
-    if (id) this.fetchData(id)
-  }
-
-  // render data to the element
-  render() {
-    const data = this.data
-    this.slots.link.href = data.siteUrl
-    this.slots.link.textContent = data.siteName
-    this.slots.count.textContent = data.unreadCount ? data.unreadCount : ''
-    this.setAttribute('data-id', data.id)
-  }
-
-  async fetchData(id) {
+    if (!id) return
     try {
       this.loading = true
       this.data = await getLink(id)
@@ -30,7 +19,21 @@ export class Link extends Component {
     }
   }
 
-  async handleClick(e) {
+  // render data to the element
+  render() {
+    const data = this.data
+    this.setAttribute('data-id', this.data.id)
+    this.slots.link.href = data.siteUrl
+    this.slots.link.textContent = data.siteName
+    this.slots.count.textContent = data.unreadCount ? data.unreadCount : ''
+    this.slots['edit-menu'].querySelector('[name="site-url"]').value =
+      data.siteUrl
+    this.slots['edit-menu'].querySelector('[name="feed-url"]').value =
+      data.feedUrl
+    this.setAttribute('data-id', data.id)
+  }
+
+  async handleClick() {
     const link = this.data
     link.lastClicked = new Date().toJSON()
     try {
@@ -58,11 +61,11 @@ export class Link extends Component {
     }
   }
 
-  async handleRename(e) {
+  async handleFieldEdit(fieldName, promptText) {
     const data = this.data
-    const name = prompt(`Enter a new name for "${data.siteName}"`)
-    if (!name) return
-    data.siteName = name
+    const value = prompt(promptText)
+    if (!value) return
+    data[fieldName] = value
     try {
       this.loading = true
       const updated = await updateLink(data)
@@ -75,25 +78,28 @@ export class Link extends Component {
   }
 
   connectedCallback() {
-    this.onClick = (e) => this.handleClick(e)
-    this.slots.link.addEventListener('click', this.onClick)
-
+    const data = this.data
     const edit = this.slots['edit-menu']
-    this.onDelete = (e) => this.handleDelete(e)
-    edit
-      .querySelector('[name="delete"]')
-      .addEventListener('click', this.onDelete)
-    this.onRename = (e) => this.handleRename(e)
-    edit
-      .querySelector('[name="rename"]')
-      .addEventListener('click', this.onRename)
-  }
+    const deleteBtn = edit.querySelector('[name="delete"]')
+    const renameBtn = edit.querySelector('[name="rename"]')
+    const editSiteUrlButton = edit.querySelector('[name="edit-site-url"]')
+    const editFeedUrlButton = edit.querySelector('[name="edit-feed-url"]')
 
-  disconnectedCallback() {
-    this.slots.link.removeEventListener('click', this.onClick)
-    this.slots['edit-menu']
-      .querySelector('[name="delete"]')
-      .removeEventListener('click', this.onDelete)
+    this.listen(edit, 'submit', (e) => e.preventDefault())
+    this.listen(deleteBtn, 'click', this.handleDelete)
+    this.listen(renameBtn, 'click', () =>
+      this.handleFieldEdit(
+        'siteName',
+        `Enter a new name for "${data.siteName}"`
+      )
+    )
+    this.listen(editSiteUrlButton, 'click', () =>
+      this.handleFieldEdit('siteUrl', `Enter a new site url`)
+    )
+    this.listen(editFeedUrlButton, 'click', () =>
+      this.handleFieldEdit('feedUrl', `Enter a new RSS/Atom feed url`)
+    )
+    this.listen(this.slots.link, 'click', this.handleClick)
   }
 }
 

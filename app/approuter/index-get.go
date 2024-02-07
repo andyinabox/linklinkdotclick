@@ -8,11 +8,27 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type SiteDataImages struct {
+	OgImage        string
+	OgImageAlt     string
+	FavIcon        string
+	AppleTouchIcon string
+}
+
+type SiteData struct {
+	Url         string
+	Description string
+	Manifest    string
+	OgTitle     string
+	Images      SiteDataImages
+}
+
 type IndexRenderContext struct {
 	Links         []app.Link
 	DummyLink     app.Link
 	User          *app.User
 	IsDefaultUser bool
+	Site          SiteData
 }
 
 func (r *Router) IndexGet(ctx *gin.Context) {
@@ -34,5 +50,17 @@ func (r *Router) IndexGet(ctx *gin.Context) {
 		Links:         links,
 		User:          user,
 		IsDefaultUser: isDefaultUser,
+		Site: SiteData{
+			Url:         "https://linklink.click",
+			OgTitle:     "linklink.click",
+			Description: "Somewhere in-between a link list and RSS reader",
+			Manifest:    "/static/site.webmanifest",
+			Images: SiteDataImages{
+				OgImage:        "/static/android-chrome-512x512.png",
+				OgImageAlt:     "Two paperclips entwined",
+				FavIcon:        "/static/favicon.ico",
+				AppleTouchIcon: "/static/apple-touch-icon.png",
+			},
+		},
 	})
 }

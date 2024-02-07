@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ .User.SiteTitle }}</title>
     <link rel="stylesheet" href="/static/main.css" />
-    <meta name="description" content="" />
+    <meta name="description" content="{{ .Site.Description }}" />
 
-    <meta property="og:title" content="" />
-    <meta property="og:type" content="" />
-    <meta property="og:url" content="" />
-    <meta property="og:image" content="" />
-    <meta property="og:image:alt" content="" />
+    <meta property="og:title" content="{{ .Site.OgTitle }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ .Site.Url }}" />
+    <meta property="og:image" content="{{ .Site.Images.OgImage }}" />
+    <meta property="og:image:alt" content="{{ .Site.Images.OgImageAlt }}" />
 
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="icon.png" />
+    <link rel="icon" href="{{ .Site.Images.FavIcon }}" sizes="any" />
+    <link rel="apple-touch-icon" href="{{ .Site.Images.AppleTouchIcon }}" />
+    <link rel="manifest" href="{{ .Site.Manifest }}">
   </head>
 
   <body>
@@ -35,12 +35,12 @@
         <button slot="edit" name="edit">Edit</button>
         <button slot="add" name="add">Add</button>
         {{ if not .IsDefaultUser }}
-          <form id="logout" method="post" action="/logout">
+          <form id="logout" method="post" class="inline-form" action="/logout">
             <input type="submit" name="logout" value="Logout 👋">
           </form>
         {{ end }}
         {{ if .IsDefaultUser }}
-          <form method="post" action="/login">
+          <form method="post" class="inline-form" action="/login">
             <input type="text" name="email" placeholder="you@example.com">
             <input type="submit" name="login" value="Login/Signup 🚪">
           </form>

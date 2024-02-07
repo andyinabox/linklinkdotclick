@@ -22,6 +22,7 @@ type Config struct {
 	Port      string
 	Mode      string
 	Resources embed.FS
+	Templates *template.Template
 }
 
 func New(
@@ -30,11 +31,11 @@ func New(
 	conf *Config,
 ) *App {
 
-	// load templates
-	templates, err := template.ParseFS(conf.Resources, "res/tmpl/*.tmpl")
-	if err != nil {
-		panic(err)
-	}
+	// // load templates
+	// templates, err := template.ParseFS(conf.Resources, "res/tmpl/*.tmpl")
+	// if err != nil {
+	// 	panic(err)
+	// }
 
 	// setup static files filesystem
 	staticFiles, err := fs.Sub(fs.FS(conf.Resources), "res/static")
@@ -54,7 +55,7 @@ func New(
 	gin.SetMode(conf.Mode)
 	engine := gin.Default()
 	engine.SetTrustedProxies(nil)
-	engine.SetHTMLTemplate(templates)
+	engine.SetHTMLTemplate(conf.Templates)
 	engine.Use(sessions.Sessions("session", store))
 
 	// serve static files
