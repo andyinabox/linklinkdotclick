@@ -29,6 +29,11 @@ export class Site extends Component {
       this.loading = false
     }
   }
+  reloadAllLinks() {
+    this.slots.links
+      .querySelectorAll('linky-link')
+      .forEach((link) => link.fetchData())
+  }
   moveLinkToBottom(link) {
     this.slots.links.appendChild(link)
   }
@@ -82,12 +87,18 @@ export class Site extends Component {
   connectedCallback() {
     this.onRenameSiteClick = () => this.handleRenameSiteClick()
     this.slots['rename-site'].addEventListener('click', this.onRenameSiteClick)
+
     this.onEditClick = () => this.handleEditButtonClick()
     this.slots['edit'].addEventListener('click', this.onEditClick)
+
     this.onAddClick = () => this.handleCreateLink()
     this.slots['add'].addEventListener('click', this.onAddClick)
+
     this.onLinkClick = ({ target }) => this.moveLinkToBottom(target)
     this.addEventListener('link-click', this.onLinkClick)
+
+    this.onWindowFocus = () => this.reloadAllLinks()
+    window.addEventListener('focus', this.onWindowFocus)
   }
   disconnectedCallback() {
     this.slots['rename-site'].removeEventListener(
@@ -97,6 +108,8 @@ export class Site extends Component {
     this.slots['edit'].removeEventListener('click', this.onEditClick)
     this.slots['add'].removeEventListener('click', this.onAddClick)
     this.removeEventListener('link-click', this.onLinkClick)
+
+    window.remove('focus', this.onWindowFocus)
   }
 }
 customElements.define('linky-site', Site)

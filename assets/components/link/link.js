@@ -4,10 +4,7 @@ import { Component } from '../component'
 export class Link extends Component {
   constructor() {
     super()
-    // if an id is defined, automatically fetch
-    // the latest data from api
-    const id = this.getAttribute('data-id')
-    if (id) this.fetchData(id)
+    this.fetchData()
   }
 
   // render data to the element
@@ -19,7 +16,9 @@ export class Link extends Component {
     this.setAttribute('data-id', data.id)
   }
 
-  async fetchData(id) {
+  async fetchData() {
+    const id = this.getAttribute('data-id')
+    if (!id) return
     try {
       this.loading = true
       this.data = await getLink(id)
