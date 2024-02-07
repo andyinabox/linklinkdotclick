@@ -5,17 +5,11 @@ import (
 	"net/mail"
 )
 
-const emailTemplate = `From: %s
-To: %s
-Subject: %s
-
-%s
-`
-
 type Email struct {
 	From    mail.Address
 	To      mail.Address
 	Subject string
+	Mime    string
 	Body    string
 }
 
