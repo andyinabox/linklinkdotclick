@@ -18,6 +18,9 @@ export class Site extends Component {
   get editing() {
     return this.classList.contains('editing')
   }
+  get links() {
+    return Array.from(this.slots.links.querySelectorAll('linky-link'))
+  }
   async fetchData() {
     try {
       this.loading = true
@@ -29,10 +32,26 @@ export class Site extends Component {
       this.loading = false
     }
   }
-  reloadAllLinks() {
-    this.slots.links
-      .querySelectorAll('linky-link')
-      .forEach((link) => link.fetchData())
+  async reloadAllLinks() {
+    try {
+      this.loading = true
+      await Promise.all(this.links.map((link) => link.fetchData()))
+      this.sortLinks()
+    } catch (err) {
+      handleError(err)
+    } finally {
+      this.loading = false
+    }
+  }
+  sortLinks() {
+    this.loading = true
+    const sortedLinks = this.links.toSorted((a, b) => {
+      return new Date(a.data.lastClicked) > new Date(b.data.lastClicked)
+    })
+    const linksContainer = this.slots.links
+    linksContainer.innerHTML = ''
+    sortedLinks.forEach((link) => linksContainer.appendChild(link))
+    this.loading = false
   }
   moveLinkToBottom(link) {
     this.slots.links.appendChild(link)
@@ -85,6 +104,8 @@ export class Site extends Component {
     document.head.querySelector('title').innerText = data.siteTitle
   }
   connectedCallback() {
+    this.reloadAllLinks()
+
     this.onRenameSiteClick = () => this.handleRenameSiteClick()
     this.slots['rename-site'].addEventListener('click', this.onRenameSiteClick)
 
@@ -94,7 +115,7 @@ export class Site extends Component {
     this.onAddClick = () => this.handleCreateLink()
     this.slots['add'].addEventListener('click', this.onAddClick)
 
-    this.onLinkClick = ({ target }) => this.moveLinkToBottom(target)
+    this.onLinkClick = () => this.sortLinks()
     this.addEventListener('link-click', this.onLinkClick)
 
     this.onWindowFocus = () => this.reloadAllLinks()

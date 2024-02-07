@@ -4,7 +4,7 @@ import { Component } from '../component'
 export class Link extends Component {
   constructor() {
     super()
-    this.fetchData()
+    // this.fetchData()
   }
 
   // render data to the element
