@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"flag"
+	"fmt"
 	"html/template"
 	"io/fs"
 	"log"
@@ -75,6 +76,20 @@ func main() {
 	if secret == "" {
 		secret = domain + port + dbfile + mode
 	}
+
+	fmt.Printf(`
+	
+        	  🖇✨ linkydink starting ✨🖇
+
+	                Port: %s
+	                Mode: %s
+	              DbFile: %s
+	              Domain: %s
+	            SmtpAddr: %s
+	    DefaultUserEmail: %s
+	DefaultUSerSiteTitle: %s
+
+	`, port, mode, dbfile, domain, smtpaddr, defaultemail, defaultusertitle)
 
 	// setup users db
 	userDbPath := path.Join(path.Dir(dbfile), "usr")

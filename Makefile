@@ -15,6 +15,12 @@ build-release: dist
 deploy: dist/linkydink-linux-amd64.tar.gz
 	./script/deploy/deploy.sh
 
+
+# deploy 
+.PHONY: deploy-production
+deploy-production: dist/linkydink-linux-amd64.tar.gz
+	DEPLOY_ENV=production ./script/deploy/deploy.sh
+
 # run the main application
 .PHONY: run
 run: build .cert/localhost.crt
