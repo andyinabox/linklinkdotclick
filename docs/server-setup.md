@@ -1,7 +1,39 @@
-# Server Setup
+# Provisioning
 
-These notes are based on a DigitalOcean Ubuntu 23 droplet
+> **Note** this script has only been tested on Ubuntu 23 running on a Digital Ocean Droplet
 
+You should be able to provision the server using `script/server/provision.sh`. This script is meant to be run as `root` on the server after you first spin it up.
+
+First copy the script onto the server, then SSH in as root:
+
+```
+localhost:~$ scp ./script/server/provision.sh <user>@<host>:provision.sh
+localhost:~$ ssh <user>@<host>
+```
+
+Next, as the `root` user, you can run the provisioning script:
+
+```
+root@server:~# chmod +x provision.sh
+root@server:~# APP_NAME=linkydink APP_DOMAIN=<domain> ./provision.sh
+```
+
+You'll be asked for some input, the main ones being:
+1. To enter a password and information for the user
+2. To configure postfix. For this you'll pretty much use all the defaults, except you'll want to set the account username (in the above example "linkydink" ) as the root and postmaster mail recipient. [Read more about postfix configuration here](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-postfix-on-ubuntu-20-04)
+
+Finally, you can deploy the app to the new infrastructure:
+
+```
+localhost:~$ make deploy
+```
+
+**In order for postfix to work correctly, you'll need to make sure you've set up your DNS mail records.** See the bottom of this doc for more info on that.
+
+
+# Server Setup Notes
+
+These are some notes about what the provisioning script is doing, in case you need to troubleshoot.
 
 ## Allow binding to port 80
 
