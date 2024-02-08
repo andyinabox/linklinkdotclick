@@ -12,6 +12,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const staticFilesPath = "res/static"
+
 type App struct {
 	conf   *Config
 	engine *gin.Engine
@@ -31,14 +33,8 @@ func New(
 	conf *Config,
 ) *App {
 
-	// // load templates
-	// templates, err := template.ParseFS(conf.Resources, "res/tmpl/*.tmpl")
-	// if err != nil {
-	// 	panic(err)
-	// }
-
 	// setup static files filesystem
-	staticFiles, err := fs.Sub(fs.FS(conf.Resources), "res/static")
+	staticFiles, err := fs.Sub(fs.FS(conf.Resources), staticFilesPath)
 	if err != nil {
 		panic(err)
 	}

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+export PRODUCTION_SSH_USER=""
+export PRODUCTION_SSH_HOST=""
+export STAGING_SSH_USER=""
+export STAGING_SSH_HOST=""
