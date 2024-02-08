@@ -8,7 +8,7 @@ TIME=$(date +%s)
 REMOTE_ARCHIVE=$REMOTE_TEMP_PATH/linkydink-$TIME.tar.gz
 
 # copy bin to server
-echo "copying archive to server"
+echo "copying archive to server $SSH_USER@$SSH_HOST"
 scp ./dist/linkydink-linux-amd64.tar.gz $SSH_USER@$SSH_HOST:$REMOTE_ARCHIVE
 
 # update symlink
@@ -22,10 +22,10 @@ mv $REMOTE_PATH_ROOT/linkydink-linux-amd64 $REMOTE_DEPLOY_PATH/linkydink-$TIME
 echo "stopping server"
 sudo systemctl stop linkydink
 
-echo "replacing symlink for linkydink-$TIME"
+echo "copying linkydink-$TIME into ~/bin dir"
 # this avoids error if file doesn't exist
 rm -f -- $REMOTE_BIN_PATH/linkydink
-ln -s $REMOTE_DEPLOY_PATH/linkydink-$TIME $REMOTE_BIN_PATH/linkydink
+cp $REMOTE_DEPLOY_PATH/linkydink-$TIME $REMOTE_BIN_PATH/linkydink
 
 echo "starting server"
 sudo systemctl start linkydink

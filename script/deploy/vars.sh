@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $PWD/.env
+source $PWD/.scriptenv
 
 export REMOTE_PATH_ROOT=/home/$SSH_USER
 export REMOTE_TEMP_PATH=$REMOTE_PATH_ROOT/tmp

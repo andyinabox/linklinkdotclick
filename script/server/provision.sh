@@ -20,6 +20,7 @@ fi
 
 if [[ -z "${USER_NAME}" ]]; then
   USER_NAME=$APP_NAME
+  echo "using $USER_NAME for user name"
 fi
 
 # https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-20-04
@@ -33,34 +34,34 @@ ufw allow https
 ufw enable
 ufw status
 
-
 # 
 # user setup
 #
 echo " -> creating user $USER_NAME"
-adduser $USER_NAME
+adduser $USER_NAME # this will require a password input
 usermod -aG sudo $USER_NAME
-rsync --archive --chown=$USER_NAME:$USER_NAME ~/.ssh /home/$APP_NUSER_NAMEAME
+rsync --archive --chown=$USER_NAME:$USER_NAME ~/.ssh /home/$USER_NAME
 
 # https://linuxize.com/post/how-to-add-user-to-sudoers-in-ubuntu/
 echo " -> giving $USER_NAME non-password sudo access to service control"
-echo << EOF
+
+cat << EOF > /etc/sudoers.d/$USER_NAME
 $USER_NAME ALL=(ALL) NOPASSWD:/usr/bin/systemctl start $APP_NAME
 $USER_NAME ALL=(ALL) NOPASSWD:/usr/bin/systemctl stop $APP_NAME
 $USER_NAME ALL=(ALL) NOPASSWD:/usr/bin/systemctl restart $APP_NAME
-EOF > /etc/sudoers.d/$USER)NAME
+EOF
 
 echo " -> creating application deploy/run file structure"
-mkdir /home/$USER_NAME/bin
-chown $USER_NAME:$USER_NAME home/$USER_NAME/bin
-mkdir /home/$USER_NAME/deploy
-chown $USER_NAME:$USER_NAME home/$USER_NAME/deploy
-mkdir /home/$USER_NAME/db
-chown $USER_NAME:$USER_NAME home/$USER_NAME/db
-mkdir /home/$USER_NAME/tmp
-chown $USER_NAME:$USER_NAME home/$USER_NAME/tmp
-mkdir /home/$USER_NAME/Maildir
-chown $USER_NAME:$USER_NAME home/$USER_NAME/Maildir
+mkdir -p /home/$USER_NAME/bin
+chown $USER_NAME:$USER_NAME /home/$USER_NAME/bin
+mkdir -p /home/$USER_NAME/deploy
+chown $USER_NAME:$USER_NAME /home/$USER_NAME/deploy
+mkdir -p /home/$USER_NAME/db
+chown $USER_NAME:$USER_NAME /home/$USER_NAME/db
+mkdir -p /home/$USER_NAME/tmp
+chown $USER_NAME:$USER_NAME /home/$USER_NAME/tmp
+mkdir -p /home/$USER_NAME/Maildir
+chown $USER_NAME:$USER_NAME /home/$USER_NAME/Maildir
 
 #
 # postfix
@@ -72,6 +73,7 @@ apt update
 # this will open a configuration GUI. you'll have to use the article above for instructions
 echo "You'll find instructions for how to configure postfix here:"
 echo "https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-postfix-on-ubuntu-20-04"
+echo "The ONLY change you should need to make is to set the recipient user to '$USER_NAME'"
 echo "Press any key to continue"
 read -n 1 -p "Continue?"
 
@@ -90,17 +92,18 @@ ufw allow Postfix
 #
 # https://www.baeldung.com/linux/bind-process-privileged-port
 echo " -> giving application access to priveleged ports"
-touch home/$USER_NAME/bin/$APP_NAME
-chmod +x home/$USER_NAME/bin/$APP_NAME
-sudo setcap 'CAP_NET_BIND_SERVICE+ep' home/$USER_NAME/bin/$APP_NAME
-rm home/$USER_NAME/bin/$APP_NAME
+touch /home/$USER_NAME/bin/$APP_NAME
+chmod +x /home/$USER_NAME/bin/$APP_NAME
+sudo setcap 'CAP_NET_BIND_SERVICE+ep' /home/$USER_NAME/bin/$APP_NAME
+rm /home/$USER_NAME/bin/$APP_NAME
 
 
 #
 # systemctl setup
 #
 echo " -> creating service for $APP_NAME"
-echo <<EOF
+
+cat << EOF > /etc/systemd/system/$APP_NAME.service
 Description=$APP_NAME application server
 
 [Service]
@@ -116,7 +119,8 @@ RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target
-EOF > /etc/systemd/system/$APP_NAME.service
+EOF
+
 systemctl daemon-reload
 
 echo " -> done with initial provisioning. you should be ready to deploy the app now"

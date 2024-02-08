@@ -1,4 +1,4 @@
 #!/bin/bash
 
-export SSH_USER="andy"
-export SSH_HOST="linklink.click"
+export SSH_USER="linkydink"
+export SSH_HOST="staging.linklink.click"
