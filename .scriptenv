@@ -1,4 +1,0 @@
-#!/bin/bash
-
-export SSH_USER="linkydink"
-export SSH_HOST="staging.linklink.click"

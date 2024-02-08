@@ -7,3 +7,4 @@ bin
 .cert
 .DS_Store
 .env
+.scriptenv
