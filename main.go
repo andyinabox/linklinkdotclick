@@ -79,8 +79,8 @@ func main() {
 
 	fmt.Printf(`
 	
-        	  🖇✨ linkydink starting ✨🖇
-
+                🖇✨ linkydink starting ✨🖇
+             
 	                Port: %s
 	                Mode: %s
 	              DbFile: %s
