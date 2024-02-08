@@ -2,6 +2,7 @@
 
 These notes are based on a DigitalOcean Ubuntu 23 droplet
 
+
 ## Allow binding to port 80
 
 - [Bind process to a priveleged port](https://www.baeldung.com/linux/bind-process-privileged-port)

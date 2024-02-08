@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export SSH_USER="andy"
+export SSH_HOST="linklink.click"
