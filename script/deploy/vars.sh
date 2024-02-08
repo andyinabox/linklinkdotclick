@@ -2,6 +2,16 @@
 
 source $PWD/.scriptenv
 
+
+if [[ "${DEPLOY_ENV}" == "production" ]]; then
+  SSH_USER=$PRODUCTION_SSH_USER
+  SSH_HOST=$PRODUCTION_SSH_HOST
+else
+  DEPLOY_ENV="staging"
+  SSH_USER=$STAGING_SSH_USER
+  SSH_HOST=$STAGING_SSH_HOST
+fi
+
 export REMOTE_PATH_ROOT=/home/$SSH_USER
 export REMOTE_TEMP_PATH=$REMOTE_PATH_ROOT/tmp
 export REMOTE_DEPLOY_PATH=$REMOTE_PATH_ROOT/deploy
