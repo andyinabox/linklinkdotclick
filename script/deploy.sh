@@ -39,6 +39,10 @@ mv $REMOTE_PATH_ROOT/linkydink-linux-amd64 $REMOTE_DEPLOY_PATH/linkydink-$TIME
 echo " -> stopping server"
 sudo systemctl stop linkydink
 
+echo " -> making a backup of the db"
+mkdir -p db/backups
+cp db/linkydink.db db/backups/linkydink-$TIME.db
+
 echo "copying linkydink-$TIME into ~/bin dir"
 # this avoids error if file doesn't exist
 rm -f -- $REMOTE_BIN_PATH/linkydink
@@ -46,6 +50,10 @@ cp $REMOTE_DEPLOY_PATH/linkydink-$TIME $REMOTE_BIN_PATH/linkydink
 
 echo " -> starting server"
 sudo systemctl start linkydink
+
+echo " -> logging deploy"
+touch deploy.log
+echo "$TIME" >> deploy.log
 
 echo " -> removing archive"
 rm -rf $REMOTE_TEMP_PATH/*
