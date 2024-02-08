@@ -1,8 +1,23 @@
 #!/bin/bash
 
-source $PWD/script/deploy/vars.sh
+source $PWD/.scriptenv
 
 set -e
+
+
+if [[ "${DEPLOY_ENV}" == "production" ]]; then
+  SSH_USER=$PRODUCTION_SSH_USER
+  SSH_HOST=$PRODUCTION_SSH_HOST
+else
+  DEPLOY_ENV="staging"
+  SSH_USER=$STAGING_SSH_USER
+  SSH_HOST=$STAGING_SSH_HOST
+fi
+
+REMOTE_PATH_ROOT=/home/$SSH_USER
+REMOTE_TEMP_PATH=$REMOTE_PATH_ROOT/tmp
+REMOTE_DEPLOY_PATH=$REMOTE_PATH_ROOT/deploy
+REMOTE_BIN_PATH=$REMOTE_PATH_ROOT/bin
 
 TIME=$(date +%s)
 REMOTE_ARCHIVE=$REMOTE_TEMP_PATH/linkydink-$TIME.tar.gz
