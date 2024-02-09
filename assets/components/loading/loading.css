@@ -7,6 +7,6 @@ linky-loading {
   padding: 0.5em;
 }
 
-linky-site.loading linky-loading {
+linky-home-page.loading linky-loading {
   display: block;
 }

@@ -24,7 +24,7 @@ linky-link > .edit-menu {
   margin-top: 0.3rem;
 }
 
-linky-site.editing linky-link {
+linky-home-page.editing linky-link {
   & > .edit-menu {
     display: flex;
   }
