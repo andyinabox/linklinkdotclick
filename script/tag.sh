@@ -2,7 +2,7 @@
 
 set -e
 
-ALLOWED_BRANCH=develop
+ALLOWED_BRANCH=main
 
 if [[ -z $(git status -s) ]]; then
   echo " -> ✅ no uncommitted changes in this branch"
