@@ -22,5 +22,5 @@ git pull origin $ALLOWED_BRANCH
 git fetch --tags
 
 VERSION=$(cat ./VERSION)
-echo " -> 🏷 tagging $VERSION for release"
+echo " -> tagging 🏷 $VERSION for release"
 git tag $VERSION
