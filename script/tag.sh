@@ -24,3 +24,5 @@ git fetch --tags
 VERSION=$(cat ./VERSION)
 echo " -> tagging 🏷 $VERSION for release"
 git tag $VERSION
+
+git push --tags
