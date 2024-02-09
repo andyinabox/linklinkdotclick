@@ -8,6 +8,18 @@ body {
   max-width: 960px;
 }
 
+h1,
+h2,
+h3,
+h5,
+h5 {
+  font-weight: normal;
+  margin: 0px;
+}
+h1 {
+  font-size: 1.4rem;
+}
+
 fieldset {
   margin: 0;
   padding: 0;

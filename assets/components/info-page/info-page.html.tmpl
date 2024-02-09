@@ -1,4 +1,5 @@
 <linky-info-page>
-  <main>{{ .Message }}</main>
-  <footer><a href="{{ .LinkUrl }}">{{ .LinkText }}</a></footer>
+  <h1>{{ .Message }}</h1>
+  {{ if .Error }}<code class="error">Error: {{ .Error }}</code>{{ end }}
+  {{ if .LinkUrl }}<footer><a href="{{ .LinkUrl }}">{{ .LinkText }}</a></footer>{{ end }}
 </linky-info-page>

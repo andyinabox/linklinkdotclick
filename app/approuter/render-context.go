@@ -31,6 +31,7 @@ type HomePageRenderContext struct {
 
 type InfoPageBody struct {
 	Message  string
+	Error    error
 	LinkUrl  string
 	LinkText string
 }

@@ -4,6 +4,13 @@ linky-info-page {
   gap: 1rem;
   align-items: center;
   justify-content: center;
-  height: 80vh;
+  min-height: 70vh;
   text-align: center;
+}
+
+linky-info-page .error {
+  background-color: red;
+  padding: 0.2rem;
+  color: white;
+  font-size: 0.5rem;
 }
