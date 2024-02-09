@@ -9,13 +9,14 @@ type Link struct {
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 	// domain fields
-	SiteName    string    `json:"siteName"`
-	SiteUrl     string    `json:"siteUrl"`
-	FeedUrl     string    `json:"feedUrl"`
-	OriginalUrl string    `json:"originalUrl"`
-	UnreadCount int16     `json:"unreadCount"`
-	LastClicked time.Time `json:"lastClicked"`
-	LastFetched time.Time `json:"lastFetched"`
+	SiteName        string    `json:"siteName"`
+	SiteUrl         string    `json:"siteUrl"`
+	FeedUrl         string    `json:"feedUrl"`
+	OriginalUrl     string    `json:"originalUrl"`
+	UnreadCount     int16     `json:"unreadCount"`
+	LastClicked     time.Time `json:"lastClicked"`
+	LastFetched     time.Time `json:"lastFetched"`
+	HideUnreadCount bool      `json:"hideUnreadCount"`
 }
 
 type LinkRepository interface {

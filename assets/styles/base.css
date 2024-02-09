@@ -39,6 +39,11 @@ input[type='text'] {
   flex-grow: 1;
 }
 
+input[type='checkbox'] {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
 .inline-form {
   display: inline-block;
 }
