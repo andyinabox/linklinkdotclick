@@ -1,0 +1,46 @@
+linky-site {
+  padding: 6vw 8vw;
+  margin: 0px auto;
+  display: block;
+  max-width: 960px;
+}
+linky-site > header > h1 {
+  font-weight: normal;
+  font-size: 1.4rem;
+}
+
+linky-site > nav {
+  margin-top: 1.5rem;
+}
+
+linky-site button[name='edit']:after {
+  content: '✏️';
+}
+linky-site.editing button[name='edit']:after {
+  content: '✅';
+}
+
+linky-site button[name='add']:after {
+  content: '➕';
+}
+
+linky-site button[name='delete']:after {
+  content: '🗑';
+}
+
+linky-site button[name='rename']:after,
+linky-site button[name='rename-site']:after {
+  content: '✍️';
+}
+
+linky-site input[name='login']:after {
+  content: '🐿';
+}
+
+linky-site input[name='logout']:after {
+  content: '🐿';
+}
+
+linky-site button[name='rename-site'] {
+  display: none;
+}
