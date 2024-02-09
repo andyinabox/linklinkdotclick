@@ -39,3 +39,6 @@ linky-home-page input[name='logout']:after {
 linky-home-page button[name='rename-site'] {
   display: none;
 }
+linky-home-page.editing button[name='rename-site'] {
+  display: block;
+}

@@ -10,7 +10,10 @@ func (s *Service) FetchOrCreateUserByEmail(email string) (user *app.User, err er
 	user, err = s.ur.FetchUserByEmail(email)
 	if err != nil {
 		if errors.Is(err, app.ErrNotFound) {
-			user, err = s.ur.CreateUser(app.User{Email: email})
+			user, err = s.ur.CreateUser(app.User{
+				Email:     email,
+				SiteTitle: s.conf.DefaultUserSiteTitle,
+			})
 		}
 	}
 	return
