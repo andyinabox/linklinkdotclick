@@ -1,34 +1,4 @@
 @import 'styles/base.css';
 @import 'components/link/link.css';
 @import 'components/site/site.css';
-
-/*
- * loading indicator
- */
-@keyframes loading {
-  0% {
-    content: '(loading)';
-  }
-  25% {
-    content: '(loading.)';
-  }
-  50% {
-    content: '(loading..)';
-  }
-  75% {
-    content: '(loading...)';
-  }
-}
-
-linky-site.loading,
-linky-site.loading * {
-  cursor: progress !important;
-}
-
-linky-site.loading > nav:after {
-  content: '(loading)';
-  font-size: 0.6rem;
-  font-style: italic;
-  display: inline-block;
-  animation: loading 3s linear infinite;
-}
+@import 'components/loading/loading.css';

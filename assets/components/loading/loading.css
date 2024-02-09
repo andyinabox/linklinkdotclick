@@ -1,0 +1,12 @@
+linky-loading {
+  display: none;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  font-size: 0.5rem;
+  padding: 0.5em;
+}
+
+linky-site.loading linky-loading {
+  display: block;
+}
