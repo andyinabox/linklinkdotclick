@@ -67,9 +67,13 @@ export class Site extends Component {
 
   async handleCreateLink() {
     try {
-      const url = prompt('Enter a website or feed URL')
+      let url = prompt('Enter a website or feed URL')
 
       if (!url) return
+
+      if (url.indexOf('http') !== 0) {
+        url = 'http://' + url
+      }
 
       this.loading = true
       const link = await createLink(url)
