@@ -9,6 +9,7 @@ import (
 
 type Config struct {
 	Templates *template.Template
+	Version   string
 }
 
 type Router struct {

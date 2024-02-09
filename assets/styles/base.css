@@ -69,3 +69,16 @@ input[type='submit']:after {
   display: inline-block;
   margin-left: 0.5em;
 }
+
+footer#version {
+  color: #eee;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  padding: 0.5em;
+  font-family: monospace;
+  font-size: 0.3rem;
+}
+footer#version:hover {
+  color: black;
+}

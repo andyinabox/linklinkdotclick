@@ -25,11 +25,12 @@ func (r *Router) IndexGet(ctx *gin.Context) {
 	}
 
 	ctx.HTML(http.StatusOK, "index.html.tmpl", &HomePageRenderContext{
-		NewHeadRenderContext(ctx),
+		r.NewHeadRenderContext(ctx),
 		HomePageBody{
 			User:          *user,
 			Links:         links,
 			IsDefaultUser: isDefaultUser,
 		},
+		r.NewFootRenderContext(ctx),
 	})
 }

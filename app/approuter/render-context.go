@@ -17,6 +17,10 @@ type HeadRenderContext struct {
 	OgImageAlt        string
 }
 
+type FootRenderContext struct {
+	Version string
+}
+
 type HomePageBody struct {
 	User          app.User
 	Links         []app.Link
@@ -27,6 +31,7 @@ type HomePageBody struct {
 type HomePageRenderContext struct {
 	Head HeadRenderContext
 	Body HomePageBody
+	Foot FootRenderContext
 }
 
 type InfoPageBody struct {
@@ -39,9 +44,16 @@ type InfoPageBody struct {
 type InfoPageRenderContext struct {
 	Head HeadRenderContext
 	Body InfoPageBody
+	Foot FootRenderContext
 }
 
-func NewHeadRenderContext(ctx *gin.Context) HeadRenderContext {
+func (r *Router) NewFootRenderContext(ctx *gin.Context) FootRenderContext {
+	return FootRenderContext{
+		Version: r.conf.Version,
+	}
+}
+
+func (r *Router) NewHeadRenderContext(ctx *gin.Context) HeadRenderContext {
 	title := "linklink.click"
 	return HeadRenderContext{
 		Title:             title,

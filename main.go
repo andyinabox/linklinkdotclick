@@ -33,10 +33,14 @@ import (
 //go:embed res/*
 var res embed.FS
 
+//go:embed VERSION
+var version string
+
 const templatesGlob = "res/tmpl/*.tmpl"
 
 func init() {
 	godotenv.Load()
+	version = strings.TrimSpace(version)
 }
 
 // registerConfigVar registers both env vars and command-line flags,
@@ -80,7 +84,9 @@ func main() {
 	fmt.Printf(`
 	
                 🖇✨ linkydink starting ✨🖇
-             
+								
+                         %s
+
 	                Port: %s
 	                Mode: %s
 	              DbFile: %s
@@ -89,7 +95,7 @@ func main() {
 	    DefaultUserEmail: %s
 	DefaultUSerSiteTitle: %s
 
-	`, port, mode, dbfile, domain, smtpaddr, defaultemail, defaultusertitle)
+	`, version, port, mode, dbfile, domain, smtpaddr, defaultemail, defaultusertitle)
 
 	// setup users db
 	userDbPath := path.Join(path.Dir(dbfile), "usr")
@@ -147,6 +153,7 @@ func main() {
 	// create routers
 	appRouter := approuter.New(serviceContainer, handlerHelper, &approuter.Config{
 		Templates: templates,
+		Version:   version,
 	})
 	apiRouter := apirouter.New(serviceContainer, handlerHelper, &apirouter.Config{
 		Domain: domain,
@@ -161,6 +168,7 @@ func main() {
 		Mode:      mode,
 		Resources: res,
 		Templates: templates,
+		Version:   version,
 	}
 	appInstance := app.New(
 		sessionStore,
