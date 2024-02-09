@@ -2,8 +2,10 @@ html {
   font-size: clamp(1rem, 80% + 3vw, 3rem);
 }
 body {
-  margin: 0px;
-  padding: 0px;
+  padding: 6vw 8vw;
+  margin: 0px auto;
+  display: block;
+  max-width: 960px;
 }
 
 fieldset {

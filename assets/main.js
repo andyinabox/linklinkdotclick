@@ -1,2 +1,3 @@
 import './components/link/link'
-import './components/site/site'
+import './components/loading/loading'
+import './components/home-page/home-page'

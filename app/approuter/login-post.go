@@ -72,5 +72,12 @@ func (r *Router) LoginPost(ctx *gin.Context) {
 		}
 	}
 
-	ctx.Redirect(http.StatusSeeOther, "/")
+	ctx.HTML(http.StatusOK, "info.html.tmpl", &InfoPageRenderContext{
+		NewHeadRenderContext(ctx),
+		InfoPageBody{
+			Message:  "✨ A magic link is on its way to your inbox! ✨",
+			LinkUrl:  "/",
+			LinkText: "Back to the main page",
+		},
+	})
 }

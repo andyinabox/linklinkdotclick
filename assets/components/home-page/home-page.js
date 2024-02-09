@@ -3,7 +3,7 @@ import { handleError } from '../../lib/errors'
 import { Component } from '../component'
 import { Link } from '../link/link'
 
-export class Site extends Component {
+export class HomePage extends Component {
   constructor() {
     super()
     this.fetchData()
@@ -122,4 +122,4 @@ export class Site extends Component {
     this.listen(window, 'focus', this.reloadAllLinks)
   }
 }
-customElements.define('linky-site', Site)
+customElements.define('linky-home-page', HomePage)

@@ -1,0 +1,33 @@
+<linky-home-page>
+  <header>
+    <h1 slot="site-title" id="site-title" >{{ .User.SiteTitle }}</h1>
+    <button slot="rename-site" name="rename-site" class="rename-site">Rename</button>
+  </header>
+  <main>
+    <menu slot="links" id="links">
+    {{ range.Links }}
+      {{ template "link.html.tmpl" .}}
+    {{ end }}
+    </menu>
+  </main>
+  <nav>
+    <button slot="edit" name="edit">Edit</button>
+    <button slot="add" name="add">Add</button>
+    {{ if not .IsDefaultUser }}
+      <form id="logout" method="post" class="inline-form" action="/logout">
+        <input type="submit" name="logout" value="Logout 👋">
+      </form>
+    {{ end }}
+    {{ if .IsDefaultUser }}
+      <form method="post" class="inline-form" action="/login">
+        <input type="text" name="email" placeholder="you@example.com">
+        <input type="submit" name="login" value="Login/Signup 🚪">
+      </form>
+    {{ end }}
+  </nav>
+  <linky-loading>🔄</linky-loading>
+
+  <template id="tmpl-link">
+  {{ template "link.html.tmpl" .EmptyLink }}
+  </template>
+</linky-home-page>
