@@ -32,6 +32,8 @@ export class Link extends Component {
       this.slots.count.textContent = data.unreadCount
     } else if (!data.feedUrl) {
       this.slots.count.textContent = '?'
+    } else {
+      this.slots.count.textContent = ''
     }
 
     this.slots['edit-menu'].querySelector('[name="site-url"]').value =
