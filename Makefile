@@ -41,7 +41,7 @@ test:
 resources: res
 	go run ./cmd/copy/main.go -g='assets/**/*.tmpl' -o=res/tmpl
 	go run ./cmd/copy/main.go -g='assets/static/**/*' -o res/static
-	go run ./cmd/copy/main.go -g 'assets/main.css' -o=res/static
+	go run ./cmd/esbuild/main.go assets/main.css --bundle --outfile=res/static/main.css
 	go run ./cmd/esbuild/main.go assets/main.js --bundle --minify --outfile=res/static/main.js
 
 .PHONY: clean

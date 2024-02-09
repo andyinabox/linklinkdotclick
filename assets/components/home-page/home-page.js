@@ -3,7 +3,7 @@ import { handleError } from '../../lib/errors'
 import { Component } from '../component'
 import { Link } from '../link/link'
 
-export class Site extends Component {
+export class HomePage extends Component {
   constructor() {
     super()
     this.fetchData()
@@ -67,9 +67,13 @@ export class Site extends Component {
 
   async handleCreateLink() {
     try {
-      const url = prompt('Enter a website or feed URL')
+      let url = prompt('Enter a website or feed URL')
 
       if (!url) return
+
+      if (url.indexOf('http') !== 0) {
+        url = 'http://' + url
+      }
 
       this.loading = true
       const link = await createLink(url)
@@ -118,4 +122,4 @@ export class Site extends Component {
     this.listen(window, 'focus', this.reloadAllLinks)
   }
 }
-customElements.define('linky-site', Site)
+customElements.define('linky-home-page', HomePage)

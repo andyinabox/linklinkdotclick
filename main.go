@@ -68,7 +68,7 @@ func main() {
 	registerConfigVar(&dbfile, "dbfile", "db/linkydink.db", "location on sqlite db")
 	registerConfigVar(&mode, "mode", "debug", "run mode, use 'release' for production")
 	registerConfigVar(&defaultemail, "defaultemail", "linkydink@linkydink.tld", "an email for the default user that appears when not logged in")
-	registerConfigVar(&defaultusertitle, "defaultusertitle", "🖇 my reading list", "the default user's site title")
+	registerConfigVar(&defaultusertitle, "defaultusertitle", "📚 my reading list", "the default user's site title")
 	registerConfigVar(&smtpaddr, "smtpaddr", "127.0.0.1:1025", "smtp server")
 	registerConfigVar(&secret, "secret", "", "secret to use for cookie encryption")
 	flag.Parse()

@@ -25,7 +25,15 @@ export class Link extends Component {
     this.setAttribute('data-id', this.data.id)
     this.slots.link.href = data.siteUrl
     this.slots.link.textContent = data.siteName
-    this.slots.count.textContent = data.unreadCount ? data.unreadCount : ''
+
+    if (data.hideUnreadCount) {
+      this.slots.count.textContent = ''
+    } else if (data.unreadCount) {
+      this.slots.count.textContent = data.unreadCount
+    } else if (!data.feedUrl) {
+      this.slots.count.textContent = '?'
+    }
+
     this.slots['edit-menu'].querySelector('[name="site-url"]').value =
       data.siteUrl
     this.slots['edit-menu'].querySelector('[name="feed-url"]').value =
@@ -76,6 +84,21 @@ export class Link extends Component {
       this.loading = false
     }
   }
+  async handleHideUnreadCount(evt) {
+    const data = this.data
+    const isChecked = evt.target.checked
+    data.hideUnreadCount = isChecked
+    console.log('handleHideUnreadCount', isChecked)
+    try {
+      this.loading = true
+      const updated = await updateLink(data)
+      this.data = updated
+    } catch (err) {
+      handleError(err)
+    } finally {
+      this.loading = false
+    }
+  }
 
   connectedCallback() {
     const data = this.data
@@ -84,6 +107,9 @@ export class Link extends Component {
     const renameBtn = edit.querySelector('[name="rename"]')
     const editSiteUrlButton = edit.querySelector('[name="edit-site-url"]')
     const editFeedUrlButton = edit.querySelector('[name="edit-feed-url"]')
+    const hideUnreadCountCheckbox = edit.querySelector(
+      '[name="hide-unread-count"]'
+    )
 
     this.listen(edit, 'submit', (e) => e.preventDefault())
     this.listen(deleteBtn, 'click', this.handleDelete)
@@ -99,6 +125,7 @@ export class Link extends Component {
     this.listen(editFeedUrlButton, 'click', () =>
       this.handleFieldEdit('feedUrl', `Enter a new RSS/Atom feed url`)
     )
+    this.listen(hideUnreadCountCheckbox, 'change', this.handleHideUnreadCount)
     this.listen(this.slots.link, 'click', this.handleClick)
   }
 }

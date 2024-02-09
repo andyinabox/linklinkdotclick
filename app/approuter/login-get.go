@@ -8,11 +8,12 @@ import (
 )
 
 func (r *Router) LoginGet(ctx *gin.Context) {
+
 	hash := ctx.Param("hash")
 	user, err := r.sc.UserService().GetUserFromLoginHash(hash)
 
 	if err != nil || user == nil {
-		ctx.Redirect(http.StatusSeeOther, "/")
+		r.InfoMessage(ctx, http.StatusUnauthorized, "🔒 That link isn't working. Did you already use it?", err, "/", "Try sending a new one")
 		return
 	}
 

@@ -2,6 +2,7 @@ package approuter
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/mail"
@@ -10,10 +11,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type EmailTemplateData struct {
+	Subject   string
+	MagicLink string
+	ImageUrl  string
+}
+
 func (r *Router) LoginPost(ctx *gin.Context) {
 	email := ctx.PostForm("email")
 	if email == "" {
-		ctx.AbortWithStatus(http.StatusBadRequest)
+		r.InfoMessageError(ctx, http.StatusBadRequest, errors.New("no email provided"))
 		return
 	}
 
@@ -21,35 +28,27 @@ func (r *Router) LoginPost(ctx *gin.Context) {
 
 	user, err := userService.FetchOrCreateUserByEmail(email)
 	if err != nil {
-		ctx.AbortWithError(http.StatusInternalServerError, err)
+		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	hash, err := userService.GetLoginHashForUser(user)
 	if err != nil {
-		ctx.AbortWithError(http.StatusInternalServerError, err)
+		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	magicLink := fmt.Sprintf("https://%s/login/%s", ctx.Request.Host, hash)
 
-	bodyData := struct {
-		Subject   string
-		MagicLink string
-		ImageUrl  string
-	}{
+	bodyBuffer := &bytes.Buffer{}
+	bodyData := &EmailTemplateData{
 		Subject:   "🖇 Your linklinkclick login link",
 		MagicLink: magicLink,
 		ImageUrl:  "https://" + ctx.Request.Host + "/static/android-chrome-192x192.png",
 	}
-
-	bodyBuffer := &bytes.Buffer{}
 	err = r.conf.Templates.ExecuteTemplate(bodyBuffer, "email.html.tmpl", bodyData)
 	if err != nil {
-		if err != nil {
-			ctx.AbortWithError(http.StatusInternalServerError, err)
-			return
-		}
+		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
 	}
 
 	err = r.sc.MailService().Send(&mailservice.Email{
@@ -66,11 +65,9 @@ func (r *Router) LoginPost(ctx *gin.Context) {
 		Body:    bodyBuffer.String(),
 	})
 	if err != nil {
-		if err != nil {
-			ctx.AbortWithError(http.StatusInternalServerError, err)
-			return
-		}
+		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
+		return
 	}
 
-	ctx.Redirect(http.StatusSeeOther, "/")
+	r.InfoMessageSuccess(ctx, "✨ A magic link is on its way to your inbox!")
 }
