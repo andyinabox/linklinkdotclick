@@ -25,7 +25,11 @@ export class Link extends Component {
     this.setAttribute('data-id', this.data.id)
     this.slots.link.href = data.siteUrl
     this.slots.link.textContent = data.siteName
-    this.slots.count.textContent = data.unreadCount ? data.unreadCount : ''
+    if (data.unreadCount) {
+      this.slots.count.textContent = data.unreadCount
+    } else if (!data.feedUrl) {
+      this.slots.count.textContent = '?'
+    }
     this.slots['edit-menu'].querySelector('[name="site-url"]').value =
       data.siteUrl
     this.slots['edit-menu'].querySelector('[name="feed-url"]').value =
