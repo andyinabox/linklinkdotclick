@@ -6,23 +6,38 @@ import (
 )
 
 type Container struct {
-	us app.UserService
-	ls app.LinkService
-	ms *mailservice.Service
+	userService app.UserService
+	linkService app.LinkService
+	logService  app.LogService
+	mailService *mailservice.Service
 }
 
-func New(us app.UserService, ls app.LinkService, ms *mailservice.Service) *Container {
-	return &Container{us, ls, ms}
+func New(
+	userService app.UserService,
+	linkService app.LinkService,
+	logService app.LogService,
+	mailService *mailservice.Service,
+) *Container {
+	return &Container{
+		userService,
+		linkService,
+		logService,
+		mailService,
+	}
 }
 
 func (c *Container) UserService() app.UserService {
-	return c.us
+	return c.userService
 }
 
 func (c *Container) LinkService() app.LinkService {
-	return c.ls
+	return c.linkService
+}
+
+func (c *Container) LogService() app.LogService {
+	return c.logService
 }
 
 func (c *Container) MailService() *mailservice.Service {
-	return c.ms
+	return c.mailService
 }

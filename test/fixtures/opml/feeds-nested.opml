@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<opml version="1.0">
+    <head>
+        <title>RSS Subscriptions</title>
+    </head>
+    <body>
+        <outline text="Digital" title="Digital">
+            <outline type="rss" text="CreativeApplications.Net" title="CreativeApplications.Net" xmlUrl="https://www.creativeapplications.net/feed/" htmlUrl="https://www.creativeapplications.net"/>
+            <outline type="rss" text="Open Culture" title="Open Culture" xmlUrl="https://www.openculture.com/feed" htmlUrl="https://www.openculture.com/"/>
+            <outline type="rss" text="Chairblog.eu" title="Chairblog.eu" xmlUrl="https://chairblog.eu/feed/" htmlUrl="https://chairblog.eu/"/>
+        </outline>
+    </body>
+</opml>

@@ -25,6 +25,7 @@ type Config struct {
 	Mode      string
 	Resources embed.FS
 	Templates *template.Template
+	Version   string
 }
 
 func New(

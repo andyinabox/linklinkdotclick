@@ -9,6 +9,7 @@ import (
 
 type Config struct {
 	Templates *template.Template
+	Version   string
 }
 
 type Router struct {
@@ -26,4 +27,7 @@ func (r *Router) Register(engine *gin.Engine) {
 	engine.POST("/login", r.LoginPost)
 	engine.GET("/login/:hash", r.LoginGet)
 	engine.POST("/logout", r.LogoutPost)
+	engine.GET("/opml", r.OpmlGet)
+	engine.POST("/opml", r.OpmlPost)
+
 }

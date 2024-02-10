@@ -9,27 +9,31 @@ import (
 )
 
 func (r *Router) IndexGet(ctx *gin.Context) {
+	logger := r.sc.LogService()
 
 	user, isDefaultUser, err := r.hh.GetUserFromSession(ctx)
 
 	// it's ok if no user is found, but we want to abort for server errors
 	if err != nil && errors.Is(err, app.ErrServerError) {
+		logger.Error().Println(err.Error())
 		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	links, err := r.sc.LinkService().FetchLinks(user.ID)
 	if err != nil {
+		logger.Error().Println(err.Error())
 		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	ctx.HTML(http.StatusOK, "index.html.tmpl", &HomePageRenderContext{
-		NewHeadRenderContext(ctx),
+		r.NewHeadRenderContext(ctx),
 		HomePageBody{
 			User:          *user,
 			Links:         links,
 			IsDefaultUser: isDefaultUser,
 		},
+		r.NewFootRenderContext(ctx),
 	})
 }

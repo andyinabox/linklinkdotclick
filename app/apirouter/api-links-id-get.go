@@ -7,22 +7,26 @@ import (
 )
 
 func (r *Router) ApiLinksIdGet(ctx *gin.Context) {
+	logger := r.sc.LogService()
 	_, refresh := ctx.GetQuery("refresh")
 
 	id, err := r.hh.GetIdParam(ctx)
 	if err != nil {
+		logger.Error().Println(err.Error())
 		r.hh.ErrorResponse(ctx, http.StatusBadRequest, err)
 		return
 	}
 
 	userId, _, err := r.hh.GetUserIdFromSession(ctx)
 	if err != nil {
+		logger.Error().Println(err.Error())
 		r.hh.ErrorResponse(ctx, http.StatusUnauthorized, err)
 		return
 	}
 
 	link, err := r.sc.LinkService().FetchLink(userId, id, refresh)
 	if err != nil {
+		logger.Error().Println(err.Error())
 		r.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
 		return
 	}

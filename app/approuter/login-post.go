@@ -18,9 +18,13 @@ type EmailTemplateData struct {
 }
 
 func (r *Router) LoginPost(ctx *gin.Context) {
+	logger := r.sc.LogService()
+	var err error
 	email := ctx.PostForm("email")
 	if email == "" {
-		r.InfoMessageError(ctx, http.StatusBadRequest, errors.New("no email provided"))
+		err = errors.New("no email provided")
+		logger.Error().Println(err.Error())
+		r.InfoMessageError(ctx, http.StatusBadRequest, err)
 		return
 	}
 
@@ -28,12 +32,14 @@ func (r *Router) LoginPost(ctx *gin.Context) {
 
 	user, err := userService.FetchOrCreateUserByEmail(email)
 	if err != nil {
+		logger.Error().Println(err.Error())
 		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	hash, err := userService.GetLoginHashForUser(user)
 	if err != nil {
+		logger.Error().Println(err.Error())
 		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
@@ -48,6 +54,7 @@ func (r *Router) LoginPost(ctx *gin.Context) {
 	}
 	err = r.conf.Templates.ExecuteTemplate(bodyBuffer, "email.html.tmpl", bodyData)
 	if err != nil {
+		logger.Error().Println(err.Error())
 		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
 	}
 
@@ -65,6 +72,7 @@ func (r *Router) LoginPost(ctx *gin.Context) {
 		Body:    bodyBuffer.String(),
 	})
 	if err != nil {
+		logger.Error().Println(err.Error())
 		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
 		return
 	}

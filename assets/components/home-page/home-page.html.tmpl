@@ -24,6 +24,21 @@
         <input type="submit" name="login" value="Login/Signup 🚪">
       </form>
     {{ end }}
+    {{ if not .IsDefaultUser }}
+    <div class="user-options">
+      <form class="flex-form" method="post" enctype="multipart/form-data" action="/opml">
+        <label for="file">Import OPML:</label>
+        <input type="file" id="file" accept=".xml,.opml" name="file">
+        <input type="submit" value="Upload OPML File ⬆️">
+      </form>
+      <form class="flex-form" method="get" action="/opml">
+        <label for="file">Export OPML:</label>
+        <input type="submit" value="Download OPML File ⬇️">
+      </form>
+    </div>
+
+    {{ end }}
+
   </nav>
   <linky-loading>🔄</linky-loading>
 

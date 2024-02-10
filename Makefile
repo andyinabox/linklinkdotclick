@@ -4,25 +4,24 @@ build: bin resources
 	go build -o bin/linkydink main.go
 
 # build a linux version for release
-# under the hood this cross-compiles `make build` using a docker container 
 .PHONY: build-release
 build-release: dist
 	GOOS=linux GOARCH=amd64 go build -o bin/linkydink-linux-amd64 main.go
 	cd ./bin && tar -czvf ../dist/linkydink-linux-amd64.tar.gz linkydink-linux-amd64 
+
+# deploy to staging
+.PHONY: deploy
+deploy: dist/linkydink-linux-amd64.tar.gz
+	./script/deploy.sh
 
 # tag 
 .PHONY: tag
 tag:
 	./script/tag.sh
 
-# deploy 
-.PHONY: deploy-staging
-deploy: dist/linkydink-linux-amd64.tar.gz
-	./script/deploy.sh
-
-# deploy 
-.PHONY: deploy-production
-deploy-production: tag build-release
+# prepare release and deploy to production
+.PHONY: release
+release: tag build-release
 	DEPLOY_ENV=production ./script/deploy.sh
 
 # run the main application

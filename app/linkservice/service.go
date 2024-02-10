@@ -5,10 +5,11 @@ import (
 )
 
 type Service struct {
-	lr app.LinkRepository
-	fs app.FeedService
+	lr  app.LinkRepository
+	fs  app.FeedService
+	log app.LogService
 }
 
-func New(lr app.LinkRepository, fs app.FeedService) *Service {
-	return &Service{lr, fs}
+func New(lr app.LinkRepository, fs app.FeedService, log app.LogService) *Service {
+	return &Service{lr, fs, log}
 }

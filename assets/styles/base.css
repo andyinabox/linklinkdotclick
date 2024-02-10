@@ -6,6 +6,7 @@ body {
   margin: 0px auto;
   display: block;
   max-width: 960px;
+  font-family: serif;
 }
 
 h1,
@@ -48,8 +49,15 @@ input[type='checkbox'] {
   display: inline-block;
 }
 
+.flex-form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 button,
-input {
+input,
+input[type='file']::file-selector-button {
   font-size: 0.5rem;
   padding: 0.3em 0.5em;
 }
@@ -68,4 +76,25 @@ button:after,
 input[type='submit']:after {
   display: inline-block;
   margin-left: 0.5em;
+}
+
+input[type='file'] {
+  font-family: monospace;
+  background-color: #eee;
+}
+input[type='file']::file-selector-button {
+  margin-right: 0.5rem;
+}
+
+footer#version {
+  color: #eee;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  padding: 0.5em;
+  font-family: monospace;
+  font-size: 0.3rem;
+}
+footer#version:hover {
+  color: black;
 }
