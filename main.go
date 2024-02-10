@@ -24,7 +24,6 @@ import (
 	"github.com/andyinabox/linkydink/app/tokenstore"
 	"github.com/andyinabox/linkydink/app/userrepository"
 	"github.com/andyinabox/linkydink/app/userservice"
-	"github.com/andyinabox/linkydink/pkg/mailservice"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/glebarez/sqlite"
 	"github.com/joho/godotenv"
@@ -134,11 +133,6 @@ func main() {
 	}
 	userService := userservice.New(userRepository, tokenStore, userServiceConfig)
 
-	// create mail service
-	mailService := mailservice.New(&mailservice.Config{
-		SmtpAddr: smtpaddr,
-	})
-
 	// create link service
 	feedService := feedservice.New()
 	linkRepository := linkrepository.New(db)
@@ -149,7 +143,6 @@ func main() {
 		userService,
 		linkService,
 		logService,
-		mailService,
 	)
 
 	// create handler helper
@@ -159,6 +152,7 @@ func main() {
 	appRouter := approuter.New(serviceContainer, handlerHelper, &approuter.Config{
 		Templates: templates,
 		Version:   version,
+		SmtpAddr:  smtpaddr,
 	})
 	apiRouter := apirouter.New(serviceContainer, handlerHelper, &apirouter.Config{
 		Domain: domain,

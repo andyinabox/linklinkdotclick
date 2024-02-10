@@ -1,4 +1,4 @@
-package mailservice
+package postman
 
 import (
 	"net/http"
@@ -15,10 +15,6 @@ func Test_Send(t *testing.T) {
 		return
 	}
 
-	s := New(&Config{
-		SmtpAddr: "127.0.0.1:1025",
-	})
-
 	email := &Email{
 		From:    mail.Address{"Jack Handy", "jack@example.com"},
 		To:      mail.Address{"Jill Dandy", "jill@example.com"},
@@ -26,7 +22,7 @@ func Test_Send(t *testing.T) {
 		Body:    "How are you doing??",
 	}
 
-	err := s.Send(email)
+	err := Send(email, "127.0.0.1:1025")
 	if err != nil {
 		t.Fatal(err.Error())
 	}
