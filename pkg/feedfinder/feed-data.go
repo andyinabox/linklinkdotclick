@@ -1,4 +1,4 @@
-package feedservice
+package feedfinder
 
 import (
 	"strings"
@@ -9,41 +9,28 @@ import (
 
 type FeedData struct {
 	gofeed.Feed
-	siteName string
-	siteUrl  string
-	feedUrl  string
-	items    []*gofeed.Item
+	SiteName string
+	SiteUrl  string
+	FeedUrl  string
 }
 
 func NewFeedDataFromFeed(feed *gofeed.Feed) *FeedData {
 	return &FeedData{
 		Feed:     *feed,
-		siteName: strings.TrimSpace(feed.Title),
-		siteUrl:  strings.TrimSpace(feed.Link),
-		feedUrl:  strings.TrimSpace(feed.FeedLink),
+		SiteName: strings.TrimSpace(feed.Title),
+		SiteUrl:  strings.TrimSpace(feed.Link),
+		FeedUrl:  strings.TrimSpace(feed.FeedLink),
 	}
 }
 func NewFeedDataFromSiteData(siteData *SiteData) *FeedData {
 	return &FeedData{
-		siteName: siteData.SiteName,
-		siteUrl:  siteData.SiteUrl,
+		SiteName: siteData.SiteName,
+		SiteUrl:  siteData.SiteUrl,
 	}
 }
 
-func (d *FeedData) SiteName() string {
-	return d.siteName
-}
-
-func (d *FeedData) SiteUrl() string {
-	return d.siteUrl
-}
-
-func (d *FeedData) FeedUrl() string {
-	return d.feedUrl
-}
-
 func (d *FeedData) NewItemsCount(after *time.Time) uint {
-	if d.feedUrl == "" {
+	if d.FeedUrl == "" {
 		return 0
 	}
 

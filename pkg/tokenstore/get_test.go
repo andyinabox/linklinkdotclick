@@ -5,7 +5,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/andyinabox/linkydink/app"
 	"github.com/andyinabox/linkydink/test"
 )
 
@@ -45,7 +44,7 @@ func Test_GetExpiration(t *testing.T) {
 	if err == nil {
 		t.Fatal("expected error, got none")
 	}
-	if !errors.Is(err, app.ErrNotFound) {
+	if !errors.Is(err, ErrNotFound) {
 		t.Fatalf("expected ErrNotFound, got %v", err)
 	}
 }

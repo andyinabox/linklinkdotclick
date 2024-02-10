@@ -4,10 +4,11 @@ import (
 	"time"
 
 	"github.com/andyinabox/linkydink/app"
+	"github.com/andyinabox/linkydink/pkg/feedfinder"
 )
 
 func (s *Service) CreateLink(userId uint, originalUrl string) (*app.Link, error) {
-	feedData, err := s.fs.GetFeedDataForUrl(originalUrl)
+	feedData, err := feedfinder.GetFeedDataForUrl(originalUrl)
 	if err != nil {
 		return nil, err
 	}
@@ -19,9 +20,9 @@ func (s *Service) CreateLink(userId uint, originalUrl string) (*app.Link, error)
 		OriginalUrl: originalUrl,
 		LastClicked: lastClicked,
 		LastFetched: time.Now(),
-		SiteName:    feedData.SiteName(),
-		SiteUrl:     feedData.SiteUrl(),
-		FeedUrl:     feedData.FeedUrl(),
+		SiteName:    feedData.SiteName,
+		SiteUrl:     feedData.SiteUrl,
+		FeedUrl:     feedData.FeedUrl,
 		UnreadCount: int16(feedData.NewItemsCount(&lastClicked)),
 	})
 }

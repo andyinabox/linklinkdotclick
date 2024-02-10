@@ -1,22 +1,21 @@
-package feedservice
+package feedfinder
 
 import (
 	"testing"
 
-	"github.com/andyinabox/linkydink/app/util"
+	"github.com/andyinabox/linkydink/pkg/responses"
 	"github.com/andyinabox/linkydink/test"
 )
 
 func Test_GetSiteData(t *testing.T) {
-	s := New()
 	{
 		ts := test.NewFixtureTestServer("../../test/fixtures/www.w3c.org/index.html", t)
-		body, err := util.GetResponseBodyFromUrl(ts.URL)
+		body, err := responses.GetBodyFromUrl(ts.URL)
 		if err != nil {
 			t.Fatal(err.Error())
 		}
 
-		data, err := s.GetSiteData(body, ts.URL)
+		data, err := GetSiteData(body, ts.URL)
 		if err != nil {
 			t.Fatal(err.Error())
 		}

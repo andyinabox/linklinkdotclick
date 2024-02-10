@@ -1,23 +1,21 @@
-package feedservice
+package feedfinder
 
 import (
 	"testing"
 	"time"
 
-	"github.com/andyinabox/linkydink/app/util"
+	"github.com/andyinabox/linkydink/pkg/responses"
 	"github.com/andyinabox/linkydink/test"
 )
 
 func Test_ParseFeed(t *testing.T) {
 	ts := test.NewFixtureTestServer("../../test/fixtures/www.w3c.org/feed.xml", t)
-	body, err := util.GetResponseBodyFromUrl(ts.URL)
+	body, err := responses.GetBodyFromUrl(ts.URL)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
 
-	s := New()
-
-	d, err := s.ParseFeedResponse(body, ts.URL)
+	d, err := ParseFeedResponse(body, ts.URL)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
@@ -36,17 +34,17 @@ func Test_ParseFeed(t *testing.T) {
 	expectedAfterDateCount := 2
 	now := time.Now()
 
-	if d.SiteName() != expectedName {
-		t.Errorf("expected SiteName() to return %s, got %s", expectedName, d.SiteName())
+	if d.SiteName != expectedName {
+		t.Errorf("expected SiteName() to return %s, got %s", expectedName, d.SiteName)
 	}
-	if d.SiteUrl() != expectedSiteUrl {
-		t.Errorf("expected SiteUrl() to return %s, got %s", expectedSiteUrl, d.SiteUrl())
+	if d.SiteUrl != expectedSiteUrl {
+		t.Errorf("expected SiteUrl() to return %s, got %s", expectedSiteUrl, d.SiteUrl)
 	}
-	if d.FeedUrl() != expectedFeedUrl {
-		t.Errorf("expected FeedUrl() to return %s, got %s", expectedFeedUrl, d.FeedUrl())
+	if d.FeedUrl != expectedFeedUrl {
+		t.Errorf("expected FeedUrl() to return %s, got %s", expectedFeedUrl, d.FeedUrl)
 	}
-	if d.FeedUrl() != expectedFeedUrl {
-		t.Errorf("expected FeedUrl() to return %s, got %s", expectedFeedUrl, d.FeedUrl())
+	if d.FeedUrl != expectedFeedUrl {
+		t.Errorf("expected FeedUrl() to return %s, got %s", expectedFeedUrl, d.FeedUrl)
 	}
 	if d.NewItemsCount(&now) != 0 {
 		t.Errorf("expected %d items count for %v, got %d", 0, now, d.NewItemsCount(&now))

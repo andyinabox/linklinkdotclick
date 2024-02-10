@@ -15,15 +15,14 @@ import (
 	"github.com/andyinabox/linkydink/app"
 	"github.com/andyinabox/linkydink/app/apirouter"
 	"github.com/andyinabox/linkydink/app/approuter"
-	"github.com/andyinabox/linkydink/app/feedservice"
 	"github.com/andyinabox/linkydink/app/handlerhelper"
 	"github.com/andyinabox/linkydink/app/linkrepository"
 	"github.com/andyinabox/linkydink/app/linkservice"
-	"github.com/andyinabox/linkydink/app/logservice"
 	"github.com/andyinabox/linkydink/app/servicecontainer"
-	"github.com/andyinabox/linkydink/app/tokenstore"
 	"github.com/andyinabox/linkydink/app/userrepository"
 	"github.com/andyinabox/linkydink/app/userservice"
+	"github.com/andyinabox/linkydink/pkg/logservice"
+	"github.com/andyinabox/linkydink/pkg/tokenstore"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/glebarez/sqlite"
 	"github.com/joho/godotenv"
@@ -134,9 +133,8 @@ func main() {
 	userService := userservice.New(userRepository, tokenStore, userServiceConfig)
 
 	// create link service
-	feedService := feedservice.New()
 	linkRepository := linkrepository.New(db)
-	linkService := linkservice.New(linkRepository, feedService, logService)
+	linkService := linkservice.New(linkRepository, logService)
 
 	// create service container
 	serviceContainer := servicecontainer.New(
