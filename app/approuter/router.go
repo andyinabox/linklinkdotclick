@@ -27,4 +27,5 @@ func (r *Router) Register(engine *gin.Engine) {
 	engine.POST("/login", r.LoginPost)
 	engine.GET("/login/:hash", r.LoginGet)
 	engine.POST("/logout", r.LogoutPost)
+	engine.GET("/opml", r.OpmlGet)
 }
