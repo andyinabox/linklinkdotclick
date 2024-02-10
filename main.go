@@ -19,6 +19,7 @@ import (
 	"github.com/andyinabox/linkydink/app/handlerhelper"
 	"github.com/andyinabox/linkydink/app/linkrepository"
 	"github.com/andyinabox/linkydink/app/linkservice"
+	"github.com/andyinabox/linkydink/app/logservice"
 	"github.com/andyinabox/linkydink/app/servicecontainer"
 	"github.com/andyinabox/linkydink/app/tokenstore"
 	"github.com/andyinabox/linkydink/app/userrepository"
@@ -140,10 +141,14 @@ func main() {
 	linkRepository := linkrepository.New(db)
 	linkService := linkservice.New(linkRepository, feedService)
 
+	// crewate log service
+	logService := logservice.New()
+
 	// create service container
 	serviceContainer := servicecontainer.New(
 		userService,
 		linkService,
+		logService,
 		mailService,
 	)
 

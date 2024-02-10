@@ -7,6 +7,7 @@ export class HomePage extends Component {
   constructor() {
     super()
     this.fetchData()
+    this.reloadLinksPromise = Promise.resolve()
   }
   set editing(bool) {
     if (bool) {
@@ -40,9 +41,19 @@ export class HomePage extends Component {
   }
 
   async reloadAllLinks() {
+    await this.reloadLinksPromise
+
     try {
       this.loading = true
-      await Promise.all(this.links.map((link) => link.fetchData()))
+      const links = this.links
+      const promises = []
+      for (const link of links) {
+        promises.push(link.fetchData())
+        // space out requests a bit
+        await new Promise((r) => setTimeout(r, 100))
+      }
+      this.reloadLinksPromise = Promise.all(promises)
+      await this.reloadLinksPromise
       this.sortLinks()
     } catch (err) {
       handleError(err)

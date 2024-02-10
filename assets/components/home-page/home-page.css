@@ -36,3 +36,10 @@ linky-home-page button[name='rename-site'] {
 linky-home-page.editing button[name='rename-site'] {
   display: block;
 }
+
+linky-home-page .opml-upload {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 0.5rem;
+}

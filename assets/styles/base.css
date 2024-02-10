@@ -6,6 +6,7 @@ body {
   margin: 0px auto;
   display: block;
   max-width: 960px;
+  font-family: serif;
 }
 
 h1,
@@ -49,7 +50,8 @@ input[type='checkbox'] {
 }
 
 button,
-input {
+input,
+input[type='file']::file-selector-button {
   font-size: 0.5rem;
   padding: 0.3em 0.5em;
 }
@@ -68,6 +70,14 @@ button:after,
 input[type='submit']:after {
   display: inline-block;
   margin-left: 0.5em;
+}
+
+input[type='file'] {
+  font-family: monospace;
+  background-color: #eee;
+}
+input[type='file']::file-selector-button {
+  margin-right: 0.5rem;
 }
 
 footer#version {

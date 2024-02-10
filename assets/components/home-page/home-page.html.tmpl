@@ -24,14 +24,14 @@
         <input type="submit" name="login" value="Login/Signup 🚪">
       </form>
     {{ end }}
-      <form method="post" class="inline-form" action="/login">
-        <input type="text" name="email" placeholder="you@example.com">
-        <input type="submit" name="login" value="Login/Signup 🚪">
-      </form>
-      <form method="post" enctype="multipart/form-data" action="/opml">
+    {{ if not .IsDefaultUser }}
+      <form class="opml-upload" method="post" enctype="multipart/form-data" action="/opml">
+        <label for="file">Upload OPML:</label>
         <input type="file" id="file" name="file">
         <input type="submit" value="Upload ⬆️">
       </form>
+    {{ end }}
+
   </nav>
   <linky-loading>🔄</linky-loading>
 
