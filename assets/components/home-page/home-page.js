@@ -41,18 +41,14 @@ export class HomePage extends Component {
   }
 
   async reloadAllLinks() {
+    // wait for last request to finish before starting over
     await this.reloadLinksPromise
 
     try {
       this.loading = true
-      const links = this.links
-      const promises = []
-      for (const link of links) {
-        promises.push(link.fetchData())
-        // space out requests a bit
-        await new Promise((r) => setTimeout(r, 100))
-      }
-      this.reloadLinksPromise = Promise.all(promises)
+      this.reloadLinksPromise = Promise.all(
+        this.links.map((l) => l.fetchData())
+      )
       await this.reloadLinksPromise
       this.sortLinks()
     } catch (err) {

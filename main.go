@@ -118,6 +118,9 @@ func main() {
 	// create session store
 	sessionStore := cookie.NewStore([]byte(secret))
 
+	// crewate log service
+	logService := logservice.New()
+
 	// create user repository
 	userRepository := userrepository.New(db)
 
@@ -139,10 +142,7 @@ func main() {
 	// create link service
 	feedService := feedservice.New()
 	linkRepository := linkrepository.New(db)
-	linkService := linkservice.New(linkRepository, feedService)
-
-	// crewate log service
-	logService := logservice.New()
+	linkService := linkservice.New(linkRepository, feedService, logService)
 
 	// create service container
 	serviceContainer := servicecontainer.New(
