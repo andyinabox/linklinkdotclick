@@ -25,11 +25,18 @@
       </form>
     {{ end }}
     {{ if not .IsDefaultUser }}
-      <form class="opml-upload" method="post" enctype="multipart/form-data" action="/opml">
+    <div class="user-options">
+      <form class="flex-form" method="post" enctype="multipart/form-data" action="/opml">
         <label for="file">Upload OPML:</label>
-        <input type="file" id="file" name="file">
+        <input type="file" id="file" accept=".xml,.opml" name="file">
         <input type="submit" value="Upload ⬆️">
       </form>
+      <form class="flex-form" method="get" action="/opml">
+        <label for="file">Download OPML:</label>
+        <input type="submit" value="Download ⬇️">
+      </form>
+    </div>
+
     {{ end }}
 
   </nav>

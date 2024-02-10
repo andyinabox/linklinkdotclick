@@ -40,6 +40,7 @@ func (r *Router) OpmlGet(ctx *gin.Context) {
 		return
 	}
 	ctx.Writer.Header().Set("Content-Type", "application/xml")
+	ctx.Writer.Header().Set("Content-Disposition", "attachment; filename=\"my-linklinkclick-links.opml\"")
 	ctx.Writer.Write(b)
 	ctx.Writer.WriteHeader(http.StatusOK)
 

@@ -49,6 +49,12 @@ input[type='checkbox'] {
   display: inline-block;
 }
 
+.flex-form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 button,
 input,
 input[type='file']::file-selector-button {
