@@ -1,4 +1,4 @@
-package feedservice
+package feedfinder
 
 import (
 	"bytes"
@@ -15,7 +15,7 @@ type SiteData struct {
 	FeedUrls []string
 }
 
-func (s *Service) GetSiteData(body []byte, reqUrl string) (data *SiteData, err error) {
+func GetSiteData(body []byte, reqUrl string) (data *SiteData, err error) {
 
 	bodyReader := ioutil.NopCloser(bytes.NewBuffer(body))
 	doc, err := goquery.NewDocumentFromReader(bodyReader)

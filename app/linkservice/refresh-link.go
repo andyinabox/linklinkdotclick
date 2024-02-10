@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/andyinabox/linkydink/app"
+	"github.com/andyinabox/linkydink/pkg/feedfinder"
 )
 
 func (s *Service) RefreshLink(userId uint, link app.Link) (*app.Link, error) {
@@ -13,15 +14,15 @@ func (s *Service) RefreshLink(userId uint, link app.Link) (*app.Link, error) {
 		return &link, nil
 	}
 
-	feedData, err := s.fs.RefreshFeedDataForUrl(link.FeedUrl)
+	feedData, err := feedfinder.RefreshFeedDataForUrl(link.FeedUrl)
 	if err != nil {
 		// if refresh fails, see if we can update the feed url from the site
-		feedData, err = s.fs.GetFeedDataForUrl(link.SiteUrl)
+		feedData, err = feedfinder.GetFeedDataForUrl(link.SiteUrl)
 		if err != nil {
 			s.log.Warn().Printf("failed to refresh feed for %s, %v", link.SiteName, err)
 			return &link, nil
 		}
-		link.FeedUrl = feedData.FeedUrl()
+		link.FeedUrl = feedData.FeedUrl
 	}
 
 	// set unread count

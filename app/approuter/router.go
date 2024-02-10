@@ -10,6 +10,7 @@ import (
 type Config struct {
 	Templates *template.Template
 	Version   string
+	SmtpAddr  string
 }
 
 type Router struct {

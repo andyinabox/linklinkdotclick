@@ -4,7 +4,6 @@ import (
 	"errors"
 	"time"
 
-	"github.com/andyinabox/linkydink/app"
 	"gorm.io/gorm"
 )
 
@@ -16,7 +15,7 @@ func (s *Store) Get(hash string) (userId uint, err error) {
 
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			err = app.ErrNotFound
+			err = ErrNotFound
 		}
 		return
 	}

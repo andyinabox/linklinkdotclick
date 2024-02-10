@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/andyinabox/linkydink/app"
-	"github.com/andyinabox/linkydink/app/tokenstore"
 	"github.com/andyinabox/linkydink/app/userrepository"
+	"github.com/andyinabox/linkydink/pkg/tokenstore"
 	"github.com/andyinabox/linkydink/test"
 )
 

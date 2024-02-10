@@ -1,10 +1,10 @@
-package feedservice
+package feedfinder
 
 import (
 	"github.com/mmcdole/gofeed"
 )
 
-func (s *Service) ParseFeedResponse(body []byte, reqUrl string) (*FeedData, error) {
+func ParseFeedResponse(body []byte, reqUrl string) (*FeedData, error) {
 
 	fp := gofeed.NewParser()
 	feed, err := fp.ParseString(string(body))
@@ -14,8 +14,8 @@ func (s *Service) ParseFeedResponse(body []byte, reqUrl string) (*FeedData, erro
 
 	feedData := NewFeedDataFromFeed(feed)
 
-	if feedData.feedUrl == "" {
-		feedData.feedUrl = reqUrl
+	if feedData.FeedUrl == "" {
+		feedData.FeedUrl = reqUrl
 	}
 
 	return feedData, nil

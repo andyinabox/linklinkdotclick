@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"net/mail"
 
-	"github.com/andyinabox/linkydink/pkg/mailservice"
+	"github.com/andyinabox/linkydink/pkg/postman"
 	"github.com/gin-gonic/gin"
 )
 
@@ -58,7 +58,7 @@ func (r *Router) LoginPost(ctx *gin.Context) {
 		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
 	}
 
-	err = r.sc.MailService().Send(&mailservice.Email{
+	postmanEmail := &postman.Email{
 		From: mail.Address{
 			Name:    "Linky",
 			Address: "noreply@" + ctx.Request.Host,
@@ -68,9 +68,11 @@ func (r *Router) LoginPost(ctx *gin.Context) {
 			Address: user.Email,
 		},
 		Subject: bodyData.Subject,
-		Mime:    mailservice.MimeHtml,
+		Mime:    postman.MimeHtml,
 		Body:    bodyBuffer.String(),
-	})
+	}
+
+	err = postman.Send(postmanEmail, r.conf.SmtpAddr)
 	if err != nil {
 		logger.Error().Println(err.Error())
 		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
