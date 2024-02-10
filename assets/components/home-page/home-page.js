@@ -55,8 +55,11 @@ export class HomePage extends Component {
     this.loading = true
     const links = [...this.links]
     links.sort((a, b) => {
-      const d1 = new Date(a.data.lastClicked)
-      const d2 = new Date(b.data.lastClicked)
+      const d1 = new Date(a.data.lastClicked).getTime()
+      const d2 = new Date(b.data.lastClicked).getTime()
+      if (d1 === d2) {
+        return 0
+      }
       return d1 < d2 ? -1 : 1
     })
     const linksContainer = this.slots.links

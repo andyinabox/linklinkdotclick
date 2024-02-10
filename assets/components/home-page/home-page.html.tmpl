@@ -24,6 +24,14 @@
         <input type="submit" name="login" value="Login/Signup 🚪">
       </form>
     {{ end }}
+      <form method="post" class="inline-form" action="/login">
+        <input type="text" name="email" placeholder="you@example.com">
+        <input type="submit" name="login" value="Login/Signup 🚪">
+      </form>
+      <form method="post" enctype="multipart/form-data" action="/opml">
+        <input type="file" id="file" name="file">
+        <input type="submit" value="Upload ⬆️">
+      </form>
   </nav>
   <linky-loading>🔄</linky-loading>
 

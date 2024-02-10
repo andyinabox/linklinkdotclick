@@ -28,4 +28,6 @@ func (r *Router) Register(engine *gin.Engine) {
 	engine.GET("/login/:hash", r.LoginGet)
 	engine.POST("/logout", r.LogoutPost)
 	engine.GET("/opml", r.OpmlGet)
+	engine.POST("/opml", r.OpmlPost)
+
 }

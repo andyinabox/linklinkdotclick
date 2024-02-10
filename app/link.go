@@ -30,6 +30,7 @@ type LinkRepository interface {
 type LinkService interface {
 	FetchLinks(userId uint) ([]Link, error)
 	CreateLink(userId uint, url string) (*Link, error)
+	CreateLinkFromFeed(userId uint, siteTitle string, feedUrl string, siteUrl string) (*Link, error)
 	FetchLink(userId uint, id uint, refresh bool) (*Link, error)
 	UpdateLink(userId uint, id uint, link Link, refresh bool) (*Link, error)
 	DeleteLink(userId uint, id uint) (uint, error)
