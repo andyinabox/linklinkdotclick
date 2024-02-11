@@ -38,12 +38,13 @@ linky-home-page.editing button[name='rename-site'] {
 }
 
 .user-options {
-  display: none;
+  /* display: none; */
+  display: flex;
   margin-top: 1rem;
   gap: 0.5rem;
   flex-direction: column;
 }
 
 linky-home-page.editing .user-options {
-  display: flex;
+  /* display: flex; */
 }

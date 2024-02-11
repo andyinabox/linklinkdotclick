@@ -1,5 +1,6 @@
 @import 'styles/base.css';
 @import 'components/link/link.css';
 @import 'components/loading/loading.css';
+@import 'components/style-editor/style-editor.css';
 @import 'components/home-page/home-page.css';
 @import 'components/info-page/info-page.css';

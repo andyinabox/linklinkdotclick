@@ -26,6 +26,8 @@
     {{ end }}
     {{ if not .IsDefaultUser }}
     <div class="user-options">
+      <h2>Settings</h2>
+      <h3>Import/export</h3>
       <form class="flex-form" method="post" enctype="multipart/form-data" action="/opml">
         <label for="file">Import OPML:</label>
         <input type="file" id="file" accept=".xml,.opml" name="file">
@@ -35,8 +37,9 @@
         <label for="file">Export OPML:</label>
         <input type="submit" value="Download OPML File ⬇️">
       </form>
+      <h3>Styles</h3>
+      {{ template "style-editor.html.tmpl" .User }}
     </div>
-
     {{ end }}
 
   </nav>

@@ -1,0 +1,8 @@
+linky-style-editor {
+  & > textarea {
+    width: 100%;
+    min-height: 80vh;
+    font-family: monospace;
+    font-size: 0.5rem;
+  }
+}

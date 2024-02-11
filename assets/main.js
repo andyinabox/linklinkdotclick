@@ -1,3 +1,5 @@
 import './components/link/link'
 import './components/loading/loading'
+import './components/style-editor/style-editor'
 import './components/home-page/home-page'
+import './components/about-page/about-page'
