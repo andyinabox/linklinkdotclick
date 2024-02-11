@@ -4,16 +4,16 @@ export class StyleEditor extends Component {
   constructor() {
     super()
     this.socket = new WebSocket(`wss://${window.location.host}/ws`)
-    // const socket = new WebSocket('wss://localhost:8080/ws')
-    // socket.onopen = (evt) => {
-    //   console.log('Connection open...')
-    // }
-    // socket.onmessage = (msg) => {
-    //   console.log('Got message', msg)
-    // }
-    // socket.onerror = (err) => {
-    //   console.error(err)
-    // }
+    const socket = new WebSocket('wss://localhost:8080/ws')
+    socket.onopen = (evt) => {
+      console.log('Connection open...')
+    }
+    socket.onmessage = (msg) => {
+      console.log('Got message', msg)
+    }
+    socket.onerror = (err) => {
+      console.error(err)
+    }
   }
   handleInput(evt) {
     console.log('input', evt)

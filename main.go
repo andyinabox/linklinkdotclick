@@ -21,6 +21,7 @@ import (
 	"github.com/andyinabox/linkydink/app/servicecontainer"
 	"github.com/andyinabox/linkydink/app/userrepository"
 	"github.com/andyinabox/linkydink/app/userservice"
+	"github.com/andyinabox/linkydink/app/wsrouter"
 	"github.com/andyinabox/linkydink/pkg/logservice"
 	"github.com/andyinabox/linkydink/pkg/tokenstore"
 	"github.com/gin-contrib/sessions/cookie"
@@ -156,7 +157,9 @@ func main() {
 		Domain: domain,
 		Mode:   mode,
 	})
-	routers := []app.RouterGroup{appRouter, apiRouter}
+	wsRouter := wsrouter.New()
+
+	routers := []app.RouterGroup{appRouter, apiRouter, wsRouter}
 
 	// create app
 	appConfig := &app.Config{
