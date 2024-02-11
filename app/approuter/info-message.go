@@ -6,6 +6,19 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type InfoPageBody struct {
+	Message  string
+	Error    error
+	LinkUrl  string
+	LinkText string
+}
+
+type InfoPageRenderContext struct {
+	Head HeadRenderContext
+	Body InfoPageBody
+	Foot FootRenderContext
+}
+
 func (r *Router) InfoMessage(ctx *gin.Context, status int, message string, err error, linkUrl string, linkText string) {
 	ctx.HTML(status, "info.html.tmpl", &InfoPageRenderContext{
 		r.NewHeadRenderContext(ctx),

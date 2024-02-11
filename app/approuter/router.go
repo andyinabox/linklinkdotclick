@@ -24,10 +24,18 @@ func New(sc app.ServiceContainer, hh app.HandlerHelper, conf *Config) *Router {
 }
 
 func (r *Router) Register(engine *gin.Engine) {
+	// main page
 	engine.GET("/", r.IndexGet)
+
+	// other pages
+	engine.GET("/about", r.AboutGet)
+
+	// auth
 	engine.POST("/login", r.LoginPost)
 	engine.GET("/login/:hash", r.LoginGet)
 	engine.POST("/logout", r.LogoutPost)
+
+	// opml
 	engine.GET("/opml", r.OpmlGet)
 	engine.POST("/opml", r.OpmlPost)
 
