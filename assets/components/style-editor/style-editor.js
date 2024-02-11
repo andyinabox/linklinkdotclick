@@ -3,20 +3,21 @@ import { Component } from '../component'
 export class StyleEditor extends Component {
   constructor() {
     super()
-    this.socket = new WebSocket(`wss://${window.location.host}/ws`)
-    const socket = new WebSocket('wss://localhost:8080/ws')
-    socket.onopen = (evt) => {
+    this.socket = new WebSocket(`wss://${window.location.host}/ws/style-editor`)
+    this.socket.onopen = (evt) => {
       console.log('Connection open...')
     }
-    socket.onmessage = (msg) => {
-      console.log('Got message', msg)
+    this.socket.onmessage = (msg) => {
+      console.log('Got message', msg.data)
+      this.slots.editor.value = msg.data
     }
-    socket.onerror = (err) => {
+    this.socket.onerror = (err) => {
       console.error(err)
     }
   }
   handleInput(evt) {
-    console.log('input', evt)
+    console.log('input', evt.target.value)
+    this.socket.send(evt.target.value)
   }
   handleKeyPress(evt) {
     if (evt.keyCode === 9) {
@@ -24,7 +25,11 @@ export class StyleEditor extends Component {
     }
   }
   connectedCallback() {
-    this.listen(this.slots.editor, 'input', debounce(this.handleInput))
+    this.listen(
+      this.slots.editor,
+      'input',
+      debounce(this.handleInput.bind(this), 500)
+    )
     this.listen(this.slots.editor, 'keydown', this.handleKeyPress)
   }
 }

@@ -129,7 +129,7 @@ export class HomePage extends Component {
     this.listen(this.slots['edit'], 'click', this.handleEditButtonClick)
     this.listen(this.slots['add'], 'click', this.handleCreateLink)
     this.listen(this, 'link-click', this.sortLinks)
-    this.listen(window, 'focus', this.reloadAllLinks)
+    // this.listen(window, 'focus', this.reloadAllLinks)
   }
 }
 customElements.define('linky-home-page', HomePage)

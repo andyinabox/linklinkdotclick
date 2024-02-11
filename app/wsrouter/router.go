@@ -2,8 +2,8 @@ package wsrouter
 
 import (
 	"fmt"
-	"time"
 
+	"github.com/andyinabox/linkydink/pkg/cssparser"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 )
@@ -20,7 +20,7 @@ func New() *Router {
 }
 
 func (r *Router) Register(engine *gin.Engine) {
-	engine.GET("/ws", r.HandleWS)
+	engine.GET("/ws/style-editor", r.HandleWS)
 }
 
 func (r *Router) HandleWS(ctx *gin.Context) {
@@ -32,9 +32,29 @@ func (r *Router) HandleWS(ctx *gin.Context) {
 	}
 	defer conn.Close()
 
-	conn.WriteMessage(websocket.TextMessage, []byte("First message!"))
+	parseOptions := &cssparser.ParseOptions{}
+	var result []byte
+	var valid bool
+
 	for {
-		conn.WriteMessage(websocket.TextMessage, []byte("Hello, WebSocket!"))
-		time.Sleep(time.Second)
+		mt, message, err := conn.ReadMessage()
+		if err != nil {
+			fmt.Printf("WS error: %v", err)
+			return
+		}
+		if mt == websocket.TextMessage {
+			result, valid, err = cssparser.Parse(message, parseOptions)
+			if err != nil {
+				fmt.Printf("WS error: %v", err)
+				return
+			}
+			if valid {
+				err = conn.WriteMessage(websocket.TextMessage, result)
+				if err != nil {
+					fmt.Printf("WS error: %v", err)
+					return
+				}
+			}
+		}
 	}
 }
