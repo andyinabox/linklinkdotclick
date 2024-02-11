@@ -25,6 +25,8 @@ func New(sc app.ServiceContainer, hh app.HandlerHelper, conf *Config) *Router {
 
 func (r *Router) Register(engine *gin.Engine) {
 	engine.GET("/", r.IndexGet)
+	engine.GET("/about", r.AboutGet)
+
 	engine.POST("/login", r.LoginPost)
 	engine.GET("/login/:hash", r.LoginGet)
 	engine.POST("/logout", r.LogoutPost)

@@ -1,7 +1,6 @@
 package approuter
 
 import (
-	"github.com/andyinabox/linkydink/app"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,32 +18,6 @@ type HeadRenderContext struct {
 
 type FootRenderContext struct {
 	Version string
-}
-
-type HomePageBody struct {
-	User          app.User
-	Links         []app.Link
-	EmptyLink     app.Link
-	IsDefaultUser bool
-}
-
-type HomePageRenderContext struct {
-	Head HeadRenderContext
-	Body HomePageBody
-	Foot FootRenderContext
-}
-
-type InfoPageBody struct {
-	Message  string
-	Error    error
-	LinkUrl  string
-	LinkText string
-}
-
-type InfoPageRenderContext struct {
-	Head HeadRenderContext
-	Body InfoPageBody
-	Foot FootRenderContext
 }
 
 func (r *Router) NewFootRenderContext(ctx *gin.Context) FootRenderContext {
