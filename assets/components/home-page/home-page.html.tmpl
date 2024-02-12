@@ -4,7 +4,7 @@
     {{/* <button slot="rename-site" name="rename-site" class="rename-site">Rename</button> */}}
   </header>
   <main>
-    <menu slot="links" id="links">
+    <ol slot="links" id="links">
     {{ range.Links }}
       {{ template "link.html.tmpl" .}}
     {{ end }}
@@ -24,19 +24,11 @@
       {{ end }}
     </form>
     {{ if not .IsDefaultUser }}
-      <form id="logout" method="post" class="inline-form" action="/logout">
+      <form id="logout" class="inline-form" method="post" action="/session/delete">
         <input type="submit" name="logout" value="Logout 👋">
       </form>
-    {{ end }}
-    {{ if .IsDefaultUser }}
-      <form method="post" class="inline-form" action="/login">
-        <input type="text" name="email" placeholder="you@example.com">
-        <input type="submit" name="login" value="Login/Signup 🚪">
-      </form>
-    {{ end }}
-    {{ if not .IsDefaultUser }}
     <section class="user-options">
-      <form class="flex-form" method="post" enctype="multipart/form-data" action="/self">
+      <form class="flex-form" method="post" enctype="multipart/form-data" action="/self/update">
         <label for="input-site-title">Rename Site:</label>
         <input id="input-site-title" name="site_title" type="text" value={{ .User.SiteTitle }}>
         <input type="submit" value="Rename ✍️">
@@ -51,11 +43,15 @@
         <input type="submit" value="Download OPML File ⬇️">
       </form>
     </section>
-
+    {{ else  }}
+      <form class="inline-form" method="post" action="/session">
+        <input type="text" name="email" placeholder="you@example.com">
+        <input type="submit" name="login" value="Login/Signup 🚪">
+      </form>
     {{ end }}
 
   </nav>
-  <linky-loading>🔄</linky-loading>
+  {{/* <linky-loading>🔄</linky-loading> */}}
 
   <template id="tmpl-link">
   {{ template "link.html.tmpl" .EmptyLink }}

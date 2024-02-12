@@ -34,18 +34,18 @@ func (r *Router) Register(engine *gin.Engine) {
 	// auth
 	engine.POST("/session", r.SessionPost)
 	engine.GET("/session/:hash", r.SessionGetHash)
-	engine.DELETE("/session", r.SessionDelete)
+	engine.POST("/session/delete", r.SessionDelete)
 
 	// opml
 	engine.GET("/opml", r.OpmlGet)
 	engine.POST("/opml", r.OpmlPost)
 
 	// links
-	engine.PUT("/links/:id", r.LinksPutId)
-	engine.DELETE("/links/:id", r.LinksDeleteId)
+	engine.POST("/links/update/:id", r.LinksUpdateIdPost)
+	engine.POST("/links/delete/:id", r.LinksDeleteIdPost)
 	engine.POST("/links", r.LinksPost)
 
 	// users
-	engine.POST("/self", r.SelfPost)
+	engine.POST("/self/update", r.SelfUpdatePost)
 
 }

@@ -1,5 +1,5 @@
 {{ define "link.html.tmpl" }}
-<linky-link {{ if .ID }}data-id="{{ .ID }}"{{ end }}>
+<li {{ if .ID }}data-id="{{ .ID }}"{{ end }}>
   <a
     slot="link"
     class="link"
@@ -8,14 +8,15 @@
     >{{ .SiteName }}</a
   >
   <span slot="count" class="count">{{ if eq .HideUnreadCount false }}{{ if .UnreadCount }}{{ .UnreadCount }}{{ else if eq .FeedUrl "" }}?{{ end }}{{ end }}</span>
-  <form slot="edit-menu" class="edit-menu">
-    <fieldset><label for="site-url">Site:</label> <input name="site-url" type="text" value="{{ .SiteUrl}}" disabled><button name="edit-site-url">Edit</button></fieldset>
-    <fieldset><label for="feed-url">Feed:</label> <input name="feed-url" type="text" value="{{ .FeedUrl}}" disabled><button name="edit-feed-url">Edit</button></fieldset>
-    <fieldset>
-    <button name="delete" class="delete">Delete</button>
-    <button name="rename" class="rename">Rename</button>
-    <input name="hide-unread-count" type="checkbox" {{ if .HideUnreadCount }}checked{{ end }}><label for="hide-unread-count">Hide unread count</label>
-    </fieldset>
+  <form method="post" action="/links/update/{{ .ID }}">
+    <fieldset><label for="site-title-{{ .ID }}">Name:</label> <input id="site-title-{{ .ID }}" name="site_name" type="text" value="{{ .SiteName }}"></fieldset>
+    <fieldset><label for="site-url-{{ .ID }}">Site:</label> <input id="site-url-{{ .ID }}" name="site_url" type="text" value="{{ .SiteUrl }}"></fieldset>
+    <fieldset><label for="feed-url-{{ .ID }}">Feed:</label> <input id="feed-url-{{ .ID }}" name="feed_url" type="text" value="{{ .FeedUrl }}"></fieldset>
+    <fieldset><input name="hide_unread_count" type="checkbox" {{ if .HideUnreadCount }}checked{{ end }}><label for="hide-unread-count">Hide unread count</label></fieldset>
+    <input type="submit" value="Edit">
   </form>
-</linky-link>
+  <form method="post" action="/links/delete/{{ .ID }}">
+      <input type="submit" value="Delete">
+  </form>
+</li>
 {{ end }}

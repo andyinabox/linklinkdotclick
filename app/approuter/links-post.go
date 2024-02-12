@@ -1,5 +1,37 @@
 package approuter
 
-import "github.com/gin-gonic/gin"
+import (
+	"errors"
+	"net/http"
 
-func (r *Router) LinksPost(ctx *gin.Context) {}
+	"github.com/gin-gonic/gin"
+)
+
+func (r *Router) LinksPost(ctx *gin.Context) {
+	logger := r.sc.LogService()
+	var err error
+	originalUrl := ctx.PostForm("url")
+
+	if originalUrl == "" {
+		err = errors.New("no url provided")
+		logger.Error().Println(err.Error())
+		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err, false)
+		return
+	}
+
+	userId, _, err := r.ah.GetUserIdFromSession(ctx)
+	if err != nil {
+		logger.Error().Println(err.Error())
+		r.hrh.InfoPageError(ctx, http.StatusUnauthorized, err, false)
+		return
+	}
+
+	link, err := r.sc.LinkService().CreateLink(userId, originalUrl)
+	if err != nil {
+		logger.Error().Println(err.Error())
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err, false)
+		return
+	}
+
+	r.hrh.InfoPageSuccess(ctx, "✅ Successfully added link "+link.SiteName, false)
+}

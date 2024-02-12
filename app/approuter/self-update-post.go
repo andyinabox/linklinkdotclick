@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (r *Router) SelfPost(ctx *gin.Context) {
+func (r *Router) SelfUpdatePost(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
 	user, _, err := r.ah.GetUserFromSession(ctx)
