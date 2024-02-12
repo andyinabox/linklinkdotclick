@@ -2,7 +2,7 @@ package htmlresponsehelper
 
 import "github.com/gin-gonic/gin"
 
-type HeadRenderContext struct {
+type headRenderContext struct {
 	Title             string
 	Description       string
 	Url               string
@@ -14,8 +14,8 @@ type HeadRenderContext struct {
 	OgImageAlt        string
 }
 
-func (h *Helper) NewHeadRenderContext(ctx *gin.Context) HeadRenderContext {
-	return HeadRenderContext{
+func (h *Helper) newHeadRenderContext(ctx *gin.Context) headRenderContext {
+	return headRenderContext{
 		Title:             h.conf.SiteTitle,
 		Description:       h.conf.Description,
 		Url:               "https://" + ctx.Request.Host,

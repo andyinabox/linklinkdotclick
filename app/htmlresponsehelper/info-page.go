@@ -7,24 +7,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type InfoPageBody struct {
+type infoPageBody struct {
 	app.HtmlInfoMessageOptions
 }
 
-type InfoPageRenderContext struct {
-	Head HeadRenderContext
-	Body InfoPageBody
-	Foot FootRenderContext
-}
-
 func (h *Helper) InfoPage(ctx *gin.Context, status int, opts *app.HtmlInfoMessageOptions) {
-	ctx.HTML(status, "info.html.tmpl", &InfoPageRenderContext{
-		h.NewHeadRenderContext(ctx),
-		InfoPageBody{
-			HtmlInfoMessageOptions: *opts,
-		},
-		h.NewFootRenderContext(ctx),
-	})
+	ctx.HTML(status, "info.html.tmpl", h.newRenderContext(ctx, infoPageBody{
+		HtmlInfoMessageOptions: *opts,
+	}))
 }
 
 func (h *Helper) InfoPageError(ctx *gin.Context, status int, err error) {

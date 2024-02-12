@@ -14,7 +14,7 @@ func New() *Helper {
 	return &Helper{}
 }
 
-type JSONResponseBody struct {
+type jsonResponseBody struct {
 	Success bool        `json:"success"`
 	Error   string      `json:"error,omitempty"`
 	Payload interface{} `json:"payload,omitempty"`
@@ -22,7 +22,7 @@ type JSONResponseBody struct {
 
 func (h *Helper) Response(ctx *gin.Context, code int, success bool, err error, data interface{}) {
 
-	response := &JSONResponseBody{
+	response := &jsonResponseBody{
 		Success: success,
 		Payload: data,
 	}

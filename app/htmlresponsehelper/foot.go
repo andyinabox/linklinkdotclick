@@ -2,12 +2,12 @@ package htmlresponsehelper
 
 import "github.com/gin-gonic/gin"
 
-type FootRenderContext struct {
+type footRenderContext struct {
 	Version string
 }
 
-func (h *Helper) NewFootRenderContext(ctx *gin.Context) FootRenderContext {
-	return FootRenderContext{
+func (h *Helper) newFootRenderContext(ctx *gin.Context) footRenderContext {
+	return footRenderContext{
 		Version: h.conf.AppVersion,
 	}
 }
