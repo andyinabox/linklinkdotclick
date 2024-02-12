@@ -15,35 +15,35 @@ func (r *Router) OpmlPost(ctx *gin.Context) {
 	id, _, err := r.ah.GetUserIdFromSession(ctx)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusUnauthorized, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusUnauthorized, err)
 		return
 	}
 	// single file
 	fileHeader, err := ctx.FormFile("file")
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err)
 		return
 	}
 
 	file, err := fileHeader.Open()
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 	defer file.Close()
 	fileContents, err := io.ReadAll(file)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	feeds, err := opmlparser.ParseXml(fileContents)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 

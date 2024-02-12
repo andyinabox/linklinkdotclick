@@ -13,21 +13,21 @@ func (r *Router) LinksDeleteIdPost(ctx *gin.Context) {
 	userId, _, err := r.ah.GetUserIdFromSession(ctx)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusUnauthorized, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusUnauthorized, err)
 		return
 	}
 
 	id, err := ginhelper.GetParamUint(ctx, "id")
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err)
 		return
 	}
 
 	_, err = r.sc.LinkService().DeleteLink(userId, id)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 

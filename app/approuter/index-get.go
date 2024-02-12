@@ -17,14 +17,14 @@ func (r *Router) IndexGet(ctx *gin.Context) {
 	user, isDefaultUser, err := r.ah.GetUserFromSession(ctx)
 	if err != nil && errors.Is(err, app.ErrServerError) {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	links, err := r.sc.LinkService().FetchLinks(user.ID)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 

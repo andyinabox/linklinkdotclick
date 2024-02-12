@@ -24,7 +24,7 @@ func (r *Router) SessionPost(ctx *gin.Context) {
 	if email == "" {
 		err = errors.New("no email provided")
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err)
 		return
 	}
 
@@ -33,14 +33,14 @@ func (r *Router) SessionPost(ctx *gin.Context) {
 	user, err := userService.FetchOrCreateUserByEmail(email)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	hash, err := userService.GetLoginHashForUser(user)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
@@ -55,7 +55,7 @@ func (r *Router) SessionPost(ctx *gin.Context) {
 	err = r.conf.Templates.ExecuteTemplate(bodyBuffer, "email.html.tmpl", bodyData)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 	}
 
 	postmanEmail := &postman.Email{
@@ -75,7 +75,7 @@ func (r *Router) SessionPost(ctx *gin.Context) {
 	err = postman.Send(postmanEmail, r.conf.SmtpAddr)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 

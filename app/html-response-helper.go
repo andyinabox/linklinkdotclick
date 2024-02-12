@@ -14,7 +14,7 @@ type HtmlInfoMessageOptions struct {
 type HtmlResponseHelper interface {
 	HomePage(ctx *gin.Context, user *User, isDefaultUser bool, links []Link, editMode bool)
 	InfoPage(ctx *gin.Context, status int, opts *HtmlInfoMessageOptions)
-	InfoPageError(ctx *gin.Context, status int, err error, redirect bool)
+	InfoPageError(ctx *gin.Context, status int, err error)
 	InfoPageSuccess(ctx *gin.Context, message string, redirect bool)
 	AboutPage(ctx *gin.Context)
 }

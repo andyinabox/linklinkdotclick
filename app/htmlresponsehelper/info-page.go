@@ -20,20 +20,17 @@ func (h *Helper) InfoPage(ctx *gin.Context, status int, opts *app.HtmlInfoMessag
 	}))
 }
 
-func (h *Helper) InfoPageError(ctx *gin.Context, status int, err error, redirect bool) {
-	opts := h.conf.InfoPageErrorOptions
+func (h *Helper) InfoPageError(ctx *gin.Context, status int, err error) {
+	opts := *h.conf.InfoPageErrorOptions
 	opts.Error = err
-	if redirect {
-		opts.RedirectTimeoutSeconds = 3
-	}
-	h.InfoPage(ctx, status, opts)
+	h.InfoPage(ctx, status, &opts)
 }
 
 func (h *Helper) InfoPageSuccess(ctx *gin.Context, message string, redirect bool) {
-	opts := h.conf.InfoPageSuccessOptions
+	opts := *h.conf.InfoPageSuccessOptions
 	opts.Message = message
 	if redirect {
-		opts.RedirectTimeoutSeconds = 3
+		opts.RedirectTimeoutSeconds = 2
 	}
-	h.InfoPage(ctx, http.StatusOK, opts)
+	h.InfoPage(ctx, http.StatusOK, &opts)
 }

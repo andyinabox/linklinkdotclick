@@ -12,7 +12,7 @@ func (r *Router) SelfUpdatePost(ctx *gin.Context) {
 	user, _, err := r.ah.GetUserFromSession(ctx)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusUnauthorized, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusUnauthorized, err)
 		return
 	}
 
@@ -24,7 +24,7 @@ func (r *Router) SelfUpdatePost(ctx *gin.Context) {
 	_, err = r.sc.UserService().UpdateUser(user.ID, *user)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err, false)
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
