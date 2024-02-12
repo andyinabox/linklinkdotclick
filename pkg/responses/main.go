@@ -1,11 +1,12 @@
 package responses
 
 import (
+	"errors"
 	"io/ioutil"
 	"net/http"
-
-	"github.com/andyinabox/linkydink/app"
 )
+
+var ErrServerError = errors.New("server error")
 
 func GetBody(res *http.Response) ([]byte, error) {
 	defer res.Body.Close()
@@ -19,7 +20,7 @@ func GetBodyFromUrl(url string) ([]byte, error) {
 	}
 
 	if res.StatusCode != http.StatusOK {
-		return nil, app.ErrServerError
+		return nil, ErrServerError
 	}
 	return GetBody(res)
 }

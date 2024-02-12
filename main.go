@@ -187,12 +187,13 @@ func main() {
 
 	// create app
 	appConfig := &app.Config{
-		Domain:    domain,
-		Port:      port,
-		Mode:      mode,
-		Resources: res,
-		Templates: templates,
-		Version:   version,
+		Domain:      domain,
+		Port:        port,
+		Mode:        mode,
+		Resources:   res,
+		Templates:   templates,
+		Version:     version,
+		SessionName: "session",
 	}
 	appInstance := app.New(
 		sessionStore,
