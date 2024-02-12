@@ -1,7 +1,7 @@
 import { eventsMixin } from '../lib/mixins'
-import { addLink } from '../lib/api'
+import { createLink } from '../lib/api'
 import { ProgressiveForm } from '../lib/progressive-form'
-class FormAddLink extends ProgressiveForm {
+class AddLinkForm extends ProgressiveForm {
   constructor() {
     super()
     this.querySelector('input[type="text"]').remove()
@@ -10,7 +10,17 @@ class FormAddLink extends ProgressiveForm {
   async handleCreateLink() {
     let url = prompt('Enter a website or feed URL')
     if (!url) return
-    this.broadcast('link-add-request', { url })
+
+    try {
+      this.broadcast('loading-start')
+      const link = await createLink(url)
+      console.log('created link', link)
+      this.broadcast('link-add-success', { link })
+    } catch (err) {
+      handleError(err)
+    } finally {
+      this.broadcast('loading-stop')
+    }
   }
 
   connectedCallback() {
@@ -21,5 +31,5 @@ class FormAddLink extends ProgressiveForm {
     this.unlistenAll()
   }
 }
-Object.assign(FormAddLink.prototype, eventsMixin)
-customElements.define('linky-add-link', FormAddLink, { extends: 'form' })
+Object.assign(AddLinkForm.prototype, eventsMixin)
+customElements.define('add-link-form', AddLinkForm, { extends: 'form' })

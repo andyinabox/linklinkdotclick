@@ -1,13 +1,15 @@
-<body is="linky-home-page" {{ if .EditMode }}class="editing"{{end}}>
+<body is="home-page" {{ if .EditMode }}class="editing"{{end}}>
   <header>
-    <h1 slot="site-title" id="site-title" >{{ .User.SiteTitle }}</h1>
-    {{/* <button slot="rename-site" name="rename-site" class="rename-site">Rename</button> */}}
+    <h1>{{ .User.SiteTitle }}</h1>
   </header>
   <main>
-    <ol slot="links" id="links">
+    <ol is="link-list">
     {{ range.Links }}
       {{ template "link.html.tmpl" .}}
     {{ end }}
+    <template id="tmpl-link">
+    {{ template "link.html.tmpl" .EmptyLink }}
+    </template>
     </ol>
   </main>
   <footer>
@@ -20,7 +22,7 @@
           <button class="btn-edit-mode" name="editing" value="1">Edit</button>
         {{ end }}
       </form>
-      <form is="linky-add-link" class="flex-form-row" method="post" action="/links">
+      <form is="add-link-form" class="flex-form-row" method="post" action="/links">
         <input id="input-link-add" name="url" type="text" placeholder="example.com">
         <input class="btn-add" type="submit" value="Add ➕">
       </form>
@@ -56,8 +58,4 @@
     </section>
     {{ end  }}
   </footer>
-
-  <template id="tmpl-link">
-  {{ template "link.html.tmpl" .EmptyLink }}
-  </template>
 </body>

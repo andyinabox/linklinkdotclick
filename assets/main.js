@@ -3,4 +3,6 @@
 // import './components/home-page/home-page'
 
 import './elements/home-page'
-import './elements/form-add-link'
+import './elements/add-link-form'
+import './elements/link-list'
+import './elements/link-list-item'

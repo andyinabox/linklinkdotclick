@@ -1,5 +1,5 @@
 {{ define "link.html.tmpl" }}
-<li is="linky-link" class="link-item" {{ if .ID }}data-id="{{ .ID }}"{{ end }}>
+<li is="link-list-item" class="link-item" {{ if .ID }}data-id="{{ .ID }}"{{ end }}>
   <a
     slot="link"
     class="link-item-link"
