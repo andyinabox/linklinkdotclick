@@ -167,15 +167,13 @@ func main() {
 		OgImageUrl:        "/static/android-chrome-512x512.png",
 		OgImageAlt:        "Two paperclips entwined",
 		InfoPageSuccessOptions: &app.HtmlInfoMessageOptions{
-			LinkText:    "Back to the main page",
-			LinkUrl:     "/",
-			RedirectUrl: "/",
+			LinkText: "Back to the main page",
+			LinkUrl:  "/",
 		},
 		InfoPageErrorOptions: &app.HtmlInfoMessageOptions{
-			Message:     "🫠 Uh-oh, something went wrong...",
-			LinkText:    "Back to safety",
-			LinkUrl:     "/",
-			RedirectUrl: "/",
+			Message:  "🫠 Uh-oh, something went wrong...",
+			LinkText: "Back to safety",
+			LinkUrl:  "/",
 		},
 	})
 

@@ -28,6 +28,6 @@ func (r *Router) SelfUpdatePost(ctx *gin.Context) {
 		return
 	}
 
-	r.hrh.InfoPageSuccess(ctx, "✅ Successfully updated your settings", true)
+	r.hrh.InfoPageSuccess(ctx, "✅ Successfully updated your settings")
 
 }

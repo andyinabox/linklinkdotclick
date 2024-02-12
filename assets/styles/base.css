@@ -1,3 +1,14 @@
+/*
+ * css vars
+ */
+:root {
+  --gap-sm: 0.3rem;
+  --gap: 0.5rem;
+}
+
+/*
+ * basic stuff
+ */
 html {
   font-size: clamp(1rem, 80% + 3vw, 3rem);
 }
@@ -9,6 +20,9 @@ body {
   font-family: serif;
 }
 
+/*
+ * typography
+ */
 h1,
 h2,
 h3,
@@ -20,7 +34,16 @@ h5 {
 h1 {
   font-size: 1.4rem;
 }
+h2 {
+  font-size: 1.2rem;
+}
+h3 {
+  font-size: 1rem;
+}
 
+/*
+ * forms
+ */
 fieldset {
   margin: 0;
   padding: 0;
@@ -28,7 +51,7 @@ fieldset {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.2rem;
+  gap: var(--gap);
 }
 
 label {
@@ -45,14 +68,20 @@ input[type='checkbox'] {
   height: 0.5rem;
 }
 
-.inline-form {
+form.inline-form {
   display: inline-block;
 }
 
-.flex-form {
+form.flex-form-row {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--gap-sm);
+}
+
+form.flex-form-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
 }
 
 button,
@@ -86,15 +115,48 @@ input[type='file']::file-selector-button {
   margin-right: 0.5rem;
 }
 
-footer#version {
-  color: #eee;
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  padding: 0.5em;
-  font-family: monospace;
-  font-size: 0.3rem;
+/*
+ * home page
+ */
+#link-global-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
 }
-footer#version:hover {
-  color: black;
+#link-global-options > * {
+  /* flex-shrink: 1; */
+}
+
+.user-settings {
+  display: none;
+  margin-top: 1rem;
+  flex-direction: column;
+  gap: var(--gap);
+}
+body.editing .user-settings {
+  display: flex;
+}
+
+/*
+ * links
+ */
+#links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.link-item {
+}
+.link-item-actions {
+  display: none;
+  margin-top: var(--gap);
+  margin-bottom: var(--gap);
+}
+body.editing .link-item-actions {
+  display: block;
+}
+
+.link-item-actions > * + * {
+  margin-top: var(--gap);
 }

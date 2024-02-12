@@ -33,5 +33,5 @@ func (r *Router) LinksPost(ctx *gin.Context) {
 		return
 	}
 
-	r.hrh.InfoPageSuccess(ctx, "✅ Successfully added link "+link.SiteName, false)
+	r.hrh.InfoPageSuccess(ctx, "✅ Successfully added link "+link.SiteName)
 }

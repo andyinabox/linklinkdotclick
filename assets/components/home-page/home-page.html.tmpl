@@ -1,4 +1,4 @@
-<linky-home-page {{ if .EditMode }}class="editing"{{end}}>
+<body is="linky-home-page" {{ if .EditMode }}class="editing"{{end}}>
   <header>
     <h1 slot="site-title" id="site-title" >{{ .User.SiteTitle }}</h1>
     {{/* <button slot="rename-site" name="rename-site" class="rename-site">Rename</button> */}}
@@ -8,52 +8,56 @@
     {{ range.Links }}
       {{ template "link.html.tmpl" .}}
     {{ end }}
-    </menu>
+    </ol>
   </main>
-  <nav>
+  <footer>
 
-    <form class="flex-form" method="post" action="/links">
-      <input id="input-link-add" name="url" type="text" placeholder="example.com">
-      <input type="submit" value="Add">
-    </form>
-    <form class="inline-form" method="get" action="/">
-      {{ if .EditMode }}
-        <button slot="edit" name="editing" value="0">Done</button>
+    <section id="link-global-options">
+        <form class="flex-form-row" method="get" action="/">
+        {{ if .EditMode }}
+          <button class="btn-edit-mode" name="editing" value="0">Done</button>
+        {{ else }}
+          <button class="btn-edit-mode" name="editing" value="1">Edit</button>
+        {{ end }}
+      </form>
+      <form is="linky-add-link" class="flex-form-row" method="post" action="/links">
+        <input id="input-link-add" name="url" type="text" placeholder="example.com">
+        <input class="btn-add" type="submit" value="Add">
+      </form>
+      {{ if .IsDefaultUser  }}
+      <form class="flex-form-row" method="post" action="/session">
+        <input type="text" name="email" placeholder="you@example.com">
+        <input type="submit" name="login" value="Login/Signup 🚪">
+      </form>
       {{ else }}
-        <button slot="edit" name="editing" value="1">Edit</button>
-      {{ end }}
-    </form>
-    {{ if not .IsDefaultUser }}
-      <form id="logout" class="inline-form" method="post" action="/session/delete">
+      <form class="flex-form-row" method="post" action="/session/delete">
         <input type="submit" name="logout" value="Logout 👋">
       </form>
-    <section class="user-options">
-      <form class="flex-form" method="post" enctype="multipart/form-data" action="/self/update">
+      {{ end }}
+    </section>
+
+    {{ if not .IsDefaultUser  }}
+    <section class="user-settings">
+      <h2>Settings</h2>
+      <form class="flex-form-row" method="post" enctype="multipart/form-data" action="/self/update">
         <label for="input-site-title">Rename Site:</label>
         <input id="input-site-title" name="site_title" type="text" value={{ .User.SiteTitle }}>
         <input type="submit" value="Rename ✍️">
       </form>
-      <form class="flex-form" method="post" enctype="multipart/form-data" action="/opml">
-        <label for="file">Import OPML:</label>
-        <input type="file" id="file" accept=".xml,.opml" name="file">
+      <form class="flex-form-row" method="post" enctype="multipart/form-data" action="/opml">
+        <label for="opml-file">Import OPML:</label>
+        <input type="file" id="opml-file" accept=".xml,.opml" name="opml_file">
         <input type="submit" value="Upload OPML File ⬆️">
       </form>
-      <form class="flex-form" method="get" action="/opml">
+      <form class="flex-form-row" method="get" action="/opml">
         <label for="file">Export OPML:</label>
         <input type="submit" value="Download OPML File ⬇️">
       </form>
     </section>
-    {{ else  }}
-      <form class="inline-form" method="post" action="/session">
-        <input type="text" name="email" placeholder="you@example.com">
-        <input type="submit" name="login" value="Login/Signup 🚪">
-      </form>
-    {{ end }}
-
-  </nav>
-  {{/* <linky-loading>🔄</linky-loading> */}}
+    {{ end  }}
+  </footer>
 
   <template id="tmpl-link">
   {{ template "link.html.tmpl" .EmptyLink }}
   </template>
-</linky-home-page>
+</body>

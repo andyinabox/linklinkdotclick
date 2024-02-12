@@ -21,9 +21,5 @@ func (h *Helper) HomePage(ctx *gin.Context, user *app.User, isDefaultUser bool, 
 		Links:         links,
 		IsDefaultUser: isDefaultUser,
 		EditMode:      editMode,
-	}, &headOptions{
-		RedirectTimeoutSeconds: 60,
-		RedirectUrl:            "/",
-		RedirectNoscriptOnly:   true,
 	}))
 }

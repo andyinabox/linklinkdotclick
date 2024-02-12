@@ -44,7 +44,7 @@ func (r *Router) SessionPost(ctx *gin.Context) {
 		return
 	}
 
-	magicLink := fmt.Sprintf("https://%s/login/%s", ctx.Request.Host, hash)
+	magicLink := fmt.Sprintf("https://%s/session/%s", ctx.Request.Host, hash)
 
 	bodyBuffer := &bytes.Buffer{}
 	bodyData := &EmailTemplateData{
@@ -79,5 +79,5 @@ func (r *Router) SessionPost(ctx *gin.Context) {
 		return
 	}
 
-	r.hrh.InfoPageSuccess(ctx, "✨ A magic link is on its way to your inbox!", false)
+	r.hrh.InfoPageSuccess(ctx, "✨ A magic link is on its way to your inbox!")
 }
