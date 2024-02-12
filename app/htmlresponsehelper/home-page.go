@@ -19,5 +19,5 @@ func (h *Helper) HomePage(ctx *gin.Context, user *app.User, isDefaultUser bool, 
 		User:          *user,
 		Links:         links,
 		IsDefaultUser: isDefaultUser,
-	}))
+	}, &headOptions{}))
 }

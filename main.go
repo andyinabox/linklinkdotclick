@@ -160,6 +160,17 @@ func main() {
 		ManifestUrl:       "/static/site.webmanifest",
 		OgImageUrl:        "/static/android-chrome-512x512.png",
 		OgImageAlt:        "Two paperclips entwined",
+		InfoPageSuccessOptions: &app.HtmlInfoMessageOptions{
+			LinkText:    "Back to the main page",
+			LinkUrl:     "/",
+			RedirectUrl: "/",
+		},
+		InfoPageErrorOptions: &app.HtmlInfoMessageOptions{
+			Message:     "🫠 Uh-oh, something went wrong...",
+			LinkText:    "Back to safety",
+			LinkUrl:     "/",
+			RedirectUrl: "/",
+		},
 	})
 
 	// create routers

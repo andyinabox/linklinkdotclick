@@ -8,9 +8,9 @@ type renderContext struct {
 	Foot footRenderContext
 }
 
-func (h *Helper) newRenderContext(ctx *gin.Context, body any) *renderContext {
+func (h *Helper) newRenderContext(ctx *gin.Context, body any, headOpts *headOptions) *renderContext {
 	return &renderContext{
-		h.newHeadRenderContext(ctx),
+		h.newHeadRenderContext(ctx, headOpts),
 		body,
 		h.newFootRenderContext(ctx),
 	}

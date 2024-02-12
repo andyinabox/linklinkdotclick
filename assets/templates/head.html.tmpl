@@ -16,6 +16,9 @@
     <link rel="icon" href="{{ .FavIconUrl }}" sizes="any" />
     <link rel="apple-touch-icon" href="{{ .AppleTouchIconUrl }}" />
     <link rel="manifest" href="{{ .ManifestUrl }}">
+    {{ if gt .RedirectTimeoutSeconds 0 }}
+    <meta http-equiv="Refresh" content="{{.RedirectTimeoutSeconds}}; URL={{ .RedirectUrl }}" />
+    {{ end }}
   </head>
 
   <body>
