@@ -1,7 +1,7 @@
-<linky-home-page>
+<linky-home-page {{ if .EditMode }}class="editing"{{end}}>
   <header>
     <h1 slot="site-title" id="site-title" >{{ .User.SiteTitle }}</h1>
-    <button slot="rename-site" name="rename-site" class="rename-site">Rename</button>
+    {{/* <button slot="rename-site" name="rename-site" class="rename-site">Rename</button> */}}
   </header>
   <main>
     <menu slot="links" id="links">
@@ -25,7 +25,12 @@
       </form>
     {{ end }}
     {{ if not .IsDefaultUser }}
-    <div class="user-options">
+    <section class="user-options">
+      <form class="flex-form" method="post" enctype="multipart/form-data" action="/self">
+        <label for="input-site-title">Rename Site:</label>
+        <input id="input-site-title" name="site_title" type="text" value={{ .User.SiteTitle }}>
+        <input type="submit" value="Rename ✍️">
+      </form>
       <form class="flex-form" method="post" enctype="multipart/form-data" action="/opml">
         <label for="file">Import OPML:</label>
         <input type="file" id="file" accept=".xml,.opml" name="file">
@@ -35,7 +40,7 @@
         <label for="file">Export OPML:</label>
         <input type="submit" value="Download OPML File ⬇️">
       </form>
-    </div>
+    </section>
 
     {{ end }}
 

@@ -46,6 +46,6 @@ func (r *Router) Register(engine *gin.Engine) {
 	engine.POST("/links", r.LinksPost)
 
 	// users
-	engine.PUT("/users/:id", r.UsersPutId)
+	engine.POST("/self", r.SelfPost)
 
 }

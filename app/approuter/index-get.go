@@ -27,5 +27,5 @@ func (r *Router) IndexGet(ctx *gin.Context) {
 		return
 	}
 
-	r.hrh.HomePage(ctx, user, isDefaultUser, links)
+	r.hrh.HomePage(ctx, user, isDefaultUser, links, true)
 }
