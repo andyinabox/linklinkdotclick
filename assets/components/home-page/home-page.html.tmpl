@@ -11,8 +11,18 @@
     </menu>
   </main>
   <nav>
-    <button slot="edit" name="edit">Edit</button>
-    <button slot="add" name="add">Add</button>
+
+    <form class="flex-form" method="post" action="/links">
+      <input id="input-link-add" name="url" type="text" placeholder="example.com">
+      <input type="submit" value="Add">
+    </form>
+    <form class="inline-form" method="get" action="/">
+      {{ if .EditMode }}
+        <button slot="edit" name="editing" value="0">Done</button>
+      {{ else }}
+        <button slot="edit" name="editing" value="1">Edit</button>
+      {{ end }}
+    </form>
     {{ if not .IsDefaultUser }}
       <form id="logout" method="post" class="inline-form" action="/logout">
         <input type="submit" name="logout" value="Logout 👋">
