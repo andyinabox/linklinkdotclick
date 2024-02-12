@@ -18,31 +18,31 @@ func (r *Router) ApiLinksPost(ctx *gin.Context) {
 	err := ctx.BindJSON(&body)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		r.jrh.ResponseError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	if body.Url == "" {
 		logger.Error().Println(err.Error())
-		r.hh.ErrorResponse(ctx, http.StatusBadRequest, errors.New("missing url"))
+		r.jrh.ResponseError(ctx, http.StatusBadRequest, errors.New("missing url"))
 		return
 	}
 
-	userId, _, err := r.hh.GetUserIdFromSession(ctx)
+	userId, _, err := r.ah.GetUserIdFromSession(ctx)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hh.ErrorResponse(ctx, http.StatusUnauthorized, err)
+		r.jrh.ResponseError(ctx, http.StatusUnauthorized, err)
 		return
 	}
 
 	link, err := r.sc.LinkService().CreateLink(userId, body.Url)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		r.jrh.ResponseError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	// send response
-	r.hh.CreatedResponseJSON(ctx, link)
+	r.jrh.ResponseSuccessCreated(ctx, link)
 
 }

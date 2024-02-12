@@ -4,11 +4,12 @@ import (
 	"errors"
 	"net/http"
 
+	"github.com/andyinabox/linkydink/app"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
-func (r *Router) LoginGet(ctx *gin.Context) {
+func (r *Router) SessionGetHash(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
 	hash := ctx.Param("hash")
@@ -20,7 +21,13 @@ func (r *Router) LoginGet(ctx *gin.Context) {
 
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.InfoMessage(ctx, http.StatusUnauthorized, "🔒 That link isn't working. Did you already use it?", err, "/", "Try sending a new one")
+
+		r.hrh.InfoPage(ctx, http.StatusUnauthorized, &app.HtmlInfoMessageOptions{
+			Message:  "🔒 That link isn't working. Did you already use it?",
+			Error:    err,
+			LinkUrl:  "/",
+			LinkText: "Try sending a new one",
+		})
 		return
 	}
 

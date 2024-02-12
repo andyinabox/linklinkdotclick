@@ -10,10 +10,10 @@ import (
 func (r *Router) ApiSelfPut(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	userId, _, err := r.hh.GetUserIdFromSession(ctx)
+	userId, _, err := r.ah.GetUserIdFromSession(ctx)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hh.ErrorResponse(ctx, http.StatusUnauthorized, err)
+		r.jrh.ResponseError(ctx, http.StatusUnauthorized, err)
 		return
 	}
 
@@ -22,17 +22,17 @@ func (r *Router) ApiSelfPut(ctx *gin.Context) {
 	err = ctx.BindJSON(&user)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		r.jrh.ResponseError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	updatedUser, err := r.sc.UserService().UpdateUser(userId, user)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		r.jrh.ResponseError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	// send response
-	r.hh.SuccessResponseJSON(ctx, updatedUser)
+	r.jrh.ResponseSuccessPayload(ctx, updatedUser)
 }

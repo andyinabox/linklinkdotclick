@@ -15,12 +15,13 @@ type Config struct {
 
 type Router struct {
 	sc   app.ServiceContainer
-	hh   app.HandlerHelper
+	ah   app.AuthHelper
+	hrh  app.HtmlResponseHelper
 	conf *Config
 }
 
-func New(sc app.ServiceContainer, hh app.HandlerHelper, conf *Config) *Router {
-	return &Router{sc, hh, conf}
+func New(sc app.ServiceContainer, ah app.AuthHelper, hrh app.HtmlResponseHelper, conf *Config) *Router {
+	return &Router{sc, ah, hrh, conf}
 }
 
 func (r *Router) Register(engine *gin.Engine) {
@@ -31,12 +32,20 @@ func (r *Router) Register(engine *gin.Engine) {
 	engine.GET("/about", r.AboutGet)
 
 	// auth
-	engine.POST("/login", r.LoginPost)
-	engine.GET("/login/:hash", r.LoginGet)
-	engine.POST("/logout", r.LogoutPost)
+	engine.POST("/session", r.SessionPost)
+	engine.GET("/session/:hash", r.SessionGetHash)
+	engine.DELETE("/session", r.SessionDelete)
 
 	// opml
 	engine.GET("/opml", r.OpmlGet)
 	engine.POST("/opml", r.OpmlPost)
+
+	// links
+	engine.PUT("/links/:id", r.LinksPutId)
+	engine.DELETE("/links/:id", r.LinksDeleteId)
+	engine.POST("/links", r.LinksPost)
+
+	// users
+	engine.PUT("/users/:id", r.UsersPutId)
 
 }

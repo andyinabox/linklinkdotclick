@@ -12,13 +12,14 @@ type Config struct {
 }
 
 type Router struct {
-	conf *Config
 	sc   app.ServiceContainer
-	hh   app.HandlerHelper
+	ah   app.AuthHelper
+	jrh  app.JsonResponseHelper
+	conf *Config
 }
 
-func New(sc app.ServiceContainer, hh app.HandlerHelper, conf *Config) *Router {
-	router := &Router{conf, sc, hh}
+func New(sc app.ServiceContainer, ah app.AuthHelper, jrh app.JsonResponseHelper, conf *Config) *Router {
+	router := &Router{sc, ah, jrh, conf}
 
 	return router
 }

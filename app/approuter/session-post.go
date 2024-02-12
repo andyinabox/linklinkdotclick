@@ -17,14 +17,14 @@ type EmailTemplateData struct {
 	ImageUrl  string
 }
 
-func (r *Router) LoginPost(ctx *gin.Context) {
+func (r *Router) SessionPost(ctx *gin.Context) {
 	logger := r.sc.LogService()
 	var err error
 	email := ctx.PostForm("email")
 	if email == "" {
 		err = errors.New("no email provided")
 		logger.Error().Println(err.Error())
-		r.InfoMessageError(ctx, http.StatusBadRequest, err)
+		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err)
 		return
 	}
 
@@ -33,14 +33,14 @@ func (r *Router) LoginPost(ctx *gin.Context) {
 	user, err := userService.FetchOrCreateUserByEmail(email)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	hash, err := userService.GetLoginHashForUser(user)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
@@ -55,7 +55,7 @@ func (r *Router) LoginPost(ctx *gin.Context) {
 	err = r.conf.Templates.ExecuteTemplate(bodyBuffer, "email.html.tmpl", bodyData)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 	}
 
 	postmanEmail := &postman.Email{
@@ -75,9 +75,9 @@ func (r *Router) LoginPost(ctx *gin.Context) {
 	err = postman.Send(postmanEmail, r.conf.SmtpAddr)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
-	r.InfoMessageSuccess(ctx, "✨ A magic link is on its way to your inbox!")
+	r.hrh.InfoPageSuccess(ctx, "✨ A magic link is on its way to your inbox!")
 }

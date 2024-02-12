@@ -5,9 +5,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (r *Router) LogoutPost(ctx *gin.Context) {
+func (r *Router) SessionDelete(ctx *gin.Context) {
 	session := sessions.Default(ctx)
 	session.Clear()
 	session.Save()
-	r.InfoMessageSuccess(ctx, "👋 You're logged out. Later!")
+	r.hrh.InfoPageSuccess(ctx, "👋 You're logged out. Later!")
 }

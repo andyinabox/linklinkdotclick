@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/andyinabox/linkydink/app"
+	"github.com/andyinabox/linkydink/pkg/ginhelper"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,17 +13,17 @@ func (r *Router) ApiLinksIdPut(ctx *gin.Context) {
 
 	_, refresh := ctx.GetQuery("refresh")
 
-	id, err := r.hh.GetIdParam(ctx)
+	id, err := ginhelper.GetParamUint(ctx, "id")
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hh.ErrorResponse(ctx, http.StatusBadRequest, err)
+		r.jrh.ResponseError(ctx, http.StatusBadRequest, err)
 		return
 	}
 
-	userId, _, err := r.hh.GetUserIdFromSession(ctx)
+	userId, _, err := r.ah.GetUserIdFromSession(ctx)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hh.ErrorResponse(ctx, http.StatusUnauthorized, err)
+		r.jrh.ResponseError(ctx, http.StatusUnauthorized, err)
 		return
 	}
 
@@ -31,7 +32,7 @@ func (r *Router) ApiLinksIdPut(ctx *gin.Context) {
 	err = ctx.BindJSON(&link)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		r.jrh.ResponseError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
@@ -40,10 +41,10 @@ func (r *Router) ApiLinksIdPut(ctx *gin.Context) {
 	updatedLink, err := r.sc.LinkService().UpdateLink(userId, id, link, refresh)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
+		r.jrh.ResponseError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	// send response
-	r.hh.SuccessResponseJSON(ctx, updatedLink)
+	r.jrh.ResponseSuccessPayload(ctx, updatedLink)
 }
