@@ -43,6 +43,7 @@ func (r *Router) Register(engine *gin.Engine) {
 	// links
 	engine.POST("/links/update/:id", r.LinksUpdateIdPost)
 	engine.POST("/links/delete/:id", r.LinksDeleteIdPost)
+	engine.GET("/links/:id", r.LinksIdGet)
 	engine.POST("/links", r.LinksPost)
 
 	// users

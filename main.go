@@ -136,7 +136,13 @@ func main() {
 
 	// create link service
 	linkRepository := linkrepository.New(db)
-	linkService := linkservice.New(linkRepository, logService)
+	linkService := linkservice.New(
+		linkRepository,
+		logService,
+		&linkservice.Config{
+			LinkRefreshBuffer: 10 * time.Minute,
+		},
+	)
 
 	// create service container
 	serviceContainer := servicecontainer.New(

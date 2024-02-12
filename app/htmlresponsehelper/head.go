@@ -14,11 +14,13 @@ type headRenderContext struct {
 	OgImageAlt             string
 	RedirectTimeoutSeconds int
 	RedirectUrl            string
+	RedirectNoscriptOnly   bool
 }
 
 type headOptions struct {
 	RedirectTimeoutSeconds int
 	RedirectUrl            string
+	RedirectNoscriptOnly   bool
 }
 
 func (h *Helper) newHeadRenderContext(ctx *gin.Context, opts *headOptions) headRenderContext {
@@ -34,5 +36,6 @@ func (h *Helper) newHeadRenderContext(ctx *gin.Context, opts *headOptions) headR
 		OgImageAlt:             h.conf.OgImageAlt,
 		RedirectTimeoutSeconds: opts.RedirectTimeoutSeconds,
 		RedirectUrl:            "https://" + ctx.Request.Host + opts.RedirectUrl,
+		RedirectNoscriptOnly:   opts.RedirectNoscriptOnly,
 	}
 }

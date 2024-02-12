@@ -1,14 +1,21 @@
 package linkservice
 
 import (
+	"time"
+
 	"github.com/andyinabox/linkydink/app"
 )
 
-type Service struct {
-	lr  app.LinkRepository
-	log app.LogService
+type Config struct {
+	LinkRefreshBuffer time.Duration
 }
 
-func New(lr app.LinkRepository, log app.LogService) *Service {
-	return &Service{lr, log}
+type Service struct {
+	lr   app.LinkRepository
+	log  app.LogService
+	conf *Config
+}
+
+func New(lr app.LinkRepository, log app.LogService, conf *Config) *Service {
+	return &Service{lr, log, conf}
 }
