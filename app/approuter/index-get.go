@@ -8,19 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// type HomePageBody struct {
-// 	User          app.User
-// 	Links         []app.Link
-// 	EmptyLink     app.Link
-// 	IsDefaultUser bool
-// }
-
-// type HomePageRenderContext struct {
-// 	Head HeadRenderContext
-// 	Body HomePageBody
-// 	Foot FootRenderContext
-// }
-
 func (r *Router) IndexGet(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
@@ -41,13 +28,4 @@ func (r *Router) IndexGet(ctx *gin.Context) {
 	}
 
 	r.hrh.HomePage(ctx, user, isDefaultUser, links)
-	// ctx.HTML(http.StatusOK, "index.html.tmpl", &HomePageRenderContext{
-	// 	r.NewHeadRenderContext(ctx),
-	// 	HomePageBody{
-	// 		User:          *user,
-	// 		Links:         links,
-	// 		IsDefaultUser: isDefaultUser,
-	// 	},
-	// 	r.NewFootRenderContext(ctx),
-	// })
 }
