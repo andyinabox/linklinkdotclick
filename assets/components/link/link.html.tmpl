@@ -1,5 +1,5 @@
 {{ define "link.html.tmpl" }}
-<li class="link-item" {{ if .ID }}data-id="{{ .ID }}"{{ end }}>
+<li is="linky-link" class="link-item" {{ if .ID }}data-id="{{ .ID }}"{{ end }}>
   <a
     slot="link"
     class="link-item-link"
@@ -8,18 +8,18 @@
     >{{ .SiteName }}</a
   >
   <span slot="count" class="link-item-count">{{ if eq .HideUnreadCount false }}{{ if .UnreadCount }}{{ .UnreadCount }}{{ else if eq .FeedUrl "" }}?{{ end }}{{ end }}</span>
-  <section class="link-item-actions">
+  <div class="link-item-actions">
     <form class="flex-form-column" method="post" action="/links/update/{{ .ID }}">
       <fieldset><label for="site-title-{{ .ID }}">Name:</label> <input id="site-title-{{ .ID }}" name="site_name" type="text" value="{{ .SiteName }}"></fieldset>
       <fieldset><label for="site-url-{{ .ID }}">Site:</label> <input id="site-url-{{ .ID }}" name="site_url" type="text" value="{{ .SiteUrl }}"></fieldset>
       <fieldset><label for="feed-url-{{ .ID }}">Feed:</label> <input id="feed-url-{{ .ID }}" name="feed_url" type="text" value="{{ .FeedUrl }}"></fieldset>
-      <fieldset><input name="hide_unread_count" type="checkbox" {{ if .HideUnreadCount }}checked{{ end }} value="1"><label for="hide-unread-count">Hide unread count</label></fieldset>
+      <fieldset><input id="hide-unread-count-{{ .ID }}" name="hide_unread_count" type="checkbox" {{ if .HideUnreadCount }}checked{{ end }} value="1"><label for="hide-unread-count-{{ .ID }}">Hide unread count</label></fieldset>
       <input type="submit" value="Edit">
     </form>
     <form class="flex-form-column" method="post" action="/links/delete/{{ .ID }}">
         <input type="submit" value="Delete">
     </form>
-  </section>
+  </div>
 
 </li>
 {{ end }}
