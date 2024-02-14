@@ -35,6 +35,7 @@ func (r *Router) Register(engine *gin.Engine) {
 
 	api := engine.Group("/api")
 	api.Use(cors.New(corsConfig))
+	api.Use(r.ah.AuthMiddleware())
 
 	// links
 	api.GET("/links", r.ApiLinksGet)

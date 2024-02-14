@@ -3,25 +3,26 @@ package approuter
 import (
 	"net/http"
 
+	"github.com/andyinabox/linkydink/app"
+	"github.com/andyinabox/linkydink/pkg/ginhelper"
 	"github.com/gin-gonic/gin"
 )
 
-func (r *Router) SelfUpdatePost(ctx *gin.Context) {
+func (r *Router) UsersPost(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	user, _, err := r.ah.GetUserFromSession(ctx)
+	userId := ginhelper.GetUint(ctx, "userId")
+
+	var user app.User
+	err := ctx.ShouldBind(&user)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusUnauthorized, err)
+		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
+	user.ID = userId
 
-	siteTitle := ctx.PostForm("site_title")
-	if siteTitle != "" {
-		user.SiteTitle = siteTitle
-	}
-
-	_, err = r.sc.UserService().UpdateUser(user.ID, *user)
+	_, err = r.sc.UserService().UpdateUser(userId, user)
 	if err != nil {
 		logger.Error().Println(err.Error())
 		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)

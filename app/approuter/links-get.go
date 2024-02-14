@@ -8,17 +8,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (r *Router) LinksIdGet(ctx *gin.Context) {
+func (r *Router) LinksGet(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	userId, _, err := r.ah.GetUserIdFromSession(ctx)
-	if err != nil {
-		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusUnauthorized, err)
-		return
-	}
-
-	id, err := ginhelper.GetParamUint(ctx, "id")
+	userId := ginhelper.GetUint(ctx, "userId")
+	id, err := ginhelper.GetQueryUint(ctx, "id")
 	if err != nil {
 		logger.Error().Println(err.Error())
 		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err)

@@ -25,28 +25,29 @@ func New(sc app.ServiceContainer, ah app.AuthHelper, hrh app.HtmlResponseHelper,
 }
 
 func (r *Router) Register(engine *gin.Engine) {
+
+	app := engine.Group("/")
+	app.Use(r.ah.AuthMiddleware())
+
 	// main page
-	engine.GET("/", r.IndexGet)
+	app.GET("/", r.IndexGet)
 
 	// other pages
-	engine.GET("/about", r.AboutGet)
+	app.GET("/about", r.AboutGet)
 
 	// auth
-	engine.POST("/session", r.SessionPost)
-	engine.GET("/session/:hash", r.SessionGetHash)
-	engine.POST("/session/delete", r.SessionDelete)
+	app.POST("/session", r.SessionPost)
+	app.GET("/session", r.SessionGet)
 
 	// opml
-	engine.GET("/opml", r.OpmlGet)
-	engine.POST("/opml", r.OpmlPost)
+	app.GET("/opml", r.OpmlGet)
+	app.POST("/opml", r.OpmlPost)
 
-	// links
-	engine.POST("/links/put/:id", r.LinkPutIdPost)
-	engine.POST("/links/delete/:id", r.LinksDeleteIdPost)
-	engine.GET("/links/:id", r.LinksIdGet)
-	engine.POST("/links", r.LinksPost)
+	// links\
+	app.GET("/links", r.LinksGet)
+	app.POST("/links", r.LinksPost)
 
 	// users
-	engine.POST("/self/update", r.SelfUpdatePost)
+	app.POST("/users", r.UsersPost)
 
 }

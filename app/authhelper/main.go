@@ -1,6 +1,8 @@
 package authhelper
 
 import (
+	"net/http"
+
 	"github.com/andyinabox/linkydink/app"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -41,4 +43,21 @@ func (h *Helper) GetUserFromSession(ctx *gin.Context) (*app.User, bool, error) {
 	}
 	user, err := h.sc.UserService().FetchUser(id)
 	return user, isDefaultUser, err
+}
+
+func (h *Helper) AuthMiddleware() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+
+		userId, isDefaultUser, err := h.GetUserIdFromSession(ctx)
+		if err != nil {
+			ctx.AbortWithError(http.StatusUnauthorized, err)
+		}
+
+		ctx.Set("userId", userId)
+		ctx.Set("isDefaultUser", isDefaultUser)
+
+		ctx.Next()
+
+		// I don't think there's anything I need to do here
+	}
 }

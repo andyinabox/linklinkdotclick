@@ -23,7 +23,7 @@
     <form is="add-link-form" class="flex-form-row" method="post" action="/links">
       <label for="input-link-add">Add Link:</label>
       <input id="input-link-add" name="url" type="text" placeholder="example.com">
-      <button id="btn-link-add" class="btn-link-add" name="btn-link-add" type="submit">Add</button>
+      <button id="btn-link-add" class="btn-link-add" name="btn-link-add" type="submit" value="1">Add</button>
     </form>
     {{ if .IsDefaultUser  }}
     <form class="flex-form-row" method="post" action="/session">
@@ -40,9 +40,9 @@
   {{ if not .IsDefaultUser  }}
   <section id="user-settings">
     <h2>Settings</h2>
-    <form class="flex-form-row" method="post" enctype="multipart/form-data" action="/self/update">
+    <form class="flex-form-row" method="post" action="/users">
       <label for="input-site-title">Rename Site:</label>
-      <input id="input-site-title" name="site_title" type="text" value={{ .User.SiteTitle }}>
+      <input id="input-site-title" name="site-title" type="text" value={{ .User.SiteTitle }}>
       <button id="btn-edit-site-title"type="submit">Rename</button>
     </form>
     <form class="flex-form-row" method="post" enctype="multipart/form-data" action="/opml">

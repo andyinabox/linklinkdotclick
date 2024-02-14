@@ -24,10 +24,10 @@ func (s *Service) refreshLink(userId uint, link app.Link) {
 		s.log.Error().Println(err.Error())
 	}
 	// save update link to db
-	updatedLink, err := s.lr.UpdateLink(*refreshedLink)
+	_, err = s.lr.UpdateLink(*refreshedLink)
 	if err != nil {
 		s.log.Error().Println(err.Error())
 	}
 
-	s.log.Info().Printf("Refreshed link %s in goroutine", updatedLink.SiteName)
+	// s.log.Info().Printf("Refreshed link %s in goroutine", updatedLink.SiteName)
 }

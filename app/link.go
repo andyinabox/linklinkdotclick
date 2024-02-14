@@ -4,7 +4,7 @@ import "time"
 
 type Link struct {
 	// gorm fields
-	ID        uint      `json:"id"`
+	ID        uint      `json:"id" form:"id"`
 	UserID    uint      `json:"-"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
@@ -13,8 +13,8 @@ type Link struct {
 	SiteUrl         string    `json:"siteUrl" form:"site-url"`
 	FeedUrl         string    `json:"feedUrl" form:"feed-url"`
 	OriginalUrl     string    `json:"originalUrl"`
-	UnreadCount     int16     `json:"unreadCount"`
-	LastClicked     time.Time `json:"lastClicked"`
+	UnreadCount     int16     `json:"unreadCount" form:"unread-count"`
+	LastClicked     time.Time `json:"lastClicked" form:"last-clicked"`
 	LastFetched     time.Time `json:"lastFetched"`
 	HideUnreadCount bool      `json:"hideUnreadCount" form:"hide-unread-count"`
 }

@@ -9,10 +9,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (r *Router) SessionGetHash(ctx *gin.Context) {
+func (r *Router) SessionGet(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	hash := ctx.Param("hash")
+	hash := ctx.Query("h")
 	user, err := r.sc.UserService().GetUserFromLoginHash(hash)
 
 	if err == nil && user == nil {
