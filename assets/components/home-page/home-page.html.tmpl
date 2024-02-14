@@ -13,9 +13,9 @@
     </ol>
   </main>
   <footer id="link-global-options">
-    <form class="flex-form-row" method="get" action="/">
+    <form is="edit-mode-form" class="flex-form-row" method="get" action="/">
       {{ if .EditMode }}
-        <button class="btn-edit-mode" name="editing" value="0">Done</button>
+        <button class="btn-edit-mode">Done</button>
       {{ else }}
         <button class="btn-edit-mode" name="editing" value="1">Edit</button>
       {{ end }}
@@ -23,7 +23,7 @@
     <form is="add-link-form" class="flex-form-row" method="post" action="/links">
       <label for="input-link-add">Add Link:</label>
       <input id="input-link-add" name="url" type="text" placeholder="example.com">
-      <button id="btn-link-add" class="btn-link-add" type="submit">Add</button>
+      <button id="btn-link-add" class="btn-link-add" name="btn-link-add" type="submit">Add</button>
     </form>
     {{ if .IsDefaultUser  }}
     <form class="flex-form-row" method="post" action="/session">
