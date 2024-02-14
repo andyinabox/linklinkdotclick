@@ -7,55 +7,53 @@
     {{ range.Links }}
       {{ template "link.html.tmpl" .}}
     {{ end }}
-    <template id="tmpl-link">
+    <template>
     {{ template "link.html.tmpl" .EmptyLink }}
     </template>
     </ol>
   </main>
-  <footer>
-
-    <section id="link-global-options">
-        <form class="flex-form-row" method="get" action="/">
-        {{ if .EditMode }}
-          <button class="btn-edit-mode" name="editing" value="0">Done</button>
-        {{ else }}
-          <button class="btn-edit-mode" name="editing" value="1">Edit</button>
-        {{ end }}
-      </form>
-      <form is="add-link-form" class="flex-form-row" method="post" action="/links">
-        <input id="input-link-add" name="url" type="text" placeholder="example.com">
-        <input class="btn-add" type="submit" value="Add ➕">
-      </form>
-      {{ if .IsDefaultUser  }}
-      <form class="flex-form-row" method="post" action="/session">
-        <input type="text" name="email" placeholder="you@example.com">
-        <input type="submit" name="login" value="Login/Signup 🚪">
-      </form>
+  <footer id="link-global-options">
+    <form class="flex-form-row" method="get" action="/">
+      {{ if .EditMode }}
+        <button class="btn-edit-mode" name="editing" value="0">Done</button>
       {{ else }}
-      <form class="flex-form-row" method="post" action="/session/delete">
-        <input type="submit" name="logout" value="Logout 👋">
-      </form>
+        <button class="btn-edit-mode" name="editing" value="1">Edit</button>
       {{ end }}
-    </section>
-
-    {{ if not .IsDefaultUser  }}
-    <section class="user-settings">
-      <h2>Settings</h2>
-      <form class="flex-form-row" method="post" enctype="multipart/form-data" action="/self/update">
-        <label for="input-site-title">Rename Site:</label>
-        <input id="input-site-title" name="site_title" type="text" value={{ .User.SiteTitle }}>
-        <input type="submit" value="Rename ✍️">
-      </form>
-      <form class="flex-form-row" method="post" enctype="multipart/form-data" action="/opml">
-        <label for="opml-file">Import OPML:</label>
-        <input type="file" id="opml-file" accept=".xml,.opml" name="opml_file">
-        <input type="submit" value="Upload OPML File ⬆️">
-      </form>
-      <form class="flex-form-row" method="get" action="/opml">
-        <label for="file">Export OPML:</label>
-        <input type="submit" value="Download OPML File ⬇️">
-      </form>
-    </section>
-    {{ end  }}
+    </form>
+    <form is="add-link-form" class="flex-form-row" method="post" action="/links">
+      <label for="input-link-add">Add Link:</label>
+      <input id="input-link-add" name="url" type="text" placeholder="example.com">
+      <button id="btn-link-add" class="btn-link-add" type="submit">Add</button>
+    </form>
+    {{ if .IsDefaultUser  }}
+    <form class="flex-form-row" method="post" action="/session">
+      <input type="text" name="email" placeholder="you@example.com">
+      <button id="btn-login" class="btn-login" type="submit">Login/Signup</button>
+    </form>
+    {{ else }}
+    <form class="flex-form-row" method="post" action="/session/delete">
+      <button id="btn-logout" class="btn-logout" type="submit">Logout</button>
+    </form>
+    {{ end }}
   </footer>
+
+  {{ if not .IsDefaultUser  }}
+  <section id="user-settings">
+    <h2>Settings</h2>
+    <form class="flex-form-row" method="post" enctype="multipart/form-data" action="/self/update">
+      <label for="input-site-title">Rename Site:</label>
+      <input id="input-site-title" name="site_title" type="text" value={{ .User.SiteTitle }}>
+      <button id="btn-edit-site-title"type="submit">Rename</button>
+    </form>
+    <form class="flex-form-row" method="post" enctype="multipart/form-data" action="/opml">
+      <label for="opml-file">Import OPML:</label>
+      <input type="file" id="opml-file" accept=".xml,.opml" name="opml_file">
+      <button id="btn-upload-opml" type="submit">Upload OPML File</button>
+    </form>
+    <form class="flex-form-row" method="get" action="/opml">
+      <label for="btn-download-opml">Export OPML:</label>
+      <button id="btn-download-opml" type="submit">Download OPML File</button>
+    </form>
+  </section>
+  {{ end  }}
 </body>

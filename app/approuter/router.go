@@ -41,7 +41,7 @@ func (r *Router) Register(engine *gin.Engine) {
 	engine.POST("/opml", r.OpmlPost)
 
 	// links
-	engine.POST("/links/update/:id", r.LinksUpdateIdPost)
+	engine.POST("/links/put/:id", r.LinkPutIdPost)
 	engine.POST("/links/delete/:id", r.LinksDeleteIdPost)
 	engine.GET("/links/:id", r.LinksIdGet)
 	engine.POST("/links", r.LinksPost)

@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (r *Router) LinksUpdateIdPost(ctx *gin.Context) {
+func (r *Router) LinkPutIdPost(ctx *gin.Context) {
 
 	logger := r.sc.LogService()
 

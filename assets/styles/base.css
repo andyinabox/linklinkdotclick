@@ -81,7 +81,7 @@ form.flex-form-row {
 form.flex-form-column {
   display: flex;
   flex-direction: column;
-  gap: var(--gap);
+  gap: var(--gap-sm);
 }
 
 button,
@@ -91,18 +91,18 @@ input[type='file']::file-selector-button {
   padding: 0.3em 0.5em;
 }
 
-button,
-input[type='submit'] {
+button {
   cursor: pointer;
 }
+button[disabled] {
+  cursor: default;
+}
 
-button:before,
-input[type='submit']:before {
+button:before {
   display: inline-block;
   margin-right: 0.5em;
 }
-button:after,
-input[type='submit']:after {
+button:after {
   display: inline-block;
   margin-left: 0.5em;
 }
@@ -116,6 +116,37 @@ input[type='file']::file-selector-button {
 }
 
 /*
+ * button icons
+ */
+
+.btn-edit-mode:after {
+  content: '✍️';
+}
+body.editing .btn-edit-mode:after {
+  content: '✅';
+}
+
+.btn-link-add:after {
+  content: '➕';
+}
+
+.btn-login:after {
+  content: '🚪';
+}
+.btn-logout:after {
+  content: '👋';
+}
+.btn-link-item-save:after {
+  content: '✅';
+}
+.btn-link-item-save[disabled]:after {
+  content: '⛔️';
+}
+.btn-link-item-delete:after {
+  content: '🗑';
+}
+
+/*
  * home page
  */
 #link-global-options {
@@ -124,16 +155,15 @@ input[type='file']::file-selector-button {
   gap: var(--gap);
 }
 #link-global-options > * {
-  /* flex-shrink: 1; */
 }
 
-.user-settings {
+#user-settings {
   display: none;
   margin-top: 1rem;
   flex-direction: column;
   gap: var(--gap);
 }
-body.editing .user-settings {
+body.editing #user-settings {
   display: flex;
 }
 
@@ -148,15 +178,15 @@ body.editing .user-settings {
 
 .link-item {
 }
-.link-item-actions {
+
+#edit-link-form {
   display: none;
-  margin-top: var(--gap);
-  margin-bottom: var(--gap);
 }
-body.editing .link-item-actions {
+
+body.editing #edit-link-form {
   display: block;
 }
 
 .link-item-actions > * + * {
-  margin-top: var(--gap);
+  margin-top: var(--gap-sm);
 }

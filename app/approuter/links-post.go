@@ -26,12 +26,12 @@ func (r *Router) LinksPost(ctx *gin.Context) {
 		return
 	}
 
-	link, err := r.sc.LinkService().CreateLink(userId, originalUrl)
+	_, err = r.sc.LinkService().CreateLink(userId, originalUrl)
 	if err != nil {
 		logger.Error().Println(err.Error())
 		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
-	r.hrh.InfoPageSuccess(ctx, "✅ Successfully added link "+link.SiteName)
+	ctx.Redirect(http.StatusSeeOther, "/")
 }

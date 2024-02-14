@@ -1,10 +1,12 @@
 import { eventsMixin } from '../lib/mixins'
 import { createLink } from '../lib/api'
-import { ProgressiveForm } from '../lib/progressive-form'
+import { ProgressiveForm } from './progressive-form'
 class AddLinkForm extends ProgressiveForm {
   constructor() {
     super()
     this.querySelector('input[type="text"]').remove()
+    this.querySelector('label').remove()
+    this.addLinkBtn = this.querySelector('#btn-link-add')
   }
 
   async handleCreateLink() {
@@ -24,8 +26,7 @@ class AddLinkForm extends ProgressiveForm {
   }
 
   connectedCallback() {
-    const submit = this.querySelector('input[type="submit"]')
-    this.listen(submit, 'click', this.handleCreateLink)
+    this.listen(this.addLinkBtn, 'click', this.handleCreateLink)
   }
   disconnectedCallback() {
     this.unlistenAll()

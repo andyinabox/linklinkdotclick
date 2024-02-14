@@ -28,12 +28,23 @@ export const eventsMixin = {
       el.removeEventListener(eventName, fn)
     })
   },
-  broadcast(name, detail = {}) {
+  broadcast(name, detail = {}, bubbles = true) {
     this.dispatchEvent(
       new CustomEvent(name, {
         detail,
-        bubbles: true,
+        bubbles,
       })
     )
   },
+}
+
+export const renderDataMixin = {
+  get data() {
+    return { ...this._data }
+  },
+  set data(d) {
+    this._data = d
+    this.render()
+  },
+  render() {},
 }
