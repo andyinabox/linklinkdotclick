@@ -8,16 +8,34 @@
   <footer id="link-global-options">
     {{ template "form-edit-mode.html.tmpl" . }}
     {{ template "form-add-link.html.tmpl" . }}
-    {{ template "form-session.html.tmpl" . }}
+    <form class="flex-form-row" method="post" action="/session">
+      {{ if .IsDefaultUser  }}
+      <input type="email" name="email" placeholder="you@example.com">
+      <button id="btn-login" class="btn-login" name="btn-login" type="submit" value="1">Login/Signup</button>
+      {{ else }}
+      <button id="btn-logout" class="btn-logout" name="btn-logout" type="submit" value="1">Logout</button>
+      {{ end }}
+    </form>
   </footer>
 
   {{ if not .IsDefaultUser  }}
   <section id="user-settings">
     <h2>Settings</h2>
-    {{ template "form-user-settings.html.tmpl" . }}
+    <form class="flex-form-row" method="post" action="/users">
+      <label for="input-site-title">Rename Site:</label>
+      <input id="input-site-title" name="site-title" type="text" value={{ .User.SiteTitle }}>
+      <button id="btn-edit-site-title" type="submit">Rename</button>
+    </form>
     <h2>Data Import/Export</h2>
-    {{ template "form-opml-upload.html.tmpl" . }}
-    {{ template "form-opml-download.html.tmpl" . }}
+    <form class="flex-form-row" method="post" enctype="multipart/form-data" action="/opml">
+      <label for="opml-file">Import OPML:</label>
+      <input type="file" id="opml-file" accept=".xml,.opml" name="opml_file">
+      <button id="btn-upload-opml" type="submit">Upload OPML File</button>
+    </form>
+    <form class="flex-form-row" method="get" action="/opml">
+      <label for="btn-download-opml">Export OPML:</label>
+      <button id="btn-download-opml" type="submit">Download OPML File</button>
+    </form>
   </section>
   {{ end  }}
 </body>

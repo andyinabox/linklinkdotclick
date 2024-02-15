@@ -4,11 +4,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/andyinabox/linkydink/app"
 	"github.com/andyinabox/linkydink/test"
 )
 
-func Test_RefreshLink(t *testing.T) {
+func Test_RefresAndUpdateLink(t *testing.T) {
 	ts := test.NewFixtureTestServer("../../test/fixtures/www.w3c.org/feed.xml", t)
 	ls := NewLinkService(t)
 
@@ -18,12 +17,13 @@ func Test_RefreshLink(t *testing.T) {
 		t.Fatal(err.Error())
 	}
 
-	link := app.Link{
-		FeedUrl:     ts.URL + "/blog/feed",
-		LastClicked: afterDate,
+	link, err := ls.CreateLink(1, ts.URL+"/blog/feed")
+	if err != nil {
+		t.Fatal(err.Error())
 	}
+	link.LastClicked = afterDate
 
-	refreshed, err := ls.RefreshAndUpdateLink(1, link, true)
+	refreshed, err := ls.RefreshAndUpdateLink(1, *link, true)
 	if err != nil {
 		t.Fatal(err.Error())
 	}
