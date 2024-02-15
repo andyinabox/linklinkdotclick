@@ -5,6 +5,7 @@ export class LinkList extends HTMLOListElement {
   constructor() {
     super()
     this.template = this.querySelector('template')
+    this.fetchAllLinks()
   }
 
   get loading() {
@@ -23,6 +24,16 @@ export class LinkList extends HTMLOListElement {
   get links() {
     return Array.from(this.querySelectorAll('li'))
   }
+
+  async fetchAllLinks() {
+    const links = [...this.links]
+    this.loading = true
+    const promises = links.map((link) => link.fetchData())
+    await Promise.all(promises)
+    this.loading = false
+    this.sortLinks()
+  }
+
   async createLink() {
     let url = prompt('Enter a website or feed URL')
     if (!url) return
@@ -62,6 +73,7 @@ export class LinkList extends HTMLOListElement {
     this.listen(this, 'link-click-success', this.sortLinks)
     this.listen(this, 'link-update-success', this.sortLinks)
     this.listen(this, 'link-delete-success', this.sortLinks)
+    this.listen(window, 'focus', this.fetchAllLinks)
   }
   disconnectedCallback() {
     this.unlistenAll()

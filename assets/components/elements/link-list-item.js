@@ -29,11 +29,6 @@ class Link extends HTMLLIElement {
 
     // disable save button by default
     this.buttons['link-item-save'].disabled = true
-
-    // fetch data if there is a link id
-    if (this.linkId) {
-      this.fetchData()
-    }
   }
   async fetchData() {
     try {
