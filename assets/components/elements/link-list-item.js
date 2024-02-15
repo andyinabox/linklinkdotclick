@@ -59,10 +59,13 @@ class Link extends HTMLLIElement {
   set loading(v) {
     if (v) {
       this.classList.add('loading')
-      this.broadcast('loading-start')
+      Object.values(this.inputs).forEach((el) => (el.disabled = true))
+      Object.values(this.buttons).forEach((el) => (el.disabled = true))
     } else {
       this.classList.remove('loading')
-      this.broadcast('loading-stop')
+      Object.values(this.inputs).forEach((el) => (el.disabled = false))
+      Object.values(this.buttons).forEach((el) => (el.disabled = false))
+      this.diffForm()
     }
   }
 
@@ -166,7 +169,7 @@ class Link extends HTMLLIElement {
     this.renderForm()
   }
 
-  handleFormInput() {
+  diffForm() {
     const { id, siteName, siteUrl, feedUrl, hideUnreadCount } = this.data
     const changed =
       this.formLinkId !== id ||
@@ -188,7 +191,7 @@ class Link extends HTMLLIElement {
     this.formSiteUrl = siteUrl
     this.formFeedUrl = feedUrl
     this.formHideUnreadCount = hideUnreadCount
-    this.handleFormInput()
+    this.diffForm()
   }
 
   async onClick() {
@@ -235,7 +238,7 @@ class Link extends HTMLLIElement {
     this.listen(this.buttons['link-item-delete'], 'click', this.onDelete)
     this.listen(this.buttons['link-item-save'], 'click', this.onUpdate)
     Object.values(this.inputs).forEach((el) =>
-      this.listen(el, 'input', this.handleFormInput)
+      this.listen(el, 'input', this.diffForm)
     )
   }
   disconnectedCallback() {
