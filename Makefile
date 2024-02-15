@@ -6,6 +6,7 @@ build: bin resources
 # build a linux version for release
 .PHONY: build-release
 build-release: dist
+	DEPLOY_ENV=production ./script/resources.sh
 	GOOS=linux GOARCH=amd64 go build -o bin/linkydink-linux-amd64 main.go
 	cd ./bin && tar -czvf ../dist/linkydink-linux-amd64.tar.gz linkydink-linux-amd64 
 
@@ -42,10 +43,7 @@ test:
 
 .PHONY: resources
 resources: res
-	go run ./cmd/copy/main.go -g='assets/**/*.tmpl' -o=res/tmpl
-	go run ./cmd/copy/main.go -g='assets/static/**/*' -o res/static
-	go run ./cmd/esbuild/main.go assets/main.css --bundle --outfile=res/static/main.css
-	go run ./cmd/esbuild/main.go assets/main.js --bundle --outfile=res/static/main.js
+	./script/resources.sh
 
 .PHONY: clean
 clean:
