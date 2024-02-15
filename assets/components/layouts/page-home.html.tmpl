@@ -22,19 +22,19 @@
   <section id="user-settings">
     <h2>Settings</h2>
     <form class="flex-form-row" method="post" action="/users">
-      <label for="input-site-title">Rename Site:</label>
-      <input id="input-site-title" name="site-title" type="text" value={{ .User.SiteTitle }}>
-      <button id="btn-edit-site-title" type="submit">Rename</button>
+      <label for="input-site-title">Site Name:</label>
+      <input id="input-site-title" name="site-title" type="text" value={{ .User.SiteTitle }} required>
+      <button id="btn-edit-site-title" class="btn-submit" type="submit">Save</button>
     </form>
     <h2>Data Import/Export</h2>
     <form class="flex-form-row" method="post" enctype="multipart/form-data" action="/opml">
       <label for="opml-file">Import OPML:</label>
-      <input type="file" id="opml-file" accept=".xml,.opml" name="opml_file">
-      <button id="btn-upload-opml" type="submit">Upload OPML File</button>
+      <input type="file" id="opml-file" accept=".xml,.opml" name="opml_file" required>
+      <button id="btn-upload-opml" class="btn-upload" type="submit">Upload OPML File</button>
     </form>
     <form class="flex-form-row" method="get" action="/opml">
       <label for="btn-download-opml">Export OPML:</label>
-      <button id="btn-download-opml" type="submit">Download OPML File</button>
+      <button id="btn-download-opml" class="btn-download" type="submit">Download OPML File</button>
     </form>
   </section>
   {{ end  }}

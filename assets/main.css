@@ -145,6 +145,15 @@ body.editing .btn-edit-mode:after {
 .btn-link-item-delete:after {
   content: '🗑';
 }
+.btn-download:after {
+  content: '⬇️';
+}
+.btn-upload:after {
+  content: '⬆️';
+}
+.btn-submit:after {
+  content: '✅';
+}
 
 /*
  * home page
