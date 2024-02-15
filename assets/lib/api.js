@@ -69,18 +69,3 @@ export const patchLink = async function (id, patch) {
   const { payload } = await apiCall('/links/' + id, 'PATCH', patch)
   return payload
 }
-
-//
-// users
-//
-export const updateSelf = async function (user) {
-  let endpoint = '/self'
-  const { payload } = await apiCall(endpoint, 'PUT', user)
-  return payload
-}
-
-export const getSelf = async function () {
-  let endpoint = '/self'
-  const { payload } = await apiCall(endpoint, 'GET')
-  return payload
-}

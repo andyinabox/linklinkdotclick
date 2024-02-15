@@ -45,8 +45,4 @@ func (r *Router) Register(engine *gin.Engine) {
 	api.DELETE("/links/:id", r.ApiLinksIdDelete)
 	api.PATCH("/links/:id", r.ApiLinksIdPatch)
 
-	// users
-	api.GET("/self", r.ApiSelfGet)
-	api.PUT("/self", r.ApiSelfPut)
-
 }
