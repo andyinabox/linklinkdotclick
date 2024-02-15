@@ -15,7 +15,9 @@ import (
 	"github.com/andyinabox/linkydink/app"
 	"github.com/andyinabox/linkydink/app/apirouter"
 	"github.com/andyinabox/linkydink/app/approuter"
-	"github.com/andyinabox/linkydink/app/handlerhelper"
+	"github.com/andyinabox/linkydink/app/authhelper"
+	"github.com/andyinabox/linkydink/app/htmlresponsehelper"
+	"github.com/andyinabox/linkydink/app/jsonresponsehelper"
 	"github.com/andyinabox/linkydink/app/linkrepository"
 	"github.com/andyinabox/linkydink/app/linkservice"
 	"github.com/andyinabox/linkydink/app/servicecontainer"
@@ -134,7 +136,13 @@ func main() {
 
 	// create link service
 	linkRepository := linkrepository.New(db)
-	linkService := linkservice.New(linkRepository, logService)
+	linkService := linkservice.New(
+		linkRepository,
+		logService,
+		&linkservice.Config{
+			LinkRefreshBuffer: 10 * time.Minute,
+		},
+	)
 
 	// create service container
 	serviceContainer := servicecontainer.New(
@@ -143,29 +151,64 @@ func main() {
 		logService,
 	)
 
-	// create handler helper
-	handlerHelper := handlerhelper.New(serviceContainer)
+	authHelper := authhelper.New(serviceContainer, &authhelper.Config{
+		SessionUserKey: "user",
+	})
+
+	jsonResponseHelper := jsonresponsehelper.New()
+
+	title := "link link dot click"
+	htmlResponseHelper := htmlresponsehelper.New(&htmlresponsehelper.Config{
+		SiteTitle:         title,
+		Description:       "Somewhere in-between a blogroll and an RSS reader",
+		FavIconUrl:        "/static/favicon.ico",
+		AppleTouchIconUrl: "/static/apple-touch-icon.png",
+		ManifestUrl:       "/static/site.webmanifest",
+		OgImageUrl:        "/static/android-chrome-512x512.png",
+		OgImageAlt:        "Two paperclips entwined",
+		InfoPageSuccessOptions: &app.HtmlInfoMessageOptions{
+			LinkText: "Back to the main page",
+			LinkUrl:  "/",
+		},
+		InfoPageErrorOptions: &app.HtmlInfoMessageOptions{
+			Message:  "🫠 Uh-oh, something went wrong...",
+			LinkText: "Back to safety",
+			LinkUrl:  "/",
+		},
+	})
 
 	// create routers
-	appRouter := approuter.New(serviceContainer, handlerHelper, &approuter.Config{
-		Templates: templates,
-		Version:   version,
-		SmtpAddr:  smtpaddr,
-	})
-	apiRouter := apirouter.New(serviceContainer, handlerHelper, &apirouter.Config{
-		Domain: domain,
-		Mode:   mode,
-	})
+	appRouter := approuter.New(
+		serviceContainer,
+		authHelper,
+		htmlResponseHelper,
+		&approuter.Config{
+			Templates: templates,
+			Version:   version,
+			SmtpAddr:  smtpaddr,
+		},
+	)
+
+	apiRouter := apirouter.New(
+		serviceContainer,
+		authHelper,
+		jsonResponseHelper,
+		&apirouter.Config{
+			Domain: domain,
+			Mode:   mode,
+		},
+	)
 	routers := []app.RouterGroup{appRouter, apiRouter}
 
 	// create app
 	appConfig := &app.Config{
-		Domain:    domain,
-		Port:      port,
-		Mode:      mode,
-		Resources: res,
-		Templates: templates,
-		Version:   version,
+		Domain:      domain,
+		Port:        port,
+		Mode:        mode,
+		Resources:   res,
+		Templates:   templates,
+		Version:     version,
+		SessionName: "session",
 	}
 	appInstance := app.New(
 		sessionStore,
