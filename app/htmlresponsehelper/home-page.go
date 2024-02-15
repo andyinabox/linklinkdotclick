@@ -16,7 +16,7 @@ type homePageBody struct {
 }
 
 func (h *Helper) HomePage(ctx *gin.Context, user *app.User, isDefaultUser bool, links []app.Link, editMode bool) {
-	ctx.HTML(http.StatusOK, "index.html.tmpl", h.newRenderContext(ctx, &homePageBody{
+	ctx.HTML(http.StatusOK, "base.html.tmpl", h.newRenderContext(ctx, home, &homePageBody{
 		User:          *user,
 		Links:         links,
 		IsDefaultUser: isDefaultUser,

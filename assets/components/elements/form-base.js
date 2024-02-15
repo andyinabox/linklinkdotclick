@@ -1,6 +1,6 @@
 import { eventsMixin } from '../../lib/mixins'
 
-export class ProgressiveForm extends HTMLFormElement {
+export class FormBase extends HTMLFormElement {
   constructor() {
     super()
     this.onsubmit = (evt) => {
@@ -18,4 +18,4 @@ export class ProgressiveForm extends HTMLFormElement {
   }
   onSubmit(evt) {}
 }
-Object.assign(ProgressiveForm.prototype, eventsMixin)
+Object.assign(FormBase.prototype, eventsMixin)

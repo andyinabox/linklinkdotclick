@@ -179,11 +179,11 @@ body.editing #user-settings {
 .link-item {
 }
 
-#edit-link-form {
+#form-edit-link {
   display: none;
 }
 
-body.editing #edit-link-form {
+body.editing #form-edit-link {
   display: block;
 }
 

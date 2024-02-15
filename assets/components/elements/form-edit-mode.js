@@ -1,6 +1,5 @@
-import { eventsMixin } from '../../lib/mixins'
-import { ProgressiveForm } from '../prototypes/progressive-form'
-class EditModeForm extends ProgressiveForm {
+import { FormBase } from './form-base'
+class FormEditMode extends FormBase {
   constructor() {
     super()
     this.btn = this.querySelector('button')
@@ -23,5 +22,4 @@ class EditModeForm extends ProgressiveForm {
     this.isEditing = !this.isEditing
   }
 }
-Object.assign(EditModeForm.prototype, eventsMixin)
-customElements.define('edit-mode-form', EditModeForm, { extends: 'form' })
+customElements.define('form-edit-mode', FormEditMode, { extends: 'form' })

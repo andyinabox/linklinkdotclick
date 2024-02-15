@@ -2,6 +2,14 @@ package htmlresponsehelper
 
 import "github.com/andyinabox/linkydink/app"
 
+type page string
+
+const (
+	about page = "about"
+	home  page = "home"
+	info  page = "info"
+)
+
 type Config struct {
 	SiteTitle              string
 	Description            string

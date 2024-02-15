@@ -12,7 +12,7 @@ type infoPageBody struct {
 }
 
 func (h *Helper) InfoPage(ctx *gin.Context, status int, opts *app.HtmlInfoMessageOptions) {
-	ctx.HTML(status, "info.html.tmpl", h.newRenderContext(ctx, infoPageBody{
+	ctx.HTML(status, "base.html.tmpl", h.newRenderContext(ctx, info, infoPageBody{
 		HtmlInfoMessageOptions: *opts,
 	}))
 }

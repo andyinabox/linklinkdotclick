@@ -1,5 +1,5 @@
-import { ProgressiveBody } from '../prototypes/progressive-body'
-class HomePage extends ProgressiveBody {
+import { eventsMixin } from '../../lib/mixins'
+class PageHome extends HTMLBodyElement {
   set loading(v) {
     if (v) {
       this.classList.add('loading')
@@ -32,4 +32,5 @@ class HomePage extends ProgressiveBody {
     this.unlistenAll()
   }
 }
-customElements.define('home-page', HomePage, { extends: 'body' })
+Object.assign(PageHome.prototype, eventsMixin)
+customElements.define('page-home', PageHome, { extends: 'body' })

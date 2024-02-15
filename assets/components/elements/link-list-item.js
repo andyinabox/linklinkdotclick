@@ -13,6 +13,24 @@ class Link extends HTMLLIElement {
       this.removeAttribute('data-href')
     }
 
+    // disable form submit
+    this.form = this.slots.form
+    this.form.onsubmit = (evt) => evt.preventDefault()
+
+    // collect form inputs and buttons for convenience
+    this.inputs = {}
+    this.form.querySelectorAll('input[name]').forEach((el) => {
+      this.inputs[el.getAttribute('name')] = el
+    })
+    this.buttons = {}
+    this.form.querySelectorAll('button[name]').forEach((el) => {
+      this.buttons[el.getAttribute('name')] = el
+    })
+
+    // disable save button by default
+    this.buttons['link-item-save'].disabled = true
+
+    // fetch data if there is a link id
     if (this.linkId) {
       this.fetchData()
     }
@@ -72,6 +90,60 @@ class Link extends HTMLLIElement {
   get unreadCount() {
     return parseInt(this.slots.count.innerText)
   }
+
+  set formLinkId(v) {
+    this.inputs['id'].value = v
+  }
+  get formLinkId() {
+    return parseInt(this.inputs['id'].value)
+  }
+
+  set formSiteName(v) {
+    this.inputs['site-name'].value = v
+  }
+  get formSiteName() {
+    return this.inputs['site-name'].value
+  }
+
+  set formSiteUrl(v) {
+    this.inputs['site-url'].value = v
+  }
+  get formSiteUrl() {
+    return this.inputs['site-url'].value
+  }
+
+  set formFeedUrl(v) {
+    this.inputs['feed-url'].value = v
+  }
+  get formFeedUrl() {
+    return this.inputs['feed-url'].value
+  }
+
+  set formHideUnreadCount(v) {
+    this.inputs['hide-unread-count'].checked = v
+  }
+  get formHideUnreadCount() {
+    return this.inputs['hide-unread-count'].checked
+  }
+
+  set formLastClicked(v) {
+    this.inputs['last-clicked'].value = v
+  }
+  get formLastClicked() {
+    return this.inputs['last-clicked'].value
+  }
+
+  get formData() {
+    return {
+      id: this.formLinkId,
+      lastClicked: this.formLastClicked,
+      siteName: this.formSiteName,
+      siteUrl: this.formSiteUrl,
+      feedUrl: this.formFeedUrl,
+      hideUnreadCount: this.formHideUnreadCount,
+    }
+  }
+
   render() {
     const data = this.data
     if (!data) return
@@ -91,8 +163,34 @@ class Link extends HTMLLIElement {
     this.linkId = id
     this.siteName = siteName
     this.siteUrl = siteUrl
-    this.slots.form.data = data
+    this.renderForm()
   }
+
+  handleFormInput() {
+    const { id, siteName, siteUrl, feedUrl, hideUnreadCount } = this.data
+    const changed =
+      this.formLinkId !== id ||
+      this.formSiteName !== siteName ||
+      this.formSiteUrl !== siteUrl ||
+      this.formFeedUrl !== feedUrl ||
+      this.formHideUnreadCount !== hideUnreadCount
+
+    this.buttons['link-item-save'].disabled = !changed
+  }
+
+  renderForm() {
+    const data = this.data
+    const { id, siteName, siteUrl, feedUrl, hideUnreadCount, lastClicked } =
+      data
+    this.formLinkId = id
+    this.formLastClicked = lastClicked
+    this.formSiteName = siteName
+    this.formSiteUrl = siteUrl
+    this.formFeedUrl = feedUrl
+    this.formHideUnreadCount = hideUnreadCount
+    this.handleFormInput()
+  }
+
   async onClick() {
     try {
       this.loading = true
@@ -108,9 +206,7 @@ class Link extends HTMLLIElement {
   async onUpdate() {
     try {
       this.loading = true
-      const link = await updateLink(
-        Object.assign(this.data, this.slots.form.formData)
-      )
+      const link = await updateLink(Object.assign(this.data, this.formData))
       this.data = link
       this.broadcast('link-update-success')
     } catch (err) {
@@ -136,8 +232,11 @@ class Link extends HTMLLIElement {
 
   connectedCallback() {
     this.listen(this.slots.link, 'click', this.onClick)
-    this.listen(this.slots.form, 'link-update-request', this.onUpdate)
-    this.listen(this.slots.form, 'link-delete-request', this.onDelete)
+    this.listen(this.buttons['link-item-delete'], 'click', this.onDelete)
+    this.listen(this.buttons['link-item-save'], 'click', this.onUpdate)
+    Object.values(this.inputs).forEach((el) =>
+      this.listen(el, 'input', this.handleFormInput)
+    )
   }
   disconnectedCallback() {
     this.unlistenAll()
