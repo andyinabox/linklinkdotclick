@@ -179,14 +179,33 @@ body.editing #user-settings {
 .link-item {
 }
 
-#form-edit-link {
+.link-item-count {
+  font-style: italic;
+  font-size: 0.8em;
+}
+
+.link-item-count {
+  font-style: italic;
+  font-size: 0.8em;
+}
+.link-item-count:not(:empty):before {
+  display: inline;
+  content: '(';
+}
+.link-item-count:not(:empty):after {
+  display: inline;
+  content: ')';
+}
+.link-item-form {
   display: none;
+  flex-direction: column;
+  gap: var(--gap-sm);
 }
 
-body.editing #form-edit-link {
-  display: block;
+body.editing .link-item-form {
+  display: flex;
 }
 
-.link-item-actions > * + * {
-  margin-top: var(--gap-sm);
+.hide-unread-count-label {
+  flex-grow: 1;
 }
