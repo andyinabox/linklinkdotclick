@@ -13,5 +13,5 @@ func NewLinkService(t *testing.T) app.LinkService {
 	db := test.NewInMemoryDb(t)
 	lr := linkrepository.New(db)
 	log := logservice.New()
-	return New(lr, log, &Config{})
+	return New(lr, log)
 }

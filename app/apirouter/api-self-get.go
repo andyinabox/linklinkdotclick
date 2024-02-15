@@ -6,22 +6,22 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (r *Router) ApiLinksGet(ctx *gin.Context) {
+func (r *Router) ApiSelfGet(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	id, _, err := r.hh.GetUserIdFromSession(ctx)
+	userId, _, err := r.hh.GetUserIdFromSession(ctx)
 	if err != nil {
 		logger.Error().Println(err.Error())
 		r.hh.ErrorResponse(ctx, http.StatusUnauthorized, err)
 		return
 	}
 
-	links, err := r.sc.LinkService().FetchLinks(id)
+	user, err := r.sc.UserService().FetchUser(userId)
 	if err != nil {
 		logger.Error().Println(err.Error())
 		r.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
-	r.hh.SuccessResponseJSON(ctx, links)
+	r.hh.SuccessResponseJSON(ctx, user)
 }

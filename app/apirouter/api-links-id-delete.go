@@ -3,7 +3,6 @@ package apirouter
 import (
 	"net/http"
 
-	"github.com/andyinabox/linkydink/pkg/ginhelper"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,27 +13,26 @@ type ApiLinksIdDeleteResponse struct {
 func (r *Router) ApiLinksIdDelete(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	id, err := ginhelper.GetParamUint(ctx, "id")
-
+	id, err := r.hh.GetIdParam(ctx)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.jrh.ResponseError(ctx, http.StatusBadRequest, err)
+		r.hh.ErrorResponse(ctx, http.StatusBadRequest, err)
 		return
 	}
 
-	userId, _, err := r.ah.GetUserIdFromSession(ctx)
+	userId, _, err := r.hh.GetUserIdFromSession(ctx)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.jrh.ResponseError(ctx, http.StatusUnauthorized, err)
+		r.hh.ErrorResponse(ctx, http.StatusUnauthorized, err)
 		return
 	}
 
 	id, err = r.sc.LinkService().DeleteLink(userId, id)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.jrh.ResponseError(ctx, http.StatusInternalServerError, err)
+		r.hh.ErrorResponse(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
-	r.jrh.ResponseSuccessPayload(ctx, &ApiLinksIdDeleteResponse{id})
+	r.hh.SuccessResponseJSON(ctx, &ApiLinksIdDeleteResponse{id})
 }

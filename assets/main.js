@@ -1,6 +1,3 @@
-import './components/elements/form-add-link'
-import './components/elements/form-edit-mode'
-import './components/elements/link-list-item'
-import './components/elements/link-list'
-
-import './components/layouts/page-home'
+import './components/link/link'
+import './components/loading/loading'
+import './components/home-page/home-page'

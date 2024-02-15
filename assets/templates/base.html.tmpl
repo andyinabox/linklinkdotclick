@@ -1,9 +1,0 @@
-{{ template "head.html.tmpl" .Head }}
-{{ if eq .PageName "about" }}
-{{ template "page-about.html.tmpl" .Body }}
-{{ else if eq .PageName "info" }}
-{{ template "page-info.html.tmpl" .Body }}
-{{ else }}
-{{ template "page-home.html.tmpl" .Body }}
-{{ end }}
-{{ template "foot.html.tmpl" }}
