@@ -1,8 +1,0 @@
-  <form class="flex-form-row" method="post" action="/session">
-    {{ if .IsDefaultUser  }}
-    <input type="email" name="email" placeholder="you@example.com">
-    <button id="btn-login" class="btn-login" name="btn-login" type="submit" value="1">Login/Signup</button>
-    {{ else }}
-    <button id="btn-logout" class="btn-logout" name="btn-logout" type="submit" value="1">Logout</button>
-    {{ end }}
-  </form>

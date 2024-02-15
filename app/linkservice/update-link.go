@@ -1,12 +1,30 @@
 package linkservice
 
 import (
+	"errors"
+
 	"github.com/andyinabox/linkydink/app"
 )
 
-func (s *Service) UpdateLink(userId uint, link app.Link, refresh bool) (*app.Link, error) {
-	if refresh {
-		return s.RefreshAndUpdateLink(userId, link, true)
+func (s *Service) UpdateLink(userId uint, id uint, link app.Link, refresh bool) (*app.Link, error) {
+	if id != link.ID {
+		return nil, errors.New("unmatching ids in update request")
 	}
-	return s.lr.UpdateLink(link)
+	updatedLink, err := s.lr.UpdateLink(link)
+	if err != nil {
+		return nil, err
+	}
+
+	if refresh {
+		updatedLink, err = s.RefreshLink(userId, *updatedLink)
+		if err != nil {
+			return nil, err
+		}
+		updatedLink, err = s.lr.UpdateLink(*updatedLink)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return updatedLink, nil
 }

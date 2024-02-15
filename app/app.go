@@ -20,13 +20,12 @@ type App struct {
 }
 
 type Config struct {
-	Domain      string
-	Port        string
-	Mode        string
-	Resources   embed.FS
-	Templates   *template.Template
-	Version     string
-	SessionName string
+	Domain    string
+	Port      string
+	Mode      string
+	Resources embed.FS
+	Templates *template.Template
+	Version   string
 }
 
 func New(
@@ -54,7 +53,7 @@ func New(
 	engine := gin.Default()
 	engine.SetTrustedProxies(nil)
 	engine.SetHTMLTemplate(conf.Templates)
-	engine.Use(sessions.Sessions(conf.SessionName, store))
+	engine.Use(sessions.Sessions("session", store))
 
 	// serve static files
 	engine.StaticFS("/static", http.FS(staticFiles))
