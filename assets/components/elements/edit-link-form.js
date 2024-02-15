@@ -93,10 +93,10 @@ export class EditLinkForm extends ProgressiveForm {
   }
   connectedCallback() {
     this.listen(this.buttons['link-item-delete'], 'click', () =>
-      this.broadcast('link-delete-request')
+      this.broadcast('link-delete-request', null, false)
     )
     this.listen(this.buttons['link-item-save'], 'click', () =>
-      this.broadcast('link-update-request')
+      this.broadcast('link-update-request', null, false)
     )
     Object.values(this.inputs).forEach((el) =>
       this.listen(el, 'input', this.handleInput)

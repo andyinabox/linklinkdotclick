@@ -21,7 +21,7 @@ export class LinkList extends HTMLOListElement {
   }
 
   get links() {
-    return Array.from(this.querySelector('li'))
+    return Array.from(this.querySelectorAll('li'))
   }
   async createLink() {
     let url = prompt('Enter a website or feed URL')
@@ -33,6 +33,7 @@ export class LinkList extends HTMLOListElement {
       const linkEl = this.template.content.firstElementChild.cloneNode(true)
       this.prepend(linkEl)
       linkEl.data = link
+      this.sortLinks()
     } catch (err) {
       handleError(err)
     } finally {
@@ -41,7 +42,7 @@ export class LinkList extends HTMLOListElement {
   }
 
   sortLinks() {
-    this.broadcast('loading-start')
+    this.loading = true
     const links = [...this.links]
     links.sort((a, b) => {
       const d1 = new Date(a.data.lastClicked).getTime()
@@ -51,14 +52,16 @@ export class LinkList extends HTMLOListElement {
       }
       return d1 < d2 ? -1 : 1
     })
-    const linksContainer = this.slots.links
-    linksContainer.innerHTML = ''
-    links.forEach((link) => linksContainer.appendChild(link))
-    this.broadcast('loading-stop')
+    this.innerHTML = ''
+    links.forEach((link) => this.appendChild(link))
+    this.loading = false
   }
 
   connectedCallback() {
     this.listen(document, 'link-create-request', this.createLink)
+    this.listen(this, 'link-click-success', this.sortLinks)
+    this.listen(this, 'link-update-success', this.sortLinks)
+    this.listen(this, 'link-delete-success', this.sortLinks)
   }
   disconnectedCallback() {
     this.unlistenAll()

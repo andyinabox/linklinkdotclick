@@ -78,8 +78,6 @@ class Link extends HTMLLIElement {
     const { id, siteName, unreadCount, siteUrl, hideUnreadCount, feedUrl } =
       data
 
-    console.log('reander link', this.data)
-
     if (hideUnreadCount) {
       this.slots.count.textContent = ''
     } else if (unreadCount) {
@@ -100,6 +98,7 @@ class Link extends HTMLLIElement {
       this.loading = true
       const link = await clickLink(this.linkId)
       this.data = link
+      this.broadcast('link-click-success')
     } catch (err) {
       handleError(err)
     } finally {
@@ -113,6 +112,7 @@ class Link extends HTMLLIElement {
         Object.assign(this.data, this.slots.form.formData)
       )
       this.data = link
+      this.broadcast('link-update-success')
     } catch (err) {
       handleError(err)
     } finally {
@@ -125,6 +125,7 @@ class Link extends HTMLLIElement {
     try {
       this.loading = true
       const result = await deleteLink(this.data.id)
+      this.broadcast('link-delete-success')
       this.remove()
     } catch (err) {
       handleError(err)
