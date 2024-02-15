@@ -1,0 +1,8 @@
+    <ol is="link-list">
+    {{ range.Links }}
+      {{ template "link-list-item.html.tmpl" . }}
+    {{ end }}
+    <template>
+    {{ template "link.html.tmpl" .EmptyLink }}
+    </template>
+    </ol>

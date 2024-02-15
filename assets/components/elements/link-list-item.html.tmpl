@@ -1,4 +1,3 @@
-{{ define "link.html.tmpl" }}
 <li is="link-list-item" class="link-item" {{ if .ID }}data-id="{{ .ID }}"{{ end }}>
   <a
     slot="link"
@@ -12,4 +11,3 @@
   {{ template "edit-link-form.html.tmpl" . }}
 
 </li>
-{{ end }}

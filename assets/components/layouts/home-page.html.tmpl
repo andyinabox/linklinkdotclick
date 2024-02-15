@@ -3,14 +3,7 @@
     <h1>{{ .User.SiteTitle }}</h1>
   </header>
   <main>
-    <ol is="link-list">
-    {{ range.Links }}
-      {{ template "link.html.tmpl" .}}
-    {{ end }}
-    <template>
-    {{ template "link.html.tmpl" .EmptyLink }}
-    </template>
-    </ol>
+    {{ template "link-list.html.tmpl" . }}
   </main>
   <footer id="link-global-options">
     {{ template "edit-mode-form.html.tmpl" . }}
@@ -21,20 +14,10 @@
   {{ if not .IsDefaultUser  }}
   <section id="user-settings">
     <h2>Settings</h2>
-    <form class="flex-form-row" method="post" action="/users">
-      <label for="input-site-title">Rename Site:</label>
-      <input id="input-site-title" name="site-title" type="text" value={{ .User.SiteTitle }}>
-      <button id="btn-edit-site-title"type="submit">Rename</button>
-    </form>
-    <form class="flex-form-row" method="post" enctype="multipart/form-data" action="/opml">
-      <label for="opml-file">Import OPML:</label>
-      <input type="file" id="opml-file" accept=".xml,.opml" name="opml_file">
-      <button id="btn-upload-opml" type="submit">Upload OPML File</button>
-    </form>
-    <form class="flex-form-row" method="get" action="/opml">
-      <label for="btn-download-opml">Export OPML:</label>
-      <button id="btn-download-opml" type="submit">Download OPML File</button>
-    </form>
+    {{ template "user-settings-form.html.tmpl" . }}
+    <h2>Data Import/Export</h2>
+    {{ template "opml-upload-form.html.tmpl" . }}
+    {{ template "opml-download-form.html.tmpl" . }}
   </section>
   {{ end  }}
 </body>

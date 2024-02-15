@@ -29,6 +29,5 @@ func (r *Router) UsersPost(ctx *gin.Context) {
 		return
 	}
 
-	r.hrh.InfoPageSuccess(ctx, "✅ Successfully updated your settings")
-
+	ctx.Redirect(http.StatusSeeOther, "/")
 }
