@@ -26,7 +26,7 @@ func New(sc app.ServiceContainer, ah app.AuthHelper, hrh app.HtmlResponseHelper,
 
 func (r *Router) Register(engine *gin.Engine) {
 
-	app := engine.Group("/")
+	app := engine.Group("")
 	app.Use(r.ah.AuthMiddleware())
 
 	// main page

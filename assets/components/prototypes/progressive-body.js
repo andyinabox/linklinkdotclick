@@ -1,4 +1,4 @@
-import { eventsMixin } from '../lib/mixins'
+import { eventsMixin } from '../../lib/mixins'
 export class ProgressiveBody extends HTMLBodyElement {
   set loading(bool) {
     if (bool) {

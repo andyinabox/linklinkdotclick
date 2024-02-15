@@ -7,7 +7,9 @@ import (
 )
 
 func GetUint(ctx *gin.Context, key string) uint {
-	return uint(ctx.GetInt(key))
+	iface, _ := ctx.Get(key)
+	v := iface.(uint)
+	return v
 }
 
 func GetParamUint(ctx *gin.Context, key string) (uint, error) {

@@ -25,16 +25,14 @@
       <input id="input-link-add" name="url" type="text" placeholder="example.com">
       <button id="btn-link-add" class="btn-link-add" name="btn-link-add" type="submit" value="1">Add</button>
     </form>
-    {{ if .IsDefaultUser  }}
     <form class="flex-form-row" method="post" action="/session">
+      {{ if .IsDefaultUser  }}
       <input type="text" name="email" placeholder="you@example.com">
-      <button id="btn-login" class="btn-login" type="submit">Login/Signup</button>
-    </form>
-    {{ else }}
-    <form class="flex-form-row" method="post" action="/session/delete">
-      <button id="btn-logout" class="btn-logout" type="submit">Logout</button>
-    </form>
-    {{ end }}
+      <button id="btn-login" class="btn-login" name="btn-login" type="submit" value="1">Login/Signup</button>
+      {{ else }}
+      <button id="btn-logout" class="btn-logout" name="btn-logout" type="submit" value="1">Logout</button>
+      {{ end }}
+      </form>
   </footer>
 
   {{ if not .IsDefaultUser  }}

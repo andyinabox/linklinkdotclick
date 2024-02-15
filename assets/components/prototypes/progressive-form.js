@@ -1,4 +1,4 @@
-import { eventsMixin } from '../lib/mixins'
+import { eventsMixin } from '../../lib/mixins'
 
 export class ProgressiveForm extends HTMLFormElement {
   constructor() {

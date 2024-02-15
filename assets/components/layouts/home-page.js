@@ -1,4 +1,4 @@
-import { ProgressiveBody } from './progressive-body'
+import { ProgressiveBody } from '../prototypes/progressive-body'
 class HomePage extends ProgressiveBody {
   set loading(v) {
     if (v) {

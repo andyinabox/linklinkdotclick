@@ -2,9 +2,10 @@
 // import './components/loading/loading'
 // import './components/home-page/home-page'
 
-import './elements/home-page'
-import './elements/add-link-form'
-import './elements/link-list'
-import './elements/link-list-item'
-import './elements/edit-link-form'
-import './elements/edit-mode-form'
+import './components/elements/add-link-form'
+import './components/elements/link-list'
+import './components/elements/link-list-item'
+import './components/elements/edit-link-form'
+import './components/elements/edit-mode-form'
+
+import './components/layouts/home-page'

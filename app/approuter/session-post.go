@@ -107,5 +107,5 @@ func (r *Router) logout(ctx *gin.Context) {
 	session := sessions.Default(ctx)
 	session.Clear()
 	session.Save()
-	r.hrh.InfoPageSuccess(ctx, "👋 You're logged out. Later!")
+	ctx.Redirect(http.StatusSeeOther, "/")
 }

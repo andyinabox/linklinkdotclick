@@ -1,4 +1,4 @@
-import { renderDataMixin, eventsMixin, slotsMixin } from '../lib/mixins'
+import { renderDataMixin, eventsMixin, slotsMixin } from '../../lib/mixins'
 class Link extends HTMLLIElement {
   constructor() {
     super()

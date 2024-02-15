@@ -1,7 +1,7 @@
-import { handleError } from '../lib/errors'
-import { deleteLink, updateLink } from '../lib/api'
-import { renderDataMixin } from '../lib/mixins'
-import { ProgressiveForm } from './progressive-form'
+import { handleError } from '../../lib/errors'
+import { deleteLink, updateLink } from '../../lib/api'
+import { renderDataMixin } from '../../lib/mixins'
+import { ProgressiveForm } from '../prototypes/progressive-form'
 export class EditLinkForm extends ProgressiveForm {
   constructor() {
     super()

@@ -1,5 +1,5 @@
-import { eventsMixin } from '../lib/mixins'
-import { ProgressiveForm } from './progressive-form'
+import { eventsMixin } from '../../lib/mixins'
+import { ProgressiveForm } from '../prototypes/progressive-form'
 class EditModeForm extends ProgressiveForm {
   constructor() {
     super()
