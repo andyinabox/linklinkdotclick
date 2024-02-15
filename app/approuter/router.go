@@ -15,20 +15,39 @@ type Config struct {
 
 type Router struct {
 	sc   app.ServiceContainer
-	hh   app.HandlerHelper
+	ah   app.AuthHelper
+	hrh  app.HtmlResponseHelper
 	conf *Config
 }
 
-func New(sc app.ServiceContainer, hh app.HandlerHelper, conf *Config) *Router {
-	return &Router{sc, hh, conf}
+func New(sc app.ServiceContainer, ah app.AuthHelper, hrh app.HtmlResponseHelper, conf *Config) *Router {
+	return &Router{sc, ah, hrh, conf}
 }
 
 func (r *Router) Register(engine *gin.Engine) {
-	engine.GET("/", r.IndexGet)
-	engine.POST("/login", r.LoginPost)
-	engine.GET("/login/:hash", r.LoginGet)
-	engine.POST("/logout", r.LogoutPost)
-	engine.GET("/opml", r.OpmlGet)
-	engine.POST("/opml", r.OpmlPost)
+
+	app := engine.Group("")
+	app.Use(r.ah.AuthMiddleware())
+
+	// main page
+	app.GET("/", r.IndexGet)
+
+	// other pages
+	app.GET("/about", r.AboutGet)
+
+	// auth
+	app.POST("/session", r.SessionPost)
+	app.GET("/session", r.SessionGet)
+
+	// opml
+	app.GET("/opml", r.OpmlGet)
+	app.POST("/opml", r.OpmlPost)
+
+	// links\
+	app.GET("/links", r.LinksGet)
+	app.POST("/links", r.LinksPost)
+
+	// users
+	app.POST("/users", r.UsersPost)
 
 }

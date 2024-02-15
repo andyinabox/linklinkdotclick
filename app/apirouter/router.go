@@ -12,13 +12,14 @@ type Config struct {
 }
 
 type Router struct {
-	conf *Config
 	sc   app.ServiceContainer
-	hh   app.HandlerHelper
+	ah   app.AuthHelper
+	jrh  app.JsonResponseHelper
+	conf *Config
 }
 
-func New(sc app.ServiceContainer, hh app.HandlerHelper, conf *Config) *Router {
-	router := &Router{conf, sc, hh}
+func New(sc app.ServiceContainer, ah app.AuthHelper, jrh app.JsonResponseHelper, conf *Config) *Router {
+	router := &Router{sc, ah, jrh, conf}
 
 	return router
 }
@@ -34,6 +35,7 @@ func (r *Router) Register(engine *gin.Engine) {
 
 	api := engine.Group("/api")
 	api.Use(cors.New(corsConfig))
+	api.Use(r.ah.AuthMiddleware())
 
 	// links
 	api.GET("/links", r.ApiLinksGet)
@@ -41,9 +43,6 @@ func (r *Router) Register(engine *gin.Engine) {
 	api.GET("/links/:id", r.ApiLinksIdGet)
 	api.PUT("/links/:id", r.ApiLinksIdPut)
 	api.DELETE("/links/:id", r.ApiLinksIdDelete)
-
-	// users
-	api.GET("/self", r.ApiSelfGet)
-	api.PUT("/self", r.ApiSelfPut)
+	api.PATCH("/links/:id", r.ApiLinksIdPatch)
 
 }

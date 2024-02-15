@@ -7,7 +7,7 @@ import (
 	"github.com/andyinabox/linkydink/test"
 )
 
-func NewLinkRepository(t *testing.T) *Repository {
+func NewLinkRepository(t *testing.T) app.LinkRepository {
 	db := test.NewInMemoryDb(t)
 	err := db.AutoMigrate(&app.Link{})
 	if err != nil {
