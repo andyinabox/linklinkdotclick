@@ -140,7 +140,7 @@ body.editing .btn-edit-mode:after {
   content: '✅';
 }
 .btn-link-item-save[disabled]:after {
-  content: '⛔️';
+  content: '⬜️';
 }
 .btn-link-item-delete:after {
   content: '🗑';
@@ -149,6 +149,16 @@ body.editing .btn-edit-mode:after {
 /*
  * home page
  */
+
+body.loading:after {
+  position: fixed;
+  content: '🔄';
+  display: block;
+  font-size: 0.6rem;
+  top: 1em;
+  right: 1em;
+}
+
 #link-global-options {
   display: flex;
   flex-wrap: wrap;
@@ -200,6 +210,7 @@ body.editing #user-settings {
   display: none;
   flex-direction: column;
   gap: var(--gap-sm);
+  margin-top: var(--gap-sm);
 }
 
 body.editing .link-item-form {
