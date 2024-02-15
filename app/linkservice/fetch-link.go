@@ -4,25 +4,17 @@ import (
 	"github.com/andyinabox/linkydink/app"
 )
 
-func (s *Service) FetchLink(userId uint, id uint, refresh bool) (*app.Link, error) {
-
-	link, err := s.lr.FetchLink(userId, id)
-	if err != nil {
-		return nil, err
-	}
+func (s *Service) FetchLink(userId uint, id uint, refresh bool) (link *app.Link, err error) {
 
 	if refresh {
+		link, err = s.lr.FetchLink(userId, id)
+		if err != nil {
+			return nil, err
+		}
+
 		// refresh link feed data
-		link, err = s.RefreshLink(userId, *link)
-		if err != nil {
-			return nil, err
-		}
-		// save update link to db
-		link, err = s.lr.UpdateLink(*link)
-		if err != nil {
-			return nil, err
-		}
+		return s.RefreshAndUpdateLink(userId, *link)
 	}
 
-	return link, nil
+	return s.lr.FetchLink(userId, id)
 }

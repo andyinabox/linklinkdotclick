@@ -62,8 +62,9 @@ func (r *Router) updateLink(ctx *gin.Context) {
 		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err)
 		return
 	}
+	link.UserID = userId
 
-	_, err = r.sc.LinkService().UpdateLink(userId, link.ID, link, true)
+	_, err = r.sc.LinkService().UpdateLink(userId, link, true)
 	if err != nil {
 		logger.Error().Println(err.Error())
 		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)

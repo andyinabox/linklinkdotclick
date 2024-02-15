@@ -10,7 +10,7 @@ type Link struct {
 	UpdatedAt time.Time `json:"updatedAt"`
 	// domain fields
 	SiteName        string    `json:"siteName" form:"site-name"`
-	SiteUrl         string    `json:"siteUrl" form:"site-url"`
+	SiteUrl         string    `json:"siteUrl" form:"site-url" gorm:"index"`
 	FeedUrl         string    `json:"feedUrl" form:"feed-url"`
 	OriginalUrl     string    `json:"originalUrl"`
 	UnreadCount     int16     `json:"unreadCount" form:"unread-count"`
@@ -31,8 +31,9 @@ type LinkService interface {
 	FetchLinks(userId uint) ([]Link, error)
 	CreateLink(userId uint, url string) (*Link, error)
 	CreateLinkFromFeed(userId uint, siteTitle string, feedUrl string, siteUrl string) (*Link, error)
+	RegisterLinkClick(userId uint, id uint) (*Link, error)
 	FetchLink(userId uint, id uint, refresh bool) (*Link, error)
-	UpdateLink(userId uint, id uint, link Link, refresh bool) (*Link, error)
+	UpdateLink(userId uint, link Link, refresh bool) (*Link, error)
 	DeleteLink(userId uint, id uint) (uint, error)
-	RefreshLink(userId uint, link Link) (*Link, error)
+	RefreshAndUpdateLink(userId uint, link Link) (*Link, error)
 }

@@ -1,7 +1,6 @@
 package approuter
 
 import (
-	"errors"
 	"net/http"
 
 	"github.com/andyinabox/linkydink/app"
@@ -9,16 +8,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type sessionGetQuery struct {
+	Hash string `form:"h" binding:"required"`
+}
+
 func (r *Router) SessionGet(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	hash := ctx.Query("h")
-	user, err := r.sc.UserService().GetUserFromLoginHash(hash)
-
-	if err == nil && user == nil {
-		err = errors.New("no user found for hash")
+	var query sessionGetQuery
+	err := ctx.BindQuery(&query)
+	if err != nil {
+		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err)
 	}
 
+	user, err := r.sc.UserService().GetUserFromLoginHash(query.Hash)
 	if err != nil {
 		logger.Error().Println(err.Error())
 

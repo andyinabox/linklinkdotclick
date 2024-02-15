@@ -4,33 +4,12 @@
     slot="link"
     class="link-item-link"
     data-href="{{ .SiteUrl }}"
-    href="/links?id={{ .ID }}"
+    href="/links?id={{ .ID }}&url={{ .SiteUrl }}"
     target="_blank"
     >{{ .SiteName }}</a
   >
   <span slot="count" class="link-item-count">{{ if eq .HideUnreadCount false }}{{ if .UnreadCount }}{{ .UnreadCount }}{{ else if eq .FeedUrl "" }}?{{ end }}{{ end }}</span>
-  <form slot="form" is="edit-link-form" id="edit-link-form" class="flex-form-column" method="post" action="/links">
-    <input type="hidden" name="id" value="{{ .ID }}">
-    <input type="hidden" name="last-clicked" value="{{ .LastClicked.Format "2006-01-02T15:04:05Z07:00" }}">
-    <fieldset>
-      <label for="site-title-{{ .ID }}">Name:</label>
-      <input id="site-title-{{ .ID }}" name="site-name" type="text" value="{{ .SiteName }}">
-    </fieldset>
-    <fieldset>
-      <label for="site-url-{{ .ID }}">Site:</label>
-      <input id="site-url-{{ .ID }}" name="site-url" type="text" value="{{ .SiteUrl }}">
-    </fieldset>
-    <fieldset>
-      <label for="feed-url-{{ .ID }}">Feed:</label>
-      <input id="feed-url-{{ .ID }}" name="feed-url" type="text" value="{{ .FeedUrl }}">
-    </fieldset>
-    <fieldset>
-      <button id="btn-link-item-save-{{ .ID }}" name="link-item-save" class="btn-link-item-save" type="submit" value="1">Save</button>
-      <input id="hide-unread-count-{{ .ID }}" name="hide-unread-count" type="checkbox" {{ if .HideUnreadCount }}checked{{ end }} value="1">
-      <label for="hide-unread-count-{{ .ID }}">Hide unread count</label>
-      <button id="btn-link-item-delete-{{ .ID }}" name="link-item-delete" class="btn-link-item-delete" type="submit" value="1" >Delete</button>
-    </fieldset>
-  </form>
+  {{ template "edit-link-form.html.tmpl" . }}
 
 </li>
 {{ end }}
