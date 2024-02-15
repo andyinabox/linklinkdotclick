@@ -1,12 +1,31 @@
-import { renderDataMixin, eventsMixin, slotsMixin } from '../../lib/mixins'
+import { eventsMixin, slotsMixin } from '../../lib/mixins'
+import { updateLink, deleteLink, clickLink, getLink } from '../../lib/api'
+import { handleError } from '../../lib/errors'
 class Link extends HTMLLIElement {
   constructor() {
     super()
     this.registerSlots()
+
+    // replace link href
     const href = this.slots.link.getAttribute('data-href')
     if (href) {
       this.siteUrl = href
       this.removeAttribute('data-href')
+    }
+
+    if (this.linkId) {
+      this.fetchData()
+    }
+  }
+  async fetchData() {
+    try {
+      this.loading = true
+      const link = await getLink(this.linkId)
+      this.data = link
+    } catch (err) {
+      handleError(err)
+    } finally {
+      this.loading = false
     }
   }
   get data() {
@@ -16,6 +35,19 @@ class Link extends HTMLLIElement {
     this._data = d
     this.render()
   }
+  get loading() {
+    return this.classList.hasClass('loading')
+  }
+  set loading(v) {
+    if (v) {
+      this.classList.add('loading')
+      this.broadcast('loading-start')
+    } else {
+      this.classList.remove('loading')
+      this.broadcast('loading-stop')
+    }
+  }
+
   set linkId(v) {
     this.setAttribute('data-id', v)
   }
@@ -41,37 +73,66 @@ class Link extends HTMLLIElement {
     return parseInt(this.slots.count.innerText)
   }
   render() {
-    const { id, siteName, unreadCount, siteUrl } = this.data
+    const { id, siteName, unreadCount, siteUrl, hideUnreadCount, feedUrl } =
+      this.data
+
+    if (hideUnreadCount) {
+      this.slots.count.textContent = ''
+    } else if (unreadCount) {
+      this.slots.count.textContent = data.unreadCount
+    } else if (!feedUrl) {
+      this.slots.count.textContent = '?'
+    } else {
+      this.slots.count.textContent = ''
+    }
+
     this.linkId = id
     this.siteName = siteName
-    this.unreadCount = unreadCount
     this.siteUrl = siteUrl
+    this.slots.form.data = this.data
   }
-  async click(evt) {
-    const now = new Date().toJSON()
-    console.log('click', now)
-    this.slots.form.lastClicked = now
-    this.slots.form.save()
-  }
-
-  handleUpdate(evt) {
-    const link = evt.detail.link
-    console.log('handleUpdate', link)
-    this.data = link
-  }
-  handleDelete(evt) {
-    const id = evt.detail.id
-    console.log('handleDelete', evt)
-    if (this.linkId == id) {
-      this.remove()
-    } else {
-      console.error('delete link id mismatch', id, this.linkId)
+  async onClick() {
+    try {
+      this.loading = true
+      const link = await clickLink(this.linkId)
+      this.data = link
+    } catch (err) {
+      handleError(err)
+    } finally {
+      this.loading = false
     }
   }
+  async onUpdate() {
+    try {
+      this.loading = true
+      const link = await updateLink(
+        Object.assign(this.data, this.slots.form.formData)
+      )
+      this.data = link
+    } catch (err) {
+      handleError(err)
+    } finally {
+      this.loading = false
+    }
+  }
+  async onDelete() {
+    if (!confirm(`Are you sure you want to delete ${this.data.siteName}?`))
+      return
+    try {
+      this.loading = true
+      const result = await deleteLink(this.data.id)
+      this.remove()
+    } catch (err) {
+      handleError(err)
+    } finally {
+      this.loading = false
+    }
+  }
+
   connectedCallback() {
-    this.listen(this.slots.link, 'click', this.click)
-    this.listen(this.slots.form, 'update-link-success', this.handleUpdate)
-    this.listen(this.slots.form, 'delete-link-success', this.handleDelete)
+    this.listen(this.slots.link, 'click', this.onClick)
+    this.listen(this.slots.form, 'link-update-request', this.onUpdate)
+    this.listen(this.slots.form, 'link-delete-request', this.onDelete)
   }
   disconnectedCallback() {
     this.unlistenAll()

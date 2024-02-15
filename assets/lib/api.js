@@ -65,6 +65,11 @@ export const deleteLink = async function (id) {
   return payload
 }
 
+export const clickLink = async function (id) {
+  const { payload } = await apiCall('/links/' + id + '/click', 'PUT')
+  return payload
+}
+
 //
 // users
 //

@@ -37,14 +37,3 @@ export const eventsMixin = {
     )
   },
 }
-
-export const renderDataMixin = {
-  get data() {
-    return { ...this._data }
-  },
-  set data(d) {
-    this._data = d
-    this.render()
-  },
-  render() {},
-}

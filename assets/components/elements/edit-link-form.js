@@ -1,6 +1,3 @@
-import { handleError } from '../../lib/errors'
-import { deleteLink, updateLink } from '../../lib/api'
-import { renderDataMixin } from '../../lib/mixins'
 import { ProgressiveForm } from '../prototypes/progressive-form'
 export class EditLinkForm extends ProgressiveForm {
   constructor() {
@@ -8,6 +5,14 @@ export class EditLinkForm extends ProgressiveForm {
     this.buttons['link-item-save'].disabled = true
     // todo: this will need to be handled differently when creting new links
     this.data = this.formData
+  }
+
+  get data() {
+    return { ...this._data }
+  }
+  set data(d) {
+    this._data = d
+    this.render()
   }
 
   get formData() {
@@ -74,31 +79,7 @@ export class EditLinkForm extends ProgressiveForm {
 
     this.buttons['link-item-save'].disabled = !changed
   }
-  async save() {
-    try {
-      this.broadcast('loading-start')
-      const link = await updateLink(this.formData)
-      this.data = link
-      this.broadcast('update-link-success', { link })
-    } catch (err) {
-      handleError(err)
-    } finally {
-      this.broadcast('loading-end')
-    }
-  }
-  async delete() {
-    if (!confirm(`Are you sure you want to delete ${this.data.siteName}?`))
-      return
-    try {
-      this.broadcast('loading-start')
-      const result = await deleteLink(this.formData.id)
-      this.broadcast('delete-link-success', result)
-    } catch (err) {
-      handleError(err)
-    } finally {
-      this.broadcast('loading-end')
-    }
-  }
+
   render() {
     const { id, siteName, siteUrl, feedUrl, hideUnreadCount, lastClicked } =
       this.data
@@ -111,8 +92,12 @@ export class EditLinkForm extends ProgressiveForm {
     this.handleInput()
   }
   connectedCallback() {
-    this.listen(this.buttons['link-item-delete'], 'click', this.delete)
-    this.listen(this.buttons['link-item-save'], 'click', this.save)
+    this.listen(this.buttons['link-item-delete'], 'click', () =>
+      this.broadcast('link-delete-request')
+    )
+    this.listen(this.buttons['link-item-save'], 'click', () =>
+      this.broadcast('link-update-request')
+    )
     Object.values(this.inputs).forEach((el) =>
       this.listen(el, 'input', this.handleInput)
     )
@@ -121,5 +106,4 @@ export class EditLinkForm extends ProgressiveForm {
     this.unlistenAll()
   }
 }
-Object.assign(EditLinkForm.prototype, renderDataMixin)
 customElements.define('edit-link-form', EditLinkForm, { extends: 'form' })
