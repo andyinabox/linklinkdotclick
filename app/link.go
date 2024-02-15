@@ -31,9 +31,9 @@ type LinkService interface {
 	FetchLinks(userId uint) ([]Link, error)
 	CreateLink(userId uint, url string) (*Link, error)
 	CreateLinkFromFeed(userId uint, siteTitle string, feedUrl string, siteUrl string) (*Link, error)
-	RegisterLinkClick(userId uint, id uint) (*Link, error)
+	RegisterLinkClick(userId uint, id uint, t time.Time) (*Link, error)
 	FetchLink(userId uint, id uint, refresh bool) (*Link, error)
 	UpdateLink(userId uint, link Link, refresh bool) (*Link, error)
 	DeleteLink(userId uint, id uint) (uint, error)
-	RefreshAndUpdateLink(userId uint, link Link) (*Link, error)
+	RefreshAndUpdateLink(userId uint, link Link, force bool) (*Link, error)
 }

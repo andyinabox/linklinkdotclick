@@ -19,7 +19,7 @@ func (s *Service) FetchLinks(userId uint) ([]app.Link, error) {
 
 func (s *Service) refreshLink(userId uint, link app.Link) {
 
-	_, err := s.RefreshAndUpdateLink(userId, link)
+	_, err := s.RefreshAndUpdateLink(userId, link, false)
 	if err != nil {
 		s.log.Error().Println(err.Error())
 	}

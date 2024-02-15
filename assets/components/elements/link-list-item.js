@@ -1,5 +1,5 @@
 import { eventsMixin, slotsMixin } from '../../lib/mixins'
-import { updateLink, deleteLink, clickLink, getLink } from '../../lib/api'
+import { updateLink, deleteLink, patchLink, getLink } from '../../lib/api'
 import { handleError } from '../../lib/errors'
 class Link extends HTMLLIElement {
   constructor() {
@@ -197,7 +197,7 @@ class Link extends HTMLLIElement {
   async onClick() {
     try {
       this.loading = true
-      const link = await clickLink(this.linkId)
+      const link = await patchLink(this.linkId, { lastClicked: new Date() })
       this.data = link
       this.broadcast('link-click-success')
     } catch (err) {

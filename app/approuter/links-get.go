@@ -2,6 +2,7 @@ package approuter
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/andyinabox/linkydink/pkg/ginhelper"
 	"github.com/gin-gonic/gin"
@@ -33,7 +34,7 @@ func (r *Router) LinksGet(ctx *gin.Context) {
 func (r *Router) registerLinkClick(userId uint, id uint) {
 	logger := r.sc.LogService()
 
-	_, err := r.sc.LinkService().RegisterLinkClick(userId, id)
+	_, err := r.sc.LinkService().RegisterLinkClick(userId, id, time.Now())
 	if err != nil {
 		logger.Error().Println(err.Error())
 	}

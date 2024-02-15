@@ -6,7 +6,7 @@ import (
 
 func (s *Service) UpdateLink(userId uint, link app.Link, refresh bool) (*app.Link, error) {
 	if refresh {
-		return s.RefreshAndUpdateLink(userId, link)
+		return s.RefreshAndUpdateLink(userId, link, true)
 	}
 	return s.lr.UpdateLink(link)
 }

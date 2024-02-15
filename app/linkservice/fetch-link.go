@@ -13,7 +13,7 @@ func (s *Service) FetchLink(userId uint, id uint, refresh bool) (link *app.Link,
 		}
 
 		// refresh link feed data
-		return s.RefreshAndUpdateLink(userId, *link)
+		return s.RefreshAndUpdateLink(userId, *link, false)
 	}
 
 	return s.lr.FetchLink(userId, id)

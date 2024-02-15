@@ -2,12 +2,17 @@ package apirouter
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/andyinabox/linkydink/pkg/ginhelper"
 	"github.com/gin-gonic/gin"
 )
 
-func (r *Router) ApiLinksIdClickPut(ctx *gin.Context) {
+type linkPatch struct {
+	LastClicked time.Time `json:"lastClicked"`
+}
+
+func (r *Router) ApiLinksIdPatch(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
 	userId := ginhelper.GetUint(ctx, "userId")
@@ -16,12 +21,22 @@ func (r *Router) ApiLinksIdClickPut(ctx *gin.Context) {
 	if err != nil {
 		logger.Error().Println(err.Error())
 		r.jrh.ResponseError(ctx, http.StatusBadRequest, err)
+		return
 	}
 
-	link, err := r.sc.LinkService().RegisterLinkClick(userId, id)
+	var patch linkPatch
+	err = ctx.BindJSON(&patch)
+	if err != nil {
+		logger.Error().Println(err.Error())
+		r.jrh.ResponseError(ctx, http.StatusBadRequest, err)
+		return
+	}
+
+	link, err := r.sc.LinkService().RegisterLinkClick(userId, id, patch.LastClicked)
 	if err != nil {
 		logger.Error().Println(err.Error())
 		r.jrh.ResponseError(ctx, http.StatusInternalServerError, err)
+		return
 	}
 
 	r.jrh.ResponseSuccessPayload(ctx, link)
