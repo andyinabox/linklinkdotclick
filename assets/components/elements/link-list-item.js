@@ -73,8 +73,12 @@ class Link extends HTMLLIElement {
     return parseInt(this.slots.count.innerText)
   }
   render() {
+    const data = this.data
+    if (!data) return
     const { id, siteName, unreadCount, siteUrl, hideUnreadCount, feedUrl } =
-      this.data
+      data
+
+    console.log('reander link', this.data)
 
     if (hideUnreadCount) {
       this.slots.count.textContent = ''
@@ -89,7 +93,7 @@ class Link extends HTMLLIElement {
     this.linkId = id
     this.siteName = siteName
     this.siteUrl = siteUrl
-    this.slots.form.data = this.data
+    this.slots.form.data = data
   }
   async onClick() {
     try {

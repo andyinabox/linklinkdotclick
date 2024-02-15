@@ -7,6 +7,19 @@ export class LinkList extends HTMLOListElement {
     this.template = this.querySelector('template')
   }
 
+  get loading() {
+    return this.classList.hasClass('loading')
+  }
+  set loading(v) {
+    if (v) {
+      this.classList.add('loading')
+      this.broadcast('loading-start')
+    } else {
+      this.classList.remove('loading')
+      this.broadcast('loading-stop')
+    }
+  }
+
   get links() {
     return Array.from(this.querySelector('li'))
   }
@@ -15,7 +28,7 @@ export class LinkList extends HTMLOListElement {
     if (!url) return
 
     try {
-      this.broadcast('loading-start')
+      this.loading = true
       const link = await createLink(url)
       const linkEl = this.template.content.firstElementChild.cloneNode(true)
       this.prepend(linkEl)
@@ -23,7 +36,7 @@ export class LinkList extends HTMLOListElement {
     } catch (err) {
       handleError(err)
     } finally {
-      this.broadcast('loading-stop')
+      this.loading = false
     }
   }
 
