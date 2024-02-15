@@ -1,5 +1,6 @@
-import './components/link/link'
-import './components/loading/loading'
-import './components/style-editor/style-editor'
-import './components/home-page/home-page'
-import './components/about-page/about-page'
+import './components/elements/form-add-link'
+import './components/elements/form-edit-mode'
+import './components/elements/link-list-item'
+import './components/elements/link-list'
+
+import './components/layouts/page-home'

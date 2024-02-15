@@ -10,7 +10,7 @@ type User struct {
 
 	// domain fields
 	Email      string `json:"email" gorm:"uniqueIndex"`
-	SiteTitle  string `json:"siteTitle"`
+	SiteTitle  string `json:"siteTitle" form:"site-title"`
 	StyleSheet string `json:"styleSheet"`
 }
 

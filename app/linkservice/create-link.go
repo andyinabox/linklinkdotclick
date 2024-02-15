@@ -8,6 +8,7 @@ import (
 )
 
 func (s *Service) CreateLink(userId uint, originalUrl string) (*app.Link, error) {
+
 	feedData, err := feedfinder.GetFeedDataForUrl(originalUrl)
 	if err != nil {
 		return nil, err
