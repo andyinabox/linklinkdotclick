@@ -159,24 +159,26 @@ func main() {
 	jsonResponseHelper := jsonresponsehelper.New()
 
 	title := "link link dot click"
-	htmlResponseHelper := htmlresponsehelper.New(&htmlresponsehelper.Config{
-		SiteTitle:         title,
-		Description:       "Somewhere in-between a blogroll and an RSS reader",
-		FavIconUrl:        "/static/favicon.ico",
-		AppleTouchIconUrl: "/static/apple-touch-icon.png",
-		ManifestUrl:       "/static/site.webmanifest",
-		OgImageUrl:        "/static/android-chrome-512x512.png",
-		OgImageAlt:        "Two paperclips entwined",
-		InfoPageSuccessOptions: &app.HtmlInfoMessageOptions{
-			LinkText: "Back to the main page",
-			LinkUrl:  "/",
-		},
-		InfoPageErrorOptions: &app.HtmlInfoMessageOptions{
-			Message:  "🫠 Uh-oh, something went wrong...",
-			LinkText: "Back to safety",
-			LinkUrl:  "/",
-		},
-	})
+	htmlResponseHelper := htmlresponsehelper.New(
+		serviceContainer,
+		&htmlresponsehelper.Config{
+			SiteTitle:         title,
+			Description:       "Somewhere in-between a blogroll and an RSS reader",
+			FavIconUrl:        "/static/favicon.ico",
+			AppleTouchIconUrl: "/static/apple-touch-icon.png",
+			ManifestUrl:       "/static/site.webmanifest",
+			OgImageUrl:        "/static/android-chrome-512x512.png",
+			OgImageAlt:        "Two paperclips entwined",
+			InfoPageSuccessOptions: &app.HtmlInfoMessageOptions{
+				LinkText: "Back to the main page",
+				LinkUrl:  "/",
+			},
+			InfoPageErrorOptions: &app.HtmlInfoMessageOptions{
+				Message:  "🫠 Uh-oh, something went wrong...",
+				LinkText: "Back to safety",
+				LinkUrl:  "/",
+			},
+		})
 	wsRouter := wsrouter.New()
 
 	// create routers

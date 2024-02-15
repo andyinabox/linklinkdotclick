@@ -26,6 +26,8 @@
       <input id="input-site-title" name="site-title" type="text" value={{ .User.SiteTitle }} required>
       <button id="btn-edit-site-title" class="btn-submit" type="submit">Save</button>
     </form>
+    <h2>Styles</h2>
+    {{ template "form-style-editor.html.tmpl" .User }}
     <h2>Data Import/Export</h2>
     <form class="flex-form-row" method="post" enctype="multipart/form-data" action="/opml">
       <label for="opml-file">Import OPML:</label>

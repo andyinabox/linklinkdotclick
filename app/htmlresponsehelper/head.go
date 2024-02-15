@@ -1,6 +1,10 @@
 package htmlresponsehelper
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 type headRenderContext struct {
 	Title                  string
@@ -15,9 +19,17 @@ type headRenderContext struct {
 	RedirectTimeoutSeconds int
 	RedirectUrl            string
 	RedirectNoscriptOnly   bool
+	UserStyles             string
 }
 
 func (h *Helper) newHeadRenderContext(ctx *gin.Context) headRenderContext {
+
+	userId := ctx.GetUint("userId")
+	user, err := h.sc.UserService().FetchUser(userId)
+	if err != nil {
+		ctx.AbortWithError(http.StatusUnauthorized, err)
+	}
+
 	return headRenderContext{
 		Title:             h.conf.SiteTitle,
 		Description:       h.conf.Description,
@@ -28,5 +40,6 @@ func (h *Helper) newHeadRenderContext(ctx *gin.Context) headRenderContext {
 		OgTitle:           h.conf.SiteTitle,
 		OgImageUrl:        h.conf.OgImageUrl,
 		OgImageAlt:        h.conf.OgImageAlt,
+		UserStyles:        user.StyleSheet,
 	}
 }

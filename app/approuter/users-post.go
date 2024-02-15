@@ -4,14 +4,13 @@ import (
 	"net/http"
 
 	"github.com/andyinabox/linkydink/app"
-	"github.com/andyinabox/linkydink/pkg/ginhelper"
 	"github.com/gin-gonic/gin"
 )
 
 func (r *Router) UsersPost(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	userId := ginhelper.GetUint(ctx, "userId")
+	userId := ctx.GetUint("userId")
 
 	var user app.User
 	err := ctx.ShouldBind(&user)

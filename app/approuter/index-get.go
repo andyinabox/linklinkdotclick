@@ -11,7 +11,7 @@ func (r *Router) IndexGet(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
 	isEditing := ginhelper.GetQueryBool(ctx, "editing")
-	userId := ginhelper.GetUint(ctx, "userId")
+	userId := ctx.GetUint("userId")
 	isDefaultUser := ctx.GetBool("isDefaultUser")
 
 	user, err := r.sc.UserService().FetchUser(userId)
