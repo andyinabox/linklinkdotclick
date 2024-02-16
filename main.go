@@ -4,7 +4,6 @@ import (
 	"embed"
 	"flag"
 	"fmt"
-	"html/template"
 	"io/fs"
 	"log"
 	"os"
@@ -25,6 +24,7 @@ import (
 	"github.com/andyinabox/linkydink/app/userservice"
 	"github.com/andyinabox/linkydink/app/wsrouter"
 	"github.com/andyinabox/linkydink/pkg/logservice"
+	"github.com/andyinabox/linkydink/pkg/templatefuncs"
 	"github.com/andyinabox/linkydink/pkg/tokenstore"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/glebarez/sqlite"
@@ -111,11 +111,7 @@ func main() {
 	}
 
 	// load templates
-	templates, err := template.New("").Funcs(template.FuncMap{
-		"css": func(css string) template.CSS {
-			return template.CSS(css)
-		},
-	}).ParseFS(res, templatesGlob)
+	templates, err := templatefuncs.NewWithFuncs("").ParseFS(res, templatesGlob)
 	if err != nil {
 		panic(err)
 	}
