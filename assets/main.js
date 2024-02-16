@@ -6,6 +6,8 @@ import './components/elements/link-list'
 
 import './components/layouts/page-home'
 
+document.querySelector('html').classList.remove('no-js')
+
 // remove query
 if (window.location.search) {
   const split = window.location.toString().split('?')
