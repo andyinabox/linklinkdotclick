@@ -4,8 +4,6 @@ export class FormBase extends HTMLFormElement {
   static overrideSubmit = true
   constructor() {
     super()
-    console.log('FormBase constructor')
-    console.log('override submit', this.constructor.overrideSubmit, this)
     if (this.constructor.overrideSubmit) {
       this.onsubmit = (evt) => {
         evt.preventDefault()

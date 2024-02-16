@@ -7,17 +7,17 @@ func Test_Parse(t *testing.T) {
 		css := `body {
 			font-weight: bold;
 		}`
-		result, valid, err := Parse([]byte(css), &ParseOptions{})
+		result, err := Parse([]byte(css), true)
 
 		if err != nil {
 			t.Fatal(err.Error())
 		}
 
-		if !valid {
+		if !result.Valid {
 			t.Error("expected valid result")
 		}
 
-		if len(result) == 0 {
+		if len(result.Output) == 0 {
 			t.Error("recieved empty parse result")
 		}
 	}
@@ -26,12 +26,12 @@ func Test_Parse(t *testing.T) {
 		css := `body {
 			font-wight: bold
 		}`
-		_, valid, err := Parse([]byte(css), &ParseOptions{})
-		if err != nil {
-			t.Fatal(err.Error())
+		result, err := Parse([]byte(css), true)
+		if err == nil {
+			t.Errorf("expected error for invalid css: %v", err)
 		}
 
-		if valid {
+		if result.Valid {
 			t.Error("expected invalid result")
 		}
 	}

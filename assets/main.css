@@ -239,7 +239,11 @@ body.page-info {
   align-items: center;
   justify-content: center;
   min-height: 80vh;
-  gap: var(--ll-gap);
+  gap: var(--gap);
+}
+body.page-info,
+body.page-info * {
+  text-align: center;
 }
 
 .form-style-editor {
@@ -250,7 +254,28 @@ body.page-info {
 
 .form-style-editor > textarea {
   width: 100%;
-  min-height: 80vh;
   font-family: monospace;
+  min-height: 5rem;
   font-size: 0.5rem;
+}
+
+.form-style-editor.invalid > textarea {
+  border-color: red;
+}
+
+.form-style-editor > .errors {
+  display: flex;
+  gap: var(--gap-sm);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: monospace;
+  color: red;
+  font-size: 0.5rem;
+}
+
+.form-style-editor > .errors > li:before {
+  display: inline;
+  content: '⚠️';
+  margin-right: 0.5em;
 }

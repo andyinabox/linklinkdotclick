@@ -7,10 +7,21 @@ import (
 	"github.com/evanw/esbuild/pkg/api"
 )
 
-type ParseOptions struct {
+type ParseResult struct {
+	Output   []byte
+	Valid    bool
+	Errors   []error
+	Warnings []string
 }
 
-func Parse(styles []byte, opts *ParseOptions) (output []byte, valid bool, err error) {
+func wrapErr(message string, err error) error {
+	if err == nil {
+		return errors.New(message)
+	}
+	return fmt.Errorf("%s; %w", message, err)
+}
+
+func Parse(styles []byte, errIfInvalid bool) (result *ParseResult, err error) {
 
 	buildOpts := api.BuildOptions{
 		Stdin: &api.StdinOptions{
@@ -20,22 +31,28 @@ func Parse(styles []byte, opts *ParseOptions) (output []byte, valid bool, err er
 		Format: api.FormatDefault,
 	}
 
-	result := api.Build(buildOpts)
+	r := api.Build(buildOpts)
 
-	if len(result.Errors) > 0 {
-		err = fmt.Errorf("errors: %v", result.Errors)
-		valid = false
-		return
+	warnings := make([]string, len(r.Warnings))
+	for i, w := range r.Warnings {
+		warnings[i] = w.Text
+		if errIfInvalid {
+			err = wrapErr(w.Text, err)
+		}
 	}
 
-	if len(result.OutputFiles) == 0 {
-		err = errors.New("no output files")
-		valid = false
-		return
+	errs := make([]error, len(r.Errors))
+	for i, e := range r.Errors {
+		errs[i] = errors.New(e.Text)
+		err = wrapErr(e.Text, err)
 	}
 
-	valid = len(result.Warnings) < 1
+	result = &ParseResult{
+		Output:   r.OutputFiles[0].Contents,
+		Valid:    len(errs) == 0 && len(warnings) == 0,
+		Errors:   errs,
+		Warnings: warnings,
+	}
 
-	output = result.OutputFiles[0].Contents
 	return
 }

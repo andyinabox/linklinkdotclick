@@ -1,7 +1,6 @@
 package approuter
 
 import (
-	"errors"
 	"net/http"
 
 	"github.com/andyinabox/linkydink/pkg/cssparser"
@@ -19,14 +18,13 @@ func (r *Router) StylesPost(ctx *gin.Context) {
 
 	styles := ctx.PostForm("styles")
 
-	output, valid, _ := cssparser.Parse([]byte(styles), &cssparser.ParseOptions{})
-	if !valid {
-		err = errors.New("invalid css")
-		r.hrh.PageInfoError(ctx, http.StatusBadRequest, err)
+	result, err := cssparser.Parse([]byte(styles), true)
+	if err != nil {
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
-	user.StyleSheet = string(output)
+	user.StyleSheet = string(result.Output)
 	_, err = r.sc.UserService().UpdateUser(userId, *user)
 	if err != nil {
 		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)

@@ -179,7 +179,7 @@ func main() {
 				LinkUrl:  "/",
 			},
 		})
-	wsRouter := wsrouter.New()
+	wsRouter := wsrouter.New(serviceContainer)
 
 	// create routers
 	appRouter := approuter.New(
