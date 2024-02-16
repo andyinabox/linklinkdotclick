@@ -93,6 +93,7 @@ input[type='file']::file-selector-button {
 }
 
 button {
+  font-family: sans-serif;
   cursor: pointer;
 }
 button[disabled] {
@@ -127,23 +128,16 @@ body.editing .btn-edit-mode:after {
   content: '✅';
 }
 
-.btn-link-add:after {
+.btn-add:after {
   content: '➕';
 }
-
 .btn-login:after {
   content: '🚪';
 }
 .btn-logout:after {
   content: '👋';
 }
-.btn-link-item-save:after {
-  content: '✅';
-}
-.btn-link-item-save[disabled]:after {
-  content: '⬜️';
-}
-.btn-link-item-delete:after {
+.btn-delete:after {
   content: '🗑';
 }
 .btn-download:after {
@@ -154,6 +148,15 @@ body.editing .btn-edit-mode:after {
 }
 .btn-submit:after {
   content: '✅';
+}
+.btn-reset:after {
+  content: '↩️';
+}
+.btn-settings:after {
+  content: '⚙️';
+}
+.btn-styles:after {
+  content: '💅';
 }
 
 /*
@@ -173,8 +176,7 @@ body.loading:after {
   display: flex;
   flex-wrap: wrap;
   gap: var(--gap);
-}
-#link-global-options > * {
+  padding-top: var(--gap);
 }
 
 #user-settings {

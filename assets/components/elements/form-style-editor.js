@@ -5,12 +5,14 @@ export class FormStyleEditor extends FormBase {
   constructor() {
     super()
     this.editor = this.querySelector('textarea')
+    this.originalStyles = this.editor.value
     this.userStyles = document.getElementById('user-styles')
     // this.buttons['btn-styles-open'].hidden = false
     this.socket = new WebSocket(`wss://${window.location.host}/ws/style-editor`)
-    this.socket.onerror = (err) => {
-      console.error(err)
-    }
+    // this.socket.onerror = (err) => {
+    //   console.error(err)
+    // }
+    this.diffStyles()
   }
   // handleNewWindowClick() {
   //   this.popup = window.open(
@@ -20,12 +22,23 @@ export class FormStyleEditor extends FormBase {
   //   )
   // }
 
+  diffStyles() {
+    if (this.editor.value === this.originalStyles) {
+      this.buttons['btn-styles-reset'].disabled = true
+      this.buttons['btn-styles-save'].disabled = true
+    } else {
+      this.buttons['btn-styles-reset'].disabled = false
+      this.buttons['btn-styles-save'].disabled = false
+    }
+  }
+
   handleSocketMessage(msg) {
     const selectionStart = this.editor.selectionStart
     const selectionEnd = this.editor.selectionEnd
     this.editor.value = msg.data
     this.userStyles.innerText = msg.data
     this.editor.setSelectionRange(selectionStart, selectionEnd)
+    this.diffStyles()
   }
   // handleSocketOpen() {
   //   console.log('socket open')
