@@ -5,3 +5,9 @@ import './components/elements/link-list-item'
 import './components/elements/link-list'
 
 import './components/layouts/page-home'
+
+// remove query
+if (window.location.search) {
+  const split = window.location.toString().split('?')
+  history.replaceState({}, '', split[0])
+}
