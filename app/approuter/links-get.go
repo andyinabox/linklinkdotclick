@@ -21,7 +21,7 @@ func (r *Router) LinksGet(ctx *gin.Context) {
 	err := ctx.BindQuery(&query)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err)
+		r.hrh.PageInfoError(ctx, http.StatusBadRequest, err)
 		return
 	}
 

@@ -5,9 +5,10 @@ import "github.com/andyinabox/linkydink/app"
 type page string
 
 const (
-	about page = "about"
-	home  page = "home"
-	info  page = "info"
+	about       page = "about"
+	home        page = "home"
+	info        page = "info"
+	styleEditor page = "styleEditor"
 )
 
 type Config struct {

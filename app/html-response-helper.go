@@ -10,9 +10,10 @@ type HtmlInfoMessageOptions struct {
 }
 
 type HtmlResponseHelper interface {
-	HomePage(ctx *gin.Context, user *User, isDefaultUser bool, links []Link, editMode bool)
-	InfoPage(ctx *gin.Context, status int, opts *HtmlInfoMessageOptions)
-	InfoPageError(ctx *gin.Context, status int, err error)
-	InfoPageSuccess(ctx *gin.Context, message string)
-	AboutPage(ctx *gin.Context)
+	PageHome(ctx *gin.Context, user *User, isDefaultUser bool, links []Link, editMode bool)
+	PageAbout(ctx *gin.Context)
+	PageInfo(ctx *gin.Context, status int, opts *HtmlInfoMessageOptions)
+	PageInfoError(ctx *gin.Context, status int, err error)
+	PageInfoSuccess(ctx *gin.Context, message string)
+	PageStyleEditor(ctx *gin.Context, user *User)
 }

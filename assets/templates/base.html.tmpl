@@ -3,6 +3,8 @@
 {{ template "page-about.html.tmpl" .Body }}
 {{ else if eq .PageName "info" }}
 {{ template "page-info.html.tmpl" .Body }}
+{{ else if eq .PageName "styleEditor" }}
+{{ template "page-style-editor.html.tmpl" .Body }}
 {{ else }}
 {{ template "page-home.html.tmpl" .Body }}
 {{ end }}

@@ -1,3 +1,8 @@
-<form is="form-style-editor" class="form-style-editor">
+<form is="form-style-editor" class="form-style-editor" action="/styles">
+  <fieldset>
+    {{/* <button formtarget="_blank" method="get">Open in New Window</button> */}}
+    <button type="reset">Reset</button>
+    <button type="submit" formmethod="post">Save</button>
+  </fieldset>
   <textarea name="styles">{{ .StyleSheet }}</textarea>
-<form>
+</form>

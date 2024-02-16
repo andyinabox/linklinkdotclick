@@ -111,7 +111,11 @@ func main() {
 	}
 
 	// load templates
-	templates, err := template.ParseFS(res, templatesGlob)
+	templates, err := template.New("").Funcs(template.FuncMap{
+		"css": func(css string) template.CSS {
+			return template.CSS(css)
+		},
+	}).ParseFS(res, templatesGlob)
 	if err != nil {
 		panic(err)
 	}

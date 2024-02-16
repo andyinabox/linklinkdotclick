@@ -35,7 +35,7 @@ func (r *Router) SessionPost(ctx *gin.Context) {
 
 	err := errors.New("invalid post options")
 	r.sc.LogService().Error().Println(err.Error())
-	r.hrh.InfoPageError(ctx, http.StatusBadRequest, err)
+	r.hrh.PageInfoError(ctx, http.StatusBadRequest, err)
 }
 
 func (r *Router) login(ctx *gin.Context) {
@@ -45,7 +45,7 @@ func (r *Router) login(ctx *gin.Context) {
 	if email == "" {
 		err = errors.New("no email provided")
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err)
+		r.hrh.PageInfoError(ctx, http.StatusBadRequest, err)
 		return
 	}
 
@@ -54,14 +54,14 @@ func (r *Router) login(ctx *gin.Context) {
 	user, err := userService.FetchOrCreateUserByEmail(email)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	hash, err := userService.GetLoginHashForUser(user)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
@@ -76,7 +76,7 @@ func (r *Router) login(ctx *gin.Context) {
 	err = r.conf.Templates.ExecuteTemplate(bodyBuffer, "email.html.tmpl", bodyData)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 	}
 
 	postmanEmail := &postman.Email{
@@ -96,11 +96,11 @@ func (r *Router) login(ctx *gin.Context) {
 	err = postman.Send(postmanEmail, r.conf.SmtpAddr)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
-	r.hrh.InfoPageSuccess(ctx, "✨ A magic link is on its way to your inbox!")
+	r.hrh.PageInfoSuccess(ctx, "✨ A magic link is on its way to your inbox!")
 }
 
 func (r *Router) logout(ctx *gin.Context) {

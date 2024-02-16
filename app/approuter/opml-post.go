@@ -15,35 +15,35 @@ func (r *Router) OpmlPost(ctx *gin.Context) {
 	id, _, err := r.ah.GetUserIdFromSession(ctx)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusUnauthorized, err)
+		r.hrh.PageInfoError(ctx, http.StatusUnauthorized, err)
 		return
 	}
 	// single file
 	fileHeader, err := ctx.FormFile("opml_file")
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err)
+		r.hrh.PageInfoError(ctx, http.StatusBadRequest, err)
 		return
 	}
 
 	file, err := fileHeader.Open()
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 	defer file.Close()
 	fileContents, err := io.ReadAll(file)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	feeds, err := opmlparser.ParseXml(fileContents)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
@@ -61,11 +61,11 @@ func (r *Router) OpmlPost(ctx *gin.Context) {
 	}
 
 	if successCount == 0 {
-		r.hrh.InfoPageSuccess(ctx, fmt.Sprintf("☹️ successfully parsed OPML file, but %d links successfully added", len(feeds)))
+		r.hrh.PageInfoSuccess(ctx, fmt.Sprintf("☹️ successfully parsed OPML file, but %d links successfully added", len(feeds)))
 	} else if successCount > failedCount {
-		r.hrh.InfoPageSuccess(ctx, fmt.Sprintf("✅ %d links added, %d failed", successCount, failedCount))
+		r.hrh.PageInfoSuccess(ctx, fmt.Sprintf("✅ %d links added, %d failed", successCount, failedCount))
 	} else {
-		r.hrh.InfoPageSuccess(ctx, fmt.Sprintf("🫤 %d links added, %d failed", successCount, failedCount))
+		r.hrh.PageInfoSuccess(ctx, fmt.Sprintf("🫤 %d links added, %d failed", successCount, failedCount))
 	}
 
 }

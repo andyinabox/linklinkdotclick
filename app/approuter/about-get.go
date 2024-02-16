@@ -5,5 +5,5 @@ import (
 )
 
 func (r *Router) AboutGet(ctx *gin.Context) {
-	r.hrh.AboutPage(ctx)
+	r.hrh.PageAbout(ctx)
 }

@@ -16,7 +16,7 @@ func (r *Router) UsersPost(ctx *gin.Context) {
 	err := ctx.ShouldBind(&user)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 	user.ID = userId
@@ -24,7 +24,7 @@ func (r *Router) UsersPost(ctx *gin.Context) {
 	_, err = r.sc.UserService().UpdateUser(userId, user)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 

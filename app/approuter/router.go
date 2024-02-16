@@ -35,6 +35,10 @@ func (r *Router) Register(engine *gin.Engine) {
 	// other pages
 	app.GET("/about", r.AboutGet)
 
+	// style editor
+	app.GET("/styles", r.StylesGet)
+	app.POST("/styles", r.StylesPost)
+
 	// auth
 	app.POST("/session", r.SessionPost)
 	app.GET("/session", r.SessionGet)

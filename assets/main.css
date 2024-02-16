@@ -35,7 +35,8 @@ h1 {
   margin: 0px;
 }
 h2 {
-  font-size: 1.2rem;
+  font-size: 1rem;
+  margin: 0.5rem 0;
 }
 h3 {
   font-size: 1rem;
@@ -237,6 +238,12 @@ body.page-info {
   justify-content: center;
   min-height: 80vh;
   gap: var(--ll-gap);
+}
+
+.form-style-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
 }
 
 .form-style-editor > textarea {

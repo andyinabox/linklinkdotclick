@@ -30,7 +30,7 @@ func (r *Router) LinksPost(ctx *gin.Context) {
 
 	err := errors.New("invalid post options")
 	r.sc.LogService().Error().Println(err.Error())
-	r.hrh.InfoPageError(ctx, http.StatusBadRequest, err)
+	r.hrh.PageInfoError(ctx, http.StatusBadRequest, err)
 }
 
 func (r *Router) createLink(ctx *gin.Context) {
@@ -43,7 +43,7 @@ func (r *Router) createLink(ctx *gin.Context) {
 	_, err = r.sc.LinkService().CreateLink(userId, originalUrl)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
@@ -59,7 +59,7 @@ func (r *Router) updateLink(ctx *gin.Context) {
 	err := ctx.ShouldBind(&link)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err)
+		r.hrh.PageInfoError(ctx, http.StatusBadRequest, err)
 		return
 	}
 	link.UserID = userId
@@ -67,7 +67,7 @@ func (r *Router) updateLink(ctx *gin.Context) {
 	_, err = r.sc.LinkService().UpdateLink(userId, link, true)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
@@ -81,14 +81,14 @@ func (r *Router) deleteLink(ctx *gin.Context) {
 	id, err := ginhelper.GetPostFormUint(ctx, "id")
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err)
+		r.hrh.PageInfoError(ctx, http.StatusBadRequest, err)
 		return
 	}
 
 	_, err = r.sc.LinkService().DeleteLink(userId, id)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
