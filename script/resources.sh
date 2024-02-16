@@ -1,12 +1,13 @@
 #!/bin/bash
 
 CSS_INFILE=assets/main.css
-CSS_OUTFILE=res/static/main.css
+CSS_OUTFILE=res/static/main.min.css
 JS_INFILE=assets/main.js
-JS_OUTFILE=res/static/main.js
+JS_OUTFILE=res/static/main.min.js
 
 go run ./cmd/copy/main.go -g='assets/**/*.tmpl' -o=res/tmpl
 go run ./cmd/copy/main.go -g='assets/static/**/*' -o res/static
+go run ./cmd/copy/main.go -g='assets/main.css' -o res/static
 
 if [[ "${DEPLOY_ENV}" == "production" ]]; then
 	go run ./cmd/esbuild/main.go $CSS_INFILE --bundle --outfile=$CSS_OUTFILE
