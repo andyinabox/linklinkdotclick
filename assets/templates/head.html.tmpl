@@ -4,8 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ .Title }}</title>
-    
+
+    <link rel="stylesheet" href="/static/normalize.css" />
     <link rel="stylesheet" href="/static/main.css" />
+    <style id="user-styles">{{ .UserStyles }}</style>
+    
     <script defer src="/static/main.js"></script>
     
     <meta name="description" content="{{ .Description }}" />
@@ -19,5 +22,4 @@
     <link rel="icon" href="{{ .FavIconUrl }}" sizes="any" />
     <link rel="apple-touch-icon" href="{{ .AppleTouchIconUrl }}" />
     <link rel="manifest" href="{{ .ManifestUrl }}">
-    <style id="user-styles">{{ .UserStyles }}</style>
   </head>
