@@ -3,9 +3,9 @@ import './components/elements/form-edit-mode'
 import './components/elements/form-style-editor'
 import './components/elements/link-list-item'
 import './components/elements/link-list'
-
 import './components/layouts/page-home'
 
+// remove no-js class
 document.querySelector('html').classList.remove('no-js')
 
 // remove query
