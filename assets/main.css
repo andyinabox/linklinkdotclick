@@ -254,7 +254,8 @@ body.editing .btn-edit-mode:after {
 
 .box-settings {
   padding: var(--gap-md);
-  background-color: beige;
+  background-color: #ccd;
+  background-image: url('data:image/gif;base64,R0lGODlhAgACAIAAAP///////yH5BAUAAAEALAAAAAACAAIAAAIDDBAFADs=');
 }
 
 /*
