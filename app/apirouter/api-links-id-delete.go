@@ -14,18 +14,12 @@ type ApiLinksIdDeleteResponse struct {
 func (r *Router) ApiLinksIdDelete(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	id, err := ginhelper.GetParamUint(ctx, "id")
+	userId := ctx.GetUint("userId")
 
+	id, err := ginhelper.GetParamUint(ctx, "id")
 	if err != nil {
 		logger.Error().Println(err.Error())
 		r.jrh.ResponseError(ctx, http.StatusBadRequest, err)
-		return
-	}
-
-	userId, _, err := r.ah.GetUserIdFromSession(ctx)
-	if err != nil {
-		logger.Error().Println(err.Error())
-		r.jrh.ResponseError(ctx, http.StatusUnauthorized, err)
 		return
 	}
 

@@ -12,16 +12,11 @@ func (r *Router) ApiLinksIdPut(ctx *gin.Context) {
 
 	_, refresh := ctx.GetQuery("refresh")
 
-	userId, _, err := r.ah.GetUserIdFromSession(ctx)
-	if err != nil {
-		logger.Error().Println(err.Error())
-		r.jrh.ResponseError(ctx, http.StatusUnauthorized, err)
-		return
-	}
+	userId := ctx.GetUint("userId")
 
 	var link app.Link
 
-	err = ctx.BindJSON(&link)
+	err := ctx.BindJSON(&link)
 	if err != nil {
 		logger.Error().Println(err.Error())
 		r.jrh.ResponseError(ctx, http.StatusInternalServerError, err)

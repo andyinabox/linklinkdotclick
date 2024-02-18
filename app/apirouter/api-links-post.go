@@ -14,6 +14,8 @@ type ApiLinksPostBody struct {
 func (r *Router) ApiLinksPost(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
+	userId := ctx.GetUint("userId")
+
 	var body ApiLinksPostBody
 	err := ctx.BindJSON(&body)
 	if err != nil {
@@ -25,13 +27,6 @@ func (r *Router) ApiLinksPost(ctx *gin.Context) {
 	if body.Url == "" {
 		logger.Error().Println(err.Error())
 		r.jrh.ResponseError(ctx, http.StatusBadRequest, errors.New("missing url"))
-		return
-	}
-
-	userId, _, err := r.ah.GetUserIdFromSession(ctx)
-	if err != nil {
-		logger.Error().Println(err.Error())
-		r.jrh.ResponseError(ctx, http.StatusUnauthorized, err)
 		return
 	}
 
