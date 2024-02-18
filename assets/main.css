@@ -238,7 +238,7 @@ body.editing .btn-edit-mode:after {
   content: var(--icon-submit);
 }
 .btn-reset:after {
-  content: var(--iron-reset);
+  content: var(--icon-reset);
 }
 .btn-settings:after {
   content: vat(--icon-settings);
@@ -334,24 +334,28 @@ body.page-info * {
   text-align: center;
 }
 
-.form-style-editor {
+form[is='form-style-editor'] {
   display: flex;
   flex-direction: column;
   gap: var(--gap-sm);
 }
 
-.form-style-editor > textarea {
+form[is='form-style-editor'] > fieldset {
+  justify-content: space-between;
+}
+
+form[is='form-style-editor'] > textarea {
   width: 100%;
   font-family: monospace;
   min-height: 5rem;
   font-size: var(--font-size-sm);
 }
 
-.form-style-editor.invalid > textarea {
+form[is='form-style-editor'].invalid > textarea {
   border-color: red;
 }
 
-.form-style-editor > .errors {
+form[is='form-style-editor'] > .errors {
   display: flex;
   gap: var(--gap-sm);
   list-style: none;
@@ -362,7 +366,7 @@ body.page-info * {
   font-size: var(--font-size-sm);
 }
 
-.form-style-editor > .errors > li:before {
+form[is='form-style-editor'] > .errors > li:before {
   display: inline;
   content: '⚠️';
   margin-right: var(--em-gap-md);

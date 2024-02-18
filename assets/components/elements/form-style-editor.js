@@ -9,20 +9,9 @@ export class FormStyleEditor extends FormBase {
     this.errors = this.querySelector('ul.errors')
     this.originalStyles = this.editor.value
     this.userStyles = document.getElementById('user-styles')
-    // this.buttons['btn-styles-open'].hidden = false
     this.socket = new WebSocket(`wss://${window.location.host}/ws/style-editor`)
-    // this.socket.onerror = (err) => {
-    //   console.error(err)
-    // }
     this.setButtonStatus()
   }
-  // handleNewWindowClick() {
-  //   this.popup = window.open(
-  //     '/styles',
-  //     '_blank',
-  //     'popup=1,width=500,height=700'
-  //   )
-  // }
 
   set validCss(bool) {
     if (bool) {
@@ -35,6 +24,10 @@ export class FormStyleEditor extends FormBase {
     return !this.classList.contains('invalid')
   }
 
+  get prevChar() {
+    return this.editor.value[this.editor.selectionStart - 1]
+  }
+
   setButtonStatus() {
     if (this.editor.value === this.originalStyles) {
       this.buttons['btn-styles-reset'].disabled = true
@@ -43,7 +36,6 @@ export class FormStyleEditor extends FormBase {
       this.buttons['btn-styles-reset'].disabled = false
       this.buttons['btn-styles-save'].disabled = false
     }
-
     if (!this.validCss) {
       this.buttons['btn-styles-save'].disabled = true
     }
@@ -78,9 +70,7 @@ export class FormStyleEditor extends FormBase {
       handleError(err)
     }
   }
-  // handleSocketOpen() {
-  //   console.log('socket open')
-  // }
+
   handleInput(evt) {
     if (this.prevChar == ' ') return
     this.sendData(this.editor.value)
@@ -88,10 +78,6 @@ export class FormStyleEditor extends FormBase {
 
   onReset() {
     window.requestAnimationFrame(() => this.sendData(this.editor.value))
-  }
-
-  get prevChar() {
-    return this.editor.value[this.editor.selectionStart - 1]
   }
 
   insert(str) {
@@ -127,6 +113,7 @@ export class FormStyleEditor extends FormBase {
       evt.preventDefault()
       this.insert('  ')
     }
+    // return key
     if (evt.keyCode === 13) {
       console.log('return key')
       if (this.prevChar === '{' || this.prevChar === ';') {
@@ -135,6 +122,7 @@ export class FormStyleEditor extends FormBase {
       }
     }
   }
+
   connectedCallback() {
     this.listen(
       this.editor,
@@ -143,13 +131,7 @@ export class FormStyleEditor extends FormBase {
     )
     this.listen(this, 'reset', this.onReset)
     this.listen(this.editor, 'keydown', this.handleKeyPress)
-    // this.listen(this.socket, 'open', this.handleSocketOpen)
     this.listen(this.socket, 'message', this.handleSocketMessage)
-    // this.listen(
-    //   this.buttons['btn-styles-open'],
-    //   'click',
-    //   this.handleNewWindowClick
-    // )
   }
 }
 
