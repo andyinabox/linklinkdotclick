@@ -15,7 +15,7 @@ type linksGetQuery struct {
 func (r *Router) LinksGet(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	userId := ctx.GetUint("userId")
+	userId := r.ah.UserId(ctx)
 
 	var query linksGetQuery
 	err := ctx.BindQuery(&query)

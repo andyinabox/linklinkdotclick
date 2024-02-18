@@ -14,7 +14,7 @@ type ApiLinksPostBody struct {
 func (r *Router) ApiLinksPost(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	userId := ctx.GetUint("userId")
+	userId := r.ah.UserId(ctx)
 
 	var body ApiLinksPostBody
 	err := ctx.BindJSON(&body)

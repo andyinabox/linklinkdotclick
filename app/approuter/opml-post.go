@@ -12,12 +12,8 @@ import (
 func (r *Router) OpmlPost(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	id, _, err := r.ah.GetUserIdFromSession(ctx)
-	if err != nil {
-		logger.Error().Println(err.Error())
-		r.hrh.PageInfoError(ctx, http.StatusUnauthorized, err)
-		return
-	}
+	id := r.ah.UserId(ctx)
+
 	// single file
 	fileHeader, err := ctx.FormFile("opml_file")
 	if err != nil {

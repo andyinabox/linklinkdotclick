@@ -10,7 +10,7 @@ import (
 func (r *Router) UsersPost(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	userId := ctx.GetUint("userId")
+	userId := r.ah.UserId(ctx)
 
 	var user app.User
 	err := ctx.ShouldBind(&user)

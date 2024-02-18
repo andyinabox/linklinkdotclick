@@ -99,12 +99,12 @@ func main() {
 
 	`, version, port, mode, dbfile, domain, smtpaddr, defaultemail, defaultusertitle)
 
-	// setup users db
-	userDbPath := path.Join(path.Dir(dbfile), "usr")
-	err := os.MkdirAll(path.Dir(userDbPath), fs.ModePerm)
+	// make directory for db file
+	err := os.MkdirAll(path.Dir(dbfile), fs.ModePerm)
 	if err != nil {
 		panic(err)
 	}
+	// open db
 	db, err := gorm.Open(sqlite.Open(dbfile), &gorm.Config{})
 	if err != nil {
 		panic(err)
@@ -152,7 +152,7 @@ func main() {
 		logService,
 	)
 
-	authHelper := authhelper.New(serviceContainer, &authhelper.Config{
+	authHelper := authhelper.New(userService, &authhelper.Config{
 		SessionUserKey: "user",
 	})
 

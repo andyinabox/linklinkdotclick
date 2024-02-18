@@ -11,7 +11,7 @@ func (r *Router) ApiLinksIdGet(ctx *gin.Context) {
 	logger := r.sc.LogService()
 	_, refresh := ctx.GetQuery("refresh")
 
-	userId := ctx.GetUint("userId")
+	userId := r.ah.UserId(ctx)
 
 	id, err := ginhelper.GetParamUint(ctx, "id")
 	if err != nil {

@@ -9,8 +9,7 @@ import (
 
 func (r *Router) StylesPost(ctx *gin.Context) {
 
-	userId := ctx.GetUint("userId")
-	user, err := r.sc.UserService().FetchUser(userId)
+	user, err := r.ah.User(ctx)
 	if err != nil {
 		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
@@ -25,7 +24,7 @@ func (r *Router) StylesPost(ctx *gin.Context) {
 	}
 
 	user.StyleSheet = string(result.Output)
-	_, err = r.sc.UserService().UpdateUser(userId, *user)
+	_, err = r.sc.UserService().UpdateUser(user.ID, *user)
 	if err != nil {
 		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return

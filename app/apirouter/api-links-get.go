@@ -9,7 +9,7 @@ import (
 func (r *Router) ApiLinksGet(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	userId := ctx.GetUint("userId")
+	userId := r.ah.UserId(ctx)
 
 	links, err := r.sc.LinkService().FetchLinks(userId)
 	if err != nil {

@@ -38,7 +38,7 @@ func (r *Router) createLink(ctx *gin.Context) {
 	var err error
 
 	originalUrl := ctx.PostForm("url")
-	userId := ctx.GetUint("userId")
+	userId := r.ah.UserId(ctx)
 
 	_, err = r.sc.LinkService().CreateLink(userId, originalUrl)
 	if err != nil {
@@ -53,7 +53,7 @@ func (r *Router) createLink(ctx *gin.Context) {
 func (r *Router) updateLink(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	userId := ctx.GetUint("userId")
+	userId := r.ah.UserId(ctx)
 
 	var link app.Link
 	err := ctx.ShouldBind(&link)
@@ -77,7 +77,7 @@ func (r *Router) updateLink(ctx *gin.Context) {
 func (r *Router) deleteLink(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	userId := ctx.GetUint("userId")
+	userId := r.ah.UserId(ctx)
 	id, err := ginhelper.GetPostFormUint(ctx, "id")
 	if err != nil {
 		logger.Error().Println(err.Error())

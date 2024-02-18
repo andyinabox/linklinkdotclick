@@ -9,7 +9,7 @@ import (
 
 func (r *Router) OpmlGet(ctx *gin.Context) {
 	logger := r.sc.LogService()
-	user, _, err := r.ah.GetUserFromSession(ctx)
+	user, err := r.ah.User(ctx)
 
 	if err != nil {
 		logger.Error().Println(err.Error())

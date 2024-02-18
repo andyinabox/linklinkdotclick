@@ -12,7 +12,7 @@ func (r *Router) ApiLinksIdPut(ctx *gin.Context) {
 
 	_, refresh := ctx.GetQuery("refresh")
 
-	userId := ctx.GetUint("userId")
+	userId := r.ah.UserId(ctx)
 
 	var link app.Link
 

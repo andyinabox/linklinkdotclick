@@ -15,7 +15,7 @@ type linkPatch struct {
 func (r *Router) ApiLinksIdPatch(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	userId := ctx.GetUint("userId")
+	userId := r.ah.UserId(ctx)
 
 	id, err := ginhelper.GetParamUint(ctx, "id")
 	if err != nil {

@@ -1,6 +1,9 @@
+// Package authhelper provides a Gin middleware function to access the User ID from the current session.
+// It also provides several helper methods for retrieving auth data within response handlers.
 package authhelper
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/andyinabox/linkydink/app"
@@ -8,56 +11,64 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const (
+	userIdKey        string = "userId"
+	isDefaultUserKey string = "isDefaultUser"
+)
+
 type Config struct {
 	SessionUserKey string
 }
 
 type Helper struct {
-	sc   app.ServiceContainer
+	us   app.UserService
 	conf *Config
 }
 
-func New(sc app.ServiceContainer, conf *Config) *Helper {
-	return &Helper{sc, conf}
+func New(us app.UserService, conf *Config) *Helper {
+	return &Helper{us, conf}
 }
 
-func (h *Helper) GetUserIdFromSession(ctx *gin.Context) (id uint, isDefaultUser bool, err error) {
+func (h *Helper) UserId(ctx *gin.Context) (id uint) {
+	return ctx.GetUint(userIdKey)
+}
+
+func (h *Helper) IsDefaultUser(ctx *gin.Context) bool {
+	return ctx.GetBool(isDefaultUserKey)
+}
+
+func (h *Helper) User(ctx *gin.Context) (user *app.User, err error) {
+	return h.us.FetchUser(h.UserId(ctx))
+}
+
+func (h *Helper) getUserIdFromSession(ctx *gin.Context) (id uint, isDefaultUser bool, err error) {
 	session := sessions.Default(ctx)
 	value := session.Get(h.conf.SessionUserKey)
 	if value == nil {
-		return h.sc.UserService().GetDefaultUserId(), true, nil
+		return h.us.GetDefaultUserId(), true, nil
 	}
+
 	var ok bool
-	id, ok = value.(uint)
-	if !ok {
-		err = app.ErrServerError
+	if id, ok = value.(uint); !ok {
+		err = errors.New("unable to type user id as uint")
 		return
 	}
-	return
-}
 
-func (h *Helper) GetUserFromSession(ctx *gin.Context) (*app.User, bool, error) {
-	id, isDefaultUser, err := h.GetUserIdFromSession(ctx)
-	if err != nil {
-		return nil, false, err
-	}
-	user, err := h.sc.UserService().FetchUser(id)
-	return user, isDefaultUser, err
+	return
 }
 
 func (h *Helper) AuthMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
-		userId, isDefaultUser, err := h.GetUserIdFromSession(ctx)
+		userId, isDefaultUser, err := h.getUserIdFromSession(ctx)
 		if err != nil {
-			ctx.AbortWithError(http.StatusUnauthorized, err)
+			ctx.AbortWithError(http.StatusInternalServerError, err)
 		}
 
-		ctx.Set("userId", userId)
-		ctx.Set("isDefaultUser", isDefaultUser)
+		ctx.Set(userIdKey, userId)
+		ctx.Set(isDefaultUserKey, isDefaultUser)
 
 		ctx.Next()
 
-		// I don't think there's anything I need to do here
 	}
 }

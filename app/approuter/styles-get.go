@@ -7,8 +7,7 @@ import (
 )
 
 func (r *Router) StylesGet(ctx *gin.Context) {
-	userId := ctx.GetUint("userId")
-	user, err := r.sc.UserService().FetchUser(userId)
+	user, err := r.ah.User(ctx)
 	if err != nil {
 		r.hrh.PageInfoError(ctx, http.StatusUnauthorized, err)
 		return
