@@ -4,7 +4,6 @@ import (
 	"embed"
 	"flag"
 	"fmt"
-	"html/template"
 	"io/fs"
 	"log"
 	"os"
@@ -23,7 +22,9 @@ import (
 	"github.com/andyinabox/linkydink/app/servicecontainer"
 	"github.com/andyinabox/linkydink/app/userrepository"
 	"github.com/andyinabox/linkydink/app/userservice"
+	"github.com/andyinabox/linkydink/app/wsrouter"
 	"github.com/andyinabox/linkydink/pkg/logservice"
+	"github.com/andyinabox/linkydink/pkg/templatefuncs"
 	"github.com/andyinabox/linkydink/pkg/tokenstore"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/glebarez/sqlite"
@@ -110,7 +111,7 @@ func main() {
 	}
 
 	// load templates
-	templates, err := template.ParseFS(res, templatesGlob)
+	templates, err := templatefuncs.NewWithFuncs("").ParseFS(res, templatesGlob)
 	if err != nil {
 		panic(err)
 	}
@@ -158,24 +159,27 @@ func main() {
 	jsonResponseHelper := jsonresponsehelper.New()
 
 	title := "link link dot click"
-	htmlResponseHelper := htmlresponsehelper.New(&htmlresponsehelper.Config{
-		SiteTitle:         title,
-		Description:       "Somewhere in-between a blogroll and an RSS reader",
-		FavIconUrl:        "/static/favicon.ico",
-		AppleTouchIconUrl: "/static/apple-touch-icon.png",
-		ManifestUrl:       "/static/site.webmanifest",
-		OgImageUrl:        "/static/android-chrome-512x512.png",
-		OgImageAlt:        "Two paperclips entwined",
-		InfoPageSuccessOptions: &app.HtmlInfoMessageOptions{
-			LinkText: "Back to the main page",
-			LinkUrl:  "/",
-		},
-		InfoPageErrorOptions: &app.HtmlInfoMessageOptions{
-			Message:  "🫠 Uh-oh, something went wrong...",
-			LinkText: "Back to safety",
-			LinkUrl:  "/",
-		},
-	})
+	htmlResponseHelper := htmlresponsehelper.New(
+		serviceContainer,
+		&htmlresponsehelper.Config{
+			SiteTitle:         title,
+			Description:       "Somewhere in-between a blogroll and an RSS reader",
+			FavIconUrl:        "/static/favicon.ico",
+			AppleTouchIconUrl: "/static/apple-touch-icon.png",
+			ManifestUrl:       "/static/site.webmanifest",
+			OgImageUrl:        "/static/android-chrome-512x512.png",
+			OgImageAlt:        "Two paperclips entwined",
+			InfoPageSuccessOptions: &app.HtmlInfoMessageOptions{
+				LinkText: "Back to the main page",
+				LinkUrl:  "/",
+			},
+			InfoPageErrorOptions: &app.HtmlInfoMessageOptions{
+				Message:  "🫠 Uh-oh, something went wrong...",
+				LinkText: "Back to safety",
+				LinkUrl:  "/",
+			},
+		})
+	wsRouter := wsrouter.New(serviceContainer)
 
 	// create routers
 	appRouter := approuter.New(
@@ -198,7 +202,7 @@ func main() {
 			Mode:   mode,
 		},
 	)
-	routers := []app.RouterGroup{appRouter, apiRouter}
+	routers := []app.RouterGroup{appRouter, apiRouter, wsRouter}
 
 	// create app
 	appConfig := &app.Config{

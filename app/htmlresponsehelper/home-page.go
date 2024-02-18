@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type homePageBody struct {
+type pageHomeBody struct {
 	User          app.User
 	Links         []app.Link
 	EmptyLink     app.Link
@@ -15,8 +15,8 @@ type homePageBody struct {
 	EditMode      bool
 }
 
-func (h *Helper) HomePage(ctx *gin.Context, user *app.User, isDefaultUser bool, links []app.Link, editMode bool) {
-	ctx.HTML(http.StatusOK, "base.html.tmpl", h.newRenderContext(ctx, home, &homePageBody{
+func (h *Helper) PageHome(ctx *gin.Context, user *app.User, isDefaultUser bool, links []app.Link, editMode bool) {
+	ctx.HTML(http.StatusOK, "base.html.tmpl", h.newRenderContext(ctx, home, &pageHomeBody{
 		User:          *user,
 		Links:         links,
 		IsDefaultUser: isDefaultUser,

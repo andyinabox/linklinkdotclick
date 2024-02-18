@@ -18,14 +18,14 @@ func (r *Router) SessionGet(ctx *gin.Context) {
 	var query sessionGetQuery
 	err := ctx.BindQuery(&query)
 	if err != nil {
-		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err)
+		r.hrh.PageInfoError(ctx, http.StatusBadRequest, err)
 	}
 
 	user, err := r.sc.UserService().GetUserFromLoginHash(query.Hash)
 	if err != nil {
 		logger.Error().Println(err.Error())
 
-		r.hrh.InfoPage(ctx, http.StatusUnauthorized, &app.HtmlInfoMessageOptions{
+		r.hrh.PageInfo(ctx, http.StatusUnauthorized, &app.HtmlInfoMessageOptions{
 			Message:  "🔒 That link isn't working. Did you already use it?",
 			Error:    err,
 			LinkUrl:  "/",

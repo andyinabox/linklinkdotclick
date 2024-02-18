@@ -1,12 +1,16 @@
 import { eventsMixin } from '../../lib/mixins'
 
 export class FormBase extends HTMLFormElement {
+  static overrideSubmit = true
   constructor() {
     super()
-    this.onsubmit = (evt) => {
-      evt.preventDefault()
-      this.onSubmit(evt)
+    if (this.constructor.overrideSubmit) {
+      this.onsubmit = (evt) => {
+        evt.preventDefault()
+        this.onSubmit(evt)
+      }
     }
+
     this.inputs = {}
     this.querySelectorAll('input[name]').forEach((el) => {
       this.inputs[el.getAttribute('name')] = el

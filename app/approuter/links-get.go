@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/andyinabox/linkydink/pkg/ginhelper"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,13 +15,13 @@ type linksGetQuery struct {
 func (r *Router) LinksGet(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	userId := ginhelper.GetUint(ctx, "userId")
+	userId := ctx.GetUint("userId")
 
 	var query linksGetQuery
 	err := ctx.BindQuery(&query)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.hrh.InfoPageError(ctx, http.StatusBadRequest, err)
+		r.hrh.PageInfoError(ctx, http.StatusBadRequest, err)
 		return
 	}
 

@@ -6,12 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetUint(ctx *gin.Context, key string) uint {
-	iface, _ := ctx.Get(key)
-	v := iface.(uint)
-	return v
-}
-
 func GetParamUint(ctx *gin.Context, key string) (uint, error) {
 	str := ctx.Param(key)
 	v, err := strconv.Atoi(str)

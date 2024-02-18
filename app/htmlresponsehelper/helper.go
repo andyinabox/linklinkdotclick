@@ -5,9 +5,10 @@ import "github.com/andyinabox/linkydink/app"
 type page string
 
 const (
-	about page = "about"
-	home  page = "home"
-	info  page = "info"
+	about       page = "about"
+	home        page = "home"
+	info        page = "info"
+	styleEditor page = "styleEditor"
 )
 
 type Config struct {
@@ -24,9 +25,10 @@ type Config struct {
 }
 
 type Helper struct {
+	sc   app.ServiceContainer
 	conf *Config
 }
 
-func New(conf *Config) *Helper {
-	return &Helper{conf}
+func New(sc app.ServiceContainer, conf *Config) *Helper {
+	return &Helper{sc, conf}
 }

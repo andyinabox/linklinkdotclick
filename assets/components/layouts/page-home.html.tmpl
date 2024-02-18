@@ -1,23 +1,68 @@
-<body is="page-home" class="page-home" {{ if .EditMode }}class="editing"{{end}}>
+<body is="page-home" {{ if .EditMode }}class="editing"{{end}}>
   <header>
     <h1>{{ .User.SiteTitle }}</h1>
   </header>
   <main>
-    {{ template "link-list.html.tmpl" . }}
+    <ol is="link-list" id="links">
+      {{ range.Links }}
+        {{ template "link-list-item.html.tmpl" . }}
+      {{ end }}
+      <template>
+      {{ template "link-list-item.html.tmpl" .EmptyLink }}
+      </template>
+    </ol>
   </main>
-  <footer id="link-global-options">
-    {{ template "form-edit-mode.html.tmpl" . }}
-    {{ template "form-add-link.html.tmpl" . }}
-    {{ template "form-session.html.tmpl" . }}
+  <footer>
+    {{ if .IsDefaultUser  }}
+    <form class="flex-form-row" method="post" action="/session">
+      <input type="email" name="email" placeholder="you@example.com">
+      <button id="btn-login" class="btn-login" name="btn-login" type="submit" value="1">Login/Signup</button>
+    </form>
+    {{ end }}
+    <div id="link-global-options">
+      <form is="form-edit-mode" class="flex-form-row responsive" method="get" action="/">
+        {{ if .EditMode }}
+          <button class="btn-edit-mode">Done</button>
+        {{ else }}
+          <button class="btn-edit-mode" name="editing" value="1">Edit</button>
+        {{ end }}
+      </form>
+      <form is="form-add-link" class="flex-form-row responsive" method="post" action="/links">
+        <label for="input-link-add">Add Link:</label>
+        <input id="input-link-add" name="url" type="url" placeholder="http://example.com">
+        <button id="btn-link-add" class="btn-add" name="btn-link-add" type="submit" value="1">Add</button>
+      </form>
+    </div>
   </footer>
 
   {{ if not .IsDefaultUser  }}
-  <section id="user-settings">
-    <h2>Settings</h2>
-    {{ template "form-user-settings.html.tmpl" . }}
-    <h2>Data Import/Export</h2>
-    {{ template "form-opml-upload.html.tmpl" . }}
-    {{ template "form-opml-download.html.tmpl" . }}
-  </section>
+  <div id="user-settings">
+    <section class="box-settings">
+      <h2>Styles</h2>
+      {{ template "form-style-editor.html.tmpl" .User }}
+    </section>
+    <section class="box-settings">
+      <h2>Settings</h2>
+      <form class="flex-form-row responsive" method="post" action="/users">
+        <label for="input-site-title">Site Name:</label>
+        <input id="input-site-title" name="site-title" type="text" value={{ .User.SiteTitle }} required>
+        <button id="btn-edit-site-title" class="btn-submit" type="submit">Save</button>
+      </form>
+    </section>
+    <section class="box-settings">
+      <h2>OPML Import/Export</h2>
+      <form class="flex-form-row responsive" method="post" enctype="multipart/form-data" action="/opml">
+        <input type="file" id="opml-file" accept=".xml,.opml" name="opml_file" required>
+        <button id="btn-upload-opml" class="btn-upload" type="submit">Upload</button>
+      </form>
+      <p><a href="/opml">⬇️ Download my opml file</a></p>
+    </section>
+    <section class="box-settings">
+      <h2>Session</h2>
+      <form class="flex-form-row responsive" method="post" action="/session">
+        <button id="btn-logout" class="btn-logout btn-full-width" name="btn-logout" type="submit" value="1">Logout</button>
+      </form>
+    </section>
+  <div>
   {{ end  }}
 </body>
