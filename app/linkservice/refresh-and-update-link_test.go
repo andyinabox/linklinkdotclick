@@ -7,7 +7,7 @@ import (
 	"github.com/andyinabox/linkydink/test"
 )
 
-func Test_RefresAndUpdateLink(t *testing.T) {
+func Test_RefreshAndUpdateLink(t *testing.T) {
 	ts := test.NewFixtureTestServer("../../test/fixtures/www.w3c.org/feed.xml", t)
 	ls := NewLinkService(t)
 
