@@ -254,8 +254,7 @@ body.editing .btn-edit-mode:after {
 
 .box-settings {
   padding: var(--gap-md);
-  background-color: #ccc;
-  background-image: url('data:image/gif;base64,R0lGODlhAgACAIAAAP///////yH5BAUAAAEALAAAAAACAAIAAAIDDBAFADs=');
+  background-color: #eee;
 }
 
 /*
@@ -276,6 +275,10 @@ body.loading:after {
   gap: var(--gap-md);
   justify-content: space-between;
   margin: var(--gap-md) 0px;
+}
+
+#user-settings {
+  margin-top: var(--gap-xl);
 }
 
 body:not(.editing) #user-settings {
