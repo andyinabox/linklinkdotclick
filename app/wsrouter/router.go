@@ -2,7 +2,6 @@ package wsrouter
 
 import (
 	"encoding/json"
-	"fmt"
 
 	"github.com/andyinabox/linkydink/app"
 	"github.com/andyinabox/linkydink/pkg/cssparser"
@@ -41,7 +40,7 @@ func (r *Router) HandleWS(ctx *gin.Context) {
 	logger := r.sc.LogService()
 	conn, err := r.upgrader.Upgrade(ctx.Writer, ctx.Request, nil)
 	if err != nil {
-		fmt.Printf("WS error: %v", err)
+		logger.Error().Println(err.Error())
 		return
 	}
 	defer conn.Close()
@@ -51,7 +50,7 @@ func (r *Router) HandleWS(ctx *gin.Context) {
 	for {
 		mt, message, err := conn.ReadMessage()
 		if err != nil {
-			fmt.Printf("WS error: %v", err)
+			logger.Error().Println(err.Error())
 			return
 		}
 

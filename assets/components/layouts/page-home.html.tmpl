@@ -3,7 +3,7 @@
     <h1>{{ .User.SiteTitle }}</h1>
   </header>
   <main>
-    <ol is="link-list" id="links">
+    <ol is="link-list">
       {{ range.Links }}
         {{ template "link-list-item.html.tmpl" . }}
       {{ end }}

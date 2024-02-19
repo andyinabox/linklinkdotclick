@@ -288,36 +288,36 @@ body:not(.editing) #user-settings {
 /*
  * links
  */
-#links {
+ol[is='link-list'] {
   display: flex;
   flex-direction: column;
   gap: var(--gap-md);
 }
 
-.link-item {
+li[is='link-list-item'] {
 }
 
-.link-item > form {
-  margin-top: var(--gap-md);
-}
-body:not(.editing) .link-item > form {
-  display: none;
-}
-.link-item-count {
+li[is='link-list-item'] > [slot='count'] {
   font-style: italic;
   font-size: var(--font-size-md);
 }
 
-.link-item-count:not(:empty):before {
+li[is='link-list-item'] > [slot='count']:not(:empty):before {
   display: inline;
   content: '(';
 }
-.link-item-count:not(:empty):after {
+li[is='link-list-item'] > [slot='count']:not(:empty):after {
   display: inline;
   content: ')';
 }
 
-.hide-unread-count-label {
+li[is='link-list-item'] > [slot='form'] {
+  margin-top: var(--gap-md);
+}
+body:not(.editing) li[is='link-list-item'] > [slot='form'] {
+  display: none;
+}
+li[is='link-list-item'] > [slot='form'] label.hide-unread-count {
   flex-grow: 1;
 }
 

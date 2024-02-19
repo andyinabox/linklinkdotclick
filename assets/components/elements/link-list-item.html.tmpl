@@ -1,13 +1,12 @@
-<li is="link-list-item" class="link-item" {{ if .ID }}data-id="{{ .ID }}"{{ end }}>
+<li is="link-list-item" {{ if .ID }}data-id="{{ .ID }}"{{ end }}>
   <a
     slot="link"
-    class="link-item-link"
     data-href="{{ .SiteUrl }}"
     href="/links?id={{ .ID }}&url={{ .SiteUrl }}"
     target="_blank"
     >{{ .SiteName }}</a
   >
-  <span slot="count" class="link-item-count">{{ if eq .HideUnreadCount false }}{{ if .UnreadCount }}{{ .UnreadCount }}{{ else if eq .FeedUrl "" }}?{{ end }}{{ end }}</span>
+  <span slot="count">{{ if eq .HideUnreadCount false }}{{ if .UnreadCount }}{{ .UnreadCount }}{{ else if eq .FeedUrl "" }}?{{ end }}{{ end }}</span>
   <form slot="form" class="flex-form-column box-settings" method="post" action="/links">
     <input type="hidden" name="id" value="{{ .ID }}">
     <input type="hidden" name="last-clicked" value="{{ .LastClicked.Format "2006-01-02T15:04:05Z07:00" }}">
@@ -26,7 +25,7 @@
     <fieldset>
       <button id="btn-link-item-save-{{ .ID }}" name="link-item-save" class="btn-submit" type="submit" value="1">Save</button>
       <input id="hide-unread-count-{{ .ID }}" name="hide-unread-count" type="checkbox" {{ if .HideUnreadCount }}checked{{ end }} value="1">
-      <label class="hide-unread-count-label" for="hide-unread-count-{{ .ID }}">Hide count</label>
+      <label class="hide-unread-count" for="hide-unread-count-{{ .ID }}">Hide count</label>
       <button id="btn-link-item-delete-{{ .ID }}" name="link-item-delete" class="btn-delete" type="submit" value="1" >Delete</button>
     </fieldset>
   </form>
