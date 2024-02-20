@@ -9,18 +9,18 @@ import (
 
 func (r *Router) OpmlGet(ctx *gin.Context) {
 	logger := r.sc.LogService()
-	user, _, err := r.hh.GetUserFromSession(ctx)
+	user, err := r.ah.User(ctx)
 
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.InfoMessageError(ctx, http.StatusUnauthorized, err)
+		r.hrh.PageInfoError(ctx, http.StatusUnauthorized, err)
 		return
 	}
 
 	links, err := r.sc.LinkService().FetchLinks(user.ID)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
@@ -36,7 +36,7 @@ func (r *Router) OpmlGet(ctx *gin.Context) {
 	b, err := opmlparser.MarshallXml(feeds, user.SiteTitle)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 	ctx.Writer.Header().Set("Content-Type", "application/xml")

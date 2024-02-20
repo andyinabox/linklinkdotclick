@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html class="no-js" lang="">
+<html class="no-js" lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>{{ .Title }}</title>
-    <link rel="stylesheet" href="/static/main.css" />
+
+    <!-- https://github.com/sindresorhus/modern-normalize -->
+    <link rel="stylesheet" href="/static/normalize.css" />
+
+    <!-- see original css file at /static/main.css -->
+    <link rel="stylesheet" href="/static/main.min.css" />
+
+    <!-- your styles! -->
+    <style id="user-styles">
+{{ css .UserStyles }}
+    </style>
+    
+    <!-- sourcery -->
+    <script defer src="/static/main.min.js"></script>
+    
     <meta name="description" content="{{ .Description }}" />
 
     <meta property="og:title" content="{{ .OgTitle }}" />
@@ -17,5 +32,3 @@
     <link rel="apple-touch-icon" href="{{ .AppleTouchIconUrl }}" />
     <link rel="manifest" href="{{ .ManifestUrl }}">
   </head>
-
-  <body>

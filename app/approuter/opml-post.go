@@ -12,38 +12,34 @@ import (
 func (r *Router) OpmlPost(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	id, _, err := r.hh.GetUserIdFromSession(ctx)
-	if err != nil {
-		logger.Error().Println(err.Error())
-		r.InfoMessageError(ctx, http.StatusUnauthorized, err)
-		return
-	}
+	id := r.ah.UserId(ctx)
+
 	// single file
-	fileHeader, err := ctx.FormFile("file")
+	fileHeader, err := ctx.FormFile("opml_file")
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.InfoMessageError(ctx, http.StatusBadRequest, err)
+		r.hrh.PageInfoError(ctx, http.StatusBadRequest, err)
 		return
 	}
 
 	file, err := fileHeader.Open()
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 	defer file.Close()
 	fileContents, err := io.ReadAll(file)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	feeds, err := opmlparser.ParseXml(fileContents)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
@@ -61,11 +57,11 @@ func (r *Router) OpmlPost(ctx *gin.Context) {
 	}
 
 	if successCount == 0 {
-		r.InfoMessageSuccess(ctx, fmt.Sprintf("☹️ successfully parsed OPML file, but %d links successfully added", len(feeds)))
+		r.hrh.PageInfoSuccess(ctx, fmt.Sprintf("☹️ successfully parsed OPML file, but %d links successfully added", len(feeds)))
 	} else if successCount > failedCount {
-		r.InfoMessageSuccess(ctx, fmt.Sprintf("✅ %d links added, %d failed", successCount, failedCount))
+		r.hrh.PageInfoSuccess(ctx, fmt.Sprintf("✅ %d links added, %d failed", successCount, failedCount))
 	} else {
-		r.InfoMessageSuccess(ctx, fmt.Sprintf("🫤 %d links added, %d failed", successCount, failedCount))
+		r.hrh.PageInfoSuccess(ctx, fmt.Sprintf("🫤 %d links added, %d failed", successCount, failedCount))
 	}
 
 }

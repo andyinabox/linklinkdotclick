@@ -1,8 +1,25 @@
 package feedfinder
 
-import "github.com/andyinabox/linkydink/pkg/responses"
+import (
+	"net/url"
+
+	"github.com/andyinabox/linkydink/pkg/responses"
+)
 
 func GetFeedDataForUrl(originalUrl string) (*FeedData, error) {
+
+	parsedUrl, err := url.Parse(originalUrl)
+	if err != nil {
+		return nil, err
+	}
+
+	// if scheme is empty, try http
+	if parsedUrl.Scheme == "" {
+		parsedUrl.Scheme = "http"
+	}
+
+	originalUrl = parsedUrl.String()
+
 	body, err := responses.GetBodyFromUrl(originalUrl)
 	if err != nil {
 		return nil, err

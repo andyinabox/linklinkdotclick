@@ -1,39 +1,31 @@
 package approuter
 
 import (
-	"errors"
 	"net/http"
 
-	"github.com/andyinabox/linkydink/app"
+	"github.com/andyinabox/linkydink/pkg/ginhelper"
 	"github.com/gin-gonic/gin"
 )
 
 func (r *Router) IndexGet(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
-	user, isDefaultUser, err := r.hh.GetUserFromSession(ctx)
+	isEditing := ginhelper.GetQueryBool(ctx, "editing")
+	isDefaultUser := r.ah.IsDefaultUser(ctx)
+	user, err := r.ah.User(ctx)
 
-	// it's ok if no user is found, but we want to abort for server errors
-	if err != nil && errors.Is(err, app.ErrServerError) {
+	if err != nil {
 		logger.Error().Println(err.Error())
-		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
 	links, err := r.sc.LinkService().FetchLinks(user.ID)
 	if err != nil {
 		logger.Error().Println(err.Error())
-		r.InfoMessageError(ctx, http.StatusInternalServerError, err)
+		r.hrh.PageInfoError(ctx, http.StatusInternalServerError, err)
 		return
 	}
 
-	ctx.HTML(http.StatusOK, "index.html.tmpl", &HomePageRenderContext{
-		r.NewHeadRenderContext(ctx),
-		HomePageBody{
-			User:          *user,
-			Links:         links,
-			IsDefaultUser: isDefaultUser,
-		},
-		r.NewFootRenderContext(ctx),
-	})
+	r.hrh.PageHome(ctx, user, isDefaultUser, links, isEditing)
 }

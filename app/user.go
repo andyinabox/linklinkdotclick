@@ -9,8 +9,9 @@ type User struct {
 	UpdatedAt time.Time `json:"updatedAt"`
 
 	// domain fields
-	Email     string `json:"email" gorm:"uniqueIndex"`
-	SiteTitle string `json:"siteTitle"`
+	Email      string `json:"email" gorm:"uniqueIndex"`
+	SiteTitle  string `json:"siteTitle" form:"site-title"`
+	StyleSheet string `json:"styleSheet"`
 }
 
 type UserRepository interface {
