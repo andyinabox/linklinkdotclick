@@ -19,7 +19,7 @@
       <button id="btn-login" class="btn-login" name="btn-login" type="submit" value="1">Login/Signup</button>
     </form>
     {{ end }}
-    <div id="link-global-options">
+    <nav class="button-nav">
       <form is="form-edit-mode" class="flex-form-row responsive" method="get" action="/">
         {{ if .EditMode }}
           <button class="btn-edit-mode">Done</button>
@@ -32,11 +32,11 @@
         <input id="input-link-add" name="url" type="url" placeholder="http://example.com">
         <button id="btn-link-add" class="btn-add" name="btn-link-add" type="submit" value="1">Add</button>
       </form>
-    </div>
+    </nav>
   </footer>
 
   {{ if not .IsDefaultUser  }}
-  <div id="user-settings">
+  <div class="hide-unless-editing">
     <section class="box-settings">
       <h2>Styles</h2>
       {{ template "form-style-editor.html.tmpl" .User }}
