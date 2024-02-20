@@ -125,7 +125,8 @@ fieldset > button {
 label,
 button,
 input,
-input[type='file']::file-selector-button {
+input[type='file']::file-selector-button,
+form {
   font-size: var(--font-size-sm);
 }
 
@@ -184,6 +185,7 @@ button:after {
 }
 
 /* forms  */
+
 form.inline-form {
   display: inline-block;
 }
@@ -264,9 +266,13 @@ body.editing .btn-edit-mode:after {
   width: 100%;
 }
 
+/*
+ * misc
+ */
 .box-settings {
   padding: var(--gap-md);
   background-color: var(--color-form);
+  font-size: var(--font-size-sm);
 }
 
 body:not(.editing) .hide-unless-editing {
@@ -280,6 +286,22 @@ body.loading:after {
   font-size: var(--font-size-sm);
   top: var(--em-gap-lg);
   right: var(--em-gap-lg);
+}
+
+ul.errors {
+  font-family: monospace;
+  list-style: none;
+  color: red;
+}
+
+ul.errors > li {
+  margin-bottom: var(--em-gap-md);
+}
+
+ul.errors > li:before {
+  display: inline;
+  content: '⚠️';
+  margin-right: var(--em-gap-md);
 }
 
 /*
@@ -327,10 +349,6 @@ form[is='form-style-editor'] {
   gap: var(--gap-sm);
 }
 
-form[is='form-style-editor'] a {
-  font-size: var(--font-size-sm);
-}
-
 form[is='form-style-editor'] > fieldset {
   justify-content: space-between;
 }
@@ -344,23 +362,6 @@ form[is='form-style-editor'] > textarea {
 
 form[is='form-style-editor'].invalid > textarea {
   border-color: red;
-}
-
-form[is='form-style-editor'] > .errors {
-  display: flex;
-  gap: var(--gap-sm);
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-family: monospace;
-  color: red;
-  font-size: var(--font-size-sm);
-}
-
-form[is='form-style-editor'] > .errors > li:before {
-  display: inline;
-  content: '⚠️';
-  margin-right: var(--em-gap-md);
 }
 
 /**
