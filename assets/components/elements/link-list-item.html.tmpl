@@ -7,7 +7,7 @@
     >{{ .SiteName }}</a
   >
   <span slot="count">{{ if eq .HideUnreadCount false }}{{ if .UnreadCount }}{{ .UnreadCount }}{{ else if eq .FeedUrl "" }}?{{ end }}{{ end }}</span>
-  <form slot="form" class="flex-form-column box-settings" method="post" action="/links">
+  <form slot="form" class="flex-form-column box-settings hide-unless-editing" method="post" action="/links">
     <input type="hidden" name="id" value="{{ .ID }}">
     <input type="hidden" name="last-clicked" value="{{ .LastClicked.Format "2006-01-02T15:04:05Z07:00" }}">
     <fieldset>
