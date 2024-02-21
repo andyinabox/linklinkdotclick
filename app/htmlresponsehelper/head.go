@@ -7,25 +7,22 @@ import (
 )
 
 type headRenderContext struct {
-	Title                  string
-	Description            string
-	Url                    string
-	FavIconUrl             string
-	AppleTouchIconUrl      string
-	ManifestUrl            string
-	OgTitle                string
-	OgImageUrl             string
-	OgImageAlt             string
-	RedirectTimeoutSeconds int
-	RedirectUrl            string
-	RedirectNoscriptOnly   bool
-	UserStyles             string
+	Title             string
+	Description       string
+	Url               string
+	FavIconUrl        string
+	AppleTouchIconUrl string
+	ManifestUrl       string
+	OgTitle           string
+	OgImageUrl        string
+	OgImageAlt        string
+	UserStyles        string
+	AppVersion        string
 }
 
 func (h *Helper) newHeadRenderContext(ctx *gin.Context) headRenderContext {
 
-	userId := ctx.GetUint("userId")
-	user, err := h.sc.UserService().FetchUser(userId)
+	user, err := h.ah.User(ctx)
 	if err != nil {
 		ctx.AbortWithError(http.StatusUnauthorized, err)
 	}
@@ -41,5 +38,6 @@ func (h *Helper) newHeadRenderContext(ctx *gin.Context) headRenderContext {
 		OgImageUrl:        h.conf.OgImageUrl,
 		OgImageAlt:        h.conf.OgImageAlt,
 		UserStyles:        user.StyleSheet,
+		AppVersion:        h.conf.AppVersion,
 	}
 }

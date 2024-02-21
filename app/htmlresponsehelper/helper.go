@@ -26,9 +26,10 @@ type Config struct {
 
 type Helper struct {
 	sc   app.ServiceContainer
+	ah   app.AuthHelper
 	conf *Config
 }
 
-func New(sc app.ServiceContainer, conf *Config) *Helper {
-	return &Helper{sc, conf}
+func New(sc app.ServiceContainer, ah app.AuthHelper, conf *Config) *Helper {
+	return &Helper{sc, ah, conf}
 }

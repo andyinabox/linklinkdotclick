@@ -161,6 +161,7 @@ func main() {
 	title := "link link dot click"
 	htmlResponseHelper := htmlresponsehelper.New(
 		serviceContainer,
+		authHelper,
 		&htmlresponsehelper.Config{
 			SiteTitle:         title,
 			Description:       "Somewhere in-between a blogroll and an RSS reader",
@@ -169,6 +170,7 @@ func main() {
 			ManifestUrl:       "/static/site.webmanifest",
 			OgImageUrl:        "/static/android-chrome-512x512.png",
 			OgImageAlt:        "Two paperclips entwined",
+			AppVersion:        version,
 			InfoPageSuccessOptions: &app.HtmlInfoMessageOptions{
 				LinkText: "Back to the main page",
 				LinkUrl:  "/",
