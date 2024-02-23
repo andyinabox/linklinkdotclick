@@ -14,7 +14,9 @@
 
     <!-- your styles! -->
     <style id="user-styles">
-{{ css .UserStyles }}
+      @layer user {
+        {{ css .UserStyles }}
+      }
     </style>
     
     <!-- sourcery -->
