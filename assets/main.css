@@ -72,6 +72,13 @@
     margin-bottom: var(--gap-lg);
   }
 
+  nav {
+    display: flex;
+    gap: var(--gap-md);
+    justify-content: space-between;
+    margin: var(--gap-md) 0px;
+  }
+
   ol,
   ul {
     list-style-position: inside;
@@ -184,55 +191,94 @@
 }
 
 @layer tokens {
-  /*
-  * buttons
-  */
-  .btn-edit-mode:after {
-    content: var(--icon-edit);
-  }
-  body.editing .btn-edit-mode:after {
-    content: var(--icon-submit);
+  /* indicates an editable region, usually is or contains a form */
+  .editable {
+    padding: var(--gap-md);
+    background-color: var(--color-form);
+    font-size: var(--font-size-sm);
   }
 
-  .btn-add:after {
+  /* .only-editing is visible only in edit mode */
+  body:not(.editing) .only-editing {
+    display: none;
+  }
+
+  /*
+  * body
+  */
+
+  /* loading indicator */
+  body.loading:after {
+    position: fixed;
+    content: var(--icon-loading);
+    display: block;
+    font-size: var(--font-size-sm);
+    top: var(--em-gap-lg);
+    right: var(--em-gap-lg);
+  }
+
+  /*
+  * ul
+  */
+
+  ul.errors {
+    font-family: monospace;
+    list-style: none;
+    color: red;
+  }
+
+  ul.errors > li {
+    margin-bottom: var(--em-gap-md);
+  }
+
+  ul.errors > li:before {
+    display: inline;
+    content: '⚠️';
+    margin-right: var(--em-gap-md);
+  }
+
+  /*
+  * button
+  */
+
+  button.add:after {
     content: var(--icon-add);
   }
-  .btn-login:after {
+  button.login:after {
     content: var(--icon-login);
   }
-  .btn-logout:after {
+  button.logout:after {
     content: var(--icon-logout);
   }
-  .btn-delete:after {
+  button.delete:after {
     content: var(--icon-delete);
   }
-  .btn-download:after {
+  button.download:after {
     content: var(--icon-download);
   }
-  .btn-upload:after {
+  button.upload:after {
     content: var(--icon-upload);
   }
-  .btn-submit:after {
+  button.submit:after {
     content: var(--icon-submit);
   }
-  .btn-reset:after {
+  button.reset:after {
     content: var(--icon-reset);
   }
-  .btn-settings:after {
+  button.settings:after {
     content: vat(--icon-settings);
   }
-  .btn-styles:after {
+  button.styles:after {
     content: vat(--icon-styles);
   }
-
-  .btn-full-width {
+  button.wide {
     display: block;
     width: 100%;
   }
 
   /*
- * forms
- */
+  * form
+  */
   form.inline {
     display: inline-block;
   }
@@ -258,58 +304,22 @@
       width: 100%;
     }
   }
-
-  /*
- * misc
- */
-
-  nav {
-    display: flex;
-    gap: var(--gap-md);
-    justify-content: space-between;
-    margin: var(--gap-md) 0px;
-  }
-
-  .editable {
-    padding: var(--gap-md);
-    background-color: var(--color-form);
-    font-size: var(--font-size-sm);
-  }
-
-  body:not(.editing) .only-editing {
-    display: none;
-  }
-
-  body.loading:after {
-    position: fixed;
-    content: var(--icon-loading);
-    display: block;
-    font-size: var(--font-size-sm);
-    top: var(--em-gap-lg);
-    right: var(--em-gap-lg);
-  }
-
-  ul.errors {
-    font-family: monospace;
-    list-style: none;
-    color: red;
-  }
-
-  ul.errors > li {
-    margin-bottom: var(--em-gap-md);
-  }
-
-  ul.errors > li:before {
-    display: inline;
-    content: '⚠️';
-    margin-right: var(--em-gap-md);
-  }
 }
 
 @layer components {
   /*
- * LinkList
- */
+  * #edit-mode-toggle
+  */
+  button#edit-mode-toggle:after {
+    content: var(--icon-edit);
+  }
+  body.editing button#edit-mode-toggle:after {
+    content: var(--icon-submit);
+  }
+
+  /*
+  * LinkList
+  */
   ol[is='link-list'] {
     display: flex;
     flex-direction: column;
@@ -344,8 +354,8 @@
   }
 
   /*
- * FormStyleEditor
- */
+  * FormStyleEditor
+  */
   form[is='form-style-editor'] {
     display: flex;
     flex-direction: column;
@@ -369,6 +379,9 @@
 }
 
 @layer layouts {
+  /*
+  * Info Page
+  */
   body.page-info {
     display: flex;
     flex-direction: column;

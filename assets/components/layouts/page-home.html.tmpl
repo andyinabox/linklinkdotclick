@@ -16,21 +16,21 @@
     {{ if .IsDefaultUser  }}
     <form class="row" method="post" action="/session">
       <input type="email" name="email" placeholder="you@example.com">
-      <button id="btn-login" class="btn-login" name="btn-login" type="submit" value="1">Login/Signup</button>
+      <button class="login" name="btn-login" type="submit" value="1">Login/Signup</button>
     </form>
     {{ end }}
     <nav class="button-nav">
       <form is="form-edit-mode" class="row responsive" method="get" action="/">
         {{ if .EditMode }}
-          <button class="btn-edit-mode">Done</button>
+          <button id="edit-mode-toggle">Done</button>
         {{ else }}
-          <button class="btn-edit-mode" name="editing" value="1">Edit</button>
+          <button id="edit-mode-toggle" name="editing" value="1">Edit</button>
         {{ end }}
       </form>
       <form is="form-add-link" class="row responsive" method="post" action="/links">
         <label for="input-link-add">Add Link:</label>
         <input id="input-link-add" name="url" type="url" placeholder="http://example.com">
-        <button id="btn-link-add" class="btn-add" name="btn-link-add" type="submit" value="1">Add</button>
+        <button id="btn-link-add" class="add" name="btn-link-add" type="submit" value="1">Add</button>
       </form>
     </nav>
   </footer>
@@ -46,21 +46,21 @@
       <form class="row responsive" method="post" action="/users">
         <label for="input-site-title">Site Name:</label>
         <input id="input-site-title" name="site-title" type="text" value={{ .User.SiteTitle }} required>
-        <button id="btn-edit-site-title" class="btn-submit" type="submit">Save</button>
+        <button id="btn-edit-site-title" class="submit" type="submit">Save</button>
       </form>
     </section>
     <section class="editable">
       <h2>OPML Import/Export</h2>
       <form class="row responsive" method="post" enctype="multipart/form-data" action="/opml">
         <input type="file" id="opml-file" accept=".xml,.opml" name="opml_file" required>
-        <button id="btn-upload-opml" class="btn-upload" type="submit">Upload</button>
+        <button id="btn-upload-opml" class="upload" type="submit">Upload</button>
       </form>
       <a href="/opml">Download my OPML file</a>
     </section>
     <section class="editable">
       <h2>Session</h2>
       <form class="row responsive" method="post" action="/session">
-        <button id="btn-logout" class="btn-logout btn-full-width" name="btn-logout" type="submit" value="1">Logout</button>
+        <button class="logout wide" name="btn-logout" type="submit" value="1">Logout</button>
       </form>
     </section>
   <div>
