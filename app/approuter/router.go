@@ -1,9 +1,11 @@
 package approuter
 
 import (
+	"fmt"
 	"html/template"
 
 	"github.com/andyinabox/linkydink/app"
+	"github.com/andyinabox/linkydink/pkg/pushit"
 	"github.com/gin-gonic/gin"
 )
 
@@ -28,6 +30,20 @@ func (r *Router) Register(engine *gin.Engine) {
 
 	app := engine.Group("")
 	app.Use(r.ah.AuthMiddleware())
+	app.Use(pushit.Middleware([]pushit.Resource{
+		{
+			Path:        "/static/normalize.css",
+			ContentType: pushit.ContentTypeStyle,
+		},
+		{
+			Path:        fmt.Sprintf("/static/main.%s.css", r.conf.Version),
+			ContentType: pushit.ContentTypeStyle,
+		},
+		{
+			Path:        fmt.Sprintf("/static/main.%s.js", r.conf.Version),
+			ContentType: pushit.ContentTypeScript,
+		},
+	}))
 
 	// main page
 	app.GET("/", r.IndexGet)

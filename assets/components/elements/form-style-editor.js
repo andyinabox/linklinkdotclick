@@ -8,7 +8,6 @@ export class FormStyleEditor extends FormBase {
     this.editor = this.querySelector('textarea')
     this.errors = this.querySelector('ul.errors')
     this.originalStyles = this.editor.value
-    this.userStyles = document.getElementById('user-styles')
     this.socket = new WebSocket(`wss://${window.location.host}/ws/style-editor`)
     this.setButtonStatus()
   }
@@ -26,6 +25,13 @@ export class FormStyleEditor extends FormBase {
 
   get prevChar() {
     return this.editor.value[this.editor.selectionStart - 1]
+  }
+
+  set userStyles(styles) {
+    document.getElementById('user-styles').innerHTML = `
+  @layer user {
+    ${styles}
+  }`
   }
 
   setButtonStatus() {
@@ -62,7 +68,7 @@ export class FormStyleEditor extends FormBase {
         const selectionStart = this.editor.selectionStart
         const selectionEnd = this.editor.selectionEnd
         this.editor.value = data.styles
-        this.userStyles.innerText = data.styles
+        this.userStyles = data.styles
         this.editor.setSelectionRange(selectionStart, selectionEnd)
         this.setButtonStatus()
       }
