@@ -1,6 +1,10 @@
-@layer normalize, vars, defaults, tokens, components, layouts, user;
+@layer normalize, defaults, tokens, patterns, user;
 
-@layer vars {
+/*
+ * default styling for html elements & css custom properties
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties
+ */
+@layer defaults {
   :root {
     --body-max-width: 960px;
 
@@ -41,9 +45,7 @@
     --icon-styles: '💅';
     --icon-loading: '🔄';
   }
-}
 
-@layer defaults {
   html {
     font-size: clamp(1rem, 80% + 3vw, 2.8rem);
   }
@@ -190,6 +192,9 @@
   }
 }
 
+/*
+ * context-independent classes
+ */
 @layer tokens {
   /* indicates an editable region, usually is or contains a form */
   .editable {
@@ -306,7 +311,10 @@
   }
 }
 
-@layer components {
+/*
+ * context-specific styles and styles for custom elements
+ */
+@layer patterns {
   /*
   * #edit-mode-toggle
   */
@@ -315,6 +323,22 @@
   }
   body.editing button#edit-mode-toggle:after {
     content: var(--icon-submit);
+  }
+
+  /*
+  * #page-info
+  */
+  body#page-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    gap: var(--gap-md);
+  }
+  body#page-info,
+  body#page-info * {
+    text-align: center;
   }
 
   /*
@@ -375,23 +399,5 @@
 
   form[is='form-style-editor'].invalid > textarea {
     border-color: red;
-  }
-}
-
-@layer layouts {
-  /*
-  * Info Page
-  */
-  body.page-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 80vh;
-    gap: var(--gap-md);
-  }
-  body.page-info,
-  body.page-info * {
-    text-align: center;
   }
 }
