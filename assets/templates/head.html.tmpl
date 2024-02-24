@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/static/normalize.css" />
 
     <!-- see original css file at /static/main.css -->
-    <link rel="stylesheet" href="/static/main.min.css?{{ .AppVersion }}" />
+    <link rel="stylesheet" href="/static/main.{{ .AppVersion }}.css" />
 
     <!-- your styles! -->
     <style id="user-styles">
@@ -20,7 +20,7 @@
     </style>
     
     <!-- sourcery -->
-    <script defer src="/static/main.min.js?{{ .AppVersion }}"></script>
+    <script defer src="/static/main.{{ .AppVersion }}.js"></script>
     
     <!-- analytics -->
     <script data-goatcounter="https://linklinkclick.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>

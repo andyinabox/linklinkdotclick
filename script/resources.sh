@@ -1,9 +1,11 @@
 #!/bin/bash
 
+VERSION=$(cat ./VERSION)
+
 CSS_INFILE=assets/main.css
-CSS_OUTFILE=res/static/main.min.css
+CSS_OUTFILE="res/static/main.$VERSION.css"
 JS_INFILE=assets/main.js
-JS_OUTFILE=res/static/main.min.js
+JS_OUTFILE="res/static/main.$VERSION.js"
 
 go run ./cmd/copy/main.go -g='assets/**/*.tmpl' -o=res/tmpl
 go run ./cmd/copy/main.go -g='assets/static/**/*' -o res/static
