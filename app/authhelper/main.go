@@ -3,17 +3,13 @@
 package authhelper
 
 import (
-	"errors"
-	"net/http"
-
 	"github.com/andyinabox/linkydink/app"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
 const (
-	userIdKey        string = "userId"
-	isDefaultUserKey string = "isDefaultUser"
+	userIdKey string = "userId"
 )
 
 type Config struct {
@@ -33,42 +29,23 @@ func (h *Helper) UserId(ctx *gin.Context) (id uint) {
 	return ctx.GetUint(userIdKey)
 }
 
-func (h *Helper) IsDefaultUser(ctx *gin.Context) bool {
-	return ctx.GetBool(isDefaultUserKey)
-}
-
 func (h *Helper) User(ctx *gin.Context) (user *app.User, err error) {
 	return h.us.FetchUser(h.UserId(ctx))
 }
 
-func (h *Helper) getUserIdFromSession(ctx *gin.Context) (id uint, isDefaultUser bool, err error) {
-	session := sessions.Default(ctx)
-	value := session.Get(h.conf.SessionUserKey)
-	if value == nil {
-		return h.us.GetDefaultUserId(), true, nil
-	}
-
-	var ok bool
-	if id, ok = value.(uint); !ok {
-		err = errors.New("unable to type user id as uint")
-		return
-	}
-
-	return
+func (h *Helper) IsAuthenticated(ctx *gin.Context) bool {
+	id := ctx.GetUint(userIdKey)
+	return id != 0
 }
 
-func (h *Helper) AuthMiddleware() gin.HandlerFunc {
+func (h *Helper) AuthnMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
-		userId, isDefaultUser, err := h.getUserIdFromSession(ctx)
-		if err != nil {
-			ctx.AbortWithError(http.StatusInternalServerError, err)
+		session := sessions.Default(ctx)
+		value := session.Get(h.conf.SessionUserKey)
+		id, ok := value.(uint)
+		if ok && id != 0 {
+			ctx.Set(userIdKey, id)
 		}
-
-		ctx.Set(userIdKey, userId)
-		ctx.Set(isDefaultUserKey, isDefaultUser)
-
-		ctx.Next()
-
 	}
 }

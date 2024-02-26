@@ -13,12 +13,6 @@
     </ol>
   </main>
   <footer>
-    {{ if .IsDefaultUser  }}
-    <form class="row" method="post" action="/session">
-      <input type="email" name="email" placeholder="you@example.com">
-      <button class="login" name="btn-login" type="submit" value="1">Login/Signup</button>
-    </form>
-    {{ end }}
     <nav class="button-nav">
       <form is="edit-mode-toggle" class="row responsive" method="get" action="/">
         {{ if .EditMode }}
@@ -35,7 +29,6 @@
     </nav>
   </footer>
 
-  {{ if not .IsDefaultUser  }}
   <div class="only-editing">
     <section class="editable">
       <h2>Styles</h2>
@@ -72,5 +65,4 @@
       </form>
     </section>
   <div>
-  {{ end  }}
 </body>

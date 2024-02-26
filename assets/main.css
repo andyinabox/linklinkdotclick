@@ -61,15 +61,6 @@
     gap: var(--gap-xl);
   }
 
-  header,
-  main,
-  footer,
-  section {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-md);
-  }
-
   section {
     margin-bottom: var(--gap-lg);
   }
@@ -81,19 +72,11 @@
     margin: var(--gap-md) 0px;
   }
 
-  ol,
-  ul {
-    list-style-position: inside;
-    padding-left: 0px;
-    margin: 0px;
-  }
   h1,
   h2,
   h3,
   h5,
   h5 {
-    margin-top: 0px;
-    margin-bottom: var(--em-gap-sm);
     font-weight: normal;
   }
   h1 {
@@ -106,7 +89,8 @@
     font-size: var(--font-size-lg);
     font-style: italic;
   }
-  p {
+  p,
+  li {
     font-size: var(--font-size-md);
   }
 
@@ -338,6 +322,9 @@
     display: flex;
     flex-direction: column;
     gap: var(--gap-md);
+    list-style-position: inside;
+    padding-left: 0px;
+    margin: 0px;
   }
 
   /*

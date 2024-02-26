@@ -10,8 +10,12 @@ import (
 func (r *Router) IndexGet(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
+	if !r.ah.IsAuthenticated(ctx) {
+		r.hrh.PageAbout(ctx)
+		return
+	}
+
 	isEditing := ginhelper.GetQueryBool(ctx, "editing")
-	isDefaultUser := r.ah.IsDefaultUser(ctx)
 	user, err := r.ah.User(ctx)
 
 	if err != nil {
@@ -27,5 +31,5 @@ func (r *Router) IndexGet(ctx *gin.Context) {
 		return
 	}
 
-	r.hrh.PageHome(ctx, user, isDefaultUser, links, isEditing)
+	r.hrh.PageHome(ctx, user, false, links, isEditing)
 }

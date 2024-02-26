@@ -1,6 +1,9 @@
 package apirouter
 
 import (
+	"errors"
+	"net/http"
+
 	"github.com/andyinabox/linkydink/app"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -35,7 +38,14 @@ func (r *Router) Register(engine *gin.Engine) {
 
 	api := engine.Group("/api")
 	api.Use(cors.New(corsConfig))
-	api.Use(r.ah.AuthMiddleware())
+	api.Use(r.ah.AuthnMiddleware())
+	// error if not authenticated
+	api.Use(func(ctx *gin.Context) {
+		if !r.ah.IsAuthenticated(ctx) {
+			r.jrh.ResponseError(ctx, http.StatusUnauthorized, errors.New("unauthorized"))
+			ctx.Abort()
+		}
+	})
 
 	// links
 	api.GET("/links", r.ApiLinksGet)

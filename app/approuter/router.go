@@ -3,6 +3,7 @@ package approuter
 import (
 	"fmt"
 	"html/template"
+	"net/http"
 
 	"github.com/andyinabox/linkydink/app"
 	"github.com/andyinabox/linkydink/pkg/pushit"
@@ -29,7 +30,7 @@ func New(sc app.ServiceContainer, ah app.AuthHelper, hrh app.HtmlResponseHelper,
 func (r *Router) Register(engine *gin.Engine) {
 
 	app := engine.Group("")
-	app.Use(r.ah.AuthMiddleware())
+	app.Use(r.ah.AuthnMiddleware())
 	app.Use(pushit.Middleware([]pushit.Resource{
 		{
 			Path:        "/static/normalize.css",
@@ -45,28 +46,33 @@ func (r *Router) Register(engine *gin.Engine) {
 		},
 	}))
 
-	// main page
 	app.GET("/", r.IndexGet)
-
-	// other pages
-	app.GET("/about", r.AboutGet)
-
-	// styles
-	app.POST("/styles", r.StylesPost)
 
 	// auth
 	app.POST("/session", r.SessionPost)
 	app.GET("/session", r.SessionGet)
 
-	// opml
-	app.GET("/opml", r.OpmlGet)
-	app.POST("/opml", r.OpmlPost)
+	requireAuthn := engine.Group("", func(ctx *gin.Context) {
+		if !r.ah.IsAuthenticated(ctx) {
+			ctx.Redirect(http.StatusSeeOther, "/")
+			ctx.Abort()
+		}
+	})
 
-	// links\
-	app.GET("/links", r.LinksGet)
-	app.POST("/links", r.LinksPost)
+	{
+		// styles
+		requireAuthn.POST("/styles", r.StylesPost)
 
-	// users
-	app.POST("/users", r.UsersPost)
+		// opml
+		requireAuthn.GET("/opml", r.OpmlGet)
+		requireAuthn.POST("/opml", r.OpmlPost)
+
+		// links\
+		requireAuthn.GET("/links", r.LinksGet)
+		requireAuthn.POST("/links", r.LinksPost)
+
+		// users
+		requireAuthn.POST("/users", r.UsersPost)
+	}
 
 }
