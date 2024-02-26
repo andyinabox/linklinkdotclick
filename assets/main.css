@@ -343,64 +343,64 @@
   /*
   * LinkListItem
   */
-  li[is='link-list-item'] {
+  li[is='link-element'] {
   }
 
-  li[is='link-list-item'] > [slot='count'] {
+  li[is='link-element'] > [slot='count'] {
     font-style: italic;
     font-size: var(--font-size-md);
   }
 
-  li[is='link-list-item'] > [slot='count']:not(:empty):before {
+  li[is='link-element'] > [slot='count']:not(:empty):before {
     display: inline;
     content: '(';
   }
-  li[is='link-list-item'] > [slot='count']:not(:empty):after {
+  li[is='link-element'] > [slot='count']:not(:empty):after {
     display: inline;
     content: ')';
   }
 
-  li[is='link-list-item'] > [slot='form'] {
+  li[is='link-element'] > [slot='form'] {
     margin-top: var(--gap-md);
   }
-  body:not(.editing) li[is='link-list-item'] > [slot='form'] {
+  body:not(.editing) li[is='link-element'] > [slot='form'] {
     display: none;
   }
-  li[is='link-list-item'] > [slot='form'] label.hide-unread-count {
+  li[is='link-element'] > [slot='form'] label.hide-unread-count {
     flex-grow: 1;
   }
 
   /*
    * FormEditMode
    */
-  form[is='form-edit-mode'] > button:after {
+  form[is='edit-mode-toggle'] > button:after {
     content: var(--icon-edit);
   }
-  body.editing form[is='form-edit-mode'] > button:after {
+  body.editing form[is='edit-mode-toggle'] > button:after {
     content: var(--icon-submit);
   }
 
   /*
   * FormStyleEditor
   */
-  form[is='form-style-editor'] {
+  form[is='style-editor'] {
     display: flex;
     flex-direction: column;
     gap: var(--gap-sm);
   }
 
-  form[is='form-style-editor'] > fieldset {
+  form[is='style-editor'] > fieldset {
     justify-content: space-between;
   }
 
-  form[is='form-style-editor'] > textarea {
+  form[is='style-editor'] > textarea {
     width: 100%;
     font-family: monospace;
     min-height: 5rem;
     font-size: var(--font-size-sm);
   }
 
-  form[is='form-style-editor'].invalid > textarea {
+  form[is='style-editor'].invalid > textarea {
     border-color: red;
   }
 }
