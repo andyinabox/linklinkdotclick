@@ -15,5 +15,4 @@ type HtmlResponseHelper interface {
 	PageInfo(ctx *gin.Context, status int, opts *HtmlInfoMessageOptions)
 	PageInfoError(ctx *gin.Context, status int, err error)
 	PageInfoSuccess(ctx *gin.Context, message string)
-	PageStyleEditor(ctx *gin.Context, user *User)
 }
