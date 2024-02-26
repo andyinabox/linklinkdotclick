@@ -45,7 +45,7 @@
           <a href="/static/main.css" target="_blank">Open site stylesheet</a>
           <button name="btn-styles-save" type="submit" class="submit" formmethod="post">Save</button>
         </fieldset>
-        <textarea name="styles">{{ css .StyleSheet }}</textarea>
+        <textarea name="styles">{{ css .User.StyleSheet }}</textarea>
         <ul class="errors" hidden></ul>
       </form>
     </section>
