@@ -1,5 +1,5 @@
 import { FormBase } from './form-base'
-import { camelize, kebabize } from '../../lib/utils'
+import { camelize, kebabize } from '../lib/utils'
 
 function castType(value, type) {
   switch (type) {

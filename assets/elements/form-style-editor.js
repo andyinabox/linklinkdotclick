@@ -1,5 +1,5 @@
-import { debounce } from '../../lib/utils'
-import { handleError } from '../../lib/errors'
+import { debounce } from '../lib/utils'
+import { handleError } from '../lib/errors'
 import { FormBase } from './form-base'
 export class FormStyleEditor extends FormBase {
   static overrideSubmit = false

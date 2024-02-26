@@ -1,6 +1,6 @@
-import { eventsMixin, slotsMixin } from '../../lib/mixins'
-import { updateLink, deleteLink, patchLink, getLink } from '../../lib/api'
-import { handleError } from '../../lib/errors'
+import { eventsMixin, slotsMixin } from '../lib/mixins'
+import { updateLink, deleteLink, patchLink, getLink } from '../lib/api'
+import { handleError } from '../lib/errors'
 class Link extends HTMLLIElement {
   constructor() {
     super()

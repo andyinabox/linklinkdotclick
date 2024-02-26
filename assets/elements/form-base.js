@@ -1,4 +1,4 @@
-import { eventsMixin } from '../../lib/mixins'
+import { eventsMixin } from '../lib/mixins'
 
 export class FormBase extends HTMLFormElement {
   static overrideSubmit = true
