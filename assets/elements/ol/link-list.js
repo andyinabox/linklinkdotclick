@@ -1,6 +1,6 @@
-import { handleError } from '../lib/errors'
-import { createLink } from '../lib/api'
-import { eventsMixin } from '../lib/mixins'
+import { handleError } from '../../lib/errors'
+import { createLink } from '../../lib/api'
+import { eventsMixin } from '../../lib/mixins'
 export class LinkList extends HTMLOListElement {
   constructor() {
     super()

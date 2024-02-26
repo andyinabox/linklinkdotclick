@@ -1,5 +1,5 @@
-import { eventsMixin } from '../lib/mixins'
-class BodyPage extends HTMLBodyElement {
+import { eventsMixin } from '../../lib/mixins'
+class BasePage extends HTMLBodyElement {
   set loading(v) {
     if (v) {
       this.classList.add('loading')
@@ -32,5 +32,5 @@ class BodyPage extends HTMLBodyElement {
     this.unlistenAll()
   }
 }
-Object.assign(PageHome.prototype, eventsMixin)
-customElements.define('body-page', BodyPage, { extends: 'body' })
+Object.assign(BasePage.prototype, eventsMixin)
+customElements.define('base-page', BasePage, { extends: 'body' })

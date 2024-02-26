@@ -1,9 +1,9 @@
-import './elements/form-state'
-import './elements/form-edit-mode'
-import './elements/form-style-editor'
-import './elements/link-list-item'
-import './elements/link-list'
-import './elements/body-page'
+import './elements/form/state-manager'
+import './elements/form/edit-mode-toggle'
+import './elements/form/style-editor'
+import './elements/li/link-element'
+import './elements/ol/link-list'
+import './elements/body/base-page'
 
 // remove no-js class
 document.querySelector('html').classList.remove('no-js')

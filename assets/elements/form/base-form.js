@@ -1,6 +1,6 @@
-import { eventsMixin } from '../lib/mixins'
+import { eventsMixin } from '../../lib/mixins'
 
-export class FormBase extends HTMLFormElement {
+export class BaseForm extends HTMLFormElement {
   static overrideSubmit = true
   constructor() {
     super()
@@ -34,5 +34,5 @@ export class FormBase extends HTMLFormElement {
     this.unlistenAll()
   }
 }
-Object.assign(FormBase.prototype, eventsMixin)
-customElements.define('form-base', FormBase, { extends: 'form' })
+Object.assign(BaseForm.prototype, eventsMixin)
+customElements.define('base-form', BaseForm, { extends: 'form' })

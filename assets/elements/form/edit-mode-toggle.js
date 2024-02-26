@@ -1,5 +1,5 @@
-import { FormBase } from './form-base'
-class FormEditMode extends FormBase {
+import { BaseForm } from './base-form'
+class EditModeToggle extends BaseForm {
   constructor() {
     super()
     this.btn = this.querySelector('button')
@@ -22,4 +22,4 @@ class FormEditMode extends FormBase {
     this.isEditing = !this.isEditing
   }
 }
-customElements.define('form-edit-mode', FormEditMode, { extends: 'form' })
+customElements.define('edit-mode-toggle', EditModeToggle, { extends: 'form' })

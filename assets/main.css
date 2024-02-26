@@ -318,7 +318,7 @@
   /*
   * #page-info
   */
-  body[is='page-info'] {
+  body#page-info {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -326,8 +326,8 @@
     min-height: 80vh;
     gap: var(--gap-md);
   }
-  body[is='page-info'],
-  body[is='page-info'] * {
+  body#page-info,
+  body#page-info * {
     text-align: center;
   }
 

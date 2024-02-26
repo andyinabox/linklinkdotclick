@@ -1,7 +1,7 @@
-import { debounce } from '../lib/utils'
-import { handleError } from '../lib/errors'
-import { FormBase } from './form-base'
-export class FormStyleEditor extends FormBase {
+import { debounce } from '../../lib/utils'
+import { handleError } from '../../lib/errors'
+import { BaseForm } from './base-form'
+export class StyleEditor extends BaseForm {
   static overrideSubmit = false
   constructor() {
     super()
@@ -142,4 +142,4 @@ export class FormStyleEditor extends FormBase {
   }
 }
 
-customElements.define('form-style-editor', FormStyleEditor, { extends: 'form' })
+customElements.define('style-editor', StyleEditor, { extends: 'form' })

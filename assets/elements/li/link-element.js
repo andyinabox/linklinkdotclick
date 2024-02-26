@@ -1,7 +1,7 @@
-import { eventsMixin, slotsMixin } from '../lib/mixins'
-import { updateLink, deleteLink, patchLink, getLink } from '../lib/api'
-import { handleError } from '../lib/errors'
-class Link extends HTMLLIElement {
+import { eventsMixin, slotsMixin } from '../../lib/mixins'
+import { updateLink, deleteLink, patchLink, getLink } from '../../lib/api'
+import { handleError } from '../../lib/errors'
+class LinkElement extends HTMLLIElement {
   constructor() {
     super()
     this.registerSlots()
@@ -128,5 +128,5 @@ class Link extends HTMLLIElement {
     this.unlistenAll()
   }
 }
-Object.assign(Link.prototype, eventsMixin, slotsMixin)
-customElements.define('link-list-item', Link, { extends: 'li' })
+Object.assign(LinkElement.prototype, eventsMixin, slotsMixin)
+customElements.define('link-element', LinkElement, { extends: 'li' })

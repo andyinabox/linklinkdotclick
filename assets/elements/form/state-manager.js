@@ -1,5 +1,5 @@
-import { FormBase } from './form-base'
-import { camelize, kebabize } from '../lib/utils'
+import { BaseForm } from './base-form'
+import { camelize, kebabize } from '../../lib/utils'
 
 function castType(value, type) {
   switch (type) {
@@ -10,7 +10,7 @@ function castType(value, type) {
   }
 }
 
-export class FormState extends FormBase {
+export class StateManager extends BaseForm {
   constructor() {
     super()
     this.setDisabledButtons()
@@ -101,4 +101,4 @@ export class FormState extends FormBase {
     this.unlistenAll()
   }
 }
-customElements.define('form-state', FormState, { extends: 'form' })
+customElements.define('state-manager', StateManager, { extends: 'form' })

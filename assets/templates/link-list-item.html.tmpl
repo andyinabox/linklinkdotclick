@@ -1,4 +1,4 @@
-<li is="link-list-item">
+<li is="link-element">
   <a
     slot="link"
     data-href="{{ .SiteUrl }}"
@@ -7,7 +7,7 @@
     >{{ .SiteName }}</a
   >
   <span slot="count">{{ if eq .HideUnreadCount false }}{{ if .UnreadCount }}{{ .UnreadCount }}{{ else if eq .FeedUrl "" }}?{{ end }}{{ end }}</span>
-  <form is="form-state" slot="form" class="editable only-editing" method="post" action="/links">
+  <form is="state-manager" slot="form" class="editable only-editing" method="post" action="/links">
     <input type="hidden" data-type="int" name="id" value="{{ .ID }}">
     <input type="hidden" name="last-clicked" value="{{ .LastClicked.Format "2006-01-02T15:04:05Z07:00" }}">
     <fieldset>
