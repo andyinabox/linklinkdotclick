@@ -1,4 +1,4 @@
-<li is="link-list-item" {{ if .ID }}data-id="{{ .ID }}"{{ end }}>
+<li is="link-list-item">
   <a
     slot="link"
     data-href="{{ .SiteUrl }}"
@@ -7,8 +7,8 @@
     >{{ .SiteName }}</a
   >
   <span slot="count">{{ if eq .HideUnreadCount false }}{{ if .UnreadCount }}{{ .UnreadCount }}{{ else if eq .FeedUrl "" }}?{{ end }}{{ end }}</span>
-  <form slot="form" class="editable only-editing" method="post" action="/links">
-    <input type="hidden" name="id" value="{{ .ID }}">
+  <form is="form-state" slot="form" class="editable only-editing" method="post" action="/links">
+    <input type="hidden" data-type="int" name="id" value="{{ .ID }}">
     <input type="hidden" name="last-clicked" value="{{ .LastClicked.Format "2006-01-02T15:04:05Z07:00" }}">
     <fieldset>
       <label for="site-title-{{ .ID }}">Name:</label>
@@ -23,10 +23,10 @@
       <input id="feed-url-{{ .ID }}" name="feed-url" type="text" value="{{ .FeedUrl }}">
     </fieldset>
     <fieldset>
-      <button id="btn-link-item-save-{{ .ID }}" name="link-item-save" class="submit" type="submit" value="1">Save</button>
+      <button id="btn-link-item-save-{{ .ID }}" data-event="link-update-request" data-require-changes name="link-item-save" class="submit" type="submit" value="1">Save</button>
       <input id="hide-unread-count-{{ .ID }}" name="hide-unread-count" type="checkbox" {{ if .HideUnreadCount }}checked{{ end }} value="1">
       <label class="hide-unread-count" for="hide-unread-count-{{ .ID }}">Hide count</label>
-      <button id="btn-link-item-delete-{{ .ID }}" name="link-item-delete" class="delete" type="submit" value="1" >Delete</button>
+      <button id="btn-link-item-delete-{{ .ID }}" data-event="link-delete-request" name="link-item-delete" class="delete" type="submit" value="1" >Delete</button>
     </fieldset>
   </form>
 

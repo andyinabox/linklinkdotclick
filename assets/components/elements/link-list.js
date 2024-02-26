@@ -72,7 +72,6 @@ export class LinkList extends HTMLOListElement {
     this.listen(document, 'link-create-request', this.createLink)
     this.listen(this, 'link-click-success', this.sortLinks)
     this.listen(this, 'link-update-success', this.sortLinks)
-    this.listen(this, 'link-delete-success', this.sortLinks)
     this.listen(window, 'focus', this.fetchAllLinks)
   }
   disconnectedCallback() {

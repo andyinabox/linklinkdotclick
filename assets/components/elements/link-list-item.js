@@ -12,24 +12,8 @@ class Link extends HTMLLIElement {
       this.siteUrl = href
       this.removeAttribute('data-href')
     }
-
-    // disable form submit
-    this.form = this.slots.form
-    this.form.onsubmit = (evt) => evt.preventDefault()
-
-    // collect form inputs and buttons for convenience
-    this.inputs = {}
-    this.form.querySelectorAll('input[name]').forEach((el) => {
-      this.inputs[el.getAttribute('name')] = el
-    })
-    this.buttons = {}
-    this.form.querySelectorAll('button[name]').forEach((el) => {
-      this.buttons[el.getAttribute('name')] = el
-    })
-
-    // disable save button by default
-    this.buttons['link-item-save'].disabled = true
   }
+
   async fetchData() {
     try {
       this.loading = true
@@ -41,6 +25,7 @@ class Link extends HTMLLIElement {
       this.loading = false
     }
   }
+
   get data() {
     return { ...this._data }
   }
@@ -48,102 +33,31 @@ class Link extends HTMLLIElement {
     this._data = d
     this.render()
   }
-  get loading() {
-    return this.classList.hasClass('loading')
-  }
+
   set loading(v) {
     if (v) {
       this.classList.add('loading')
-      Object.values(this.inputs).forEach((el) => (el.disabled = true))
-      Object.values(this.buttons).forEach((el) => (el.disabled = true))
+      this.slots.form.disabled = true
     } else {
       this.classList.remove('loading')
-      Object.values(this.inputs).forEach((el) => (el.disabled = false))
-      Object.values(this.buttons).forEach((el) => (el.disabled = false))
-      this.diffForm()
+      this.slots.form.disabled = false
     }
+  }
+
+  get linkId() {
+    return this.slots.form.resourceId
   }
 
   set linkId(v) {
-    this.setAttribute('data-id', v)
-  }
-  get linkId() {
-    return parseInt(this.getAttribute('data-id'))
-  }
-  set siteUrl(v) {
-    this.slots.link.href = v
-  }
-  get siteUrl() {
-    return this.slots.link.href
-  }
-  set siteName(v) {
-    this.slots.link.innerText = v
-  }
-  get siteName() {
-    return this.slots.link.innerText
-  }
-  set unreadCount(v) {
-    this.slots.count.innerText = v
-  }
-  get unreadCount() {
-    return parseInt(this.slots.count.innerText)
-  }
-
-  set formLinkId(v) {
-    this.inputs['id'].value = v
-  }
-  get formLinkId() {
-    return parseInt(this.inputs['id'].value)
-  }
-
-  set formSiteName(v) {
-    this.inputs['site-name'].value = v
-  }
-  get formSiteName() {
-    return this.inputs['site-name'].value
-  }
-
-  set formSiteUrl(v) {
-    this.inputs['site-url'].value = v
-  }
-  get formSiteUrl() {
-    return this.inputs['site-url'].value
-  }
-
-  set formFeedUrl(v) {
-    this.inputs['feed-url'].value = v
-  }
-  get formFeedUrl() {
-    return this.inputs['feed-url'].value
-  }
-
-  set formHideUnreadCount(v) {
-    this.inputs['hide-unread-count'].checked = v
-  }
-  get formHideUnreadCount() {
-    return this.inputs['hide-unread-count'].checked
-  }
-
-  set formLastClicked(v) {
-    this.inputs['last-clicked'].value = v
-  }
-  get formLastClicked() {
-    return this.inputs['last-clicked'].value
-  }
-
-  get formData() {
-    return {
-      id: this.formLinkId,
-      lastClicked: this.formLastClicked,
-      siteName: this.formSiteName,
-      siteUrl: this.formSiteUrl,
-      feedUrl: this.formFeedUrl,
-      hideUnreadCount: this.formHideUnreadCount,
-    }
+    this.slots.form.resourceId = v
   }
 
   render() {
     const data = this.data
+
+    // set form data
+    this.slots.form.state = data
+
     if (!data) return
     const { id, siteName, unreadCount, siteUrl, hideUnreadCount, feedUrl } =
       data
@@ -159,34 +73,8 @@ class Link extends HTMLLIElement {
     }
 
     this.linkId = id
-    this.siteName = siteName
-    this.siteUrl = siteUrl
-    this.renderForm()
-  }
-
-  diffForm() {
-    const { id, siteName, siteUrl, feedUrl, hideUnreadCount } = this.data
-    const changed =
-      this.formLinkId !== id ||
-      this.formSiteName !== siteName ||
-      this.formSiteUrl !== siteUrl ||
-      this.formFeedUrl !== feedUrl ||
-      this.formHideUnreadCount !== hideUnreadCount
-
-    this.buttons['link-item-save'].disabled = !changed
-  }
-
-  renderForm() {
-    const data = this.data
-    const { id, siteName, siteUrl, feedUrl, hideUnreadCount, lastClicked } =
-      data
-    this.formLinkId = id
-    this.formLastClicked = lastClicked
-    this.formSiteName = siteName
-    this.formSiteUrl = siteUrl
-    this.formFeedUrl = feedUrl
-    this.formHideUnreadCount = hideUnreadCount
-    this.diffForm()
+    this.slots.link.innerText = siteName
+    this.slots.link.href = siteUrl
   }
 
   async onClick() {
@@ -204,7 +92,9 @@ class Link extends HTMLLIElement {
   async onUpdate() {
     try {
       this.loading = true
-      const link = await updateLink(Object.assign(this.data, this.formData))
+      const link = await updateLink(
+        Object.assign(this.data, this.slots.form.state)
+      )
       this.data = link
       this.broadcast('link-update-success')
     } catch (err) {
@@ -218,7 +108,8 @@ class Link extends HTMLLIElement {
       return
     try {
       this.loading = true
-      const result = await deleteLink(this.data.id)
+      console.log('delete link', this.linkId, this.data)
+      const result = await deleteLink(this.linkId)
       this.broadcast('link-delete-success')
       this.remove()
     } catch (err) {
@@ -230,11 +121,8 @@ class Link extends HTMLLIElement {
 
   connectedCallback() {
     this.listen(this.slots.link, 'click', this.onClick)
-    this.listen(this.buttons['link-item-delete'], 'click', this.onDelete)
-    this.listen(this.buttons['link-item-save'], 'click', this.onUpdate)
-    Object.values(this.inputs).forEach((el) =>
-      this.listen(el, 'input', this.diffForm)
-    )
+    this.listen(this.slots.form, 'link-delete-request', this.onDelete)
+    this.listen(this.slots.form, 'link-update-request', this.onUpdate)
   }
   disconnectedCallback() {
     this.unlistenAll()

@@ -130,6 +130,7 @@ export class FormStyleEditor extends FormBase {
   }
 
   connectedCallback() {
+    super.connectedCallback()
     this.listen(
       this.editor,
       'input',

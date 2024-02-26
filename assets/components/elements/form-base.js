@@ -4,6 +4,8 @@ export class FormBase extends HTMLFormElement {
   static overrideSubmit = true
   constructor() {
     super()
+    this.querySelectorAll('[data-hide]').forEach((el) => (el.hidden = true))
+
     if (this.constructor.overrideSubmit) {
       this.onsubmit = (evt) => {
         evt.preventDefault()
@@ -21,5 +23,16 @@ export class FormBase extends HTMLFormElement {
     })
   }
   onSubmit(evt) {}
+  connectedCallback() {
+    this.querySelectorAll('button[data-event]').forEach((el) => {
+      this.listen(el, 'click', () => {
+        this.broadcast(el.getAttribute('data-event'), this.state)
+      })
+    })
+  }
+  disconnectedCallback() {
+    this.unlistenAll()
+  }
 }
 Object.assign(FormBase.prototype, eventsMixin)
+customElements.define('form-base', FormBase, { extends: 'form' })

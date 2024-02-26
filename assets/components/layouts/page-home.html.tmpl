@@ -22,14 +22,14 @@
     <nav class="button-nav">
       <form is="form-edit-mode" class="row responsive" method="get" action="/">
         {{ if .EditMode }}
-          <button id="edit-mode-toggle">Done</button>
+          <button>Done</button>
         {{ else }}
-          <button id="edit-mode-toggle" name="editing" value="1">Edit</button>
+          <button name="editing" value="1">Edit</button>
         {{ end }}
       </form>
-      <form is="form-add-link" class="row responsive" method="post" action="/links">
-        <label for="input-link-add">Add Link:</label>
-        <input id="input-link-add" name="url" type="url" placeholder="http://example.com">
+      <form is="form-base" class="row responsive" method="post" action="/links">
+        <label for="input-link-add" data-hide>Add Link:</label>
+        <input id="input-link-add" data-hide name="url" type="url" placeholder="http://example.com">
         <button id="btn-link-add" class="add" name="btn-link-add" type="submit" value="1">Add</button>
       </form>
     </nav>
