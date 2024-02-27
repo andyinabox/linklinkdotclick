@@ -8,18 +8,16 @@ import (
 )
 
 type pageHomeBody struct {
-	User          app.User
-	Links         []app.Link
-	EmptyLink     app.Link
-	IsDefaultUser bool
-	EditMode      bool
+	User      app.User
+	Links     []app.Link
+	EmptyLink app.Link
+	EditMode  bool
 }
 
 func (h *Helper) PageHome(ctx *gin.Context, user *app.User, isDefaultUser bool, links []app.Link, editMode bool) {
-	ctx.HTML(http.StatusOK, "base.html.tmpl", h.newRenderContext(ctx, home, &pageHomeBody{
-		User:          *user,
-		Links:         links,
-		IsDefaultUser: isDefaultUser,
-		EditMode:      editMode,
+	ctx.HTML(http.StatusOK, "base.html.tmpl", h.newRenderContext(ctx, pageHome, &pageHomeBody{
+		User:     *user,
+		Links:    links,
+		EditMode: editMode,
 	}))
 }

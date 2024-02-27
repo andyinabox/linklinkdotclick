@@ -1,5 +1,10 @@
 <body is="base-page" id="page-info">
+  <header>
   <h1>{{ .Message }}</h1>
+  </header>
+  <main>
   {{ if .Error }}<code class="error">Error: {{ .Error }}</code>{{ end }}
-  {{ if .LinkUrl }}<footer><a href="{{ .LinkUrl }}">{{ .LinkText }}</a></footer>{{ end }}
+  {{ if .LinkUrl }}<a href="{{ .LinkUrl }}">{{ .LinkText }}</a>{{ end }}
+  </main>
+  {{ template "footer.html.tmpl" }}
 </body>

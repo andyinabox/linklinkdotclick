@@ -1,0 +1,30 @@
+<body is="base-page" id="page-landing">
+<header>
+      <h1>🖇 link link dot click</h1>
+      <p class="emphasis">A simple tool for readers of the internet.</p>
+      <form class="row responsive editable" method="post" action="/session">
+        <label for="email">Login/Signup: </label>
+        <input id="email" type="email" name="email" placeholder="you@example.com">
+        <button class="login" name="btn-login" type="submit" value="1">Go</button>
+      </form>
+</header>
+  <main>
+    <section>
+      <p>Think of it as an <abbr title="RDF Site Summary or Really Simple Syndication">RSS</abbr>-enhanced blogroll. It's not rocket science, but it is handy:</p>
+      <ul>
+        <li>🔗 Add sites you want to check in on</li>
+        <li>✨ Use RSS to see what's new</li>
+        <li>📚 Sort based on when you last clicked</li>
+      </ul>
+      <p>Also:</p>
+      <ul>
+        <li>💅 Fun little <abbr title="Cascading Style Sheets">CSS</abbr> editor</li>
+        <li>☕️ JavaScript optional</li>
+        <li>🧳 <abbr title="Outline Processor Markup Language (used by RSS readers + browser bookmarks)">OPML</abbr> import/export</li>
+      </ul>
+      <p><a href="/demo">Try the demo</a>, or just sign up above 👆.</p>
+
+    </section>
+    {{ template "footer.html.tmpl" }}
+  </main>
+</body>

@@ -47,6 +47,7 @@ func (r *Router) Register(engine *gin.Engine) {
 	}))
 
 	app.GET("/", r.IndexGet)
+	app.GET("/about", r.AboutGet)
 
 	// auth
 	app.POST("/session", r.SessionPost)

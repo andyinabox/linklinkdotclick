@@ -1,38 +1,27 @@
 <body is="base-page" id="page-about">
   <main>
+    <header>
+      <h1>About this thing</h1>
+      <menu>
+        <li><a href="#why">Why?</a></li>
+        <li><a href="#privacy">Privacy & Security</a></li>
+      </menu>
+    </header>
     <section>
-      <h1>🖇 link link dot click</h1>
-      <p>A simple tool for readers on the internet.</p>
-      <ul>
-        <li>🔗 Add sites you want to check in on</li>
-        <li>✨ Use RSS to see what's new</li>
-        <li>📚 Sort based on when you last clicked</li>
-      </ul>
-      <p>Also:</p>
-      <ul>
-        <li>💅 Customize your styles</li>
-        <li>☕️ JavaScript optional</li>
-        <li>🧳 <abbr title="Outline Processor Markup Language (used by RSS readers + browser bookmarks)">OPML</abbr> import/export</li>
-      </ul>
-      <p><a href="/demo">See the demo</a> to try it out, or just sign up below 👇.</p>
-      <form class="row responsive editable" method="post" action="/session">
-        <label for="email">Login/Signup: </label>
-        <input id="email" type="email" name="email" placeholder="you@example.com">
-        <button class="login" name="btn-login" type="submit" value="1">Go</button>
-      </form>
-    </section>
+      <section id="why">
+        <h2>Why?</h2>
+        <p>I wanted something that would help keep tabs on online reading without just becoming another inbox. RSS readers can be overwhelming, but it's nice to know when there's something new. Also, it's nice to actually go to websites to do your reading.</p>
+      </section>
+
+      <section id="privacy">
+        <h2>Privacy & Security</h2>
+        <ul>
+          <li>The only piece of data I'm collecting is your email (to send a login link). This stays put in the database, and will not be used for any other purpose or shared.</li>
+          <li>Cookies are used to manage your login session only.</li>
+          <li>I use <a href="https://www.goatcounter.com/">GoatCounter</a> to collect data about page views, etc. It's built to be privacy friendly, read more about that <a href="https://www.goatcounter.com/help/privacy">here</a>.
+        </ul>
+      </section>
   </main>
 
-  <section>
-    <h2>Why?</h2>
-    <p>I wanted something that would help keep tabs on online reading without just becoming another inbox. RSS readers can be overwhelming, but it's nice to know when there's something new. Also, it's nice to actually go to websites to do your reading.</p>
-  </section>
 
-  <section>
-    <h2>Privacy & Security</h2>
-    <ul>
-      <li>The only piece of data I'm collecting is your email to send a login link</li>
-      <li>Cookies are used to manage your login session only</li>
-    </ul>
-  </section>
 </body>

@@ -11,7 +11,7 @@ func (r *Router) IndexGet(ctx *gin.Context) {
 	logger := r.sc.LogService()
 
 	if !r.ah.IsAuthenticated(ctx) {
-		r.hrh.PageAbout(ctx)
+		r.hrh.PageLanding(ctx)
 		return
 	}
 

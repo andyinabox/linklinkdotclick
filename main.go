@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/fs"
 	"log"
+	"net/http"
 	"os"
 	"path"
 	"strings"
@@ -26,6 +27,7 @@ import (
 	"github.com/andyinabox/linkydink/pkg/logservice"
 	"github.com/andyinabox/linkydink/pkg/templatefuncs"
 	"github.com/andyinabox/linkydink/pkg/tokenstore"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/glebarez/sqlite"
 	"github.com/joho/godotenv"
@@ -118,6 +120,11 @@ func main() {
 
 	// create session store
 	sessionStore := cookie.NewStore([]byte(secret))
+	sessionStore.Options(sessions.Options{
+		Secure:   true,
+		HttpOnly: true,
+		SameSite: http.SameSiteStrictMode,
+	})
 
 	// crewate log service
 	logService := logservice.New()

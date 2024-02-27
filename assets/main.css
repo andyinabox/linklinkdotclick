@@ -1,4 +1,4 @@
-@layer normalize, defaults, tokens, patterns, user;
+@layer normalize, defaults, tokens, patterns, layouts, user;
 
 /*
  * default styling for html elements & css custom properties
@@ -22,9 +22,9 @@
     --em-gap-md: 0.5em;
     --em-gap-sm: 0.3em;
 
-    --font-size-xl: 1.2rem;
-    --font-size-lg: 1rem;
-    --font-size-md: 0.8rem;
+    --font-size-xl: 1.4rem;
+    --font-size-lg: 1.2rem;
+    --font-size-md: 1rem;
     --font-size-sm: 0.6rem;
     --font-size-xs: 0.4rem;
 
@@ -47,7 +47,7 @@
   }
 
   html {
-    font-size: clamp(1rem, 80% + 3vw, 2.8rem);
+    font-size: clamp(1rem, 80% + 3vw, 2.4rem);
   }
   body {
     max-width: var(--body-max-width);
@@ -88,10 +88,6 @@
   h3 {
     font-size: var(--font-size-lg);
     font-style: italic;
-  }
-  p,
-  li {
-    font-size: var(--font-size-md);
   }
 
   form {
@@ -180,6 +176,10 @@
  * context-independent classes
  */
 @layer tokens {
+  .emphasis {
+    font-style: italic;
+  }
+
   /* indicates an editable region, usually is or contains a form */
   .editable {
     padding: var(--gap-md);
@@ -296,25 +296,9 @@
 }
 
 /*
- * context-specific styles and styles for custom elements
+ * custom elements
  */
 @layer patterns {
-  /*
-  * #page-info
-  */
-  body#page-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 80vh;
-    gap: var(--gap-md);
-  }
-  body#page-info,
-  body#page-info * {
-    text-align: center;
-  }
-
   /*
   * LinkList
   */
@@ -389,5 +373,26 @@
 
   form[is='style-editor'].invalid > textarea {
     border-color: red;
+  }
+}
+
+/*
+ * page-specific styles
+ */
+@layer layouts {
+  /*
+  * Info page
+  */
+  body#page-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    gap: var(--gap-md);
+  }
+  body#page-info,
+  body#page-info * {
+    text-align: center;
   }
 }
