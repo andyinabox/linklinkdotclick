@@ -12,10 +12,11 @@
     --font-family-secondary: sans-serif;
     --font-family-tertiary: monospace;
 
-    --gap-xl: 1rem;
-    --gap-lg: 0.7rem;
-    --gap-md: 0.5rem;
-    --gap-sm: 0.3rem;
+    --gap-xl: 1.2rem;
+    --gap-lg: 1rem;
+    --gap-md: 0.7rem;
+    --gap-sm: 0.5rem;
+    --gap-xs: 0.3rem;
 
     --em-gap-xl: 1em;
     --em-gap-lg: 0.7em;
@@ -58,6 +59,10 @@
     margin: 0px auto;
     display: flex;
     flex-direction: column;
+  }
+
+  section {
+    margin: var(--gap-lg) 0px;
   }
 
   footer {

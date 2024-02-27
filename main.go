@@ -171,7 +171,7 @@ func main() {
 		authHelper,
 		&htmlresponsehelper.Config{
 			SiteTitle:         title,
-			Description:       "Somewhere in-between a blogroll and an RSS reader",
+			Description:       "A simple tool for readers of the internet — an RSS-enhanced blogroll. It's not rocket science, but it is handy.",
 			FavIconUrl:        "/static/favicon.ico",
 			AppleTouchIconUrl: "/static/apple-touch-icon.png",
 			ManifestUrl:       "/static/site.webmanifest",
