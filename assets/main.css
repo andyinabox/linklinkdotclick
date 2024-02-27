@@ -85,8 +85,13 @@
     font-size: var(--font-size-lg);
   }
   h3 {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-md);
     font-style: italic;
+  }
+
+  ul,
+  ol {
+    padding-left: 1rem;
   }
 
   form {
@@ -239,6 +244,9 @@
 
   button.add:after {
     content: var(--icon-add);
+  }
+  button.edit:after {
+    content: var(--icon-edit);
   }
   button.login:after {
     content: var(--icon-login);
