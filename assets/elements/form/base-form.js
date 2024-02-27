@@ -26,7 +26,9 @@ export class BaseForm extends HTMLFormElement {
   connectedCallback() {
     this.querySelectorAll('button[data-event]').forEach((el) => {
       this.listen(el, 'click', () => {
-        this.broadcast(el.getAttribute('data-event'), this.state)
+        this.broadcast(el.getAttribute('data-event'), {
+          el: this,
+        })
       })
     })
   }

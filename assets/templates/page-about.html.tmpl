@@ -1,12 +1,75 @@
 <body is="base-page" id="page-about">
-  <article>
-    <header>
-      <h1>About</h1>
-    </header>
-    <main>
-      <p><em>link link dot click</em> is a tool for readers on the internet.</p>
-    </main>
-    <footer>
-    </footer>
-  </article>
-</body>
+  <header>
+    <nav>👈 <a href="/">Back to the main page</a></nav>
+    <h1>About this thing</h1>
+    <menu>
+      <li><a href="#why">Why?</a></li>
+      <li><a href="#man">Manual</a>
+        <ul>
+          <li><a href="#man-unread">Unread count</a></li>
+          <li><a href="#man-order">Link order</a></li>
+          <li><a href="#man-editing">Edit mode</a></li>
+        </ul>
+      </li>
+      <li><a href="#privacy">Privacy & Security</a></li>
+      <li><a href="#tech">Technical Stuff</a></lo>
+    </menu>
+  </header>
+  <main>
+    <section>
+      <section id="why">
+        <h2>🤔 Why?</h2>
+        <p>I wanted something that would help keep tabs on online reading without if just becoming another inbox. RSS readers can be overwhelming, but it's nice to know when there's something new. Also, it's nice to actually go to websites to do your reading.</p>
+      </section>
+
+      <section id="man">
+        <h2>📒 Manual</h2>
+        <p>It's a pretty simple tool but it's helpful to know exactly how things work.</p>
+
+        <h3 id="man-unread">Unread count</h3>
+        <p>When you <button class="add">Add</button> a link, the app will try and fetch RSS data for that site.<p>
+        <ul>
+          <li>If an RSS feed is found, an unread count is displayed next to the link.</li>
+          <li>When you click the link, the count resets. If the count is zero, it's hidden.</li>
+          <li>The app will routinely check RSS feeds for updates in the background.</li>
+          <li>If no RSS feed is found, a "?" will be displayed where the count would be.</li>
+          <li>You can hide the count for any link in <em>Edit mode</em>.</li>
+        </ul>
+
+        <h3 id="man-order">Link order</h3>
+        <p>Links are ordered based on when you last clicked on them, with most recent clicks on the bottom.<p>
+
+        <h3 id="man-editing">Edit mode</h3>
+        <p>Click on the <button class="edit">Edit</button> to enter <em>Edit mode</em>. Here you can:</p>
+        <ul>
+          <li>Change the title of your home page</li>
+          <li>Change the CSS styles for your home page</li>
+          <li>Import/export links as <code>.opml</code> files.</li>
+          <li>Edit links:
+          <ul>
+            <li>Update the link name</li>
+            <li>Update the main link address</li>
+            <li>Update the RSS feed address</li>
+            <li>Set whether the unread count displays for that link</li>
+          </ul>
+          </li>
+          <li>Delete links</li>
+        </ul>
+        <p>Then click <button class="submit">Done</button> to go back to the normal view</p>
+      </section>
+
+      <section id="privacy">
+        <h2>🔐 Privacy & Security</h2>
+        <ul>
+          <li>The only piece of personal information I'm collecting is your email (to send a login link). This stays put in the database, and will not be used for any other purpose or shared.</li>
+          <li>Cookies are used to manage your login session only, and do not track you in any way.</li>
+          <li>I use <a target="_blank" href="https://www.goatcounter.com/">GoatCounter</a> to collect data about page views, etc. According to the developer it's built to be <a target="_blank" href="https://www.goatcounter.com/help/privacy">privacy-friendly.</a>
+        </ul>
+      </section>
+
+      <section id="tech">
+        <h2>🤓 Technical Stuff</h2>
+        <p>One of my goals for this project was to build it with minimal dependencies. It's built with Go on the backend and plain 'ol vanilla HTML/CSS/JavaScript on the frontend (it even works without JavaScript, although it's a little clunkier that way). The only third-party service it uses is <a target="_blank" href="https://www.goatcounter.com/">GoatCounter</a> for analytics.</p>
+        <p>👀 <a href="https://github.com/andyinabox/linkydink">Peep the source code</a><p>
+      </section>
+  </main>

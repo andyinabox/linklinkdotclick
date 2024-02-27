@@ -12,7 +12,7 @@ type pageInfoBody struct {
 }
 
 func (h *Helper) PageInfo(ctx *gin.Context, status int, opts *app.HtmlInfoMessageOptions) {
-	ctx.HTML(status, "base.html.tmpl", h.newRenderContext(ctx, info, pageInfoBody{
+	ctx.HTML(status, "base.html.tmpl", h.newRenderContext(ctx, pageInfo, pageInfoBody{
 		HtmlInfoMessageOptions: *opts,
 	}))
 }

@@ -9,5 +9,5 @@ import (
 type pageAboutBody struct{}
 
 func (h *Helper) PageAbout(ctx *gin.Context) {
-	ctx.HTML(http.StatusOK, "base.html.tmpl", h.newRenderContext(ctx, about, &pageAboutBody{}))
+	ctx.HTML(http.StatusOK, "base.html.tmpl", h.newRenderContext(ctx, pageAbout, &pageAboutBody{}))
 }

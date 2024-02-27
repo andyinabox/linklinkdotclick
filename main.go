@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/fs"
 	"log"
+	"net/http"
 	"os"
 	"path"
 	"strings"
@@ -26,6 +27,7 @@ import (
 	"github.com/andyinabox/linkydink/pkg/logservice"
 	"github.com/andyinabox/linkydink/pkg/templatefuncs"
 	"github.com/andyinabox/linkydink/pkg/tokenstore"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/glebarez/sqlite"
 	"github.com/joho/godotenv"
@@ -118,6 +120,11 @@ func main() {
 
 	// create session store
 	sessionStore := cookie.NewStore([]byte(secret))
+	sessionStore.Options(sessions.Options{
+		Secure:   true,
+		HttpOnly: true,
+		SameSite: http.SameSiteStrictMode,
+	})
 
 	// crewate log service
 	logService := logservice.New()
@@ -164,7 +171,7 @@ func main() {
 		authHelper,
 		&htmlresponsehelper.Config{
 			SiteTitle:         title,
-			Description:       "Somewhere in-between a blogroll and an RSS reader",
+			Description:       "A simple tool for readers of the internet — an RSS-enhanced blogroll. It's not rocket science, but it is handy.",
 			FavIconUrl:        "/static/favicon.ico",
 			AppleTouchIconUrl: "/static/apple-touch-icon.png",
 			ManifestUrl:       "/static/site.webmanifest",

@@ -1,6 +1,8 @@
 import { handleError } from '../../lib/errors'
 import { createLink } from '../../lib/api'
 import { eventsMixin } from '../../lib/mixins'
+
+const FETCH_BUFFER = 10 * 60 * 1000 // 10 minutes
 export class LinkList extends HTMLOListElement {
   constructor() {
     super()
@@ -32,6 +34,7 @@ export class LinkList extends HTMLOListElement {
     await Promise.all(promises)
     this.loading = false
     this.sortLinks()
+    this.lastFetched = Date.now()
   }
 
   async createLink() {
@@ -72,7 +75,11 @@ export class LinkList extends HTMLOListElement {
     this.listen(document, 'link-create-request', this.createLink)
     this.listen(this, 'link-click-success', this.sortLinks)
     this.listen(this, 'link-update-success', this.sortLinks)
-    this.listen(window, 'focus', this.fetchAllLinks)
+    this.listen(window, 'focus', () => {
+      if (!this.lastFetched || Date.now() - this.lastFetched > FETCH_BUFFER) {
+        this.fetchAllLinks()
+      }
+    })
   }
   disconnectedCallback() {
     this.unlistenAll()

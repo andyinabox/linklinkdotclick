@@ -89,12 +89,11 @@ class LinkElement extends HTMLLIElement {
       this.loading = false
     }
   }
-  async onUpdate() {
+  async onUpdate(evt) {
+    const state = evt.detail.state
     try {
       this.loading = true
-      const link = await updateLink(
-        Object.assign(this.data, this.slots.form.state)
-      )
+      const link = await updateLink(Object.assign(this.data, state))
       this.data = link
       this.broadcast('link-update-success')
     } catch (err) {
@@ -103,14 +102,12 @@ class LinkElement extends HTMLLIElement {
       this.loading = false
     }
   }
-  async onDelete() {
-    if (!confirm(`Are you sure you want to delete ${this.data.siteName}?`))
-      return
+  async onDelete(evt) {
+    const state = evt.detail.state
+    if (!confirm(`Are you sure you want to delete ${state.siteName}?`)) return
     try {
       this.loading = true
-      console.log('delete link', this.linkId, this.data)
-      const result = await deleteLink(this.linkId)
-      this.broadcast('link-delete-success')
+      await deleteLink(state.id)
       this.remove()
     } catch (err) {
       handleError(err)

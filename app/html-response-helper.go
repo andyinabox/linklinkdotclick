@@ -10,6 +10,7 @@ type HtmlInfoMessageOptions struct {
 }
 
 type HtmlResponseHelper interface {
+	PageLanding(ctx *gin.Context)
 	PageHome(ctx *gin.Context, user *User, isDefaultUser bool, links []Link, editMode bool)
 	PageAbout(ctx *gin.Context)
 	PageInfo(ctx *gin.Context, status int, opts *HtmlInfoMessageOptions)
