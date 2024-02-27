@@ -45,6 +45,7 @@ func (r *Router) Register(engine *gin.Engine) {
 			r.jrh.ResponseError(ctx, http.StatusUnauthorized, errors.New("unauthorized"))
 			ctx.Abort()
 		}
+		ctx.Next()
 	})
 
 	// links

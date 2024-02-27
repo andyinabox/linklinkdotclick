@@ -47,5 +47,7 @@ func (h *Helper) AuthnMiddleware() gin.HandlerFunc {
 		if ok && id != 0 {
 			ctx.Set(userIdKey, id)
 		}
+
+		ctx.Next()
 	}
 }

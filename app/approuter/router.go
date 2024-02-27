@@ -53,11 +53,12 @@ func (r *Router) Register(engine *gin.Engine) {
 	app.POST("/session", r.SessionPost)
 	app.GET("/session", r.SessionGet)
 
-	requireAuthn := engine.Group("", func(ctx *gin.Context) {
+	requireAuthn := app.Group("", func(ctx *gin.Context) {
 		if !r.ah.IsAuthenticated(ctx) {
 			ctx.Redirect(http.StatusSeeOther, "/")
 			ctx.Abort()
 		}
+		ctx.Next()
 	})
 
 	{

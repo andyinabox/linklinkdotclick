@@ -91,7 +91,14 @@ export class StateManager extends BaseForm {
   }
 
   connectedCallback() {
-    super.connectedCallback()
+    this.querySelectorAll('button[data-event]').forEach((el) => {
+      this.listen(el, 'click', () => {
+        this.broadcast(el.getAttribute('data-event'), {
+          el: this,
+          state: this.state,
+        })
+      })
+    })
 
     Object.values(this.inputs).forEach((el) =>
       this.listen(el, 'input', this.setDisabledButtons)
