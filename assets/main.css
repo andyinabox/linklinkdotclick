@@ -58,19 +58,18 @@
     margin: 0px auto;
     display: flex;
     flex-direction: column;
-    gap: var(--gap-xl);
   }
 
-  section {
-    margin-bottom: var(--gap-lg);
+  footer {
+    padding-top: var(--gap-lg);
   }
 
-  nav {
+  /* nav {
     display: flex;
     gap: var(--gap-md);
     justify-content: space-between;
     margin: var(--gap-md) 0px;
-  }
+  } */
 
   h1,
   h2,
@@ -176,10 +175,6 @@
  * context-independent classes
  */
 @layer tokens {
-  .emphasis {
-    font-style: italic;
-  }
-
   /* indicates an editable region, usually is or contains a form */
   .editable {
     padding: var(--gap-md);
@@ -190,6 +185,18 @@
   /* .only-editing is visible only in edit mode */
   body:not(.editing) .only-editing {
     display: none;
+  }
+
+  /*
+  * p
+  */
+  p.emphasis {
+    font-style: italic;
+  }
+
+  p.note {
+    font-style: italic;
+    font-size: var(--font-size-sm);
   }
 
   /*

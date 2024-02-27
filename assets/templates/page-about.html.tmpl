@@ -1,27 +1,35 @@
 <body is="base-page" id="page-about">
   <main>
     <header>
+      <nav>👈 <a href="/">Back to the main page</a></nav>
       <h1>About this thing</h1>
       <menu>
         <li><a href="#why">Why?</a></li>
         <li><a href="#privacy">Privacy & Security</a></li>
+        <li><a href="#tech">Technical Stuff</a></lo>
       </menu>
     </header>
     <section>
       <section id="why">
-        <h2>Why?</h2>
-        <p>I wanted something that would help keep tabs on online reading without just becoming another inbox. RSS readers can be overwhelming, but it's nice to know when there's something new. Also, it's nice to actually go to websites to do your reading.</p>
+        <h2>🤔 Why?</h2>
+        <p>I wanted something that would help keep tabs on online reading without if just becoming another inbox. RSS readers can be overwhelming, but it's nice to know when there's something new. Also, it's nice to actually go to websites to do your reading.</p>
       </section>
 
       <section id="privacy">
-        <h2>Privacy & Security</h2>
+        <h2>🔐 Privacy & Security</h2>
         <ul>
           <li>The only piece of data I'm collecting is your email (to send a login link). This stays put in the database, and will not be used for any other purpose or shared.</li>
-          <li>Cookies are used to manage your login session only.</li>
-          <li>I use <a href="https://www.goatcounter.com/">GoatCounter</a> to collect data about page views, etc. It's built to be privacy friendly, read more about that <a href="https://www.goatcounter.com/help/privacy">here</a>.
+          <li>Cookies are used to manage your login session only, and do not track you in any way.</li>
+          <li>I use <a target="_blank" href="https://www.goatcounter.com/">GoatCounter</a> to collect data about page views, etc. According to the developer it's built to be <a target="_blank" href="https://www.goatcounter.com/help/privacy">privacy-friendly.</a>
         </ul>
       </section>
-  </main>
 
+      <section id="privacy">
+        <h2>🤓 Technical Stuff</h2>
+        <p>One of my goals for this project was to build it with minimal dependencies. It's built with Go on the backend and plain 'ol vanilla HTML/CSS/JavaScript on the frontend (it even works without JavaScript, although it's a little clunkier that way). The only third-party service it uses is <a target="_blank" href="https://www.goatcounter.com/">GoatCounter</a> for analytics.</p>
+        <p>👀 <a href="https://github.com/andyinabox/linkydink">Peep the source code here</a><p>
+      </section>
+  </main>
+  {{ template "footer.html.tmpl" }}
 
 </body>
