@@ -12,14 +12,12 @@
     {{ comment "see original css file at /static/main.css" }}
     <link rel="stylesheet" href="/static/main.{{ .AppVersion }}.css" />
 
-    {{ if .UserStyles }}
     <!-- your styles! -->
     <style id="user-styles">
       @layer user {
         {{ css .UserStyles }}
       }
     </style>
-    {{ end }}
 
     {{ comment "sourcery" }}
     <script defer src="/static/main.{{ .AppVersion }}.js"></script>

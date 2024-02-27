@@ -37,9 +37,11 @@ class LinkElement extends HTMLLIElement {
   set loading(v) {
     if (v) {
       this.classList.add('loading')
+      this.broadcast('loading-start')
       this.slots.form.disabled = true
     } else {
       this.classList.remove('loading')
+      this.broadcast('loading-stop')
       this.slots.form.disabled = false
     }
   }

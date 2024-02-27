@@ -44,7 +44,7 @@
     --icon-reset: '↩️';
     --icon-settings: '⚙️';
     --icon-styles: '💅';
-    --icon-loading: '🔄';
+    --icon-loading: '🌗';
   }
 
   html {
@@ -235,6 +235,36 @@
   * body
   */
 
+  @keyframes loading {
+    0% {
+      content: '🌕';
+    }
+    12.5% {
+      content: '🌖';
+    }
+    25% {
+      content: '🌗';
+    }
+    37.5% {
+      content: '🌘';
+    }
+    50% {
+      content: '🌑';
+    }
+    62.5% {
+      content: '🌒';
+    }
+    75% {
+      content: '🌓';
+    }
+    87.5% {
+      content: '🌔';
+    }
+    100% {
+      content: '🌕';
+    }
+  }
+
   /* loading indicator */
   body.loading:after {
     position: fixed;
@@ -243,6 +273,9 @@
     font-size: var(--font-size-sm);
     top: var(--em-gap-lg);
     right: var(--em-gap-lg);
+    animation-name: loading;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
   }
 
   /*
