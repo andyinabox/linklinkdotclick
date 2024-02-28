@@ -12,7 +12,7 @@ func (s *Service) RefreshAndUpdateLink(userId uint, link app.Link, force bool) (
 
 	if link.FeedUrl == "" {
 		s.log.Info().Printf("no feed found for %s, skipping refresh", link.SiteName)
-		return &link, nil
+		return s.UpdateLink(userId, link, false)
 	}
 
 	if force || time.Now().After(link.LastFetched.Add(s.conf.LinkRefreshBuffer)) {
