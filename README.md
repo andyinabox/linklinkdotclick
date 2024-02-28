@@ -1,4 +1,4 @@
-# 🖇 https://linklink.click
+# 🖇 link link dot click
 
 This app is contained within a single binary in `bin/linkydink`.
 
